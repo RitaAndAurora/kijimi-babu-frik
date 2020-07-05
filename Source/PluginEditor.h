@@ -13,9 +13,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "defines.h"
 #include "PluginProcessor.h"
-#include "DDRMControlPanelComponent.h"
-#include "DDRMToneSelectorComponent.h"
-#include "DDRMControlPanelExtraComponent.h"
+#include "KIJIMIControlPanelComponent.h"
+#include "ControlPanelActionsComponent.h"
 #include "TimbreSpaceComponent.h"
 #include "PresetControlComponent.h"
 #include "MIDISettingsComponent.h"
@@ -27,12 +26,12 @@
 //==============================================================================
 /**
 */
-class DdrmtimbreSpaceAudioProcessorEditor  : public AudioProcessorEditor,
+class KijimitimbreSpaceAudioProcessorEditor  : public AudioProcessorEditor,
                                              public ActionListener
 {
 public:
-    DdrmtimbreSpaceAudioProcessorEditor (DdrmtimbreSpaceAudioProcessor&);
-    ~DdrmtimbreSpaceAudioProcessorEditor();
+    KijimitimbreSpaceAudioProcessorEditor (KijimitimbreSpaceAudioProcessor&);
+    ~KijimitimbreSpaceAudioProcessorEditor();
 
     //==============================================================================
     void paint (Graphics&) override;
@@ -41,7 +40,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    DdrmtimbreSpaceAudioProcessor& processor;
+    KijimitimbreSpaceAudioProcessor& processor;
     
     // Look and feel
     CustomLookAndFeel customLookAndFeel;
@@ -58,20 +57,17 @@ private:
     // Preset control component
     PresetControlComponent presetControlPanel;
     
-    // DDRM Control panel component
-    DDRMControlPanelComponent ddrmControlPanel;
-    DDRMControlPanelExtraComponent ddrmControlPanelExtra;
+    // KIJIMI Control panel component
+    KIJIMIControlPanelComponent kijimiControlPanel;
+    ControlPanelActionsComponent controlPanelActions;
     
     // Timbre Space component
     TimbreSpaceComponent timbreSpace;
-    
-    // Tone selector component
-    DDRMToneSelectorComponent ddrmToneSelector;
     
     // Logging code
     void actionListenerCallback (const String &message) override;
     void logMessageInUI (const String& message);
     TextEditor logArea;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DdrmtimbreSpaceAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KijimitimbreSpaceAudioProcessorEditor)
 };

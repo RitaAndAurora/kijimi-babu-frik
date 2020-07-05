@@ -2661,13 +2661,10 @@
     <ClInclude Include="..\..\Source\TimbreSpaceComponent.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\DDRMToneSelectorComponent.h">
+    <ClInclude Include="..\..\Source\KIJIMIControlPanelComponent.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\DDRMControlPanelComponent.h">
-      <Filter>BabuFrik\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DDRMControlPanelExtraComponent.h">
+    <ClInclude Include="..\..\Source\ControlPanelActionsComponent.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FooterComponent.h">
@@ -2676,16 +2673,13 @@
     <ClInclude Include="..\..\Source\AboutComponent.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\DDRMInterface.h">
+    <ClInclude Include="..\..\Source\KIJIMIInterface.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\DDRMPresetBank.h">
+    <ClInclude Include="..\..\Source\KIJIMIPresetBank.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\DDRMToneSelectorPresets.h">
-      <Filter>BabuFrik\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DDRMSynthControl.h">
+    <ClInclude Include="..\..\Source\KIJIMISynthControl.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TimbreSpaceEngine.h">

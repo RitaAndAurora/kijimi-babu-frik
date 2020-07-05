@@ -38,7 +38,7 @@ public:
         processor->removeActionListener(this);  // Stop receivng messages from processor
     }
     
-    void initialize (DdrmtimbreSpaceAudioProcessor* p)
+    void initialize (KijimitimbreSpaceAudioProcessor* p)
     {
         // Set processor object
         processor = p;
@@ -140,7 +140,7 @@ public:
     }
     
 private:
-    DdrmtimbreSpaceAudioProcessor* processor;
+    KijimitimbreSpaceAudioProcessor* processor;
     
     CustomLookAndFeel customLookAndFeel;
     

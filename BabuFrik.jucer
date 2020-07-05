@@ -44,23 +44,20 @@
             file="Source/PresetControlComponent.h"/>
       <FILE id="R9ke1B" name="TimbreSpaceComponent.h" compile="1" resource="0"
             file="Source/TimbreSpaceComponent.h"/>
-      <FILE id="sO20aM" name="DDRMToneSelectorComponent.h" compile="1" resource="0"
-            file="Source/DDRMToneSelectorComponent.h"/>
-      <FILE id="MW74FE" name="DDRMControlPanelComponent.h" compile="1" resource="0"
-            file="Source/DDRMControlPanelComponent.h"/>
-      <FILE id="UEi3fU" name="DDRMControlPanelExtraComponent.h" compile="0"
-            resource="0" file="Source/DDRMControlPanelExtraComponent.h"/>
+      <FILE id="MW74FE" name="KIJIMIControlPanelComponent.h" compile="1"
+            resource="0" file="Source/KIJIMIControlPanelComponent.h"/>
+      <FILE id="UEi3fU" name="ControlPanelActionsComponent.h" compile="0"
+            resource="0" file="Source/ControlPanelActionsComponent.h"/>
       <FILE id="g4Eu1N" name="FooterComponent.h" compile="1" resource="0"
             file="Source/FooterComponent.h"/>
       <FILE id="UynVIG" name="AboutComponent.h" compile="1" resource="0"
             file="Source/AboutComponent.h"/>
-      <FILE id="OUlD3C" name="DDRMInterface.h" compile="1" resource="0" file="Source/DDRMInterface.h"/>
-      <FILE id="M2vObW" name="DDRMPresetBank.h" compile="1" resource="0"
-            file="Source/DDRMPresetBank.h"/>
-      <FILE id="uhDShz" name="DDRMToneSelectorPresets.h" compile="1" resource="0"
-            file="Source/DDRMToneSelectorPresets.h"/>
-      <FILE id="c5DjEY" name="DDRMSynthControl.h" compile="1" resource="0"
-            file="Source/DDRMSynthControl.h"/>
+      <FILE id="OUlD3C" name="KIJIMIInterface.h" compile="1" resource="0"
+            file="Source/KIJIMIInterface.h"/>
+      <FILE id="M2vObW" name="KIJIMIPresetBank.h" compile="1" resource="0"
+            file="Source/KIJIMIPresetBank.h"/>
+      <FILE id="c5DjEY" name="KIJIMISynthControl.h" compile="1" resource="0"
+            file="Source/KIJIMISynthControl.h"/>
       <FILE id="AyO45k" name="TimbreSpaceEngine.h" compile="1" resource="0"
             file="Source/TimbreSpaceEngine.h"/>
     </GROUP>

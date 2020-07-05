@@ -36,7 +36,7 @@ public:
         }
     }
     
-    void initialize (DdrmtimbreSpaceAudioProcessor* p)
+    void initialize (KijimitimbreSpaceAudioProcessor* p)
     {
         // Set processor object
         processor = p;
@@ -230,7 +230,7 @@ public:
     }
     
 private:
-    DdrmtimbreSpaceAudioProcessor* processor;
+    KijimitimbreSpaceAudioProcessor* processor;
     ComboBox midiInputList;
     ComboBox midiOutputList;
     ComboBox midiInputChannelList;

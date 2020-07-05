@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-DdrmtimbreSpaceAudioProcessorEditor::DdrmtimbreSpaceAudioProcessorEditor (DdrmtimbreSpaceAudioProcessor& p)
+KijimitimbreSpaceAudioProcessorEditor::KijimitimbreSpaceAudioProcessorEditor (KijimitimbreSpaceAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
     bgImage = ImageCache::getFromMemory (BinaryData::UIBackground_png, BinaryData::UIBackground_pngSize);
@@ -35,19 +35,15 @@ DdrmtimbreSpaceAudioProcessorEditor::DdrmtimbreSpaceAudioProcessorEditor (Ddrmti
     presetControlPanel.initialize(&processor);
     addAndMakeVisible (presetControlPanel);
     
-    // Init DDRM contorl panel component
-    ddrmControlPanel.initialize(&processor);
-    addAndMakeVisible (ddrmControlPanel);
-    ddrmControlPanelExtra.initialize(&processor);
-    addAndMakeVisible (ddrmControlPanelExtra);
+    // Init KIJIMI contorl panel component
+    kijimiControlPanel.initialize(&processor);
+    addAndMakeVisible (kijimiControlPanel);
+    controlPanelActions.initialize(&processor);
+    addAndMakeVisible (controlPanelActions);
     
     // Init timbre space component
     timbreSpace.initialize(&processor);
     addAndMakeVisible (timbreSpace);
-    
-    // Init DDRM tone selector component
-    ddrmToneSelector.initialize(&processor);
-    addAndMakeVisible (ddrmToneSelector);
 
     // Logging area
     if (LOG_IN_UI == 1){
@@ -74,21 +70,21 @@ DdrmtimbreSpaceAudioProcessorEditor::DdrmtimbreSpaceAudioProcessorEditor (Ddrmti
     setResizable(false, false);
 }
 
-DdrmtimbreSpaceAudioProcessorEditor::~DdrmtimbreSpaceAudioProcessorEditor()
+KijimitimbreSpaceAudioProcessorEditor::~KijimitimbreSpaceAudioProcessorEditor()
 {
     setLookAndFeel (nullptr);
     processor.removeActionListener(this);
 }
 
 //==============================================================================
-void DdrmtimbreSpaceAudioProcessorEditor::paint (Graphics& g)
+void KijimitimbreSpaceAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     g.drawImage(bgImage, getLocalBounds().toFloat());
 }
 
-void DdrmtimbreSpaceAudioProcessorEditor::resized()
+void KijimitimbreSpaceAudioProcessorEditor::resized()
 {
     float scale = processor.uiScaleFactor;
     
@@ -101,14 +97,12 @@ void DdrmtimbreSpaceAudioProcessorEditor::resized()
     float midiSettingsHeight = 1 * unitRowHeight;
     float presetLoaderHeight = 1 * unitRowHeight;
     float timbreSpaceHeight = 18 * unitRowHeight;
-    float ddrmToneSelectorHeight = 7 * unitRowHeight;
-    float ddrmControlPanelheight = 14 * unitRowHeight;
-    float ddrmControlPanelExtraHeight = 1 * unitRowHeight;
+    float kijimiControlPanelHeight = 14 * unitRowHeight;
+    float controlPanelActionsHeight = 1 * unitRowHeight;
     float footerHeight = 1 * unitRowHeight;
     float logAreaHeight = 3 * unitRowHeight;
     
     bool _showTimbreSpace = true;
-    bool _showToneSelector = true;
     bool _showLogArea = LOG_IN_UI == 1;
     
     float accumulatedHeight = 0;
@@ -125,23 +119,18 @@ void DdrmtimbreSpaceAudioProcessorEditor::resized()
     presetControlPanel.setBounds (unitMargin, accumulatedHeight + unitMargin, fullWidth, presetLoaderHeight);
     accumulatedHeight += unitMargin + presetLoaderHeight;
     
+    kijimiControlPanel.setBounds (unitMargin,  accumulatedHeight, fullWidth, kijimiControlPanelHeight); // No add unitMargin, already in kijimiControlPanel
+    accumulatedHeight += kijimiControlPanelHeight;
+    
     if (_showTimbreSpace){
         timbreSpace.setBounds (unitMargin, accumulatedHeight + unitMargin, fullWidth, timbreSpaceHeight);
-        accumulatedHeight += unitMargin + timbreSpaceHeight;
+        accumulatedHeight += unitMargin + timbreSpaceHeight + unitMargin;
     }
     
-    if (_showToneSelector){
-        ddrmToneSelector.setBounds (unitMargin, accumulatedHeight + unitMargin, fullWidth, ddrmToneSelectorHeight);
-        accumulatedHeight += unitMargin + ddrmToneSelectorHeight;
-    }
+    controlPanelActions.setBounds(unitMargin,  accumulatedHeight, fullWidth - footerWidth, controlPanelActionsHeight); // No add unitMargin, already in kijimiControlPanel
+    // NOTE: don't accumulate height here as KIJIMI control panel extra is at same height as footer
     
-    ddrmControlPanel.setBounds (unitMargin,  accumulatedHeight, fullWidth, ddrmControlPanelheight); // No add unitMargin, already in ddrmControlPanel
-    accumulatedHeight += ddrmControlPanelheight;
-    
-    ddrmControlPanelExtra.setBounds(unitMargin,  accumulatedHeight, fullWidth - footerWidth, ddrmControlPanelExtraHeight); // No add unitMargin, already in ddrmControlPanel
-    // NOTE: don't accumulate height here as ddrm control panel extra is at same height as footer
-    
-    footer.setBounds(fullWidth - footerWidth + unitMargin, accumulatedHeight, footerWidth, footerHeight); // No add unitMargin, already in ddrmControlPanel
+    footer.setBounds(fullWidth - footerWidth + unitMargin, accumulatedHeight, footerWidth, footerHeight); // No add unitMargin, already in kijimiControlPanel
     accumulatedHeight += footerHeight;
     
     if (_showLogArea){
@@ -153,7 +142,7 @@ void DdrmtimbreSpaceAudioProcessorEditor::resized()
 }
 
 //==============================================================================
-void DdrmtimbreSpaceAudioProcessorEditor::actionListenerCallback (const String &message)
+void KijimitimbreSpaceAudioProcessorEditor::actionListenerCallback (const String &message)
 {
     if (message.startsWith(String(ACTION_LOG_PREFIX))){
         logMessageInUI(message.substring(String(ACTION_LOG_PREFIX).length()));
@@ -162,7 +151,7 @@ void DdrmtimbreSpaceAudioProcessorEditor::actionListenerCallback (const String &
     }
 }
 
-void DdrmtimbreSpaceAudioProcessorEditor::logMessageInUI (const String& message)
+void KijimitimbreSpaceAudioProcessorEditor::logMessageInUI (const String& message)
 {
     logArea.moveCaretToEnd();
     logArea.insertTextAtCaret(message);

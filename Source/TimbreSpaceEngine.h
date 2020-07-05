@@ -1,6 +1,6 @@
 //
 //  TimbreSpaceEnginge.h
-//  DDRMTimbreSpace
+//  KIJIMITimbreSpace
 //
 //  Created by Frederic Font Corbera on 17/04/2019.
 //  Copyright © 2019 Rita&AuroraAudio. All rights reserved.

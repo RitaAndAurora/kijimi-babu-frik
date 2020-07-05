@@ -12,14 +12,14 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "defines.h"
-#include "DDRMInterface.h"
+#include "KIJIMIInterface.h"
 #include "TimbreSpaceEngine.h"
 
 
 //==============================================================================
 /**
 */
-class DdrmtimbreSpaceAudioProcessor  : public AudioProcessor,
+class KijimitimbreSpaceAudioProcessor  : public AudioProcessor,
                                        private AudioProcessorValueTreeState::Listener,
                                        public ActionBroadcaster,
                                        public ActionListener,
@@ -27,8 +27,8 @@ class DdrmtimbreSpaceAudioProcessor  : public AudioProcessor,
 {
 public:
     //==============================================================================
-    DdrmtimbreSpaceAudioProcessor();
-    ~DdrmtimbreSpaceAudioProcessor();
+    KijimitimbreSpaceAudioProcessor();
+    ~KijimitimbreSpaceAudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -101,15 +101,13 @@ public:
     void savePresetToBankLocation (int bankLocation);
     void saveBankFile ();
     void loadPresetAtIndex (int index);
-    void loadToneSelectorPreset (const String& toneSelectorPresetName, int ddrmChannel);
     void setParametersFromSynthControlIdValuePairs (SynthControlIdValuePairs idValuePairs);
     bool isChangingFromPresetLoader = false;
     
-    // DDRM Interface
-    DDRMInterface* ddrmInterface;
-    bool isChangingFromToneSelector = false;  // To distinguish when a parameter is changed because a button in tone selector has been pressed
+    // KIJIMI Interface
+    KIJIMIInterface* kijimiInterface;
     
-    // Actions from DDRM control panel menu
+    // Actions from KIJIMI control panel menu
     void copyDDRMChannel1ToChannel2 ();
     void copyDDRMChannel2ToChannel1 ();
     void swapDDRMChannels ();
@@ -140,5 +138,5 @@ public:
 
 private:    
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DdrmtimbreSpaceAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KijimitimbreSpaceAudioProcessor)
 };

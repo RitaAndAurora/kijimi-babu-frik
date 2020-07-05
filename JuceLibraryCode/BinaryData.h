@@ -23,8 +23,8 @@ namespace BinaryData
     extern const char*   TS_OVERLAY_corners_fixed_png;
     const int            TS_OVERLAY_corners_fixed_pngSize = 122481;
 
-    extern const char*   DDRM_PANEL_OVERLAY_png;
-    const int            DDRM_PANEL_OVERLAY_pngSize = 50568;
+    extern const char*   KIJIMI_PANEL_OVERLAY_png;
+    const int            KIJIMI_PANEL_OVERLAY_pngSize = 50568;
 
     extern const char*   UIBackground_png;
     const int            UIBackground_pngSize = 3365925;

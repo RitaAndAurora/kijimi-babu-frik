@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-#include "DDRMInterface.h"
+#include "KIJIMIInterface.h"
 #include "CustomLookAndFeel.h"
 #include "defines.h"
 
@@ -87,7 +87,7 @@ public:
         processor->removeActionListener(this);  // Stop receivng messages from processor
     }
     
-    void initialize (DdrmtimbreSpaceAudioProcessor* p)
+    void initialize (KijimitimbreSpaceAudioProcessor* p)
     {
         // Set processor object
         processor = p;
@@ -101,14 +101,14 @@ public:
     
     void setStateFromProcessor () {
         // Load preset (plus out of sync indicator) name and bank filename (if data loaded)
-        loadedFileLabel.setText(processor->ddrmInterface->getPresetBankLoadedFilename(), dontSendNotification);
+        loadedFileLabel.setText(processor->kijimiInterface->getPresetBankLoadedFilename(), dontSendNotification);
         setPresetNameLabel ();
         if ((processor->currentPresetOutOfSyncWithSliders) && (presetNameLabel.getText() != String(PRESET_NAME_DEFAULT_TEXT))){
             presetNameLabel.setText(presetNameLabel.getText() + String(PRESET_NAME_MODIFIED_TEXT), dontSendNotification);
             //saveToCurrentBankLocationButton.setEnabled(true);  // Enable save preset button as it is out of sync
         }
         
-        if (processor->ddrmInterface->hasPresetsDataLoaded()){
+        if (processor->kijimiInterface->hasPresetsDataLoaded()){
             enableBankTransportButtons();
         }
     }
@@ -133,7 +133,7 @@ public:
     
     void loadBankFile()
     {
-        FileChooser fileChooser ("Please select a DDRM bank file to load...",
+        FileChooser fileChooser ("Please select a KIJIMI bank file to load...",
                                  processor->getDirectoryForFileSaveLoad(),
                                  "*.p");
         if (fileChooser.browseForFileToOpen())
@@ -244,7 +244,7 @@ public:
             }
         }
         else if (message.startsWith(String(ACTION_BANK_FILE_LOADED))){
-            loadedFileLabel.setText(processor->ddrmInterface->getPresetBankLoadedFilename() , dontSendNotification);
+            loadedFileLabel.setText(processor->kijimiInterface->getPresetBankLoadedFilename() , dontSendNotification);
             presetNameLabel.setText(String(PRESET_NAME_DEFAULT_TEXT), dontSendNotification);
             enableBankTransportButtons();
         } else if (message.startsWith(String(ACTION_CURRENT_PRESENT_SAVED_TO_BANK))){
@@ -253,7 +253,7 @@ public:
     }
     
 private:
-    DdrmtimbreSpaceAudioProcessor* processor;
+    KijimitimbreSpaceAudioProcessor* processor;
     
     CustomLookAndFeel customLookAndFeel;
     CustomLookAndFeel customLookAndFeelSmallerFont;  // Needed for the next/previous preset buttons to show properly on smaller scales

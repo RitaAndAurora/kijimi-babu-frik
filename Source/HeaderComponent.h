@@ -30,7 +30,7 @@ public:
         processor->removeActionListener(this);  // Stop receivng messages from processor
     }
     
-    void initialize (DdrmtimbreSpaceAudioProcessor* p)
+    void initialize (KijimitimbreSpaceAudioProcessor* p)
     {
         // Set processor object
         processor = p;
@@ -50,7 +50,7 @@ public:
     }
     
 private:
-    DdrmtimbreSpaceAudioProcessor* processor;
+    KijimitimbreSpaceAudioProcessor* processor;
     ImageComponent titleImage;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HeaderComponent);

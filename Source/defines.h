@@ -1,6 +1,5 @@
 //
 //  defines.h
-//  DDRMTimbreSpace
 //
 //  Created by Frederic Font Corbera on 22/02/2019.
 //  Copyright © 2019 Rita&AuroraAudio. All rights reserved.
@@ -22,8 +21,8 @@
 #define REFRESH_MIDI_DEVICES_TIMER_INTERVAL_MS 1000  // Set to 0 to disable the timer
 #define MIDI_IN_SAME_CC_TIME_THRESHOLD_MS 25
 
-#define DDRM_PRESET_NUM_BYTES 98
-#define DDRM_VOICE_NUM_BYTES 26
+#define KIJIMI_PRESET_NUM_BYTES 98
+#define KIJIMI_VOICE_NUM_BYTES 26
 
 #define EMPTY_PRESET_SUM_THRESHOLD 5.0
 
@@ -32,10 +31,6 @@
 #define ACTION_LOAD_SELECTED_POINT_DATA "ACTION_LOAD_SELECTED_POINT_DATA:"
 #define ACTION_REPAINT "ACTION_REPAINT:"
 #define ACTION_LOAD_INTERPOLATED_PRESET "ACTION_LOAD_INTERPOLATED_PRESET:"
-#define ACTION_SET_TONE_SELECTOR_BUTTONS_ROW1_OFF "ACTION_SET_TONE_SELECTOR_BUTTONS_ROW1_OFF:"
-#define ACTION_SET_TONE_SELECTOR_BUTTONS_ROW2_OFF "ACTION_SET_TONE_SELECTOR_BUTTONS_ROW2_OFF:"
-#define ACTION_SET_TONE_SELECTOR_BUTTONS_ROW1 "ACTION_SET_TONE_SELECTOR_BUTTONS_ROW1"
-#define ACTION_SET_TONE_SELECTOR_BUTTONS_ROW2 "ACTION_SET_TONE_SELECTOR_BUTTONS_ROW2"
 #define ACTION_SET_TS_SLIDERS_OUT_OF_SYNC "ACTION_SET_TS_SLIDERS_OUT_OF_SYNC:"
 #define ACTION_SET_TS_SLIDERS_IN_SYNC "ACTION_SET_TS_SLIDERS_IN_SYNC:"
 #define ACTION_SET_TS_XY_TO_PRESET_NUMBER "ACTION_SET_TS_XY_TO_PRESET_NUMBER:"
@@ -55,9 +50,7 @@
 #define PRESET_NAME_MODIFIED_TEXT "*"
 #define PRESET_NAME_PREFIX "#"
 
-#define EMPTY_TONE_SELECTOR_NAME  ""
-
-#define DDRM_PARAMETER_ID_PREFIX "DDRM_"
+#define KIJIMI_PARAMETER_ID_PREFIX "KIJIMI_"
 #define SPACE_X_PARAMETER_ID "space_x"
 #define SPACE_X_PARAMETER_NAME "Space X"
 #define SPACE_Y_PARAMETER_ID "space_y"
@@ -72,14 +65,14 @@
 #define CS80COLOR_BLACK 0xFF000000
 #define CS80COLOR_GREY 0xFFe6e6e6
 
-#define STATE_MAIN_STATE_IDENTIFIER "DDRMState"
+#define STATE_MAIN_STATE_IDENTIFIER "KIJIMIState"
 
-#define STATE_AUDIO_PARAMETERS_IDENTIFIER "DDRMAudioParameters"
+#define STATE_AUDIO_PARAMETERS_IDENTIFIER "KIJIMIAudioParameters"
 
 #define STATE_UI_SCALE_FACTOR "UISacleFactor"
 
-#define STATE_PRESET_BANK_IDENTIFIER "DDRMPresetBank"
-#define STATE_PRESET_IDENTIFIER "DDRMPreset"
+#define STATE_PRESET_BANK_IDENTIFIER "KIJIMIPresetBank"
+#define STATE_PRESET_IDENTIFIER "KIJIMIPreset"
 #define STATE_PRESET_BYTES_IDENTIFIER "bytes"
 #define STATE_PRESET_IDX_IDENTIFIER "id"
 #define STATE_BANK_FILENAME_IDENTIFIER "filename"
@@ -92,9 +85,6 @@
 #define STATE_TIMBRE_SPACE_SELECTED_TRIANGLE_IDX_IDENTIFIER "selectedTriangleIdx"
 #define STATE_TIMBRE_SPACE_SELECTED_PRESET_IDX_IDENTIFIER "selectedPresetIdx"
 #define STATE_TIMBRE_SPACE_OUT_OF_SYNC "synthSlidersOutOfSync"
-
-#define STATE_SELECTED_TONE_SELECTOR_ROW1 "toneSelectorRow1"
-#define STATE_SELECTED_TONE_SELECTOR_ROW2 "toneSelectorRow2"
 
 #define STATE_MIDI_OUTPUT_DEVICE_NAME "midiOutputDeviceName"
 #define STATE_MIDI_INPUT_DEVICE_NAME "midiInputDeviceName"
@@ -158,8 +148,8 @@
 #define DIMENSIONALITY_REDUCTION_METHOD_DEFAULT DIMENSIONALITY_REDUCTION_METHOD_MDS
 
 
-typedef std::array<uint8, DDRM_VOICE_NUM_BYTES> DDRMVoiceBytes;
-typedef std::array<uint8, DDRM_PRESET_NUM_BYTES> DDRMPresetBytes;
+typedef std::array<uint8, KIJIMI_VOICE_NUM_BYTES> KIJIMIVoiceBytes;
+typedef std::array<uint8, KIJIMI_PRESET_NUM_BYTES> KIJIMIPresetBytes;
 typedef std::pair<String, double> SynthControlIdValuePair;
 typedef std::vector<SynthControlIdValuePair> SynthControlIdValuePairs;
 
@@ -171,4 +161,4 @@ struct PresetDistanceStruct {
 };
 typedef std::vector<PresetDistanceStruct> PresetDistancePairsToInterpolate;
 
-typedef std::array<int64, 129> TimestampsLastCCSent; // Use 129 positions instead of 128 to not crash if using 1-indexed MIDI CC numbers (see docs in DdrmtimbreSpaceAudioProcessor::handleIncomingMidiMessage)
+typedef std::array<int64, 129> TimestampsLastCCSent; // Use 129 positions instead of 128 to not crash if using 1-indexed MIDI CC numbers (see docs in KijimitimbreSpaceAudioProcessor::handleIncomingMidiMessage)
