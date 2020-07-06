@@ -51,7 +51,7 @@ public:
         sliderKIJIMI_LFO1VCO1_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1VCO1_P);
         sliderAttachmentKIJIMI_LFO1VCO1_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCO1_P", sliderKIJIMI_LFO1VCO1_P));
-        sliderKIJIMI_LFO1VCO1_P.setRange(sliderKIJIMI_LFO1VCO1_P.getMinimum(), sliderKIJIMI_LFO1VCO1_P.getMaximum(), sliderKIJIMI_LFO1VCO1_P.getMaximum()/4);
+        sliderKIJIMI_LFO1VCO1_P.setRange(sliderKIJIMI_LFO1VCO1_P.getMinimum(), sliderKIJIMI_LFO1VCO1_P.getMaximum(), sliderKIJIMI_LFO1VCO1_P.getMaximum()/3);
         sliderKIJIMI_LFO1VCO1_P.textFromValueFunction = [](double value) {
             return "LFO1 to VCO1 polarity: " + String (value);
         };
@@ -62,7 +62,7 @@ public:
         sliderKIJIMI_LFO1VCO2_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1VCO2_P);
         sliderAttachmentKIJIMI_LFO1VCO2_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCO2_P", sliderKIJIMI_LFO1VCO2_P));
-        sliderKIJIMI_LFO1VCO2_P.setRange(sliderKIJIMI_LFO1VCO2_P.getMinimum(), sliderKIJIMI_LFO1VCO2_P.getMaximum(), sliderKIJIMI_LFO1VCO2_P.getMaximum()/4);
+        sliderKIJIMI_LFO1VCO2_P.setRange(sliderKIJIMI_LFO1VCO2_P.getMinimum(), sliderKIJIMI_LFO1VCO2_P.getMaximum(), sliderKIJIMI_LFO1VCO2_P.getMaximum()/3);
         sliderKIJIMI_LFO1VCO2_P.textFromValueFunction = [](double value) {
             return "LFO1 to VCO2 polarity: " + String (value);
         };
@@ -73,7 +73,7 @@ public:
         sliderKIJIMI_LFO1WAVE1_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1WAVE1_P);
         sliderAttachmentKIJIMI_LFO1WAVE1_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1WAVE1_P", sliderKIJIMI_LFO1WAVE1_P));
-        sliderKIJIMI_LFO1WAVE1_P.setRange(sliderKIJIMI_LFO1WAVE1_P.getMinimum(), sliderKIJIMI_LFO1WAVE1_P.getMaximum(), sliderKIJIMI_LFO1WAVE1_P.getMaximum()/4);
+        sliderKIJIMI_LFO1WAVE1_P.setRange(sliderKIJIMI_LFO1WAVE1_P.getMinimum(), sliderKIJIMI_LFO1WAVE1_P.getMaximum(), sliderKIJIMI_LFO1WAVE1_P.getMaximum()/3);
         sliderKIJIMI_LFO1WAVE1_P.textFromValueFunction = [](double value) {
             return "LFO1 to WAVE1 polarity: " + String (value);
         };
@@ -84,7 +84,7 @@ public:
         sliderKIJIMI_LFO1WAVE2_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1WAVE2_P);
         sliderAttachmentKIJIMI_LFO1WAVE2_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1WAVE2_P", sliderKIJIMI_LFO1WAVE2_P));
-        sliderKIJIMI_LFO1WAVE2_P.setRange(sliderKIJIMI_LFO1WAVE2_P.getMinimum(), sliderKIJIMI_LFO1WAVE2_P.getMaximum(), sliderKIJIMI_LFO1WAVE2_P.getMaximum()/4);
+        sliderKIJIMI_LFO1WAVE2_P.setRange(sliderKIJIMI_LFO1WAVE2_P.getMinimum(), sliderKIJIMI_LFO1WAVE2_P.getMaximum(), sliderKIJIMI_LFO1WAVE2_P.getMaximum()/3);
         sliderKIJIMI_LFO1WAVE2_P.textFromValueFunction = [](double value) {
             return "LFO1 to WAVE2 polarity: " + String (value);
         };
@@ -95,7 +95,7 @@ public:
         sliderKIJIMI_LFO1SUB_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1SUB_P);
         sliderAttachmentKIJIMI_LFO1SUB_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1SUB_P", sliderKIJIMI_LFO1SUB_P));
-        sliderKIJIMI_LFO1SUB_P.setRange(sliderKIJIMI_LFO1SUB_P.getMinimum(), sliderKIJIMI_LFO1SUB_P.getMaximum(), sliderKIJIMI_LFO1SUB_P.getMaximum()/4);
+        sliderKIJIMI_LFO1SUB_P.setRange(sliderKIJIMI_LFO1SUB_P.getMinimum(), sliderKIJIMI_LFO1SUB_P.getMaximum(), sliderKIJIMI_LFO1SUB_P.getMaximum()/3);
         sliderKIJIMI_LFO1SUB_P.textFromValueFunction = [](double value) {
             return "LFO1 to SUB polarity: " + String (value);
         };
@@ -106,7 +106,7 @@ public:
         sliderKIJIMI_LFO1VCF_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1VCF_P);
         sliderAttachmentKIJIMI_LFO1VCF_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCF_P", sliderKIJIMI_LFO1VCF_P));
-        sliderKIJIMI_LFO1VCF_P.setRange(sliderKIJIMI_LFO1VCF_P.getMinimum(), sliderKIJIMI_LFO1VCF_P.getMaximum(), sliderKIJIMI_LFO1VCF_P.getMaximum()/4);
+        sliderKIJIMI_LFO1VCF_P.setRange(sliderKIJIMI_LFO1VCF_P.getMinimum(), sliderKIJIMI_LFO1VCF_P.getMaximum(), sliderKIJIMI_LFO1VCF_P.getMaximum()/3);
         sliderKIJIMI_LFO1VCF_P.textFromValueFunction = [](double value) {
             return "LFO1 to VCF polarity: " + String (value);
         };
@@ -117,7 +117,7 @@ public:
         sliderKIJIMI_LFO1RESO_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1RESO_P);
         sliderAttachmentKIJIMI_LFO1RESO_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1RESO_P", sliderKIJIMI_LFO1RESO_P));
-        sliderKIJIMI_LFO1RESO_P.setRange(sliderKIJIMI_LFO1RESO_P.getMinimum(), sliderKIJIMI_LFO1RESO_P.getMaximum(), sliderKIJIMI_LFO1RESO_P.getMaximum()/4);
+        sliderKIJIMI_LFO1RESO_P.setRange(sliderKIJIMI_LFO1RESO_P.getMinimum(), sliderKIJIMI_LFO1RESO_P.getMaximum(), sliderKIJIMI_LFO1RESO_P.getMaximum()/3);
         sliderKIJIMI_LFO1RESO_P.textFromValueFunction = [](double value) {
             return "LFO1 to RESO polarity: " + String (value);
         };
@@ -128,7 +128,7 @@ public:
         sliderKIJIMI_LFO1VCA_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1VCA_P);
         sliderAttachmentKIJIMI_LFO1VCA_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCA_P", sliderKIJIMI_LFO1VCA_P));
-        sliderKIJIMI_LFO1VCA_P.setRange(sliderKIJIMI_LFO1VCA_P.getMinimum(), sliderKIJIMI_LFO1VCA_P.getMaximum(), sliderKIJIMI_LFO1VCA_P.getMaximum()/4);
+        sliderKIJIMI_LFO1VCA_P.setRange(sliderKIJIMI_LFO1VCA_P.getMinimum(), sliderKIJIMI_LFO1VCA_P.getMaximum(), sliderKIJIMI_LFO1VCA_P.getMaximum()/3);
         sliderKIJIMI_LFO1VCA_P.textFromValueFunction = [](double value) {
             return "LFO1 to VCA polarity: " + String (value);
         };
@@ -149,7 +149,7 @@ public:
         sliderKIJIMI_LFO2VCO1_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2VCO1_P);
         sliderAttachmentKIJIMI_LFO2VCO1_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCO1_P", sliderKIJIMI_LFO2VCO1_P));
-        sliderKIJIMI_LFO2VCO1_P.setRange(sliderKIJIMI_LFO2VCO1_P.getMinimum(), sliderKIJIMI_LFO2VCO1_P.getMaximum(), sliderKIJIMI_LFO2VCO1_P.getMaximum()/4);
+        sliderKIJIMI_LFO2VCO1_P.setRange(sliderKIJIMI_LFO2VCO1_P.getMinimum(), sliderKIJIMI_LFO2VCO1_P.getMaximum(), sliderKIJIMI_LFO2VCO1_P.getMaximum()/3);
         sliderKIJIMI_LFO2VCO1_P.textFromValueFunction = [](double value) {
             return "LFO2 to VCO1 polarity: " + String (value);
         };
@@ -160,7 +160,7 @@ public:
         sliderKIJIMI_LFO2VCO2_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2VCO2_P);
         sliderAttachmentKIJIMI_LFO2VCO2_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCO2_P", sliderKIJIMI_LFO2VCO2_P));
-        sliderKIJIMI_LFO2VCO2_P.setRange(sliderKIJIMI_LFO2VCO2_P.getMinimum(), sliderKIJIMI_LFO2VCO2_P.getMaximum(), sliderKIJIMI_LFO2VCO2_P.getMaximum()/4);
+        sliderKIJIMI_LFO2VCO2_P.setRange(sliderKIJIMI_LFO2VCO2_P.getMinimum(), sliderKIJIMI_LFO2VCO2_P.getMaximum(), sliderKIJIMI_LFO2VCO2_P.getMaximum()/3);
         sliderKIJIMI_LFO2VCO2_P.textFromValueFunction = [](double value) {
             return "LFO2 to VCO2 polarity: " + String (value);
         };
@@ -171,7 +171,7 @@ public:
         sliderKIJIMI_LFO2WAVE1_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2WAVE1_P);
         sliderAttachmentKIJIMI_LFO2WAVE1_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2WAVE1_P", sliderKIJIMI_LFO2WAVE1_P));
-        sliderKIJIMI_LFO2WAVE1_P.setRange(sliderKIJIMI_LFO2WAVE1_P.getMinimum(), sliderKIJIMI_LFO2WAVE1_P.getMaximum(), sliderKIJIMI_LFO2WAVE1_P.getMaximum()/4);
+        sliderKIJIMI_LFO2WAVE1_P.setRange(sliderKIJIMI_LFO2WAVE1_P.getMinimum(), sliderKIJIMI_LFO2WAVE1_P.getMaximum(), sliderKIJIMI_LFO2WAVE1_P.getMaximum()/3);
         sliderKIJIMI_LFO2WAVE1_P.textFromValueFunction = [](double value) {
             return "LFO2 to WAVE1 polarity: " + String (value);
         };
@@ -182,7 +182,7 @@ public:
         sliderKIJIMI_LFO2WAVE2_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2WAVE2_P);
         sliderAttachmentKIJIMI_LFO2WAVE2_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2WAVE2_P", sliderKIJIMI_LFO2WAVE2_P));
-        sliderKIJIMI_LFO2WAVE2_P.setRange(sliderKIJIMI_LFO2WAVE2_P.getMinimum(), sliderKIJIMI_LFO2WAVE2_P.getMaximum(), sliderKIJIMI_LFO2WAVE2_P.getMaximum()/4);
+        sliderKIJIMI_LFO2WAVE2_P.setRange(sliderKIJIMI_LFO2WAVE2_P.getMinimum(), sliderKIJIMI_LFO2WAVE2_P.getMaximum(), sliderKIJIMI_LFO2WAVE2_P.getMaximum()/3);
         sliderKIJIMI_LFO2WAVE2_P.textFromValueFunction = [](double value) {
             return "LFO2 to WAVE2 polarity: " + String (value);
         };
@@ -193,7 +193,7 @@ public:
         sliderKIJIMI_LFO2SUB_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2SUB_P);
         sliderAttachmentKIJIMI_LFO2SUB_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2SUB_P", sliderKIJIMI_LFO2SUB_P));
-        sliderKIJIMI_LFO2SUB_P.setRange(sliderKIJIMI_LFO2SUB_P.getMinimum(), sliderKIJIMI_LFO2SUB_P.getMaximum(), sliderKIJIMI_LFO2SUB_P.getMaximum()/4);
+        sliderKIJIMI_LFO2SUB_P.setRange(sliderKIJIMI_LFO2SUB_P.getMinimum(), sliderKIJIMI_LFO2SUB_P.getMaximum(), sliderKIJIMI_LFO2SUB_P.getMaximum()/3);
         sliderKIJIMI_LFO2SUB_P.textFromValueFunction = [](double value) {
             return "LFO2 to SUB polarity: " + String (value);
         };
@@ -204,7 +204,7 @@ public:
         sliderKIJIMI_LFO2VCF_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2VCF_P);
         sliderAttachmentKIJIMI_LFO2VCF_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCF_P", sliderKIJIMI_LFO2VCF_P));
-        sliderKIJIMI_LFO2VCF_P.setRange(sliderKIJIMI_LFO2VCF_P.getMinimum(), sliderKIJIMI_LFO2VCF_P.getMaximum(), sliderKIJIMI_LFO2VCF_P.getMaximum()/4);
+        sliderKIJIMI_LFO2VCF_P.setRange(sliderKIJIMI_LFO2VCF_P.getMinimum(), sliderKIJIMI_LFO2VCF_P.getMaximum(), sliderKIJIMI_LFO2VCF_P.getMaximum()/3);
         sliderKIJIMI_LFO2VCF_P.textFromValueFunction = [](double value) {
             return "LFO2 to VCF polarity: " + String (value);
         };
@@ -215,7 +215,7 @@ public:
         sliderKIJIMI_LFO2RESO_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2RESO_P);
         sliderAttachmentKIJIMI_LFO2RESO_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2RESO_P", sliderKIJIMI_LFO2RESO_P));
-        sliderKIJIMI_LFO2RESO_P.setRange(sliderKIJIMI_LFO2RESO_P.getMinimum(), sliderKIJIMI_LFO2RESO_P.getMaximum(), sliderKIJIMI_LFO2RESO_P.getMaximum()/4);
+        sliderKIJIMI_LFO2RESO_P.setRange(sliderKIJIMI_LFO2RESO_P.getMinimum(), sliderKIJIMI_LFO2RESO_P.getMaximum(), sliderKIJIMI_LFO2RESO_P.getMaximum()/3);
         sliderKIJIMI_LFO2RESO_P.textFromValueFunction = [](double value) {
             return "LFO2 to RESO polarity: " + String (value);
         };
@@ -226,7 +226,7 @@ public:
         sliderKIJIMI_LFO2VCA_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2VCA_P);
         sliderAttachmentKIJIMI_LFO2VCA_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCA_P", sliderKIJIMI_LFO2VCA_P));
-        sliderKIJIMI_LFO2VCA_P.setRange(sliderKIJIMI_LFO2VCA_P.getMinimum(), sliderKIJIMI_LFO2VCA_P.getMaximum(), sliderKIJIMI_LFO2VCA_P.getMaximum()/4);
+        sliderKIJIMI_LFO2VCA_P.setRange(sliderKIJIMI_LFO2VCA_P.getMinimum(), sliderKIJIMI_LFO2VCA_P.getMaximum(), sliderKIJIMI_LFO2VCA_P.getMaximum()/3);
         sliderKIJIMI_LFO2VCA_P.textFromValueFunction = [](double value) {
             return "LFO2 to VCA polarity: " + String (value);
         };
@@ -247,7 +247,7 @@ public:
         sliderKIJIMI_ADSR2VCO1_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_ADSR2VCO1_P);
         sliderAttachmentKIJIMI_ADSR2VCO1_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR2VCO1_P", sliderKIJIMI_ADSR2VCO1_P));
-        sliderKIJIMI_ADSR2VCO1_P.setRange(sliderKIJIMI_ADSR2VCO1_P.getMinimum(), sliderKIJIMI_ADSR2VCO1_P.getMaximum(), sliderKIJIMI_ADSR2VCO1_P.getMaximum()/4);
+        sliderKIJIMI_ADSR2VCO1_P.setRange(sliderKIJIMI_ADSR2VCO1_P.getMinimum(), sliderKIJIMI_ADSR2VCO1_P.getMaximum(), sliderKIJIMI_ADSR2VCO1_P.getMaximum()/3);
         sliderKIJIMI_ADSR2VCO1_P.textFromValueFunction = [](double value) {
             return "ADSR2 to VCO1 polarity: " + String (value);
         };
@@ -258,7 +258,7 @@ public:
         sliderKIJIMI_ADSR2VCO2_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_ADSR2VCO2_P);
         sliderAttachmentKIJIMI_ADSR2VCO2_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR2VCO2_P", sliderKIJIMI_ADSR2VCO2_P));
-        sliderKIJIMI_ADSR2VCO2_P.setRange(sliderKIJIMI_ADSR2VCO2_P.getMinimum(), sliderKIJIMI_ADSR2VCO2_P.getMaximum(), sliderKIJIMI_ADSR2VCO2_P.getMaximum()/4);
+        sliderKIJIMI_ADSR2VCO2_P.setRange(sliderKIJIMI_ADSR2VCO2_P.getMinimum(), sliderKIJIMI_ADSR2VCO2_P.getMaximum(), sliderKIJIMI_ADSR2VCO2_P.getMaximum()/3);
         sliderKIJIMI_ADSR2VCO2_P.textFromValueFunction = [](double value) {
             return "ADSR2 to VCO2 polarity: " + String (value);
         };
@@ -269,7 +269,7 @@ public:
         sliderKIJIMI_ADSR2WAVE1_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_ADSR2WAVE1_P);
         sliderAttachmentKIJIMI_ADSR2WAVE1_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR2WAVE1_P", sliderKIJIMI_ADSR2WAVE1_P));
-        sliderKIJIMI_ADSR2WAVE1_P.setRange(sliderKIJIMI_ADSR2WAVE1_P.getMinimum(), sliderKIJIMI_ADSR2WAVE1_P.getMaximum(), sliderKIJIMI_ADSR2WAVE1_P.getMaximum()/4);
+        sliderKIJIMI_ADSR2WAVE1_P.setRange(sliderKIJIMI_ADSR2WAVE1_P.getMinimum(), sliderKIJIMI_ADSR2WAVE1_P.getMaximum(), sliderKIJIMI_ADSR2WAVE1_P.getMaximum()/3);
         sliderKIJIMI_ADSR2WAVE1_P.textFromValueFunction = [](double value) {
             return "ADSR2 to WAVE1 polarity: " + String (value);
         };
@@ -280,7 +280,7 @@ public:
         sliderKIJIMI_ADSR2WAVE2_P.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_ADSR2WAVE2_P);
         sliderAttachmentKIJIMI_ADSR2WAVE2_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR2WAVE2_P", sliderKIJIMI_ADSR2WAVE2_P));
-        sliderKIJIMI_ADSR2WAVE2_P.setRange(sliderKIJIMI_ADSR2WAVE2_P.getMinimum(), sliderKIJIMI_ADSR2WAVE2_P.getMaximum(), sliderKIJIMI_ADSR2WAVE2_P.getMaximum()/4);
+        sliderKIJIMI_ADSR2WAVE2_P.setRange(sliderKIJIMI_ADSR2WAVE2_P.getMinimum(), sliderKIJIMI_ADSR2WAVE2_P.getMaximum(), sliderKIJIMI_ADSR2WAVE2_P.getMaximum()/3);
         sliderKIJIMI_ADSR2WAVE2_P.textFromValueFunction = [](double value) {
             return "ADSR2 to WAVE2 polarity: " + String (value);
         };
