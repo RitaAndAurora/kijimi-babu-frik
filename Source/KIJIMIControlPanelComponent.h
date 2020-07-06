@@ -95,7 +95,7 @@ public:
         addAndMakeVisible (&sliderKIJIMI_VEL_LFO1RATE);
         sliderAttachmentKIJIMI_VEL_LFO1RATE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VEL_LFO1RATE", sliderKIJIMI_VEL_LFO1RATE));
         sliderKIJIMI_VEL_LFO1RATE.textFromValueFunction = [](double value) {
-            return "Velocity to LFO1 rate : " + String (value);
+            return "Velocity to LFO1 rate: " + String (value);
         };
         // Slider KIJIMI_VEL_LFO2RATE
         sliderKIJIMI_VEL_LFO2RATE.setSliderStyle (Slider::Rotary);
@@ -105,7 +105,7 @@ public:
         addAndMakeVisible (&sliderKIJIMI_VEL_LFO2RATE);
         sliderAttachmentKIJIMI_VEL_LFO2RATE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VEL_LFO2RATE", sliderKIJIMI_VEL_LFO2RATE));
         sliderKIJIMI_VEL_LFO2RATE.textFromValueFunction = [](double value) {
-            return "Velocity to LFO2 rate : " + String (value);
+            return "Velocity to LFO2 rate: " + String (value);
         };
         // Slider KIJIMI_VEL_WAVE
         sliderKIJIMI_VEL_WAVE.setSliderStyle (Slider::Rotary);
@@ -155,7 +155,7 @@ public:
         addAndMakeVisible (&sliderKIJIMI_AT_LFO1RATE);
         sliderAttachmentKIJIMI_AT_LFO1RATE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_AT_LFO1RATE", sliderKIJIMI_AT_LFO1RATE));
         sliderKIJIMI_AT_LFO1RATE.textFromValueFunction = [](double value) {
-            return "Aftertouch to LFO1 rate : " + String (value);
+            return "Aftertouch to LFO1 rate: " + String (value);
         };
         // Slider KIJIMI_AT_LFO2RATE
         sliderKIJIMI_AT_LFO2RATE.setSliderStyle (Slider::Rotary);
@@ -165,7 +165,7 @@ public:
         addAndMakeVisible (&sliderKIJIMI_AT_LFO2RATE);
         sliderAttachmentKIJIMI_AT_LFO2RATE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_AT_LFO2RATE", sliderKIJIMI_AT_LFO2RATE));
         sliderKIJIMI_AT_LFO2RATE.textFromValueFunction = [](double value) {
-            return "Aftertouch to LFO2 rate : " + String (value);
+            return "Aftertouch to LFO2 rate: " + String (value);
         };
         // Slider KIJIMI_AT_WAVE
         sliderKIJIMI_AT_WAVE.setSliderStyle (Slider::Rotary);

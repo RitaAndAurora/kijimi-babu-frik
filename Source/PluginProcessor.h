@@ -108,12 +108,10 @@ public:
     KIJIMIInterface* kijimiInterface;
     
     // Actions from KIJIMI control panel menu
-    void sendControlsToSynth (int channelFilter);
-    void randomizeControlValues (int channelFilter, float amount);
+    void sendControlsToSynth ();
+    void randomizeControlValues (float amount);
     void importFromPatchFile ();
-    void importFromVoiceFile (int channelTo);
     void saveToPatchFile ();
-    void saveToVoiceFile (int channelFrom);
     
     // Timbre Space Engine
     void computeTimbreSpace ();

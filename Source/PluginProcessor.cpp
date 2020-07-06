@@ -48,11 +48,11 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VEL_LFO1RATE", // parameter ID
-                                                        "Velocity to LFO1 rate ", // parameter name
+                                                        "Velocity to LFO1 rate", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VEL_LFO2RATE", // parameter ID
-                                                        "Velocity to LFO2 rate ", // parameter name
+                                                        "Velocity to LFO2 rate", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VEL_WAVE", // parameter ID
@@ -72,11 +72,11 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_AT_LFO1RATE", // parameter ID
-                                                        "Aftertouch to LFO1 rate ", // parameter name
+                                                        "Aftertouch to LFO1 rate", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_AT_LFO2RATE", // parameter ID
-                                                        "Aftertouch to LFO2 rate ", // parameter name
+                                                        "Aftertouch to LFO2 rate", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_AT_WAVE", // parameter ID
@@ -961,7 +961,7 @@ void BabuFrikAudioProcessor::saveBankFile ()
 {
     FileChooser fileChooser ("",
                              getDirectoryForFileSaveLoad(),
-                             "*.p");
+                             "*.syx");
     if (fileChooser.browseForFileToSave(true))
     {
         File file (fileChooser.getResult());
@@ -987,15 +987,11 @@ void BabuFrikAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthCon
 
 // Actions from KIJIMI control panel menu
 
-void BabuFrikAudioProcessor::sendControlsToSynth (int channelFilter)
+void BabuFrikAudioProcessor::sendControlsToSynth ()
 {
     if (midiOutput.get() != nullptr) {
         std::vector<String> parameterIDs;
-        if ((channelFilter == 1) || (channelFilter == 2)){
-            parameterIDs = kijimiInterface->getKIJIMISynthControlIDsForChannel(channelFilter);
-        } else {
-            parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
-        }
+        parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
         for (int i=0; i<parameterIDs.size(); i++){
             String parameterID = parameterIDs[i];
             int ccNumber = kijimiInterface->getCCNumberForParameterID(parameterID);
@@ -1013,14 +1009,10 @@ void BabuFrikAudioProcessor::sendControlsToSynth (int channelFilter)
     }
 }
 
-void BabuFrikAudioProcessor::randomizeControlValues (int channelFilter, float amount)
+void BabuFrikAudioProcessor::randomizeControlValues (float amount)
 {
     std::vector<String> parameterIDs;
-    if ((channelFilter == 1) || (channelFilter == 2)){
-        parameterIDs = kijimiInterface->getKIJIMISynthControlIDsForChannel(channelFilter);
-    } else {
-        parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
-    }
+    parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
     Random* random = new Random();
     for (int i=0; i<parameterIDs.size(); i++){
         String parameterID = parameterIDs[i];
@@ -1041,7 +1033,7 @@ void BabuFrikAudioProcessor::importFromPatchFile ()
 {
     FileChooser fileChooser ("Please select a KIJIMI patch file to load...",
                              getDirectoryForFileSaveLoad(),
-                             "*.ddpatch");
+                             "*.kpatch");
     if (fileChooser.browseForFileToOpen())
     {
         File file (fileChooser.getResult());
@@ -1052,26 +1044,11 @@ void BabuFrikAudioProcessor::importFromPatchFile ()
     }
 }
 
-void BabuFrikAudioProcessor::importFromVoiceFile (int channelTo)
-{
-    FileChooser fileChooser ("Please select a KIJIMI voice file to load...",
-                             getDirectoryForFileSaveLoad(),
-                             "*.ddvoice");
-    if (fileChooser.browseForFileToOpen())
-    {
-        File file (fileChooser.getResult());
-        setLastUserDirectoryForFileSaveLoad(file);
-        String filePath = file.getFullPathName();
-        SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForChannelFromVoiceFile(filePath, channelTo);
-        setParametersFromSynthControlIdValuePairs(idValuePairs);
-    }
-}
-
 void BabuFrikAudioProcessor::saveToPatchFile ()
 {
     FileChooser fileChooser ("",
                              getDirectoryForFileSaveLoad(),
-                             "*.ddpatch");
+                             "*.kpatch");
     if (fileChooser.browseForFileToSave(true))
     {
         File file (fileChooser.getResult());
@@ -1085,27 +1062,6 @@ void BabuFrikAudioProcessor::saveToPatchFile ()
             synthControl->updatePresetByteArray(audioParameter->get() / 127.0, currentPresetBytes);
         }
         file.replaceWithData(&currentPresetBytes, KIJIMI_PRESET_NUM_BYTES);
-    }
-}
-
-void BabuFrikAudioProcessor::saveToVoiceFile (int channelFrom)
-{
-    FileChooser fileChooser ("",
-                             getDirectoryForFileSaveLoad(),
-                             "*.ddvoice");
-    if (fileChooser.browseForFileToSave(true))
-    {
-        File file (fileChooser.getResult());
-        setLastUserDirectoryForFileSaveLoad(file);
-        std::vector<String> parameterIDs = kijimiInterface->getKIJIMISynthControlIDsForChannel(channelFrom);
-        KIJIMIVoiceBytes currentVoiceBytes = {0};  // Initialize to zero
-        for (int i=0; i<parameterIDs.size(); i++){
-            String parameterID = parameterIDs[i];
-            AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
-            KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
-            synthControl->updateVoiceByteArray(audioParameter->get() / 127.0, currentVoiceBytes);
-        }
-        file.replaceWithData(&currentVoiceBytes, KIJIMI_VOICE_NUM_BYTES);
     }
 }
 

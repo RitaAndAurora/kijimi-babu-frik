@@ -135,7 +135,7 @@ public:
     {
         FileChooser fileChooser ("Please select a KIJIMI bank file to load...",
                                  processor->getDirectoryForFileSaveLoad(),
-                                 "*.p");
+                                 "*.syx");
         if (fileChooser.browseForFileToOpen())
         {
             File bankFile (fileChooser.getResult());

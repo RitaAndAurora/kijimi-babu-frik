@@ -15,14 +15,12 @@ class KIJIMISynthControl
 
 {
 public:
-    KIJIMISynthControl (const String& _ID, const String& _name, int _ccNumber, int _byteNumber, int _byteNumberVoiceFile, int _channelNumber, bool _includeOnTimbreSpace)
+    KIJIMISynthControl (const String& _ID, const String& _name, int _ccNumber, int _byteNumber, bool _includeOnTimbreSpace)
     {
         ID = _ID;
         name = _name;
         ccNumber = _ccNumber;
         byteNumber = _byteNumber;
-        byteNumberVoiceFile = _byteNumberVoiceFile;
-        channelNumber = _channelNumber;
         includeOnTimbreSpace = _includeOnTimbreSpace;
     }
     
@@ -50,19 +48,9 @@ public:
         return ccNumber;
     }
     
-    int getChannelNumber ()
-    {
-        return channelNumber;
-    }
-    
     int getPresetByteNumber ()
     {
         return byteNumber;
-    }
-    
-    int getVoiceByteNumber ()
-    {
-        return byteNumberVoiceFile;
     }
     
     bool shouldBeIncludedInTimbreSpace()
@@ -110,16 +98,6 @@ public:
         return -1.0;
     }
     
-    double getNormValueFromVoiceByteArray(KIJIMIVoiceBytes& bytes)
-    {
-        // Return parameter value normalized [0.0-1.0] taking it from corresponding spot in KIJIMIPresetBytes array
-        // If parameter is not represented in KIJIMIVoiceBytes, this will return -1
-        if ((byteNumberVoiceFile > -1) && (byteNumberVoiceFile < KIJIMI_VOICE_NUM_BYTES)){
-            return jlimit(0.0, 1.0, (double)bytes[byteNumberVoiceFile] / 255.0);
-        }
-        return -1.0;
-    }
-    
     void updatePresetByteArray (float normValue, KIJIMIPresetBytes& bytes)
     {
         // Updates KIJIMIPresetBytes with the given normalized value of the synth control parameter
@@ -151,14 +129,6 @@ public:
         }
     }
     
-    void updateVoiceByteArray (float normValue, KIJIMIVoiceBytes& bytes)
-    {
-        // Updates KIJIMIPresetBytes with the given normalized value of the synth control parameter
-        int byteValue = jlimit(0, 255, (int) round(normValue * 255));
-        if ((byteNumberVoiceFile > -1) && (byteNumberVoiceFile < KIJIMI_VOICE_NUM_BYTES)){
-            bytes[byteNumberVoiceFile] = byteValue;
-        }
-    }
     
 private:
     
@@ -166,7 +136,5 @@ private:
     String name;
     int ccNumber;
     int byteNumber;
-    int byteNumberVoiceFile;
-    int channelNumber;
     bool includeOnTimbreSpace;
 };

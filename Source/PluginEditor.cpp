@@ -87,7 +87,7 @@ void BabuFrikAudioProcessorEditor::resized()
     
     float unitMargin = 5 * scale;
     float unitRowHeight = 20 * scale;
-    float fullWidth = 1100 * scale;
+    float fullWidth = 1200 * scale;
     float footerWidth = 170 * scale;
     
     float headerHeight = 1.5 * unitRowHeight;
