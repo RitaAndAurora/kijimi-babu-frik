@@ -74,7 +74,7 @@ public:
         // If parameter is not represented in KIJIMIPresetBytes, this will return -1
         
         if ((byteNumber > -1) && (byteNumber < KIJIMI_PRESET_NUM_BYTES)){
-            return jlimit(0.0, 1.0, (double)bytes[byteNumber] / 255.0);
+            return jlimit(0.0, 1.0, (double)bytes[byteNumber] / 127.0);  // TODO: double check this for KIJIMI, I changed range to 0-127
         }
         
         if (ID == "KIJIMI_GLIDE_MODE_GLIDE"){
@@ -82,6 +82,7 @@ public:
             // Note that some parameter info is hardcoded here and should be manually changed if needed
             // b72=255 & b80=0 -> portamento, b72=0 & b80=255 -> glissando, b72=0 & b80 = 0 -> none
             
+            // TODO: check this for KIJIMI, range might be 0-127
             bool portamentoOn = bytes[72] > 127;  // Note range is 0-255 here
             bool glissandoOn = bytes[80] > 127; // Note range is 0-255 here
             
@@ -101,7 +102,8 @@ public:
     void updatePresetByteArray (float normValue, KIJIMIPresetBytes& bytes)
     {
         // Updates KIJIMIPresetBytes with the given normalized value of the synth control parameter
-        int byteValue = jlimit(0, 255, (int) round(normValue * 255));
+        // TODO: double check this for KIJIMI, I changed range to 0-127
+        int byteValue = jlimit(0, 127, (int) round(normValue * 127));
         if ((byteNumber > -1) && (byteNumber < KIJIMI_PRESET_NUM_BYTES)){
             bytes[byteNumber] = byteValue;
         }
@@ -110,6 +112,8 @@ public:
             // Custom behaviour for KIJIMI_GLIDE_MODE_GLIDE
             // Note that some parameter info is hardcoded here and should be manually changed if needed
             // b72=255 & b80=0 -> portamento, b72=0 & b80=255 -> glissando, b72=0 & b80 = 0 -> none
+            
+            // TODO: check this for KIJIMI, range might be different
             
             int midiValue = norm2midi((double)normValue);
             
