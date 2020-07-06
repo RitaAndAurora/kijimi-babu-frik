@@ -102,9 +102,6 @@ public:
         {
             PopupMenu m;
             m.setLookAndFeel(&customLookAndFeel);
-            m.addItem (MENU_OPTION_ID_COPY_VOICE_1_TO_VOICE_2, "From channel I to channel II");
-            m.addItem (MENU_OPTION_ID_COPY_VOICE_2_TO_VOICE_1, "From channel II to channel I");
-            m.addItem (MENU_OPTION_ID_SWAP_VOICES, "Swap channels");
             selectedActionID = m.showAt(button);
         }
         else if (button == &randomizeButton)
@@ -154,13 +151,7 @@ public:
     
     void processMenuAction(int actionID)
     {
-        if (actionID == MENU_OPTION_ID_COPY_VOICE_1_TO_VOICE_2){
-            processor->copyDDRMChannel1ToChannel2();
-        } else if (actionID == MENU_OPTION_ID_COPY_VOICE_2_TO_VOICE_1){
-            processor->copyDDRMChannel2ToChannel1();
-        } else if (actionID == MENU_OPTION_ID_SWAP_VOICES){
-            processor->swapDDRMChannels();
-        } else if (actionID == MENU_OPTION_ID_SEND_PATCH_TO_SYNTH){
+        if (actionID == MENU_OPTION_ID_SEND_PATCH_TO_SYNTH){
             processor->sendControlsToSynth(0);  // 0 menans no channel filter
         } else if (actionID == MENU_OPTION_ID_SEND_VOICE_1_TO_SYNTH){
             processor->sendControlsToSynth(1);

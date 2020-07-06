@@ -1132,26 +1132,6 @@ void BabuFrikAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthCon
 
 // Actions from KIJIMI control panel menu
 
-void BabuFrikAudioProcessor::copyDDRMChannel1ToChannel2 ()
-{
-    SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForCopyingChannelFromToChannelTo(&parameters, 1, 2);
-    setParametersFromSynthControlIdValuePairs(idValuePairs);
-}
-
-void BabuFrikAudioProcessor::copyDDRMChannel2ToChannel1 ()
-{
-    SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForCopyingChannelFromToChannelTo(&parameters, 2, 1);
-    setParametersFromSynthControlIdValuePairs(idValuePairs);
-}
-
-void BabuFrikAudioProcessor::swapDDRMChannels ()
-{
-    SynthControlIdValuePairs idValuePairs1to2 = kijimiInterface->getSynthControlIdValuePairsForCopyingChannelFromToChannelTo(&parameters, 1, 2);
-    SynthControlIdValuePairs idValuePairs2to1 = kijimiInterface->getSynthControlIdValuePairsForCopyingChannelFromToChannelTo(&parameters, 2, 1);
-    setParametersFromSynthControlIdValuePairs(idValuePairs1to2);
-    setParametersFromSynthControlIdValuePairs(idValuePairs2to1);
-}
-
 void BabuFrikAudioProcessor::sendControlsToSynth (int channelFilter)
 {
     if (midiOutput.get() != nullptr) {

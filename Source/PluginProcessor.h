@@ -108,9 +108,6 @@ public:
     KIJIMIInterface* kijimiInterface;
     
     // Actions from KIJIMI control panel menu
-    void copyDDRMChannel1ToChannel2 ();
-    void copyDDRMChannel2ToChannel1 ();
-    void swapDDRMChannels ();
     void sendControlsToSynth (int channelFilter);
     void randomizeControlValues (int channelFilter, float amount);
     void importFromPatchFile ();
