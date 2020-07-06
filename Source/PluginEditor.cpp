@@ -15,7 +15,6 @@
 BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    bgImage = ImageCache::getFromMemory (BinaryData::UIBackground_png, BinaryData::UIBackground_pngSize);
     setLookAndFeel(&customLookAndFeel);
     
     // Init header and footer components
@@ -79,25 +78,23 @@ BabuFrikAudioProcessorEditor::~BabuFrikAudioProcessorEditor()
 //==============================================================================
 void BabuFrikAudioProcessorEditor::paint (Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    g.drawImage(bgImage, getLocalBounds().toFloat());
+    g.fillAll (Colours::black);
 }
 
 void BabuFrikAudioProcessorEditor::resized()
 {
     float scale = processor.uiScaleFactor;
     
-    float unitMargin = 10 * scale;
+    float unitMargin = 5 * scale;
     float unitRowHeight = 20 * scale;
-    float fullWidth = 800 * scale;
+    float fullWidth = 1100 * scale;
     float footerWidth = 170 * scale;
     
     float headerHeight = 1.5 * unitRowHeight;
     float midiSettingsHeight = 1 * unitRowHeight;
     float presetLoaderHeight = 1 * unitRowHeight;
-    float timbreSpaceHeight = 18 * unitRowHeight;
-    float kijimiControlPanelHeight = 14 * unitRowHeight;
+    float timbreSpaceHeight = fullWidth / 2.5;
+    float kijimiControlPanelHeight = fullWidth / 2.5;
     float controlPanelActionsHeight = 1 * unitRowHeight;
     float footerHeight = 1 * unitRowHeight;
     float logAreaHeight = 3 * unitRowHeight;
@@ -119,18 +116,18 @@ void BabuFrikAudioProcessorEditor::resized()
     presetControlPanel.setBounds (unitMargin, accumulatedHeight + unitMargin, fullWidth, presetLoaderHeight);
     accumulatedHeight += unitMargin + presetLoaderHeight;
     
-    kijimiControlPanel.setBounds (unitMargin,  accumulatedHeight, fullWidth, kijimiControlPanelHeight); // No add unitMargin, already in kijimiControlPanel
-    accumulatedHeight += kijimiControlPanelHeight;
+    kijimiControlPanel.setBounds (0,  accumulatedHeight, fullWidth, kijimiControlPanelHeight);
+    accumulatedHeight += kijimiControlPanelHeight - unitMargin;  // Remove unit margin as it is already embeded in TS component
     
     if (_showTimbreSpace){
-        timbreSpace.setBounds (unitMargin, accumulatedHeight + unitMargin, fullWidth, timbreSpaceHeight);
-        accumulatedHeight += unitMargin + timbreSpaceHeight + unitMargin;
+        timbreSpace.setBounds (0.368 * fullWidth, accumulatedHeight, (1 - 0.368) * (fullWidth + 0.5 * unitMargin), timbreSpaceHeight);
+        accumulatedHeight += timbreSpaceHeight;
     }
     
     controlPanelActions.setBounds(unitMargin,  accumulatedHeight, fullWidth - footerWidth, controlPanelActionsHeight); // No add unitMargin, already in kijimiControlPanel
     // NOTE: don't accumulate height here as KIJIMI control panel extra is at same height as footer
     
-    footer.setBounds(fullWidth - footerWidth + unitMargin, accumulatedHeight, footerWidth, footerHeight); // No add unitMargin, already in kijimiControlPanel
+    footer.setBounds(fullWidth - (footerWidth + 0.5 * unitMargin), accumulatedHeight, footerWidth, footerHeight); // No add unitMargin, already in kijimiControlPanel
     accumulatedHeight += footerHeight;
     
     if (_showLogArea){
@@ -138,7 +135,7 @@ void BabuFrikAudioProcessorEditor::resized()
         accumulatedHeight += unitMargin + logAreaHeight;
     }
     
-    setSize(fullWidth + 2 * unitMargin, accumulatedHeight + unitMargin);
+    setSize(fullWidth, accumulatedHeight + unitMargin);
 }
 
 //==============================================================================

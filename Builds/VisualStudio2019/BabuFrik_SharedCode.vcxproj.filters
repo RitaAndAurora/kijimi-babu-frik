@@ -2584,9 +2584,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\BinaryData2.cpp">
-      <Filter>JUCE Library Code</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
@@ -5939,13 +5936,13 @@
     <None Include="..\..\Resources\fonts\MODENINE.TTF">
       <Filter>BabuFrik\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\TS_OVERLAY_corners_fixed.png">
+    <None Include="..\..\Resources\TS_OVERLAY.png">
       <Filter>BabuFrik\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\DDRM_PANEL_OVERLAY.png">
+    <None Include="..\..\Resources\KijimiExtraPanelBackground.png">
       <Filter>BabuFrik\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\UIBackground.png">
+    <None Include="..\..\Resources\KijimiMainPanelBackground.png">
       <Filter>BabuFrik\Resources</Filter>
     </None>
     <None Include="..\..\Resources\default_state.xml">

@@ -20,17 +20,17 @@ namespace BinaryData
     extern const char*   MODENINE_TTF;
     const int            MODENINE_TTFSize = 22256;
 
-    extern const char*   TS_OVERLAY_corners_fixed_png;
-    const int            TS_OVERLAY_corners_fixed_pngSize = 122481;
+    extern const char*   TS_OVERLAY_png;
+    const int            TS_OVERLAY_pngSize = 10900;
 
-    extern const char*   KIJIMI_PANEL_OVERLAY_png;
-    const int            KIJIMI_PANEL_OVERLAY_pngSize = 50568;
+    extern const char*   KijimiExtraPanelBackground_png;
+    const int            KijimiExtraPanelBackground_pngSize = 77816;
 
-    extern const char*   UIBackground_png;
-    const int            UIBackground_pngSize = 3365925;
+    extern const char*   KijimiMainPanelBackground_png;
+    const int            KijimiMainPanelBackground_pngSize = 184085;
 
     extern const char*   default_state_xml;
-    const int            default_state_xmlSize = 150239;
+    const int            default_state_xmlSize = 150662;
 
     extern const char*   Cholesky;
     const int            CholeskySize = 1206;

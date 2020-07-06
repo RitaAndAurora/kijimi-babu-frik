@@ -169,10 +169,6 @@
 			isa = PBXBuildFile;
 			fileRef = 17A6A2E6F46611E9D1BDEAF6;
 		};
-		EC77023F8C66F6BD2287A5FC = {
-			isa = PBXBuildFile;
-			fileRef = E0F2C3094DA71EBC4B157B62;
-		};
 		147DB45237C80C0FA952DE38 = {
 			isa = PBXBuildFile;
 			fileRef = 3989F4EA451955FE766EA380;
@@ -485,6 +481,13 @@
 			path = ../../Includes/Eigen/src/Core/products/TriangularMatrixVector.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		12EA40996FF9222F90262017 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = KijimiExtraPanelBackground.png;
+			path = ../../Resources/KijimiExtraPanelBackground.png;
+			sourceTree = "SOURCE_ROOT";
+		};
 		1342966C803EA82417E9E480 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -546,13 +549,6 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = defines.hpp;
 			path = ../../Includes/tapkee/defines.hpp;
-			sourceTree = "SOURCE_ROOT";
-		};
-		1BCC2387E7D008264BD317B0 = {
-			isa = PBXFileReference;
-			lastKnownFileType = image.png;
-			name = "TS_OVERLAY_corners_fixed.png";
-			path = "../../Resources/TS_OVERLAY_corners_fixed.png";
 			sourceTree = "SOURCE_ROOT";
 		};
 		1DC807590A212D7A38A3D2E6 = {
@@ -1101,13 +1097,6 @@
 			path = ../../Includes/Eigen/src/Core/products/SelfadjointProduct.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		49798690F63A6387C2408F78 = {
-			isa = PBXFileReference;
-			lastKnownFileType = image.png;
-			name = "DDRM_PANEL_OVERLAY.png";
-			path = "../../Resources/DDRM_PANEL_OVERLAY.png";
-			sourceTree = "SOURCE_ROOT";
-		};
 		49ED212337CD77073505410B = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1220,13 +1209,6 @@
 			path = "../../Includes/tapkee/routines/laplacian_eigenmaps.hpp";
 			sourceTree = "SOURCE_ROOT";
 		};
-		529EFE7BF7461A29445E8BDF = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = "lapacke_mangling.h";
-			path = "../../Includes/Eigen/src/misc/lapacke_mangling.h";
-			sourceTree = "SOURCE_ROOT";
-		};
 		53549E41CB86ED6FD396F2EE = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1267,6 +1249,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = StdList.h;
 			path = ../../Includes/Eigen/src/StlSupport/StdList.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		55BE8E68FA21E61506391AB3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Dot.h;
+			path = ../../Includes/Eigen/src/Core/Dot.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		55E2DF8079E505558F4ED205 = {
@@ -1416,6 +1405,13 @@
 			path = "Info-VST.plist";
 			sourceTree = "SOURCE_ROOT";
 		};
+		682F891016F9F6D9C6FB0400 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = KijimiMainPanelBackground.png;
+			path = ../../Resources/KijimiMainPanelBackground.png;
+			sourceTree = "SOURCE_ROOT";
+		};
 		6A2B9B4D2EB27D4D94245759 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.TTF;
@@ -1444,18 +1440,18 @@
 			path = BabuFrik.app;
 			sourceTree = "BUILT_PRODUCTS_DIR";
 		};
+		529EFE7BF7461A29445E8BDF = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = "lapacke_mangling.h";
+			path = "../../Includes/Eigen/src/misc/lapacke_mangling.h";
+			sourceTree = "SOURCE_ROOT";
+		};
 		52FF1A92B5690C4748CCEE04 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = Complex.h;
 			path = ../../Includes/Eigen/src/Core/arch/AVX/Complex.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		55BE8E68FA21E61506391AB3 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = Dot.h;
-			path = ../../Includes/Eigen/src/Core/Dot.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		56A4F59FBF24EE4EB5D646E8 = {
@@ -2305,6 +2301,13 @@
 			path = ../../Includes/Eigen/src/plugins/ArrayCwiseUnaryOps.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		A41A573B1DFCF66BD70900A1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "TS_OVERLAY.png";
+			path = "../../Resources/TS_OVERLAY.png";
+			sourceTree = "SOURCE_ROOT";
+		};
 		A45C191C6A2B3A2082B18173 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -2366,13 +2369,6 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = SparseTriangularView.h;
 			path = ../../Includes/Eigen/src/SparseCore/SparseTriangularView.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		A9840F2926F7473C75F5A45C = {
-			isa = PBXFileReference;
-			lastKnownFileType = image.png;
-			name = UIBackground.png;
-			path = ../../Resources/UIBackground.png;
 			sourceTree = "SOURCE_ROOT";
 		};
 		AA0617021CCB096C756DC995 = {
@@ -3061,13 +3057,6 @@
 			path = ../../Includes/Eigen/src/Core/util/NonMPL2.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		E0F2C3094DA71EBC4B157B62 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = BinaryData2.cpp;
-			path = ../../JuceLibraryCode/BinaryData2.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		E237413D8E24DFF987A5F3EA = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -3495,9 +3484,9 @@
 				5053931B068DFC7B8B3DF2B4,
 				D7E712A9790EDA7EB3B19BC6,
 				6A2B9B4D2EB27D4D94245759,
-				1BCC2387E7D008264BD317B0,
-				49798690F63A6387C2408F78,
-				A9840F2926F7473C75F5A45C,
+				A41A573B1DFCF66BD70900A1,
+				12EA40996FF9222F90262017,
+				682F891016F9F6D9C6FB0400,
 				8BC5074696040E5101F5A78C,
 			);
 			name = Resources;
@@ -4371,7 +4360,6 @@
 				002D130E97D94919CE1A6CE4,
 				17A6A2E6F46611E9D1BDEAF6,
 				6CAC550891D77BC7EA701285,
-				E0F2C3094DA71EBC4B157B62,
 				3989F4EA451955FE766EA380,
 				AC5AB99EDC11C1CC29E40095,
 				2CF5D71C561B779C7B402754,
@@ -5451,7 +5439,6 @@
 				41DE2D6F96BC2933B09F423C,
 				E936126EE99ACEF9DD0E7488,
 				5AF69D0041D9668857E10B5B,
-				EC77023F8C66F6BD2287A5FC,
 				147DB45237C80C0FA952DE38,
 				3F820383764594744BC0E811,
 				9A07134847BE5FD4DD1881B5,

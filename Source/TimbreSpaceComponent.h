@@ -25,7 +25,7 @@ public:
         isLoadingData = false;
         dataLoaded = false;
         
-        overlayImage = ImageCache::getFromMemory (BinaryData::TS_OVERLAY_corners_fixed_png, BinaryData::TS_OVERLAY_corners_fixed_pngSize);
+        overlayImage = ImageCache::getFromMemory (BinaryData::TS_OVERLAY_png, BinaryData::TS_OVERLAY_pngSize);
     }
     
     ~TimbreSpaceComponent ()

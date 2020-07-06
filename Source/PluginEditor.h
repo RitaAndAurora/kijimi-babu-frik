@@ -44,7 +44,6 @@ private:
     
     // Look and feel
     CustomLookAndFeel customLookAndFeel;
-    Image bgImage;
     
     // Header & footer components
     HeaderComponent header;

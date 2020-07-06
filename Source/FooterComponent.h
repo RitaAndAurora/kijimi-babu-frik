@@ -68,8 +68,8 @@ public:
         
         if (button == &aboutButton)
         {
-            AlertWindow w ("J.F. Sebastian",
-                           "a Dekcard's Dream companion tool made by Rita & Aurora, v" + String(VERSION),
+            AlertWindow w ("Babu Frik",
+                           "a droidsmith for KIJIMI, made by Rita & Aurora, v" + String(VERSION),
                            AlertWindow::NoIcon);
             
             w.setLookAndFeel(&customLookAndFeel);

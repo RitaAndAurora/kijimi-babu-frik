@@ -15,12 +15,11 @@
             file="Resources/RitaAuroraLogo1.png"/>
       <FILE id="KKafAV" name="TitleLogo.png" compile="0" resource="1" file="Resources/TitleLogo.png"/>
       <FILE id="U7RokN" name="MODENINE.TTF" compile="0" resource="1" file="Resources/fonts/MODENINE.TTF"/>
-      <FILE id="MrgUs0" name="TS_OVERLAY_corners_fixed.png" compile="0" resource="1"
-            file="Resources/TS_OVERLAY_corners_fixed.png"/>
-      <FILE id="l1pU35" name="DDRM_PANEL_OVERLAY.png" compile="0" resource="1"
-            file="Resources/DDRM_PANEL_OVERLAY.png"/>
-      <FILE id="YPoH5q" name="UIBackground.png" compile="0" resource="1"
-            file="Resources/UIBackground.png"/>
+      <FILE id="YTfCAL" name="TS_OVERLAY.png" compile="0" resource="1" file="Resources/TS_OVERLAY.png"/>
+      <FILE id="GfYLxr" name="KijimiExtraPanelBackground.png" compile="0"
+            resource="1" file="Resources/KijimiExtraPanelBackground.png"/>
+      <FILE id="X448zE" name="KijimiMainPanelBackground.png" compile="0"
+            resource="1" file="Resources/KijimiMainPanelBackground.png"/>
       <FILE id="aDoZa6" name="default_state.xml" compile="0" resource="1"
             file="Resources/default_state.xml"/>
     </GROUP>

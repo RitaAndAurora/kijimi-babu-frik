@@ -1973,7 +1973,6 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp"/>
-    <ClCompile Include="..\..\JuceLibraryCode\BinaryData2.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_devices.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_formats.cpp"/>
@@ -3094,9 +3093,9 @@
     <None Include="..\..\Resources\RitaAuroraLogo1.png"/>
     <None Include="..\..\Resources\TitleLogo.png"/>
     <None Include="..\..\Resources\fonts\MODENINE.TTF"/>
-    <None Include="..\..\Resources\TS_OVERLAY_corners_fixed.png"/>
-    <None Include="..\..\Resources\DDRM_PANEL_OVERLAY.png"/>
-    <None Include="..\..\Resources\UIBackground.png"/>
+    <None Include="..\..\Resources\TS_OVERLAY.png"/>
+    <None Include="..\..\Resources\KijimiExtraPanelBackground.png"/>
+    <None Include="..\..\Resources\KijimiMainPanelBackground.png"/>
     <None Include="..\..\Resources\default_state.xml"/>
     <None Include="..\..\Includes\Eigen\Cholesky"/>
     <None Include="..\..\Includes\Eigen\CholmodSupport"/>
