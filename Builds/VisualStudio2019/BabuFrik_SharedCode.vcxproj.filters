@@ -2634,7 +2634,7 @@
     <ClInclude Include="..\..\Source\defines.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\CustomLookAndFeel.h">
+    <ClInclude Include="..\..\Source\BabuFrikBaseLookAndFeel.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginProcessor.h">

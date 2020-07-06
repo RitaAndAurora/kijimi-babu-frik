@@ -21,7 +21,7 @@
 #include "HeaderComponent.h"
 #include "FooterComponent.h"
 #include "LogoComponent.h"
-#include "CustomLookAndFeel.h"
+#include "BabuFrikBaseLookAndFeel.h"
 
 //==============================================================================
 /**
@@ -43,7 +43,7 @@ private:
     BabuFrikAudioProcessor& processor;
     
     // Look and feel
-    CustomLookAndFeel customLookAndFeel;
+    BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeel;
     
     // Header & footer components
     HeaderComponent header;

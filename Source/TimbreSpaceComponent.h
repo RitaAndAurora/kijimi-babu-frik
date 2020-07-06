@@ -88,7 +88,7 @@ public:
     void paint (Graphics& g) override
     {
         // Configure font
-        g.setFont(((CustomLookAndFeel&)getLookAndFeel()).tsHudFont);  // Sent font face
+        g.setFont(((BabuFrikBaseLookAndFeel&)getLookAndFeel()).tsHudFont);  // Sent font face
         
         if (isLoadingData) {
             // Is loading data

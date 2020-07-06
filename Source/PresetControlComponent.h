@@ -13,7 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "KIJIMIInterface.h"
-#include "CustomLookAndFeel.h"
+#include "BabuFrikBaseLookAndFeel.h"
 #include "defines.h"
 
 
@@ -50,18 +50,18 @@ public:
         loadedFileLabel.setText("-", dontSendNotification);
         addAndMakeVisible (loadedFileLabel);
                 
-        customLookAndFeelSmallerFont.defaultFontSize = 11.0;
+        babuFrikBaseLookAndFeelSmallerFont.defaultFontSize = 11.0;
 
         nextPresetButton.addListener (this);
         nextPresetButton.setButtonText(">");
         nextPresetButton.setEnabled(false);
-        nextPresetButton.setLookAndFeel(&customLookAndFeelSmallerFont);
+        nextPresetButton.setLookAndFeel(&babuFrikBaseLookAndFeelSmallerFont);
         addAndMakeVisible (nextPresetButton);
         
         previousPresetButton.addListener (this);
         previousPresetButton.setButtonText("<");
         previousPresetButton.setEnabled(false);
-        previousPresetButton.setLookAndFeel(&customLookAndFeelSmallerFont);
+        previousPresetButton.setLookAndFeel(&babuFrikBaseLookAndFeelSmallerFont);
         addAndMakeVisible (previousPresetButton);
         
         presetNameLabel.setJustificationType (Justification::centred);
@@ -178,7 +178,7 @@ public:
                                AlertWindow::NoIcon);
             #endif
             
-            w.setLookAndFeel(&customLookAndFeel);
+            w.setLookAndFeel(&babuFrikBaseLookAndFeel);
             w.addTextEditor ("bankLocation", "", "");
             w.getTextEditor ("bankLocation")->setInputRestrictions(3, "0123456789");  // Make it numbers only
             w.addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));
@@ -255,8 +255,8 @@ public:
 private:
     BabuFrikAudioProcessor* processor;
     
-    CustomLookAndFeel customLookAndFeel;
-    CustomLookAndFeel customLookAndFeelSmallerFont;  // Needed for the next/previous preset buttons to show properly on smaller scales
+    BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeel;
+    BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeelSmallerFont;  // Needed for the next/previous preset buttons to show properly on smaller scales
     
     TextButton loadFileButton;
     Label loadedFileLabel;

@@ -15,7 +15,7 @@
 BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    setLookAndFeel(&customLookAndFeel);
+    setLookAndFeel(&babuFrikBaseLookAndFeel);
     
     // Init header and footer components
     header.initialize(&processor);

@@ -1991,7 +1991,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\defines.h"/>
-    <ClInclude Include="..\..\Source\CustomLookAndFeel.h"/>
+    <ClInclude Include="..\..\Source\BabuFrikBaseLookAndFeel.h"/>
     <ClInclude Include="..\..\Source\PluginProcessor.h"/>
     <ClInclude Include="..\..\Source\PluginEditor.h"/>
     <ClInclude Include="..\..\Source\HeaderComponent.h"/>

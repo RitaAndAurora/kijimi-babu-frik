@@ -15,10 +15,11 @@ class KIJIMISynthControl
 
 {
 public:
-    KIJIMISynthControl (const String& _ID, const String& _name, int _ccNumber, int _byteNumber, bool _includeOnTimbreSpace)
+    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _byteNumber, bool _includeOnTimbreSpace)
     {
         ID = _ID;
         name = _name;
+        type = _type;
         ccNumber = _ccNumber;
         byteNumber = _byteNumber;
         includeOnTimbreSpace = _includeOnTimbreSpace;
@@ -74,7 +75,20 @@ public:
         // If parameter is not represented in KIJIMIPresetBytes, this will return -1
         
         if ((byteNumber > -1) && (byteNumber < KIJIMI_PRESET_NUM_BYTES)){
-            return jlimit(0.0, 1.0, (double)bytes[byteNumber] / 127.0);  // TODO: double check this for KIJIMI, I changed range to 0-127
+            if (type == "button2") {
+                if ((int)bytes[byteNumber] == 0){
+                    return 33.0;
+                } else if ((int)bytes[byteNumber] == 1){
+                    return 0.0;
+                } else if ((int)bytes[byteNumber] == 2){
+                    return 64.0;
+                } else {
+                    return 96.0;
+                }
+            }
+            else {
+                return jlimit(0.0, 1.0, (double)bytes[byteNumber] / 127.0);  // TODO: double check this for KIJIMI, I changed range to 0-127
+            }
         }
         
         if (ID == "KIJIMI_GLIDE_MODE_GLIDE"){
@@ -138,6 +152,7 @@ private:
     
     String ID;
     String name;
+    String type;
     int ccNumber;
     int byteNumber;
     bool includeOnTimbreSpace;

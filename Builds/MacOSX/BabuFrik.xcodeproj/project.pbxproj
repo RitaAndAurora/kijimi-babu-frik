@@ -873,6 +873,13 @@
 			path = "../../../JUCE/modules/juce_audio_devices";
 			sourceTree = "SOURCE_ROOT";
 		};
+		398143BF06A07F0D00A6F28A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = BabuFrikBaseLookAndFeel.h;
+			path = ../../Source/BabuFrikBaseLookAndFeel.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		3989F4EA451955FE766EA380 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -1209,6 +1216,13 @@
 			path = "../../Includes/tapkee/routines/laplacian_eigenmaps.hpp";
 			sourceTree = "SOURCE_ROOT";
 		};
+		529EFE7BF7461A29445E8BDF = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = "lapacke_mangling.h";
+			path = "../../Includes/Eigen/src/misc/lapacke_mangling.h";
+			sourceTree = "SOURCE_ROOT";
+		};
 		53549E41CB86ED6FD396F2EE = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1249,13 +1263,6 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = StdList.h;
 			path = ../../Includes/Eigen/src/StlSupport/StdList.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		55BE8E68FA21E61506391AB3 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = Dot.h;
-			path = ../../Includes/Eigen/src/Core/Dot.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		55E2DF8079E505558F4ED205 = {
@@ -1349,25 +1356,11 @@
 			path = "../../../JUCE/modules/juce_audio_basics";
 			sourceTree = "SOURCE_ROOT";
 		};
-		605F98FA8CD6F622427DE698 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = AboutComponent.h;
-			path = ../../Source/AboutComponent.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		607EC2029D8D00A83A7E9230 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = ArrayWrapper.h;
 			path = ../../Includes/Eigen/src/Core/ArrayWrapper.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		61BC26B1BE6E35BAFD5D719B = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = naming.hpp;
-			path = ../../Includes/tapkee/utils/naming.hpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		63B8CF339F9A789022C9BB48 = {
@@ -1440,18 +1433,18 @@
 			path = BabuFrik.app;
 			sourceTree = "BUILT_PRODUCTS_DIR";
 		};
-		529EFE7BF7461A29445E8BDF = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = "lapacke_mangling.h";
-			path = "../../Includes/Eigen/src/misc/lapacke_mangling.h";
-			sourceTree = "SOURCE_ROOT";
-		};
 		52FF1A92B5690C4748CCEE04 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = Complex.h;
 			path = ../../Includes/Eigen/src/Core/arch/AVX/Complex.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		55BE8E68FA21E61506391AB3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Dot.h;
+			path = ../../Includes/Eigen/src/Core/Dot.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		56A4F59FBF24EE4EB5D646E8 = {
@@ -1482,6 +1475,13 @@
 			path = ../../Includes/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		605F98FA8CD6F622427DE698 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AboutComponent.h;
+			path = ../../Source/AboutComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		606F5A75C0BBD8F90F910F47 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1501,6 +1501,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = SparseDot.h;
 			path = ../../Includes/Eigen/src/SparseCore/SparseDot.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		61BC26B1BE6E35BAFD5D719B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = naming.hpp;
+			path = ../../Includes/tapkee/utils/naming.hpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		6207E95ACC816E418258D674 = {
@@ -3253,13 +3260,6 @@
 			path = ../../Includes/Eigen/src/Core/products/TriangularSolverMatrix.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		F1321D29395965FD0BB12D43 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = CustomLookAndFeel.h;
-			path = ../../Source/CustomLookAndFeel.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		F13B5398A16DF711ED446CC3 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -3496,7 +3496,7 @@
 			isa = PBXGroup;
 			children = (
 				8AD2F93E36D65637E6818804,
-				F1321D29395965FD0BB12D43,
+				398143BF06A07F0D00A6F28A,
 				569B19CA03FAB279BB616998,
 				85094452EB170BCF487FD539,
 				6502196F8B6849BA7BABD27D,

@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-#include "CustomLookAndFeel.h"
+#include "BabuFrikBaseLookAndFeel.h"
 #include "defines.h"
 
 class ControlPanelActionsComponent: public Component,
@@ -83,21 +83,21 @@ public:
         if (button == &importButton)
         {
             PopupMenu m;
-            m.setLookAndFeel(&customLookAndFeel);
+            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             m.addItem (MENU_OPTION_ID_IMPORT_FROM_PATCH_FILE, "From patch file");
             selectedActionID = m.showAt(button);
         }
         else if (button == &saveButton)
         {
             PopupMenu m;
-            m.setLookAndFeel(&customLookAndFeel);
+            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             m.addItem (MENU_OPTION_ID_SAVE_PATCH_TO_PATCH_FILE, "To patch file");
             selectedActionID = m.showAt(button);
         }
         else if (button == &copyButton)
         {
             PopupMenu m;
-            m.setLookAndFeel(&customLookAndFeel);
+            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             selectedActionID = m.showAt(button);
         }
         else if (button == &randomizeButton)
@@ -110,14 +110,14 @@ public:
             subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_100_ID, "100%");
  
             PopupMenu m;
-            m.setLookAndFeel(&customLookAndFeel);
+            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             m.addSubMenu ("Patch", subMenuPatch);
             selectedActionID = m.showAt(button);
         }
         else if (button == &sendButton)
         {
             PopupMenu m;
-            m.setLookAndFeel(&customLookAndFeel);
+            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             m.addItem (MENU_OPTION_ID_SEND_PATCH_TO_SYNTH, "Patch");
             selectedActionID = m.showAt(button);
         }
@@ -153,7 +153,7 @@ public:
 private:
     BabuFrikAudioProcessor* processor;
     
-    CustomLookAndFeel customLookAndFeel;
+    BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeel;
     
     TextButton importButton;
     TextButton saveButton;

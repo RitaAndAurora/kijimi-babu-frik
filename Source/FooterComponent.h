@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-#include "CustomLookAndFeel.h"
+#include "BabuFrikBaseLookAndFeel.h"
 #include "AboutComponent.h"
 #include "defines.h"
 
@@ -72,7 +72,7 @@ public:
                            "a droidsmith for KIJIMI, made by Rita & Aurora, v" + String(VERSION),
                            AlertWindow::NoIcon);
             
-            w.setLookAndFeel(&customLookAndFeel);
+            w.setLookAndFeel(&babuFrikBaseLookAndFeel);
             w.addCustomComponent(&about);
             w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
             w.addButton ("More info", 1, KeyPress (KeyPress::returnKey, 0, 0));
@@ -104,7 +104,7 @@ public:
             midiDevicesSubMenu.addItem (MENU_OPTION_MIDI_SCAN_NOW, "Scan devices now", scanNowEnabled, false);
             
             PopupMenu m;
-            m.setLookAndFeel(&customLookAndFeel);
+            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             m.addSubMenu ("Zoom", zoomSubMenu);
             m.addSubMenu ("MIDI device scan", midiDevicesSubMenu);
             selectedActionID = m.showAt(button);
@@ -142,7 +142,7 @@ public:
 private:
     BabuFrikAudioProcessor* processor;
     
-    CustomLookAndFeel customLookAndFeel;
+    BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeel;
     
     AboutComponent about;
     TextButton aboutButton;

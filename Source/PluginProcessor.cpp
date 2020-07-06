@@ -31,12 +31,92 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                         "LFO1 amount", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1VCO1_P", // parameter ID
+                                                        "LFO1 to VCO1 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1VCO2_P", // parameter ID
+                                                        "LFO1 to VCO2 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1WAVE1_P", // parameter ID
+                                                        "LFO1 to WAVE1 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1WAVE2_P", // parameter ID
+                                                        "LFO1 to WAVE2 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1SUB_P", // parameter ID
+                                                        "LFO1 to SUB polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1VCF_P", // parameter ID
+                                                        "LFO1 to VCF polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1RESO_P", // parameter ID
+                                                        "LFO1 to RESO polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1VCA_P", // parameter ID
+                                                        "LFO1 to VCA polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_AMT", // parameter ID
                                                         "LFO2 amount", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2VCO1_P", // parameter ID
+                                                        "LFO2 to VCO1 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2VCO2_P", // parameter ID
+                                                        "LFO2 to VCO2 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2WAVE1_P", // parameter ID
+                                                        "LFO2 to WAVE1 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2WAVE2_P", // parameter ID
+                                                        "LFO2 to WAVE2 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2SUB_P", // parameter ID
+                                                        "LFO2 to SUB polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2VCF_P", // parameter ID
+                                                        "LFO2 to VCF polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2RESO_P", // parameter ID
+                                                        "LFO2 to RESO polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2VCA_P", // parameter ID
+                                                        "LFO2 to VCA polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR2_AMT", // parameter ID
                                                         "ADSR2 amount", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR2VCO1_P", // parameter ID
+                                                        "ADSR2 to VCO1 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR2VCO2_P", // parameter ID
+                                                        "ADSR2 to VCO2 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR2WAVE1_P", // parameter ID
+                                                        "ADSR2 to WAVE1 polarity", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR2WAVE2_P", // parameter ID
+                                                        "ADSR2 to WAVE2 polarity", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VCO2VCO1", // parameter ID
@@ -238,8 +318,28 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     // Add listeners for each audio parameter
     // --> Start auto-generated code B
     parameters.addParameterListener ("KIJIMI_LFO1_AMT", this);
+    parameters.addParameterListener ("KIJIMI_LFO1VCO1_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO1VCO2_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO1WAVE1_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO1WAVE2_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO1SUB_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO1VCF_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO1RESO_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO1VCA_P", this);
     parameters.addParameterListener ("KIJIMI_LFO2_AMT", this);
+    parameters.addParameterListener ("KIJIMI_LFO2VCO1_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO2VCO2_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO2WAVE1_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO2WAVE2_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO2SUB_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO2VCF_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO2RESO_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO2VCA_P", this);
     parameters.addParameterListener ("KIJIMI_ADSR2_AMT", this);
+    parameters.addParameterListener ("KIJIMI_ADSR2VCO1_P", this);
+    parameters.addParameterListener ("KIJIMI_ADSR2VCO2_P", this);
+    parameters.addParameterListener ("KIJIMI_ADSR2WAVE1_P", this);
+    parameters.addParameterListener ("KIJIMI_ADSR2WAVE2_P", this);
     parameters.addParameterListener ("KIJIMI_VCO2VCO1", this);
     parameters.addParameterListener ("KIJIMI_VCO2VCF", this);
     parameters.addParameterListener ("KIJIMI_VEL_LFO1RATE", this);
@@ -1027,6 +1127,7 @@ void BabuFrikAudioProcessor::randomizeControlValues (float amount)
         }
         audioParameter->setValueNotifyingHost(newValue); // parameter needs to be set in normalized range
     }
+    delete random;
 }
 
 void BabuFrikAudioProcessor::importFromPatchFile ()

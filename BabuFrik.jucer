@@ -25,8 +25,8 @@
     </GROUP>
     <GROUP id="{177E49BD-314F-466A-B738-77DE0624FC7B}" name="Source">
       <FILE id="kB2U0D" name="defines.h" compile="1" resource="0" file="Source/defines.h"/>
-      <FILE id="pKfQLH" name="CustomLookAndFeel.h" compile="0" resource="0"
-            file="Source/CustomLookAndFeel.h"/>
+      <FILE id="pKfQLH" name="BabuFrikBaseLookAndFeel.h" compile="0" resource="0"
+            file="Source/BabuFrikBaseLookAndFeel.h"/>
       <FILE id="ygmQD7" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="gKoqgV" name="PluginProcessor.h" compile="1" resource="0"
