@@ -26,12 +26,12 @@
 //==============================================================================
 /**
 */
-class KijimitimbreSpaceAudioProcessorEditor  : public AudioProcessorEditor,
+class BabuFrikAudioProcessorEditor  : public AudioProcessorEditor,
                                              public ActionListener
 {
 public:
-    KijimitimbreSpaceAudioProcessorEditor (KijimitimbreSpaceAudioProcessor&);
-    ~KijimitimbreSpaceAudioProcessorEditor();
+    BabuFrikAudioProcessorEditor (BabuFrikAudioProcessor&);
+    ~BabuFrikAudioProcessorEditor();
 
     //==============================================================================
     void paint (Graphics&) override;
@@ -40,7 +40,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    KijimitimbreSpaceAudioProcessor& processor;
+    BabuFrikAudioProcessor& processor;
     
     // Look and feel
     CustomLookAndFeel customLookAndFeel;
@@ -69,5 +69,5 @@ private:
     void logMessageInUI (const String& message);
     TextEditor logArea;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KijimitimbreSpaceAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BabuFrikAudioProcessorEditor)
 };

@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-KijimitimbreSpaceAudioProcessorEditor::KijimitimbreSpaceAudioProcessorEditor (KijimitimbreSpaceAudioProcessor& p)
+BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
     bgImage = ImageCache::getFromMemory (BinaryData::UIBackground_png, BinaryData::UIBackground_pngSize);
@@ -70,21 +70,21 @@ KijimitimbreSpaceAudioProcessorEditor::KijimitimbreSpaceAudioProcessorEditor (Ki
     setResizable(false, false);
 }
 
-KijimitimbreSpaceAudioProcessorEditor::~KijimitimbreSpaceAudioProcessorEditor()
+BabuFrikAudioProcessorEditor::~BabuFrikAudioProcessorEditor()
 {
     setLookAndFeel (nullptr);
     processor.removeActionListener(this);
 }
 
 //==============================================================================
-void KijimitimbreSpaceAudioProcessorEditor::paint (Graphics& g)
+void BabuFrikAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     g.drawImage(bgImage, getLocalBounds().toFloat());
 }
 
-void KijimitimbreSpaceAudioProcessorEditor::resized()
+void BabuFrikAudioProcessorEditor::resized()
 {
     float scale = processor.uiScaleFactor;
     
@@ -142,7 +142,7 @@ void KijimitimbreSpaceAudioProcessorEditor::resized()
 }
 
 //==============================================================================
-void KijimitimbreSpaceAudioProcessorEditor::actionListenerCallback (const String &message)
+void BabuFrikAudioProcessorEditor::actionListenerCallback (const String &message)
 {
     if (message.startsWith(String(ACTION_LOG_PREFIX))){
         logMessageInUI(message.substring(String(ACTION_LOG_PREFIX).length()));
@@ -151,7 +151,7 @@ void KijimitimbreSpaceAudioProcessorEditor::actionListenerCallback (const String
     }
 }
 
-void KijimitimbreSpaceAudioProcessorEditor::logMessageInUI (const String& message)
+void BabuFrikAudioProcessorEditor::logMessageInUI (const String& message)
 {
     logArea.moveCaretToEnd();
     logArea.insertTextAtCaret(message);

@@ -13,7 +13,7 @@
 #include "KIJIMIInterface.h"
 
 //==============================================================================
-KijimitimbreSpaceAudioProcessor::KijimitimbreSpaceAudioProcessor()
+BabuFrikAudioProcessor::BabuFrikAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -462,7 +462,7 @@ KijimitimbreSpaceAudioProcessor::KijimitimbreSpaceAudioProcessor()
     setDefaultState();
 }
 
-KijimitimbreSpaceAudioProcessor::~KijimitimbreSpaceAudioProcessor()
+BabuFrikAudioProcessor::~BabuFrikAudioProcessor()
 {
     if (midiInput.get() != nullptr){
         midiInput.get()->stop();
@@ -481,12 +481,12 @@ KijimitimbreSpaceAudioProcessor::~KijimitimbreSpaceAudioProcessor()
 }
 
 //==============================================================================
-const String KijimitimbreSpaceAudioProcessor::getName() const
+const String BabuFrikAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool KijimitimbreSpaceAudioProcessor::acceptsMidi() const
+bool BabuFrikAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -495,7 +495,7 @@ bool KijimitimbreSpaceAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool KijimitimbreSpaceAudioProcessor::producesMidi() const
+bool BabuFrikAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -504,7 +504,7 @@ bool KijimitimbreSpaceAudioProcessor::producesMidi() const
    #endif
 }
 
-bool KijimitimbreSpaceAudioProcessor::isMidiEffect() const
+bool BabuFrikAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -513,50 +513,50 @@ bool KijimitimbreSpaceAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double KijimitimbreSpaceAudioProcessor::getTailLengthSeconds() const
+double BabuFrikAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int KijimitimbreSpaceAudioProcessor::getNumPrograms()
+int BabuFrikAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int KijimitimbreSpaceAudioProcessor::getCurrentProgram()
+int BabuFrikAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void KijimitimbreSpaceAudioProcessor::setCurrentProgram (int index)
+void BabuFrikAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String KijimitimbreSpaceAudioProcessor::getProgramName (int index)
+const String BabuFrikAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void KijimitimbreSpaceAudioProcessor::changeProgramName (int index, const String& newName)
+void BabuFrikAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
-void KijimitimbreSpaceAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void BabuFrikAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 }
 
-void KijimitimbreSpaceAudioProcessor::releaseResources()
+void BabuFrikAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool KijimitimbreSpaceAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool BabuFrikAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -579,21 +579,21 @@ bool KijimitimbreSpaceAudioProcessor::isBusesLayoutSupported (const BusesLayout&
 }
 #endif
 
-void KijimitimbreSpaceAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void BabuFrikAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     // Do nothing with AUDIO and MIDI buffers as MIDI is sent and received using MidiInput
     // and MidiOutput objects and this plugin does not process any audio.
 }
 
 //==============================================================================
-bool KijimitimbreSpaceAudioProcessor::hasEditor() const
+bool BabuFrikAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* KijimitimbreSpaceAudioProcessor::createEditor()
+AudioProcessorEditor* BabuFrikAudioProcessor::createEditor()
 {
-    KijimitimbreSpaceAudioProcessorEditor* editor = new KijimitimbreSpaceAudioProcessorEditor (*this);
+    BabuFrikAudioProcessorEditor* editor = new BabuFrikAudioProcessorEditor (*this);
     // Hack https://forum.juce.com/t/styling-the-standalone-plugin-window/21872/2 to get native window
     if(wrapperType == wrapperType_Standalone)
     {
@@ -607,7 +607,7 @@ AudioProcessorEditor* KijimitimbreSpaceAudioProcessor::createEditor()
 }
 
 //==============================================================================
-void KijimitimbreSpaceAudioProcessor::getStateInformation (MemoryBlock& destData)
+void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     #if JUCE_DEBUG
         logMessage("Saving state...");
@@ -657,7 +657,7 @@ void KijimitimbreSpaceAudioProcessor::getStateInformation (MemoryBlock& destData
     // std::cout << xml->createDocument("") <<std::endl;
 }
 
-void KijimitimbreSpaceAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void BabuFrikAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     #if JUCE_DEBUG
         logMessage(String::formatted("Loading state of %d bytes...", sizeInBytes));
@@ -671,7 +671,7 @@ void KijimitimbreSpaceAudioProcessor::setStateInformation (const void* data, int
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::setDefaultState ()
+void BabuFrikAudioProcessor::setDefaultState ()
 {
     if (!needsToLoadDefaultState){
         return;
@@ -687,7 +687,7 @@ void KijimitimbreSpaceAudioProcessor::setDefaultState ()
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::setStateFromXml (XmlElement* xmlState)
+void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
 {
     // Prevent possible loading of default state
     needsToLoadDefaultState = false;
@@ -764,7 +764,7 @@ void KijimitimbreSpaceAudioProcessor::setStateFromXml (XmlElement* xmlState)
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::parameterChanged (const String& parameterID, float newValue)
+void BabuFrikAudioProcessor::parameterChanged (const String& parameterID, float newValue)
 {
     
     if (isLoadingFromState){
@@ -828,7 +828,7 @@ void KijimitimbreSpaceAudioProcessor::parameterChanged (const String& parameterI
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::updateSpacePointAudioParametersFromMouseEvent(float x, float y)
+void BabuFrikAudioProcessor::updateSpacePointAudioParametersFromMouseEvent(float x, float y)
 {
     // x,y come in range [0.0, 1.0]
     const ScopedValueSetter<bool> scopedInputFlag (isChangingFromTimbreSpace, true);
@@ -842,7 +842,7 @@ void KijimitimbreSpaceAudioProcessor::updateSpacePointAudioParametersFromMouseEv
     timbreSpaceEngine->selectPointInSpace(x, y);  // This will in its turn tell the processor to load new preset
 }
 
-void KijimitimbreSpaceAudioProcessor::setMidiDevicesAutoScan (bool enabled)
+void BabuFrikAudioProcessor::setMidiDevicesAutoScan (bool enabled)
 {
     if (midiDevicesAutoScanEnabled != enabled){
         midiDevicesAutoScanEnabled = enabled;
@@ -856,12 +856,12 @@ void KijimitimbreSpaceAudioProcessor::setMidiDevicesAutoScan (bool enabled)
     };
 }
 
-void KijimitimbreSpaceAudioProcessor::triggerMidiDevicesScan ()
+void BabuFrikAudioProcessor::triggerMidiDevicesScan ()
 {
     sendActionMessage(ACTION_MIDI_TRIGGER_DEVICE_SCAN);
 }
 
-void KijimitimbreSpaceAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const MidiMessage& m)
+void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const MidiMessage& m)
 {
     if ((midiInputChannel == -1) || (m.getChannel() == midiInputChannel))
     {
@@ -920,7 +920,7 @@ void KijimitimbreSpaceAudioProcessor::handleIncomingMidiMessage(MidiInput* sourc
 
 //==============================================================================
 
-void KijimitimbreSpaceAudioProcessor::setMidiInputDevice (const String& deviceIdentifier)
+void BabuFrikAudioProcessor::setMidiInputDevice (const String& deviceIdentifier)
 {
     if (midiInput.get() != nullptr){
         midiInput.get()->stop();
@@ -938,7 +938,7 @@ void KijimitimbreSpaceAudioProcessor::setMidiInputDevice (const String& deviceId
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::setMidiOutputDevice (const String& deviceIdentifier)
+void BabuFrikAudioProcessor::setMidiOutputDevice (const String& deviceIdentifier)
 {
     if (deviceIdentifier == "-"){
         // If identifier is "-", disable midi output
@@ -951,7 +951,7 @@ void KijimitimbreSpaceAudioProcessor::setMidiOutputDevice (const String& deviceI
 }
 
 
-void KijimitimbreSpaceAudioProcessor::setMidiInputDeviceByName (const String& deviceName)
+void BabuFrikAudioProcessor::setMidiInputDeviceByName (const String& deviceName)
 {
     String deviceIdentifier = "-";
     auto midiInputs = MidiInput::getAvailableDevices();
@@ -964,7 +964,7 @@ void KijimitimbreSpaceAudioProcessor::setMidiInputDeviceByName (const String& de
 }
 
 
-void KijimitimbreSpaceAudioProcessor::setMidiOutputDeviceByName (const String& deviceName)
+void BabuFrikAudioProcessor::setMidiOutputDeviceByName (const String& deviceName)
 {
     String deviceIdentifier = "-";
     auto midiOutputs = MidiOutput::getAvailableDevices();
@@ -977,7 +977,7 @@ void KijimitimbreSpaceAudioProcessor::setMidiOutputDeviceByName (const String& d
 }
 
 
-void KijimitimbreSpaceAudioProcessor::setMidiInputChannel (int channel)
+void BabuFrikAudioProcessor::setMidiInputChannel (int channel)
 {
     if (channel < 1){
         channel = 1;
@@ -989,7 +989,7 @@ void KijimitimbreSpaceAudioProcessor::setMidiInputChannel (int channel)
 }
 
 
-void KijimitimbreSpaceAudioProcessor::setMidiOutputChannel (int channel)
+void BabuFrikAudioProcessor::setMidiOutputChannel (int channel)
 {
     if (channel < 1){
         channel = 1;
@@ -1003,7 +1003,7 @@ void KijimitimbreSpaceAudioProcessor::setMidiOutputChannel (int channel)
 //==============================================================================
 
 
-void KijimitimbreSpaceAudioProcessor::loadBankFile (File* bankFile)
+void BabuFrikAudioProcessor::loadBankFile (File* bankFile)
 {
     String filePath = bankFile->getFullPathName();
     #if JUCE_DEBUG
@@ -1016,7 +1016,7 @@ void KijimitimbreSpaceAudioProcessor::loadBankFile (File* bankFile)
     loadPresetAtIndex(0);
 }
 
-void KijimitimbreSpaceAudioProcessor::computeTimbreSpace ()
+void BabuFrikAudioProcessor::computeTimbreSpace ()
 {
     if (!kijimiInterface->hasPresetsDataLoaded()){
         return;
@@ -1029,7 +1029,7 @@ void KijimitimbreSpaceAudioProcessor::computeTimbreSpace ()
 }
 
 
-void KijimitimbreSpaceAudioProcessor::nextPreset()
+void BabuFrikAudioProcessor::nextPreset()
 {
     if (!kijimiInterface->hasPresetsDataLoaded()){
         return;
@@ -1038,7 +1038,7 @@ void KijimitimbreSpaceAudioProcessor::nextPreset()
     loadPresetAtIndex(currentPreset + 1);
 }
 
-void KijimitimbreSpaceAudioProcessor::previousPreset()
+void BabuFrikAudioProcessor::previousPreset()
 {
     if (!kijimiInterface->hasPresetsDataLoaded()){
         return;
@@ -1054,7 +1054,7 @@ void KijimitimbreSpaceAudioProcessor::previousPreset()
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::loadPresetAtIndex (int index)
+void BabuFrikAudioProcessor::loadPresetAtIndex (int index)
 {
     if (!kijimiInterface->hasPresetsDataLoaded()){
         return;
@@ -1077,7 +1077,7 @@ void KijimitimbreSpaceAudioProcessor::loadPresetAtIndex (int index)
     sendActionMessage(ACTION_SET_CURRENT_PRESET_NAME_IN_SYNC);
 }
 
-void KijimitimbreSpaceAudioProcessor::savePresetToBankLocation (int bankLocation)
+void BabuFrikAudioProcessor::savePresetToBankLocation (int bankLocation)
 {
     if (kijimiInterface->hasPresetsDataLoaded()){
         
@@ -1102,7 +1102,7 @@ void KijimitimbreSpaceAudioProcessor::savePresetToBankLocation (int bankLocation
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::saveBankFile ()
+void BabuFrikAudioProcessor::saveBankFile ()
 {
     FileChooser fileChooser ("",
                              getDirectoryForFileSaveLoad(),
@@ -1119,7 +1119,7 @@ void KijimitimbreSpaceAudioProcessor::saveBankFile ()
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthControlIdValuePairs idValuePairs)
+void BabuFrikAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthControlIdValuePairs idValuePairs)
 {
     for (int i=0; i<idValuePairs.size(); i++) {
         String parameterID = idValuePairs[i].first;
@@ -1132,19 +1132,19 @@ void KijimitimbreSpaceAudioProcessor::setParametersFromSynthControlIdValuePairs 
 
 // Actions from KIJIMI control panel menu
 
-void KijimitimbreSpaceAudioProcessor::copyDDRMChannel1ToChannel2 ()
+void BabuFrikAudioProcessor::copyDDRMChannel1ToChannel2 ()
 {
     SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForCopyingChannelFromToChannelTo(&parameters, 1, 2);
     setParametersFromSynthControlIdValuePairs(idValuePairs);
 }
 
-void KijimitimbreSpaceAudioProcessor::copyDDRMChannel2ToChannel1 ()
+void BabuFrikAudioProcessor::copyDDRMChannel2ToChannel1 ()
 {
     SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForCopyingChannelFromToChannelTo(&parameters, 2, 1);
     setParametersFromSynthControlIdValuePairs(idValuePairs);
 }
 
-void KijimitimbreSpaceAudioProcessor::swapDDRMChannels ()
+void BabuFrikAudioProcessor::swapDDRMChannels ()
 {
     SynthControlIdValuePairs idValuePairs1to2 = kijimiInterface->getSynthControlIdValuePairsForCopyingChannelFromToChannelTo(&parameters, 1, 2);
     SynthControlIdValuePairs idValuePairs2to1 = kijimiInterface->getSynthControlIdValuePairsForCopyingChannelFromToChannelTo(&parameters, 2, 1);
@@ -1152,7 +1152,7 @@ void KijimitimbreSpaceAudioProcessor::swapDDRMChannels ()
     setParametersFromSynthControlIdValuePairs(idValuePairs2to1);
 }
 
-void KijimitimbreSpaceAudioProcessor::sendControlsToSynth (int channelFilter)
+void BabuFrikAudioProcessor::sendControlsToSynth (int channelFilter)
 {
     if (midiOutput.get() != nullptr) {
         std::vector<String> parameterIDs;
@@ -1178,7 +1178,7 @@ void KijimitimbreSpaceAudioProcessor::sendControlsToSynth (int channelFilter)
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::randomizeControlValues (int channelFilter, float amount)
+void BabuFrikAudioProcessor::randomizeControlValues (int channelFilter, float amount)
 {
     std::vector<String> parameterIDs;
     if ((channelFilter == 1) || (channelFilter == 2)){
@@ -1202,7 +1202,7 @@ void KijimitimbreSpaceAudioProcessor::randomizeControlValues (int channelFilter,
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::importFromPatchFile ()
+void BabuFrikAudioProcessor::importFromPatchFile ()
 {
     FileChooser fileChooser ("Please select a KIJIMI patch file to load...",
                              getDirectoryForFileSaveLoad(),
@@ -1217,7 +1217,7 @@ void KijimitimbreSpaceAudioProcessor::importFromPatchFile ()
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::importFromVoiceFile (int channelTo)
+void BabuFrikAudioProcessor::importFromVoiceFile (int channelTo)
 {
     FileChooser fileChooser ("Please select a KIJIMI voice file to load...",
                              getDirectoryForFileSaveLoad(),
@@ -1232,7 +1232,7 @@ void KijimitimbreSpaceAudioProcessor::importFromVoiceFile (int channelTo)
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::saveToPatchFile ()
+void BabuFrikAudioProcessor::saveToPatchFile ()
 {
     FileChooser fileChooser ("",
                              getDirectoryForFileSaveLoad(),
@@ -1253,7 +1253,7 @@ void KijimitimbreSpaceAudioProcessor::saveToPatchFile ()
     }
 }
 
-void KijimitimbreSpaceAudioProcessor::saveToVoiceFile (int channelFrom)
+void BabuFrikAudioProcessor::saveToVoiceFile (int channelFrom)
 {
     FileChooser fileChooser ("",
                              getDirectoryForFileSaveLoad(),
@@ -1277,7 +1277,7 @@ void KijimitimbreSpaceAudioProcessor::saveToVoiceFile (int channelFrom)
 //==============================================================================
 
 
-void KijimitimbreSpaceAudioProcessor::logMessage (const String& message)
+void BabuFrikAudioProcessor::logMessage (const String& message)
 {
     /*
      This function should be called in any part of the code where we want to log a message.
@@ -1300,7 +1300,7 @@ void KijimitimbreSpaceAudioProcessor::logMessage (const String& message)
 
 //==============================================================================
 
-void KijimitimbreSpaceAudioProcessor::actionListenerCallback (const String &message)
+void BabuFrikAudioProcessor::actionListenerCallback (const String &message)
 {
     if (message.startsWith(String(ACTION_LOAD_INTERPOLATED_PRESET))){
         const ScopedValueSetter<bool> scopedInputFlag (isChangingFromTimbreSpace, true);
@@ -1316,17 +1316,17 @@ void KijimitimbreSpaceAudioProcessor::actionListenerCallback (const String &mess
 
 //==============================================================================
 
-File KijimitimbreSpaceAudioProcessor::getDirectoryForFileSaveLoad ()
+File BabuFrikAudioProcessor::getDirectoryForFileSaveLoad ()
 {
     return lastUsedDirectoryForFileIO;
 }
 
-void KijimitimbreSpaceAudioProcessor::setLastUserDirectoryForFileSaveLoad (File file)
+void BabuFrikAudioProcessor::setLastUserDirectoryForFileSaveLoad (File file)
 {
     lastUsedDirectoryForFileIO = file.getParentDirectory();
 }
 
-void KijimitimbreSpaceAudioProcessor::setUIScaleFactor(float newUIScaleFactor){
+void BabuFrikAudioProcessor::setUIScaleFactor(float newUIScaleFactor){
     uiScaleFactor = newUIScaleFactor;
     sendActionMessage(ACTION_UPDATE_UI_SCALE_FACTOR);
 }
@@ -1336,5 +1336,5 @@ void KijimitimbreSpaceAudioProcessor::setUIScaleFactor(float newUIScaleFactor){
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new KijimitimbreSpaceAudioProcessor();
+    return new BabuFrikAudioProcessor();
 }

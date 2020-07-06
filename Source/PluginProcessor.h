@@ -19,7 +19,7 @@
 //==============================================================================
 /**
 */
-class KijimitimbreSpaceAudioProcessor  : public AudioProcessor,
+class BabuFrikAudioProcessor  : public AudioProcessor,
                                        private AudioProcessorValueTreeState::Listener,
                                        public ActionBroadcaster,
                                        public ActionListener,
@@ -27,8 +27,8 @@ class KijimitimbreSpaceAudioProcessor  : public AudioProcessor,
 {
 public:
     //==============================================================================
-    KijimitimbreSpaceAudioProcessor();
-    ~KijimitimbreSpaceAudioProcessor();
+    BabuFrikAudioProcessor();
+    ~BabuFrikAudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -138,5 +138,5 @@ public:
 
 private:    
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KijimitimbreSpaceAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BabuFrikAudioProcessor)
 };

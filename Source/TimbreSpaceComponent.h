@@ -33,7 +33,7 @@ public:
         processor->timbreSpaceEngine->removeActionListener(this);  // Stop receivng messages from timbre space engine
     }
     
-    void initialize (KijimitimbreSpaceAudioProcessor* p)
+    void initialize (BabuFrikAudioProcessor* p)
     {
         processor = p;
         
@@ -397,7 +397,7 @@ public:
     }
     
 private:
-    KijimitimbreSpaceAudioProcessor* processor;
+    BabuFrikAudioProcessor* processor;
     ValueTree data;
     bool isLoadingData;
     bool dataLoaded;

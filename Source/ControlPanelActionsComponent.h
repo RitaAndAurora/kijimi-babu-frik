@@ -49,7 +49,7 @@ public:
         processor->removeActionListener(this);  // Stop receivng messages from processor
     }
     
-    void initialize (KijimitimbreSpaceAudioProcessor* p)
+    void initialize (BabuFrikAudioProcessor* p)
     {
         // Set processor object
         processor = p;
@@ -214,7 +214,7 @@ public:
     }
     
 private:
-    KijimitimbreSpaceAudioProcessor* processor;
+    BabuFrikAudioProcessor* processor;
     
     CustomLookAndFeel customLookAndFeel;
     

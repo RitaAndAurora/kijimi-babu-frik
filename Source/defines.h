@@ -161,4 +161,4 @@ struct PresetDistanceStruct {
 };
 typedef std::vector<PresetDistanceStruct> PresetDistancePairsToInterpolate;
 
-typedef std::array<int64, 129> TimestampsLastCCSent; // Use 129 positions instead of 128 to not crash if using 1-indexed MIDI CC numbers (see docs in KijimitimbreSpaceAudioProcessor::handleIncomingMidiMessage)
+typedef std::array<int64, 129> TimestampsLastCCSent; // Use 129 positions instead of 128 to not crash if using 1-indexed MIDI CC numbers (see docs in BabuFrikAudioProcessor::handleIncomingMidiMessage)

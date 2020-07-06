@@ -87,7 +87,7 @@ public:
         processor->removeActionListener(this);  // Stop receivng messages from processor
     }
     
-    void initialize (KijimitimbreSpaceAudioProcessor* p)
+    void initialize (BabuFrikAudioProcessor* p)
     {
         // Set processor object
         processor = p;
@@ -253,7 +253,7 @@ public:
     }
     
 private:
-    KijimitimbreSpaceAudioProcessor* processor;
+    BabuFrikAudioProcessor* processor;
     
     CustomLookAndFeel customLookAndFeel;
     CustomLookAndFeel customLookAndFeelSmallerFont;  // Needed for the next/previous preset buttons to show properly on smaller scales

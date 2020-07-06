@@ -27,7 +27,7 @@ public:
     {
     }
     
-    void initialize (KijimitimbreSpaceAudioProcessor* p)
+    void initialize (BabuFrikAudioProcessor* p)
     {
         // Set processor object
         processor = p;
@@ -963,7 +963,7 @@ public:
     }
     
 private:
-    KijimitimbreSpaceAudioProcessor* processor;
+    BabuFrikAudioProcessor* processor;
     
     // Look and feel objects
     CustomLookAndFeel yellowSlider;

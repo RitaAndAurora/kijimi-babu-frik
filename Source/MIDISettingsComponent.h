@@ -36,7 +36,7 @@ public:
         }
     }
     
-    void initialize (KijimitimbreSpaceAudioProcessor* p)
+    void initialize (BabuFrikAudioProcessor* p)
     {
         // Set processor object
         processor = p;
@@ -230,7 +230,7 @@ public:
     }
     
 private:
-    KijimitimbreSpaceAudioProcessor* processor;
+    BabuFrikAudioProcessor* processor;
     ComboBox midiInputList;
     ComboBox midiOutputList;
     ComboBox midiInputChannelList;
