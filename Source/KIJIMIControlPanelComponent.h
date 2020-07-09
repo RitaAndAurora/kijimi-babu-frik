@@ -484,6 +484,17 @@ public:
         sliderKIJIMI_LFO2_D.textFromValueFunction = [](double value) {
             return "LFO2 decay: " + String (value);
         };
+        // Slider KIJIMI_LFO_ENV
+        sliderKIJIMI_LFO_ENV.setSliderStyle (Slider::RotaryHorizontalDrag);
+        sliderKIJIMI_LFO_ENV.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        sliderKIJIMI_LFO_ENV.setLookAndFeel (&button2LookAndFeel);
+        sliderKIJIMI_LFO_ENV.setPopupDisplayEnabled (true, true, this, -1);
+        addAndMakeVisible (&sliderKIJIMI_LFO_ENV);
+        sliderAttachmentKIJIMI_LFO_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_ENV", sliderKIJIMI_LFO_ENV));
+        sliderKIJIMI_LFO_ENV.setRange(sliderKIJIMI_LFO_ENV.getMinimum(), sliderKIJIMI_LFO_ENV.getMaximum(), sliderKIJIMI_LFO_ENV.getMaximum()/3);
+        sliderKIJIMI_LFO_ENV.textFromValueFunction = [](double value) {
+            return "LFO envelope: " + String (value);
+        };
         // Slider KIJIMI_VCO1_FREQ
         sliderKIJIMI_VCO1_FREQ.setSliderStyle (Slider::Rotary);
         sliderKIJIMI_VCO1_FREQ.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -553,6 +564,28 @@ public:
         sliderAttachmentKIJIMI_VCO2_DETUNE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO2_DETUNE", sliderKIJIMI_VCO2_DETUNE));
         sliderKIJIMI_VCO2_DETUNE.textFromValueFunction = [](double value) {
             return "VCO2 detune: " + String (value);
+        };
+        // Slider KIJIMI_VCO_SYNC
+        sliderKIJIMI_VCO_SYNC.setSliderStyle (Slider::RotaryHorizontalDrag);
+        sliderKIJIMI_VCO_SYNC.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        sliderKIJIMI_VCO_SYNC.setLookAndFeel (&button2LookAndFeel);
+        sliderKIJIMI_VCO_SYNC.setPopupDisplayEnabled (true, true, this, -1);
+        addAndMakeVisible (&sliderKIJIMI_VCO_SYNC);
+        sliderAttachmentKIJIMI_VCO_SYNC.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO_SYNC", sliderKIJIMI_VCO_SYNC));
+        sliderKIJIMI_VCO_SYNC.setRange(sliderKIJIMI_VCO_SYNC.getMinimum(), sliderKIJIMI_VCO_SYNC.getMaximum(), sliderKIJIMI_VCO_SYNC.getMaximum()/3);
+        sliderKIJIMI_VCO_SYNC.textFromValueFunction = [](double value) {
+            return "VCO sync: " + String (value);
+        };
+        // Slider KIJIMI_VCO_KOFF
+        sliderKIJIMI_VCO_KOFF.setSliderStyle (Slider::RotaryHorizontalDrag);
+        sliderKIJIMI_VCO_KOFF.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        sliderKIJIMI_VCO_KOFF.setLookAndFeel (&button2LookAndFeel);
+        sliderKIJIMI_VCO_KOFF.setPopupDisplayEnabled (true, true, this, -1);
+        addAndMakeVisible (&sliderKIJIMI_VCO_KOFF);
+        sliderAttachmentKIJIMI_VCO_KOFF.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO_KOFF", sliderKIJIMI_VCO_KOFF));
+        sliderKIJIMI_VCO_KOFF.setRange(sliderKIJIMI_VCO_KOFF.getMinimum(), sliderKIJIMI_VCO_KOFF.getMaximum(), sliderKIJIMI_VCO_KOFF.getMaximum()/3);
+        sliderKIJIMI_VCO_KOFF.textFromValueFunction = [](double value) {
+            return "VCO key off: " + String (value);
         };
         // Slider KIJIMI_VCF_FREQ
         sliderKIJIMI_VCF_FREQ.setSliderStyle (Slider::Rotary);
@@ -714,6 +747,39 @@ public:
         sliderKIJIMI_ADSR1_R.textFromValueFunction = [](double value) {
             return "ADSR1 release: " + String (value);
         };
+        // Slider KIJIMI_ADSR_MULT
+        sliderKIJIMI_ADSR_MULT.setSliderStyle (Slider::RotaryHorizontalDrag);
+        sliderKIJIMI_ADSR_MULT.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        sliderKIJIMI_ADSR_MULT.setLookAndFeel (&button2LookAndFeel);
+        sliderKIJIMI_ADSR_MULT.setPopupDisplayEnabled (true, true, this, -1);
+        addAndMakeVisible (&sliderKIJIMI_ADSR_MULT);
+        sliderAttachmentKIJIMI_ADSR_MULT.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR_MULT", sliderKIJIMI_ADSR_MULT));
+        sliderKIJIMI_ADSR_MULT.setRange(sliderKIJIMI_ADSR_MULT.getMinimum(), sliderKIJIMI_ADSR_MULT.getMaximum(), sliderKIJIMI_ADSR_MULT.getMaximum()/3);
+        sliderKIJIMI_ADSR_MULT.textFromValueFunction = [](double value) {
+            return "ADSR mult: " + String (value);
+        };
+        // Slider KIJIMI_ADSR_CYCLE
+        sliderKIJIMI_ADSR_CYCLE.setSliderStyle (Slider::RotaryHorizontalDrag);
+        sliderKIJIMI_ADSR_CYCLE.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        sliderKIJIMI_ADSR_CYCLE.setLookAndFeel (&button2LookAndFeel);
+        sliderKIJIMI_ADSR_CYCLE.setPopupDisplayEnabled (true, true, this, -1);
+        addAndMakeVisible (&sliderKIJIMI_ADSR_CYCLE);
+        sliderAttachmentKIJIMI_ADSR_CYCLE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR_CYCLE", sliderKIJIMI_ADSR_CYCLE));
+        sliderKIJIMI_ADSR_CYCLE.setRange(sliderKIJIMI_ADSR_CYCLE.getMinimum(), sliderKIJIMI_ADSR_CYCLE.getMaximum(), sliderKIJIMI_ADSR_CYCLE.getMaximum()/3);
+        sliderKIJIMI_ADSR_CYCLE.textFromValueFunction = [](double value) {
+            return "ADSR cycle: " + String (value);
+        };
+        // Slider KIJIMI_ADSR_KT
+        sliderKIJIMI_ADSR_KT.setSliderStyle (Slider::RotaryHorizontalDrag);
+        sliderKIJIMI_ADSR_KT.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        sliderKIJIMI_ADSR_KT.setLookAndFeel (&button2LookAndFeel);
+        sliderKIJIMI_ADSR_KT.setPopupDisplayEnabled (true, true, this, -1);
+        addAndMakeVisible (&sliderKIJIMI_ADSR_KT);
+        sliderAttachmentKIJIMI_ADSR_KT.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR_KT", sliderKIJIMI_ADSR_KT));
+        sliderKIJIMI_ADSR_KT.setRange(sliderKIJIMI_ADSR_KT.getMinimum(), sliderKIJIMI_ADSR_KT.getMaximum(), sliderKIJIMI_ADSR_KT.getMaximum()/3);
+        sliderKIJIMI_ADSR_KT.textFromValueFunction = [](double value) {
+            return "ADSR KT: " + String (value);
+        };
         // Slider KIJIMI_GLIDE_RATE
         sliderKIJIMI_GLIDE_RATE.setSliderStyle (Slider::Rotary);
         sliderKIJIMI_GLIDE_RATE.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -723,6 +789,17 @@ public:
         sliderAttachmentKIJIMI_GLIDE_RATE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_GLIDE_RATE", sliderKIJIMI_GLIDE_RATE));
         sliderKIJIMI_GLIDE_RATE.textFromValueFunction = [](double value) {
             return "Glide rate: " + String (value);
+        };
+        // Slider KIJIMI_GLIDE_MODE
+        sliderKIJIMI_GLIDE_MODE.setSliderStyle (Slider::RotaryHorizontalDrag);
+        sliderKIJIMI_GLIDE_MODE.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+        sliderKIJIMI_GLIDE_MODE.setLookAndFeel (&button2LookAndFeel);
+        sliderKIJIMI_GLIDE_MODE.setPopupDisplayEnabled (true, true, this, -1);
+        addAndMakeVisible (&sliderKIJIMI_GLIDE_MODE);
+        sliderAttachmentKIJIMI_GLIDE_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_GLIDE_MODE", sliderKIJIMI_GLIDE_MODE));
+        sliderKIJIMI_GLIDE_MODE.setRange(sliderKIJIMI_GLIDE_MODE.getMinimum(), sliderKIJIMI_GLIDE_MODE.getMaximum(), sliderKIJIMI_GLIDE_MODE.getMaximum()/3);
+        sliderKIJIMI_GLIDE_MODE.textFromValueFunction = [](double value) {
+            return "Glide mode: " + String (value);
         };
         // Slider KIJIMI_VOLUME
         sliderKIJIMI_VOLUME.setSliderStyle (Slider::Rotary);
@@ -790,6 +867,7 @@ public:
         sliderKIJIMI_LFO2_RATE.setBounds (0.432 * getWidth(), 0.101 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_LFO2_RATE
         sliderKIJIMI_LFO2_A.setBounds (0.432 * getWidth(), 0.284 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_LFO2_A
         sliderKIJIMI_LFO2_D.setBounds (0.432 * getWidth(), 0.468 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_LFO2_D
+        sliderKIJIMI_LFO_ENV.setBounds (0.400 * getWidth(), 0.817 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO_ENV
         sliderKIJIMI_VCO1_FREQ.setBounds (0.509 * getWidth(), 0.101 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VCO1_FREQ
         sliderKIJIMI_VCO1_WAVE.setBounds (0.509 * getWidth(), 0.284 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VCO1_WAVE
         sliderKIJIMI_SUB_VOL.setBounds (0.509 * getWidth(), 0.642 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_SUB_VOL
@@ -797,6 +875,8 @@ public:
         sliderKIJIMI_VCO2WAVE.setBounds (0.579 * getWidth(), 0.284 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VCO2WAVE
         sliderKIJIMI_VCO2_VOL.setBounds (0.579 * getWidth(), 0.468 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VCO2_VOL
         sliderKIJIMI_VCO2_DETUNE.setBounds (0.579 * getWidth(), 0.642 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VCO2_DETUNE
+        sliderKIJIMI_VCO_SYNC.setBounds (0.564 * getWidth(), 0.817 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_VCO_SYNC
+        sliderKIJIMI_VCO_KOFF.setBounds (0.595 * getWidth(), 0.817 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_VCO_KOFF
         sliderKIJIMI_VCF_FREQ.setBounds (0.659 * getWidth(), 0.101 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VCF_FREQ
         sliderKIJIMI_VCF_VEL_C.setBounds (0.659 * getWidth(), 0.284 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VCF_VEL_C
         sliderKIJIMI_VCF_AT_C.setBounds (0.659 * getWidth(), 0.468 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VCF_AT_C
@@ -813,7 +893,11 @@ public:
         sliderKIJIMI_ADSR1_D.setBounds (0.861 * getWidth(), 0.284 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_ADSR1_D
         sliderKIJIMI_ADSR1_S.setBounds (0.861 * getWidth(), 0.468 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_ADSR1_S
         sliderKIJIMI_ADSR1_R.setBounds (0.861 * getWidth(), 0.642 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_ADSR1_R
+        sliderKIJIMI_ADSR_MULT.setBounds (0.821 * getWidth(), 0.183 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_ADSR_MULT
+        sliderKIJIMI_ADSR_CYCLE.setBounds (0.821 * getWidth(), 0.367 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_ADSR_CYCLE
+        sliderKIJIMI_ADSR_KT.setBounds (0.821 * getWidth(), 0.550 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_ADSR_KT
         sliderKIJIMI_GLIDE_RATE.setBounds (0.941 * getWidth(), 0.101 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_GLIDE_RATE
+        sliderKIJIMI_GLIDE_MODE.setBounds (0.942 * getWidth(), 0.266 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_GLIDE_MODE
         sliderKIJIMI_VOLUME.setBounds (0.941 * getWidth(), 0.468 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VOLUME
         // --> End auto-generated code C
     }
@@ -913,6 +997,8 @@ private:
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO2_A;
     Slider sliderKIJIMI_LFO2_D;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO2_D;
+    Slider sliderKIJIMI_LFO_ENV;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO_ENV;
     Slider sliderKIJIMI_VCO1_FREQ;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_VCO1_FREQ;
     Slider sliderKIJIMI_VCO1_WAVE;
@@ -927,6 +1013,10 @@ private:
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_VCO2_VOL;
     Slider sliderKIJIMI_VCO2_DETUNE;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_VCO2_DETUNE;
+    Slider sliderKIJIMI_VCO_SYNC;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_VCO_SYNC;
+    Slider sliderKIJIMI_VCO_KOFF;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_VCO_KOFF;
     Slider sliderKIJIMI_VCF_FREQ;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_VCF_FREQ;
     Slider sliderKIJIMI_VCF_VEL_C;
@@ -959,8 +1049,16 @@ private:
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_ADSR1_S;
     Slider sliderKIJIMI_ADSR1_R;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_ADSR1_R;
+    Slider sliderKIJIMI_ADSR_MULT;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_ADSR_MULT;
+    Slider sliderKIJIMI_ADSR_CYCLE;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_ADSR_CYCLE;
+    Slider sliderKIJIMI_ADSR_KT;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_ADSR_KT;
     Slider sliderKIJIMI_GLIDE_RATE;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_GLIDE_RATE;
+    Slider sliderKIJIMI_GLIDE_MODE;
+    std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_GLIDE_MODE;
     Slider sliderKIJIMI_VOLUME;
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_VOLUME;
     // --> End auto-generated code A

@@ -46,12 +46,12 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2WAVE1_P", "LFO2 to WAVE1 polarity", "button2", 104, 114, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2WAVE2_P", "LFO2 to WAVE2 polarity", "button2", 105, 115, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2SUB_P", "LFO2 to SUB polarity", "button2", 106, 116, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2VCF_P", "LFO2 to VCF polarity", "button2", 114, 117, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2VCF_P", "LFO2 to VCF polarity", "button2", 14, 117, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2RESO_P", "LFO2 to RESO polarity", "button2", 108, 118, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2VCA_P", "LFO2 to VCA polarity", "button2", 109, 119, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR2_AMT", "ADSR2 amount", "knob", 40, 7, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR2VCO1_P", "ADSR2 to VCO1 polarity", "button2", 110, 120, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR2VCO2_P", "ADSR2 to VCO2 polarity", "button2", 115, 121, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR2VCO2_P", "ADSR2 to VCO2 polarity", "button2", 15, 121, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR2WAVE1_P", "ADSR2 to WAVE1 polarity", "button2", 112, 122, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR2WAVE2_P", "ADSR2 to WAVE2 polarity", "button2", 113, 123, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO2VCO1", "VCO2 to VCO1", "knob", 49, 16, true));
@@ -74,6 +74,7 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_RATE", "LFO2 rate", "knob", 58, 25, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_A", "LFO2 attack", "knob", 59, 26, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_D", "LFO2 decay", "knob", 60, 27, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO_ENV", "LFO envelope", "button2", 115, 56, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO1_FREQ", "VCO1 frequency", "knob", 61, 28, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO1_WAVE", "VCO1 waveform", "knob", 62, 29, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_SUB_VOL", "Sub volume", "knob", 63, 30, true));
@@ -81,6 +82,8 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO2WAVE", "VCO2 waveform", "knob", 66, 32, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO2_VOL", "VCO2 volume", "knob", 67, 33, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO2_DETUNE", "VCO2 detune", "knob", 68, 34, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO_SYNC", "VCO sync", "button2", 37, 61, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO_KOFF", "VCO key off", "button2", 36, 62, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VCF_FREQ", "VCF Frequency", "knob", 69, 35, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VCF_VEL_C", "VCF Velocity control", "knobC", 70, 36, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VCF_AT_C", "VCF Aftertouch control", "knobC", 71, 37, true));
@@ -97,7 +100,11 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR1_D", "ADSR1 decay", "knob", 83, 48, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR1_S", "ADSR1 sustain", "knob", 84, 49, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR1_R", "ADSR1 release", "knob", 85, 50, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_MULT", "ADSR mult", "button2", 35, 63, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_CYCLE", "ADSR cycle", "button2", 34, 64, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_KT", "ADSR KT", "button2", 33, 65, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_GLIDE_RATE", "Glide rate", "knob", 86, 51, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_GLIDE_MODE", "Glide mode", "button2", 32, 80, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VOLUME", "Volume", "knob", 87, 52, true));
         // --> End auto-generated code A
         

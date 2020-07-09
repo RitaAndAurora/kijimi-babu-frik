@@ -199,6 +199,10 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                         "LFO2 decay", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_ENV", // parameter ID
+                                                        "LFO envelope", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VCO1_FREQ", // parameter ID
                                                         "VCO1 frequency", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
@@ -225,6 +229,14 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VCO2_DETUNE", // parameter ID
                                                         "VCO2 detune", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_VCO_SYNC", // parameter ID
+                                                        "VCO sync", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_VCO_KOFF", // parameter ID
+                                                        "VCO key off", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VCF_FREQ", // parameter ID
@@ -291,8 +303,24 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                         "ADSR1 release", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR_MULT", // parameter ID
+                                                        "ADSR mult", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR_CYCLE", // parameter ID
+                                                        "ADSR cycle", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR_KT", // parameter ID
+                                                        "ADSR KT", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_GLIDE_RATE", // parameter ID
                                                         "Glide rate", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_GLIDE_MODE", // parameter ID
+                                                        "Glide mode", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VOLUME", // parameter ID
@@ -360,6 +388,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     parameters.addParameterListener ("KIJIMI_LFO2_RATE", this);
     parameters.addParameterListener ("KIJIMI_LFO2_A", this);
     parameters.addParameterListener ("KIJIMI_LFO2_D", this);
+    parameters.addParameterListener ("KIJIMI_LFO_ENV", this);
     parameters.addParameterListener ("KIJIMI_VCO1_FREQ", this);
     parameters.addParameterListener ("KIJIMI_VCO1_WAVE", this);
     parameters.addParameterListener ("KIJIMI_SUB_VOL", this);
@@ -367,6 +396,8 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     parameters.addParameterListener ("KIJIMI_VCO2WAVE", this);
     parameters.addParameterListener ("KIJIMI_VCO2_VOL", this);
     parameters.addParameterListener ("KIJIMI_VCO2_DETUNE", this);
+    parameters.addParameterListener ("KIJIMI_VCO_SYNC", this);
+    parameters.addParameterListener ("KIJIMI_VCO_KOFF", this);
     parameters.addParameterListener ("KIJIMI_VCF_FREQ", this);
     parameters.addParameterListener ("KIJIMI_VCF_VEL_C", this);
     parameters.addParameterListener ("KIJIMI_VCF_AT_C", this);
@@ -383,7 +414,11 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     parameters.addParameterListener ("KIJIMI_ADSR1_D", this);
     parameters.addParameterListener ("KIJIMI_ADSR1_S", this);
     parameters.addParameterListener ("KIJIMI_ADSR1_R", this);
+    parameters.addParameterListener ("KIJIMI_ADSR_MULT", this);
+    parameters.addParameterListener ("KIJIMI_ADSR_CYCLE", this);
+    parameters.addParameterListener ("KIJIMI_ADSR_KT", this);
     parameters.addParameterListener ("KIJIMI_GLIDE_RATE", this);
+    parameters.addParameterListener ("KIJIMI_GLIDE_MODE", this);
     parameters.addParameterListener ("KIJIMI_VOLUME", this);
     // --> End auto-generated code B
 
