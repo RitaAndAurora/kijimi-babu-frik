@@ -53,7 +53,7 @@ public:
             for (int j=0; j < data[i].size(); j++){
                 rowSum += data[i][j];
             }
-            if (rowSum > EMPTY_PRESET_SUM_THRESHOLD){
+            if ((rowSum > EMPTY_PRESET_SUM_THRESHOLD) && (rowSum < EMPTY_PRESET_SUM_UPPER_THRESHOLD)){
                 filteredData.push_back(data[i]);
                 presetIDXmap.push_back(i);
             }
