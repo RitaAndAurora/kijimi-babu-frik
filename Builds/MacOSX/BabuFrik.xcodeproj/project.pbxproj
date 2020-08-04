@@ -1265,6 +1265,13 @@
 			path = ../../Includes/Eigen/src/StlSupport/StdList.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		55BE8E68FA21E61506391AB3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Dot.h;
+			path = ../../Includes/Eigen/src/Core/Dot.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		55E2DF8079E505558F4ED205 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1277,6 +1284,13 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = PluginProcessor.cpp;
 			path = ../../Source/PluginProcessor.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		56A4F59FBF24EE4EB5D646E8 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ArrayCwiseBinaryOps.h;
+			path = ../../Includes/Eigen/src/plugins/ArrayCwiseBinaryOps.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		56A51E84CF6498D0927E4831 = {
@@ -1307,6 +1321,13 @@
 			path = ../../Includes/Eigen/src/Geometry/AlignedBox.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		5BCD3545A4132F62FAC71E36 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Transform.h;
+			path = ../../Includes/Eigen/src/Geometry/Transform.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		5CBBF46CB50E23D33C37C6F0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1319,6 +1340,20 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = TimbreSpaceComponent.h;
 			path = ../../Source/TimbreSpaceComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		5D602F4322A6417905CC8F4A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Quaternion.h;
+			path = ../../Includes/Eigen/src/Geometry/Quaternion.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		5D67819E46149563F291F2CE = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ConservativeSparseSparseProduct.h;
+			path = ../../Includes/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		5DB30BB6B357EA96EFD6788A = {
@@ -1356,125 +1391,6 @@
 			path = "../../../JUCE/modules/juce_audio_basics";
 			sourceTree = "SOURCE_ROOT";
 		};
-		607EC2029D8D00A83A7E9230 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = ArrayWrapper.h;
-			path = ../../Includes/Eigen/src/Core/ArrayWrapper.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		63B8CF339F9A789022C9BB48 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = "SelfadjointMatrixVector_BLAS.h";
-			path = "../../Includes/Eigen/src/Core/products/SelfadjointMatrixVector_BLAS.h";
-			sourceTree = "SOURCE_ROOT";
-		};
-		64C8E9DCD779A39B9A678487 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = PacketMath.h;
-			path = ../../Includes/Eigen/src/Core/arch/ZVector/PacketMath.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		6502196F8B6849BA7BABD27D = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = PluginEditor.cpp;
-			path = ../../Source/PluginEditor.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
-		65395CB6030D23A83A49B5D3 = {
-			isa = PBXFileReference;
-			lastKnownFileType = wrapper.framework;
-			name = IOKit.framework;
-			path = System/Library/Frameworks/IOKit.framework;
-			sourceTree = SDKROOT;
-		};
-		67DA1FDA60E8D61799EAEA06 = {
-			isa = PBXFileReference;
-			lastKnownFileType = text.plist.xml;
-			name = "Info-VST.plist";
-			path = "Info-VST.plist";
-			sourceTree = "SOURCE_ROOT";
-		};
-		682F891016F9F6D9C6FB0400 = {
-			isa = PBXFileReference;
-			lastKnownFileType = image.png;
-			name = KijimiMainPanelBackground.png;
-			path = ../../Resources/KijimiMainPanelBackground.png;
-			sourceTree = "SOURCE_ROOT";
-		};
-		6A2B9B4D2EB27D4D94245759 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file.TTF;
-			name = MODENINE.TTF;
-			path = ../../Resources/fonts/MODENINE.TTF;
-			sourceTree = "SOURCE_ROOT";
-		};
-		765AF7C6C0EFC1824D76BA26 = {
-			isa = PBXFileReference;
-			explicitFileType = wrapper.cfbundle;
-			includeInIndex = 0;
-			path = BabuFrik.vst3;
-			sourceTree = "BUILT_PRODUCTS_DIR";
-		};
-		78838DB32132CED46339AF2D = {
-			isa = PBXFileReference;
-			explicitFileType = wrapper.cfbundle;
-			includeInIndex = 0;
-			path = BabuFrik.component;
-			sourceTree = "BUILT_PRODUCTS_DIR";
-		};
-		27DC47E29A93EA2304C67B2C = {
-			isa = PBXFileReference;
-			explicitFileType = wrapper.application;
-			includeInIndex = 0;
-			path = BabuFrik.app;
-			sourceTree = "BUILT_PRODUCTS_DIR";
-		};
-		52FF1A92B5690C4748CCEE04 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = Complex.h;
-			path = ../../Includes/Eigen/src/Core/arch/AVX/Complex.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		55BE8E68FA21E61506391AB3 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = Dot.h;
-			path = ../../Includes/Eigen/src/Core/Dot.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		56A4F59FBF24EE4EB5D646E8 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = ArrayCwiseBinaryOps.h;
-			path = ../../Includes/Eigen/src/plugins/ArrayCwiseBinaryOps.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		5BCD3545A4132F62FAC71E36 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = Transform.h;
-			path = ../../Includes/Eigen/src/Geometry/Transform.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		5D602F4322A6417905CC8F4A = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = Quaternion.h;
-			path = ../../Includes/Eigen/src/Geometry/Quaternion.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		5D67819E46149563F291F2CE = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = ConservativeSparseSparseProduct.h;
-			path = ../../Includes/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		605F98FA8CD6F622427DE698 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1487,6 +1403,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = Solve.h;
 			path = ../../Includes/Eigen/src/Core/Solve.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		607EC2029D8D00A83A7E9230 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ArrayWrapper.h;
+			path = ../../Includes/Eigen/src/Core/ArrayWrapper.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		60F7A6159AA94A230621D5F4 = {
@@ -1538,6 +1461,13 @@
 			path = "../../Includes/Eigen/src/QR/ColPivHouseholderQR_LAPACKE.h";
 			sourceTree = "SOURCE_ROOT";
 		};
+		63B8CF339F9A789022C9BB48 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = "SelfadjointMatrixVector_BLAS.h";
+			path = "../../Includes/Eigen/src/Core/products/SelfadjointMatrixVector_BLAS.h";
+			sourceTree = "SOURCE_ROOT";
+		};
 		63DE86A14070897A51C06B7C = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1551,6 +1481,27 @@
 			name = BDCSVD.h;
 			path = ../../Includes/Eigen/src/SVD/BDCSVD.h;
 			sourceTree = "SOURCE_ROOT";
+		};
+		64C8E9DCD779A39B9A678487 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = PacketMath.h;
+			path = ../../Includes/Eigen/src/Core/arch/ZVector/PacketMath.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		6502196F8B6849BA7BABD27D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = PluginEditor.cpp;
+			path = ../../Source/PluginEditor.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		65395CB6030D23A83A49B5D3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = IOKit.framework;
+			path = System/Library/Frameworks/IOKit.framework;
+			sourceTree = SDKROOT;
 		};
 		66414281A5CD67F3543A0AAB = {
 			isa = PBXFileReference;
@@ -1573,11 +1524,25 @@
 			path = ../../Includes/tapkee/routines/eigendecomposition.hpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		67DA1FDA60E8D61799EAEA06 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			name = "Info-VST.plist";
+			path = "Info-VST.plist";
+			sourceTree = "SOURCE_ROOT";
+		};
 		6822B9D8BDF1AD658234E851 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = ReturnByValue.h;
 			path = ../../Includes/Eigen/src/Core/ReturnByValue.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		682F891016F9F6D9C6FB0400 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = KijimiMainPanelBackground.png;
+			path = ../../Resources/KijimiMainPanelBackground.png;
 			sourceTree = "SOURCE_ROOT";
 		};
 		69AA14FBB058D0F2BDFF08BD = {
@@ -1587,6 +1552,13 @@
 			path = ../../Includes/Eigen/src/SparseCore/SparseSolverBase.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		6A2B9B4D2EB27D4D94245759 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.TTF;
+			name = MODENINE.TTF;
+			path = ../../Resources/fonts/MODENINE.TTF;
+			sourceTree = "SOURCE_ROOT";
+		};
 		6A48AF42B02D59BF47BC9935 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1594,32 +1566,11 @@
 			path = "../../Includes/tapkee/traits/callbacks_traits.hpp";
 			sourceTree = "SOURCE_ROOT";
 		};
-		6B5969CB624FB4E9FA1BBD3E = {
-			isa = PBXFileReference;
-			lastKnownFileType = wrapper.framework;
-			name = Carbon.framework;
-			path = System/Library/Frameworks/Carbon.framework;
-			sourceTree = SDKROOT;
-		};
-		6BA8CA2AA2B0FFF50FE9FC6B = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_juce_audio_processors.mm";
-			path = "../../JuceLibraryCode/include_juce_audio_processors.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
 		6BBBD1E4BDB3D5EC94D22B91 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = RealSvd2x2.h;
 			path = ../../Includes/Eigen/src/misc/RealSvd2x2.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		6C1C6D73A39C42216ABC3C97 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = AssignEvaluator.h;
-			path = ../../Includes/Eigen/src/Core/AssignEvaluator.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		6CAC550891D77BC7EA701285 = {
@@ -1664,20 +1615,6 @@
 			path = ../../Includes/stichwort/parameter.hpp;
 			sourceTree = "SOURCE_ROOT";
 		};
-		70A8F672CFF7B0A3B2E3A39D = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = time.hpp;
-			path = ../../Includes/tapkee/utils/time.hpp;
-			sourceTree = "SOURCE_ROOT";
-		};
-		70B63964474076B53B85780F = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = "LLT_LAPACKE.h";
-			path = "../../Includes/Eigen/src/Cholesky/LLT_LAPACKE.h";
-			sourceTree = "SOURCE_ROOT";
-		};
 		711030F5203DBA91688E3B7D = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1706,6 +1643,76 @@
 			path = "../../Includes/Eigen/src/OrderingMethods/Eigen_Colamd.h";
 			sourceTree = "SOURCE_ROOT";
 		};
+		765AF7C6C0EFC1824D76BA26 = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.cfbundle;
+			includeInIndex = 0;
+			path = BabuFrik.vst3;
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		77F84DBE73115BCD1EF7DBA2 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = MathFunctions.h;
+			path = ../../Includes/Eigen/src/Core/arch/SSE/MathFunctions.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		78838DB32132CED46339AF2D = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.cfbundle;
+			includeInIndex = 0;
+			path = BabuFrik.component;
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		27DC47E29A93EA2304C67B2C = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			path = BabuFrik.app;
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		52FF1A92B5690C4748CCEE04 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Complex.h;
+			path = ../../Includes/Eigen/src/Core/arch/AVX/Complex.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		6B5969CB624FB4E9FA1BBD3E = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = Carbon.framework;
+			path = System/Library/Frameworks/Carbon.framework;
+			sourceTree = SDKROOT;
+		};
+		6BA8CA2AA2B0FFF50FE9FC6B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_audio_processors.mm";
+			path = "../../JuceLibraryCode/include_juce_audio_processors.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		6C1C6D73A39C42216ABC3C97 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AssignEvaluator.h;
+			path = ../../Includes/Eigen/src/Core/AssignEvaluator.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		70A8F672CFF7B0A3B2E3A39D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = time.hpp;
+			path = ../../Includes/tapkee/utils/time.hpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		70B63964474076B53B85780F = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = "LLT_LAPACKE.h";
+			path = "../../Includes/Eigen/src/Cholesky/LLT_LAPACKE.h";
+			sourceTree = "SOURCE_ROOT";
+		};
 		75A57D1489DC10299C3B0660 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1732,13 +1739,6 @@
 			lastKnownFileType = file;
 			name = StdList;
 			path = ../../Includes/Eigen/StdList;
-			sourceTree = "SOURCE_ROOT";
-		};
-		77F84DBE73115BCD1EF7DBA2 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = MathFunctions.h;
-			path = ../../Includes/Eigen/src/Core/arch/SSE/MathFunctions.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		789F83087DCFE5E7B0EEA122 = {
@@ -1970,6 +1970,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = defines.h;
 			path = ../../Source/defines.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		8BBFB4C720062E68C10A7D57 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = CustomClasses.h;
+			path = ../../Source/CustomClasses.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		8BC5074696040E5101F5A78C = {
@@ -3497,6 +3504,7 @@
 			children = (
 				8AD2F93E36D65637E6818804,
 				398143BF06A07F0D00A6F28A,
+				8BBFB4C720062E68C10A7D57,
 				569B19CA03FAB279BB616998,
 				85094452EB170BCF487FD539,
 				6502196F8B6849BA7BABD27D,

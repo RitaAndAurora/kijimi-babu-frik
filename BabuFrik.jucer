@@ -27,6 +27,7 @@
       <FILE id="kB2U0D" name="defines.h" compile="1" resource="0" file="Source/defines.h"/>
       <FILE id="pKfQLH" name="BabuFrikBaseLookAndFeel.h" compile="0" resource="0"
             file="Source/BabuFrikBaseLookAndFeel.h"/>
+      <FILE id="EUCKoJ" name="CustomClasses.h" compile="0" resource="0" file="Source/CustomClasses.h"/>
       <FILE id="ygmQD7" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="gKoqgV" name="PluginProcessor.h" compile="1" resource="0"
