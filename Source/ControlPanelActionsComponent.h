@@ -31,10 +31,6 @@ public:
         saveButton.setButtonText("Save...");
         addAndMakeVisible (saveButton);
         
-        copyButton.addListener (this);
-        copyButton.setButtonText("Copy...");
-        addAndMakeVisible (copyButton);
-        
         randomizeButton.addListener (this);
         randomizeButton.setButtonText("Randomize...");
         addAndMakeVisible (randomizeButton);
@@ -66,9 +62,8 @@ public:
         float margin = getWidth() * 10/800;
         importButton.setBounds (0, 0, buttonWidthShort, buttonHeight);
         saveButton.setBounds (1 * (buttonWidthShort + margin), 0, buttonWidthShort, buttonHeight);
-        copyButton.setBounds (2 * (buttonWidthShort + margin), 0, buttonWidthShort, buttonHeight);
-        randomizeButton.setBounds (3 * (buttonWidthShort + margin), 0, buttonWidthLong, buttonHeight);
-        sendButton.setBounds (3 * (buttonWidthShort + margin) + 1 * (buttonWidthLong + margin), 0, buttonWidthLong, buttonHeight);
+        randomizeButton.setBounds (2 * (buttonWidthShort + margin), 0, buttonWidthLong, buttonHeight);
+        sendButton.setBounds (2 * (buttonWidthShort + margin) + 1 * (buttonWidthLong + margin), 0, buttonWidthLong, buttonHeight);
     }
     
     void actionListenerCallback (const String &message) override
@@ -82,44 +77,49 @@ public:
         
         if (button == &importButton)
         {
-            PopupMenu m;
+            /*PopupMenu m;
             m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             m.addItem (MENU_OPTION_ID_IMPORT_FROM_PATCH_FILE, "From patch file");
-            selectedActionID = m.showAt(button);
+            selectedActionID = m.showAt(button);*/
+            selectedActionID = MENU_OPTION_ID_IMPORT_FROM_PATCH_FILE;
         }
         else if (button == &saveButton)
         {
-            PopupMenu m;
+            /*PopupMenu m;
             m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             m.addItem (MENU_OPTION_ID_SAVE_PATCH_TO_PATCH_FILE, "To patch file");
-            selectedActionID = m.showAt(button);
-        }
-        else if (button == &copyButton)
-        {
-            PopupMenu m;
-            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            selectedActionID = m.showAt(button);
+            selectedActionID = m.showAt(button);*/
+            selectedActionID = MENU_OPTION_ID_SAVE_PATCH_TO_PATCH_FILE;
         }
         else if (button == &randomizeButton)
         {
+            /*PopupMenu subMenuPatch;
+            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_5_ID, "5%");
+            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_10_ID, "10%");
+            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_25_ID, "25%");
+            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_50_ID, "50%");
+            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_100_ID, "100%");
+             
+            PopupMenu m;
+            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
+            m.addSubMenu ("Patch", subMenuPatch);
+            selectedActionID = m.showAt(button);*/
             PopupMenu subMenuPatch;
             subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_5_ID, "5%");
             subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_10_ID, "10%");
             subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_25_ID, "25%");
             subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_50_ID, "50%");
             subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_100_ID, "100%");
- 
-            PopupMenu m;
-            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            m.addSubMenu ("Patch", subMenuPatch);
-            selectedActionID = m.showAt(button);
+            subMenuPatch.setLookAndFeel(&babuFrikBaseLookAndFeel);
+            selectedActionID = subMenuPatch.showAt(button);
         }
         else if (button == &sendButton)
         {
-            PopupMenu m;
+            /*PopupMenu m;
             m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             m.addItem (MENU_OPTION_ID_SEND_PATCH_TO_SYNTH, "Patch");
-            selectedActionID = m.showAt(button);
+            selectedActionID = m.showAt(button);*/
+            selectedActionID = MENU_OPTION_ID_SEND_PATCH_TO_SYNTH;
         }
         
         if (selectedActionID > 0){
@@ -157,7 +157,6 @@ private:
     
     TextButton importButton;
     TextButton saveButton;
-    TextButton copyButton;
     TextButton randomizeButton;
     TextButton sendButton;
     

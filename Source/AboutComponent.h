@@ -28,13 +28,24 @@ public:
         text.setColour (TextEditor::outlineColourId, Colour (0x1c000000));
         text.setText(""
          "About\n-----\n\n"
-         "Babu Frik...\n\n"
-         "CREDITS!\n\n"
+         "Babu Frik is a...\n\n"
+         
          "Please check out " + String(MORE_INFO_URL) + " for more information about Babu Frik and how to use it.\n\n"
          "\nCredits, licenses, acknowledgements\n-------------------------------\n\n"
-         "Babu Frik has been ideated and developed by Rita & Aurora, a sort of fancy branding name I've given to my audio-developer self.\n\n"
-         "Babu Frik uses the following open source software libraries: tapkee (BSD 3-clause), delaunator-cpp (MIT) and juce (GPLv3); and is released under GPLv3 software license.  Source code is available at " + String(SOURCE_CODE_URL) + ".\n\n"
-         "Enormous thanks again to Black Corporation and all the Kickstarter backers who made this possible!\n\n");
+         "Babu Frik has been ideated and developed by Rita & Aurora, a sort of fancy branding name I've given to my audio-developer self. Nevertheless, Babu Frik would have not been possible without the generous contributions of the KICKSTARTER BACKERS and BLACK CORPORATION. Infinite thanks to all of you:\n"
+         "\n  - Absolutely awesome backers\n"
+         "  NAME1\n"
+         "  NAME2\n"
+         "\n  - Gold backers\n"
+         "  Name1\n"
+         "  Name2\n"
+         "\n  - Silver backers\n"
+         "  Name1\n"
+         "  Name2\n"
+         "\n  - Bronze backers\n"
+         "  Name1\n"
+         "  Name2\n"
+         "\nBabu Frik uses the following open source software libraries: tapkee (BSD 3-clause), delaunator-cpp (MIT) and juce (GPLv3); and is released under GPLv3 software license.  Source code is available at " + String(SOURCE_CODE_URL) + ".\n\n");
         
         addAndMakeVisible(text);
     }

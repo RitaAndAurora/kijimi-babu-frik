@@ -34,6 +34,11 @@ BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcess
     presetControlPanel.initialize(&processor);
     addAndMakeVisible (presetControlPanel);
     
+    // Add view button (after preset controls to be on top)
+    viewButton.addListener (this);
+    viewButton.setButtonText("View...");
+    addAndMakeVisible (viewButton);
+    
     // Init KIJIMI contorl panel component
     kijimiControlPanel.initialize(&processor);
     addAndMakeVisible (kijimiControlPanel);
@@ -104,7 +109,7 @@ void BabuFrikAudioProcessorEditor::resized()
     
     float accumulatedHeight = 0;
     
-    float raLogoHeight = (headerHeight + midiSettingsHeight + presetLoaderHeight + 1 * unitMargin) * 0.85;
+    float raLogoHeight = (headerHeight + midiSettingsHeight + presetLoaderHeight + 1 * unitMargin) * 0.8;
     logo.setBounds(getWidth() - raLogoHeight * 2.2 - unitMargin * 1.5, unitMargin, raLogoHeight * 2.2, raLogoHeight);  // 2.2 = aspect ratio of logo image
     
     header.setBounds(unitMargin, accumulatedHeight + unitMargin, fullWidth, headerHeight);
@@ -114,6 +119,7 @@ void BabuFrikAudioProcessorEditor::resized()
     accumulatedHeight += unitMargin + midiSettingsHeight;
     
     presetControlPanel.setBounds (unitMargin, accumulatedHeight + unitMargin, fullWidth, presetLoaderHeight);
+    viewButton.setBounds(fullWidth - (unitRowHeight * 3 + unitMargin), accumulatedHeight  + unitMargin, unitMargin + unitRowHeight * 3, unitRowHeight);
     accumulatedHeight += unitMargin + presetLoaderHeight;
     
     kijimiControlPanel.setBounds (0,  accumulatedHeight, fullWidth, kijimiControlPanelHeight);
@@ -145,6 +151,46 @@ void BabuFrikAudioProcessorEditor::actionListenerCallback (const String &message
         logMessageInUI(message.substring(String(ACTION_LOG_PREFIX).length()));
     } else if (message.startsWith(String(ACTION_UPDATE_UI_SCALE_FACTOR))){
         resized();  // No need to update any local member here as scale factor is stored in processor
+    }
+}
+
+void BabuFrikAudioProcessorEditor::buttonClicked (Button* button)
+{
+    int selectedActionID = -1;
+    
+    if (button == &viewButton)
+    {
+        PopupMenu zoomSubMenu;
+        zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_70, "70%");
+        zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_80, "80%");
+        zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_90, "90%");
+        zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_100, "100%");
+        
+        PopupMenu m;
+        m.setLookAndFeel(&babuFrikBaseLookAndFeel);
+        m.addSubMenu ("Zoom", zoomSubMenu);
+        selectedActionID = m.showAt(button);
+    }
+    
+    if (selectedActionID > 0){
+        processMenuAction(selectedActionID);
+    }
+}
+
+void BabuFrikAudioProcessorEditor::processMenuAction(int actionID)
+{
+    if (actionID == MENU_OPTION_ID_ZOOM_60){
+        processor.setUIScaleFactor(0.6);
+    } else if (actionID == MENU_OPTION_ID_ZOOM_70){
+        processor.setUIScaleFactor(0.7);
+    } else if (actionID == MENU_OPTION_ID_ZOOM_80){
+        processor.setUIScaleFactor(0.8);
+    } else if (actionID == MENU_OPTION_ID_ZOOM_90){
+        processor.setUIScaleFactor(0.9);
+    } else if (actionID == MENU_OPTION_ID_ZOOM_100){
+        processor.setUIScaleFactor(1.0);
+    } else if (actionID == MENU_OPTION_ID_ZOOM_75){
+        processor.setUIScaleFactor(0.75);
     }
 }
 
