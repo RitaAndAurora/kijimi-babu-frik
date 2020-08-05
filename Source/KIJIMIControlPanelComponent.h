@@ -33,6 +33,12 @@ public:
         // Set processor object
         processor = p;
         
+        // Initialize led strips
+        ledsLFO1.initialize(processor, "KIJIMI_LFO1_SHAPE");
+        ledsLFO2.initialize(processor, "KIJIMI_LFO2_SHAPE");
+        addAndMakeVisible (ledsLFO1);
+        addAndMakeVisible (ledsLFO2);
+        
         // Configure sliders
         // --> Start auto-generated code B
         // Slider KIJIMI_LFO1_AMT
@@ -940,6 +946,9 @@ public:
         sliderKIJIMI_GLIDE_MODE.setBounds (0.942 * getWidth(), 0.266 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_GLIDE_MODE
         sliderKIJIMI_VOLUME.setBounds (0.941 * getWidth(), 0.468 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VOLUME
         // --> End auto-generated code C
+        
+        ledsLFO1.setBounds(getWidth() * 515/1365, getHeight() * 335/545, getWidth() * 11.5/1365, getHeight() * 108.85/545);
+        ledsLFO2.setBounds(getWidth() * 610/1365, getHeight() * 335/545, getWidth() * 11.5/1365, getHeight() * 108.85/545);
     }
     
 private:
@@ -950,6 +959,10 @@ private:
     BabuFrikButton2LookAndFeel button2LookAndFeel;
     BabuFrikButton1LookAndFeel button1LookAndFeel;
     BabuFrikButton0LookAndFeel button0LookAndFeel;
+    
+    // LED strip objects
+    KijimiLEDStripComponent ledsLFO1;
+    KijimiLEDStripComponent ledsLFO2;
     
     // Slider declarations
     // --> Start auto-generated code A

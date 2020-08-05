@@ -74,3 +74,92 @@ class CycleButtonSlider6Steps: public CycleButtonSliderNSteps
 {
     int getNSteps() override { return 6; };
 };
+
+
+class KijimiLEDStripComponent: public Component,
+                               public ActionListener
+{
+public:
+    
+    KijimiLEDStripComponent ()
+    {
+    }
+    
+    ~KijimiLEDStripComponent ()
+    {
+        processor->removeActionListener(this);  // Stop receivng messages from processor
+    }
+    
+    void initialize (BabuFrikAudioProcessor* p, const String& _parameterUpdateID)
+    {
+        parameterUpdateID = _parameterUpdateID;
+        
+        // Set processor object
+        processor = p;
+        
+        // Set up listeners
+        processor->addActionListener(this);  // Receive messages from processor
+        
+        // Update selected led
+        updatetSelectedLED();
+    }
+
+    
+    void resized () override
+    {
+    }
+    
+    void paint (Graphics& g) override
+    {
+        Colour redOFFLEDColour = Colour (0xff700000);
+        Colour redONLEDColour = Colour (0xffff0000);
+        
+        float buttonRadius = getWidth();
+        
+        for (int i=0; i<6; i++){
+            if (i==selectedLed){
+                g.setColour(redONLEDColour);
+            } else {
+                g.setColour(redOFFLEDColour);
+            }
+            g.fillEllipse(0,  getHeight()/6 * i, buttonRadius, buttonRadius);
+        }
+    }
+    
+    void updatetSelectedLED(){
+        if (parameterUpdateID != ""){
+            AudioParameterFloat* shapeParam = (AudioParameterFloat*)processor->parameters.getParameter(parameterUpdateID);
+            float shapeVal = shapeParam->get();
+            if (shapeVal < 22){
+                selectedLed = 0;
+            } else if ((shapeVal >= 22) && (shapeVal < 43)){
+                selectedLed = 1;
+            } else if ((shapeVal >= 43) && (shapeVal < 64)){
+                selectedLed = 2;
+            } else if ((shapeVal >= 64) && (shapeVal < 85)){
+                selectedLed = 3;
+            } else if ((shapeVal >= 85) && (shapeVal < 107)){
+                selectedLed = 4;
+            } else {
+                selectedLed = 5;
+            }
+            repaint();
+        }
+    }
+    
+    void actionListenerCallback (const String &message) override
+    {
+        if (message.startsWith(String(ACTION_LFO_LEDS_SHOULD_UPDATE))){
+            updatetSelectedLED();
+        }
+    }
+    
+    
+private:
+    BabuFrikAudioProcessor* processor;
+    String parameterUpdateID = "";
+    int selectedLed = 0;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KijimiLEDStripComponent);
+};
+

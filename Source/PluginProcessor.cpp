@@ -813,6 +813,10 @@ void BabuFrikAudioProcessor::parameterChanged (const String& parameterID, float 
                     logMessage(String::formatted("Sent MIDI CC: %i %i", ccNumber, ccValue));
                 }
             #endif
+            
+            if ((parameterID == "KIJIMI_LFO1_SHAPE") || (parameterID == "KIJIMI_LFO2_SHAPE")){
+                sendActionMessage(ACTION_LFO_LEDS_SHOULD_UPDATE);  // Update LED strips in main panel
+            }
         }
         
         if (!isChangingFromTimbreSpace){
@@ -889,20 +893,6 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
         {
             int ccNumber = m.getControllerNumber();
             int ccValue = m.getControllerValue();
-            
-            /* There is bug with MIDI implementation of SQR and SAW switches in DDRM.
-             The problem is that these controls react to MIDI CC 70 and 71 but send MIDI CC 71
-             and 70 (are inverted in MIDI in/out). The code below fixes this issue and should be
-             changed once this is fixed in DDRM firmware.
-             More details here: https://github.com/ffont/official-ddrm-issue-tracker/issues/39
-             
-             */
-            
-            if (ccNumber == 70){
-                ccNumber = 71;
-            } else if (ccNumber == 71){
-                ccNumber = 70;
-            }
             
             /* Only process MIDI input message if a certain amount of time has passed since
              last time a MIDI CC message was sent from this app to the same CC number. This
