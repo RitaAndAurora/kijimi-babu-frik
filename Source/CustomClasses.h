@@ -14,10 +14,14 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 
-class Button2CycleSlider: public Slider
+class CycleButtonSliderNSteps: public Slider
 {
-    int nSteps = 4;
+    virtual int getNSteps() {
+        return 4;
+    };
+    
     void mouseDown (const MouseEvent&) override {
+        int nSteps = getNSteps();
         double currentValue = round(getValue());
         double stepSize = (getMaximum() + 1) / nSteps;
         double newValue = 0;
@@ -49,4 +53,24 @@ class Button2CycleSlider: public Slider
     void mouseWheelMove (const MouseEvent&, const MouseWheelDetails&) override {
         // Do nothing
     }
+};
+
+class CycleButtonSlider4Steps: public CycleButtonSliderNSteps
+{
+    int getNSteps() override { return 4; };
+};
+
+class CycleButtonSlider3Steps: public CycleButtonSliderNSteps
+{
+    int getNSteps() override { return 3; };
+};
+
+class CycleButtonSlider2Steps: public CycleButtonSliderNSteps
+{
+    int getNSteps() override { return 2; };
+};
+
+class CycleButtonSlider6Steps: public CycleButtonSliderNSteps
+{
+    int getNSteps() override { return 6; };
 };

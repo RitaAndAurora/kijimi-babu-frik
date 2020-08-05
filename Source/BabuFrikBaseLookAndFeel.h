@@ -164,6 +164,8 @@ public:
     void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
                                float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override
     {
+        // Button with 2 LEDs
+        
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
         g.setColour (Colour (0xff555555));
@@ -196,5 +198,54 @@ public:
         
         g.setColour(greenLEDColour);
         g.fillEllipse(x + width - (width * 0.15 + 0.18 * height), y + 0.11 * height, 0.18 * height, 0.18 * height);
+    }
+};
+
+class BabuFrikButton1LookAndFeel: public BabuFrikBaseLookAndFeel
+{
+public:
+    
+    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
+                               float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override
+    {
+        // Button with 1 LED
+        
+        // Outer rectagle
+        juce::Rectangle<int> rectArea (x, y, width, height);
+        g.setColour (Colour (0xff555555));
+        g.drawRect (rectArea, 1.0);
+        
+        // Upper rectangle
+        g.setColour (Colour (0xff555555));
+        g.fillRect (x, y, width, height * 0.385);
+        
+        // LEDs
+        Colour redLEDColour = Colour (0xff700000);
+        if (sliderPos >= 0.5){
+            redLEDColour = Colour (0xffff0000);
+        }
+            
+        g.setColour(redLEDColour);
+        g.fillEllipse(x + width/2 - (0.18 * height)/2, y + 0.11 * height, 0.18 * height, 0.18 * height);
+    }
+};
+
+class BabuFrikButton0LookAndFeel: public BabuFrikBaseLookAndFeel
+{
+public:
+    
+    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
+                               float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override
+    {
+        // Button with NO LEDs
+        
+        // Outer rectagle
+        juce::Rectangle<int> rectArea (x, y, width, height);
+        g.setColour (Colour (0xff555555));
+        g.drawRect (rectArea, 1.0);
+        
+        // Upper rectangle
+        g.setColour (Colour (0xff555555));
+        g.fillRect (x, y, width, height * 0.385);
     }
 };

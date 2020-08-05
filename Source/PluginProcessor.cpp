@@ -187,6 +187,10 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                         "LFO1 decay", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_SHAPE", // parameter ID
+                                                        "LFO1 shape", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_RATE", // parameter ID
                                                         "LFO2 rate", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
@@ -197,6 +201,10 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_D", // parameter ID
                                                         "LFO2 decay", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_SHAPE", // parameter ID
+                                                        "LFO2 shape", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_ENV", // parameter ID
@@ -211,8 +219,24 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                         "VCO1 waveform", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_VCO1_VOL13", // parameter ID
+                                                        "VCO1 volume 1/3", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_VCO1_VOL23", // parameter ID
+                                                        "VCO1 volume 2/3", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_SUB_VOL", // parameter ID
                                                         "Sub volume", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_NOISE_VOL13", // parameter ID
+                                                        "Noise volume 1/3", // parameter name
+                                                        NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
+                                                        64.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_NOISE_VOL23", // parameter ID
+                                                        "Noise volume 2/3", // parameter name
                                                         NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                         64.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VCO2_FREQ", // parameter ID
@@ -385,13 +409,19 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     parameters.addParameterListener ("KIJIMI_LFO1_RATE", this);
     parameters.addParameterListener ("KIJIMI_LFO1_A", this);
     parameters.addParameterListener ("KIJIMI_LFO1_D", this);
+    parameters.addParameterListener ("KIJIMI_LFO1_SHAPE", this);
     parameters.addParameterListener ("KIJIMI_LFO2_RATE", this);
     parameters.addParameterListener ("KIJIMI_LFO2_A", this);
     parameters.addParameterListener ("KIJIMI_LFO2_D", this);
+    parameters.addParameterListener ("KIJIMI_LFO2_SHAPE", this);
     parameters.addParameterListener ("KIJIMI_LFO_ENV", this);
     parameters.addParameterListener ("KIJIMI_VCO1_FREQ", this);
     parameters.addParameterListener ("KIJIMI_VCO1_WAVE", this);
+    parameters.addParameterListener ("KIJIMI_VCO1_VOL13", this);
+    parameters.addParameterListener ("KIJIMI_VCO1_VOL23", this);
     parameters.addParameterListener ("KIJIMI_SUB_VOL", this);
+    parameters.addParameterListener ("KIJIMI_NOISE_VOL13", this);
+    parameters.addParameterListener ("KIJIMI_NOISE_VOL23", this);
     parameters.addParameterListener ("KIJIMI_VCO2_FREQ", this);
     parameters.addParameterListener ("KIJIMI_VCO2WAVE", this);
     parameters.addParameterListener ("KIJIMI_VCO2_VOL", this);
