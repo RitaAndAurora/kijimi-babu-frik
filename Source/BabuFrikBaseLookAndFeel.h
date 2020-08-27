@@ -201,6 +201,90 @@ public:
     }
 };
 
+class BabuFrikButton2AltLookAndFeel: public BabuFrikBaseLookAndFeel
+{
+public:
+    
+    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
+                               float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override
+    {
+        // Button with 2 LEDs (with red and green "ordering" inverted)
+        
+        // Outer rectagle
+        juce::Rectangle<int> rectArea (x, y, width, height);
+        g.setColour (Colour (0xff555555));
+        g.drawRect (rectArea, 1.0);
+        
+        // Upper rectangle
+        g.setColour (Colour (0xff555555));
+        g.fillRect (x, y, width, height * 0.385);
+        
+        // LEDs
+        Colour redLEDColour = Colour (0xff700000);
+        Colour greenLEDColour = Colour (0xff105200);
+        
+        if ((sliderPos > 0.25) && (sliderPos <= 0.5)){
+            redLEDColour = Colour (0xffff0000);
+        }
+        else if ((sliderPos > 0.5) && (sliderPos <= 0.75)){
+            greenLEDColour = Colour (0xff2CFF00);
+        }
+        else if ((sliderPos > 0.75) && (sliderPos <= 1.0)){
+            redLEDColour = Colour (0xffff0000);
+            greenLEDColour = Colour (0xff2CFF00);
+        }
+        else {
+            // Value <= 25%, do nothing
+        }
+            
+        g.setColour(redLEDColour);
+        g.fillEllipse(x + width * 0.15, y + 0.11 * height, 0.18 * height, 0.18 * height);
+        
+        g.setColour(greenLEDColour);
+        g.fillEllipse(x + width - (width * 0.15 + 0.18 * height), y + 0.11 * height, 0.18 * height, 0.18 * height);
+    }
+};
+
+class BabuFrikButton2Alt3ValuesLookAndFeel: public BabuFrikBaseLookAndFeel
+{
+public:
+    
+    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
+                               float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override
+    {
+        // Button with 2 LEDs (with red and green "ordering" inverted)
+        
+        // Outer rectagle
+        juce::Rectangle<int> rectArea (x, y, width, height);
+        g.setColour (Colour (0xff555555));
+        g.drawRect (rectArea, 1.0);
+        
+        // Upper rectangle
+        g.setColour (Colour (0xff555555));
+        g.fillRect (x, y, width, height * 0.385);
+        
+        // LEDs
+        Colour redLEDColour = Colour (0xff700000);
+        Colour greenLEDColour = Colour (0xff105200);
+        
+        if ((sliderPos > 0.0) && (sliderPos <= 0.33)){
+            // Nothing (no led on)
+        }
+        else if ((sliderPos > 0.33) && (sliderPos <= 0.66)){
+            redLEDColour = Colour (0xffff0000);
+        }
+        else if ((sliderPos > 0.66) && (sliderPos <= 1.0)){
+            greenLEDColour = Colour (0xff2CFF00);
+        }
+            
+        g.setColour(redLEDColour);
+        g.fillEllipse(x + width * 0.15, y + 0.11 * height, 0.18 * height, 0.18 * height);
+        
+        g.setColour(greenLEDColour);
+        g.fillEllipse(x + width - (width * 0.15 + 0.18 * height), y + 0.11 * height, 0.18 * height, 0.18 * height);
+    }
+};
+
 class BabuFrikButton1LookAndFeel: public BabuFrikBaseLookAndFeel
 {
 public:
