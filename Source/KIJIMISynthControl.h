@@ -95,6 +95,9 @@ public:
                         midiVal = 48.0;
                     } else if (byteValue == 3){
                         midiVal = 112.0;
+                    } else {
+                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 80.0" << std::endl;
+                        midiVal = 80.0;
                     }
                 }
                 else if (byteToMidiConversionType == "115_94_73_52_31_10") {
@@ -111,6 +114,9 @@ public:
                         midiVal = 31.0;
                     } else if (byteValue == 5){
                         midiVal = 10.0;
+                    } else {
+                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 115.0" << std::endl;
+                        midiVal = 115.0;
                     }
                 }
                 else if  (byteToMidiConversionType == "16_48_80_112") {
@@ -123,6 +129,9 @@ public:
                         midiVal = 80.0;
                     } else if (byteValue == 3){
                         midiVal = 112.0;
+                    } else {
+                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 16.0" << std::endl;
+                        midiVal = 16.0;
                     }
                 }
                 else if  (byteToMidiConversionType == "-_16_48_80_112") {
@@ -135,6 +144,9 @@ public:
                         midiVal = 80.0;
                     } else if (byteValue == 4){
                         midiVal = 112.0;
+                    } else {
+                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 16.0" << std::endl;
+                        midiVal = 16.0;
                     }
                 }
                 else if  (byteToMidiConversionType == "21_63_105") {
@@ -145,6 +157,9 @@ public:
                         midiVal = 63.0;
                     } else if (byteValue == 2){
                         midiVal = 105.0;
+                    } else {
+                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 21.0" << std::endl;
+                        midiVal = 21;
                     }
                 }
                 else if  (byteToMidiConversionType == "32_96") {
@@ -153,6 +168,9 @@ public:
                         midiVal = 32.0;
                     } else if (byteValue == 1){
                         midiVal = 96.0;
+                    } else {
+                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 32.0" << std::endl;
+                        midiVal = 32;
                     }
                 }
                 
@@ -162,8 +180,8 @@ public:
                     return jlimit(0.0, 1.0, (double)midiVal / 127.0);
                 } else {
                     // No conversion rule matched, this should not happen...
-                    std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << std::endl;
-                    return -1.0;
+                    std::cout << "Could not find conversion rule for byte value. Defaulting to 0." << std::endl;
+                    return 0.0;
                 }
             } else {
                 // If parameter is not MIDI CC controllable, normalize using standard parameter range divide
@@ -172,7 +190,7 @@ public:
             }
         }
         
-        return -1.0;
+        return 0.0;
     }
     
     void updatePresetByteArray (float normValue, KIJIMIPresetBytes& bytes)
