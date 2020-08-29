@@ -1249,7 +1249,7 @@ void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
     std::unique_ptr<XmlElement> xml (state.createXml());
     copyXmlToBinary (*xml, destData);
     
-    // std::cout << xml->createDocument("") <<std::endl;
+    //std::cout << xml->createDocument("") <<std::endl;
 }
 
 void BabuFrikAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
@@ -1840,7 +1840,8 @@ void BabuFrikAudioProcessor::actionListenerCallback (const String &message)
 
 File BabuFrikAudioProcessor::getDirectoryForFileSaveLoad ()
 {
-    return lastUsedDirectoryForFileIO;
+    return File::getSpecialLocation (File::userHomeDirectory);
+    //return lastUsedDirectoryForFileIO;
 }
 
 void BabuFrikAudioProcessor::setLastUserDirectoryForFileSaveLoad (File file)
