@@ -5,8 +5,8 @@
               pluginName="Babu Frik" pluginManufacturerCode="RaAu" pluginCode="BAFR"
               pluginDesc="Make your KIJIMI synthetizer sing in sith!" pluginVST3Category="Fx"
               bundleIdentifier="com.RaA.BabuFrik" reportAppUsage="0" pluginAUExportPrefix="BabuFrikAU"
-              aaxIdentifier="com.RaA.BabuFrik" headerPath="/Users/ffont/Developer/kijimi-babu-frik/Includes&#10;Z:\babu-frik-plugin\Includes"
-              pluginFormats="buildAU,buildStandalone,buildVST,buildVST3" companyWebsite="https://ritaandaurora.github.io"
+              aaxIdentifier="com.RaA.BabuFrik" headerPath="../../Includes"
+              pluginFormats="buildAU,buildStandalone,buildVST3" companyWebsite="https://ritaandaurora.github.io"
               projectLineFeed="&#10;">
   <MAINGROUP id="pLzrNG" name="BabuFrik">
     <GROUP id="{2C18E4FC-5DCD-1DA1-A8D5-AB212A37041B}" name="Resources">
@@ -693,21 +693,21 @@
         <CONFIGURATION isDebug="0" name="Release" targetName="BabuFrik"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_video" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="3rdParty/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2019 targetFolder="Builds/VisualStudio2019" smallIcon="qXwzQt" bigIcon="qXwzQt"
@@ -717,21 +717,21 @@
         <CONFIGURATION isDebug="0" name="Release" targetName="BabuFrik"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_video" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_opengl" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_gui_extra" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_gui_basics" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_graphics" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_events" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_data_structures" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_cryptography" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_core" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_audio_utils" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_audio_processors" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_audio_formats" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_audio_devices" path="C:\JUCE\modules"/>
-        <MODULEPATH id="juce_audio_basics"/>
+        <MODULEPATH id="juce_video" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="3rdParty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="3rdParty/JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
   </EXPORTFORMATS>
