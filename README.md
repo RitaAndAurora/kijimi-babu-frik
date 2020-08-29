@@ -1,64 +1,93 @@
 # Babu Frik, a Droidsmith for KIJIMI
 
-WIP software editor for Black Corportation's KIJIMI. You should not be seeing this page :)
+WORK IN PROGRESS software editor for Black Corportation's KIJIMI. More information: [https://www.kickstarter.com/projects/454739355/babu-frik-make-your-kijimi-sing-in-sith](https://www.kickstarter.com/projects/454739355/babu-frik-make-your-kijimi-sing-in-sith) 
+
+
+## Download
+
+Babu Frik is not yet released! Nevertheless, you can already find beta releases in the [Releases](https://github.com/RitaAndAurora/kijimi-babu-frik/releases) section and test them :)
+Don't hesitate to report bugs or make suggestions using the tools in the [issues section](https://github.com/ritaandaurora/kijimi-babu-frik/issues).
+
+**WARNING: beta releaes lack features and contain bugs, don't expect them to work perfectly. Please always read the corresponding release notes.**
+
+
+## Help
+
+Babu Frik's manual is not yet ready! However, you can use [J.F. Sebastian's manual](https://github.com/RitaAndAurora/ddrm-jfsebastian/blob/master/MANUAL.md) (the equivalent of Babu Frik, but for Deckard's Dream) as it might answer most of your questions and both apps work basically the same :)
+
 
 ## Build instructions
 
-OcotpushOS is implemented as a JUCE audio plug-in and can be edited and built using standard JUCE workflows. It uses the [Trakction Engine](https://github.com/Tracktion/tracktion_engine) to do all the hard audio processing tasks. The plugin runs on the [ELK Audio Os](https://elk.audio) platform (with a Raspberry Pi and the ELK development board, with 8 audio inputs and 8 audio outptus). Ableton Push2 is connected to the Raspberry Pi via USB, and Octopush connects to it to use it as the hardware interface.
+Babu Frik is implemented as a JUCE audio plug-in/standalone app and can be edited and built using standard JUCE workflows. To build Baby Frik you need to
 
-
-### Repository checkout
-
-You need to checkout the code including submodules. This will download source code for all required 3rd party libraries (JUCE, etc.)
+1) checktout the code repository including submodules;
 
 ```
-git clone https://github.com/ffont/octopush.git && cd octopush && git submodule update --init
+git clone https://github.com/RitaAndAurora/kijimi-babu-frik.git && cd kijimi-babu-frik.git && git submodule update --init
 ```
 
-### Building Projucer
+2) open the project files  for *XCode* (macOS) and *Visual Studio 2019* (windows) you'll find in the `Builds/` folder and compile the projects there.
 
-For development, you'll want to build Projucer so you can edit `OctopushOS.jucer` file. Even though you can use pre-built Projucer downloaded from JUCE website, here we provide a script to build a GPL-enabled version of Projucer. `cd` into the cloned repository and run the following:
-
-```
-cd scripts
-./build_release_projucer_gpl
-```
-
-This builds the audio plugin in several formats as well as astandalone executable. which will be placed in `OctopushOS/3rdParty/juce/extras/Projucer/Builds/MacOSX/build/Release/Projucer` (MacOSX) or `OctopushOS/3rdParty/juce/extras/Projucer/Builds/LinuxMakefile/build/Release/Projucer` (Linux) depending on the platform you're running it from. Plugin version will be palced next to the executables.
-
-If building from Linux, the following dependencies need to be installed:
-```
-# JUCE dependencies
-apt-get install clang git ladspa-sdk freeglut3-dev g++ libasound2-dev libcurl4-openssl-dev libfreetype6-dev libjack-jackd2-dev libx11-dev libxcomposite-dev libxcursor-dev libxinerama-dev libxrandr-dev mesa-common-dev webkit2gtk-4.0 juce-tools
-
-# push2-display-with-juce dependencies
-apt-get install libusb-1.0-0-dev
-```
-This list of dependencies was taken from [this forum thread](https://forum.juce.com/t/list-of-juce-dependencies-under-linux/15121/31). It could be the case that some of these are actually not needed, I have not tested them individually.
+For advanced development options you'll need to open the `BabuFrik.jucer` using JUCE's Projucer, but this is not needed for basic edits and/or building Babu Frik. Note that if you go that way you'll need a Projucer version which is compatible with Babu Frik. The best way to go is to compile Projucer from the JUCE submodule in the code repository (i.e. use project files in `3rdParty/JUCE/extras/Projucer/Builds/`). 
 
 
-**NOTE**: OctopushOS is configured to be built in different plugin formats including legacy VST2. To do that you'll need to place the legacy VST2 framework files. VST2 builds require to have the VST2 sdk properly installed in a folder specified i the projucer file. I enable VST2 target because I need to build Octopush as a plugin for linux when running in Raspberry Pi, and the version I use of JUCE does not support VST3 plugin builds for linux. If you don't want to build VST2, just untick the VST2 option from the jucer file using Projucer.
+## Licensing
+
+Babu Frik is released under the **GPLv3** open source software license (see [LICENSE](https://github.com/ritaandaurora/ddrm-jfsebastian/blob/master/LICENSE) file) with the code being available at  [https://github.com/ritaandaurora/kijimi-babu-frik](https://github.com/ritaandaurora/kijimi-babu-frik). Babu Frik uses the following open source software libraries: 
+
+ * [tapkee](http://tapkee.lisitsyn.me), available under BSD 3-clause license 
+ * [delaunator-cpp](https://github.com/delfrrr/delaunator-cpp), available underMIT license
+ * [juce](https://juce.com), available under GPLv3 license 
+ 
 
 
-### Development build
+## Credits and acknowledgements
 
-To build OctopushOS during development you can use project files for Xcode (MacOSX) or the Makefile (Linux). You'll find these in the `OctopushOS/Builds/` folder. Alternatively you can use the provided utility script. `cd` into the cloned repository and run the following:
+Babu Frik has been ideated and developed by [Rita & Aurora](https://ritaandaurora.github.io), a sort of fancy branding name I've given to my audio-developer [self](https://ffont.github.io). Nevertheless, Babu Frik would have not been possible without the generous contributions of **BLACK CORPORATION** and the **KICKSTARTER BACKERS**. Infinite thanks to all of you:
 
-```
-cd scripts
-./build_debug_octopushOS
-```
+#### Absolutely awesome backers
+ - FREQNOIR
+ - MONTY BRANDENBERG
+ - ROB BEKHUIS
+ - RODRIGUE DUCOURANT
+ - RON DEACON
+ - STEPHEN DRAKE
 
-The generated executable (for the santadalone version) will be placed in `OctopushOS/Builds/MacOSX/build/Debug/OctopushOS` (MacOSX) or `OctopushOS/Builds/LinuxMakefile/build/Debug/OctopushOS` (Linux) depending on the platform you're running it from. Plugin version will be palced next to the executables.
+#### Gold backers
+- Anasia
+- Antonio Martinez
+- Derek Matthew Duke
+- Eric Harder
+- Jeremy Curtis
+- Kevin T. Looney
+- Neil Huxley
+- Robert Kukuchka
+- Rupert Williams
+- STEGA
+- triangle
+- Unkar Plutt
 
 
-### 4.4 Release build
+#### Silver backers
+- Christer Janson
+- Claudiu D.
+- Cléo
+- Jake Boswell
+- Jon Daou
+- Kevin Meyer
+- Reggie Barnes
 
-A utility script is provided to build OctopushOS in release mode. `cd` into the cloned repository and run the following:
 
-```
-cd scripts
-./build_release_octopushOS
-```
+#### Bronze backers
+- Alex Taam
+- Dan Formless (Forward Movement)
+- David Forman
+- Janne Isotalo
+- Morgan Ross
+- Pyramid
+- René M Thalund
 
-The generated executable (for the santadalone version) will be placed in `OctopushOS/Builds/MacOSX/build/Release/OctopushOS` (MacOSX) or `OctopushOS/Builds/LinuxMakefile/build/Release/OctopushOS ` (Linux) depending on the platform you're running it from. Plugin version will be palced next to the executables.
+
+<p align="center">
+<a href="https://ritaandaurora.github.io"><img src="docs/Rita&AuroraAudioLogo-square.png" width="250" /></a>
+</p>
