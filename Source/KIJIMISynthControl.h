@@ -96,7 +96,7 @@ public:
                     } else if (byteValue == 3){
                         midiVal = 112.0;
                     } else {
-                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 80.0" << std::endl;
+                        std::cout << "Unexpected byte value for control '" << name << "' and conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 80.0" << std::endl;
                         midiVal = 80.0;
                     }
                 }
@@ -115,7 +115,7 @@ public:
                     } else if (byteValue == 5){
                         midiVal = 10.0;
                     } else {
-                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 115.0" << std::endl;
+                        std::cout << "Unexpected byte value for control '" << name << "' and conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 115.0" << std::endl;
                         midiVal = 115.0;
                     }
                 }
@@ -130,7 +130,7 @@ public:
                     } else if (byteValue == 3){
                         midiVal = 112.0;
                     } else {
-                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 16.0" << std::endl;
+                        std::cout << "Unexpected byte value for control '" << name << "' and conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 16.0" << std::endl;
                         midiVal = 16.0;
                     }
                 }
@@ -145,7 +145,7 @@ public:
                     } else if (byteValue == 4){
                         midiVal = 112.0;
                     } else {
-                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 16.0" << std::endl;
+                        std::cout << "Unexpected byte value for control '" << name << "' and conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 16.0" << std::endl;
                         midiVal = 16.0;
                     }
                 }
@@ -158,7 +158,7 @@ public:
                     } else if (byteValue == 2){
                         midiVal = 105.0;
                     } else {
-                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 21.0" << std::endl;
+                        std::cout << "Unexpected byte value for control '" << name << "' and conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 21.0" << std::endl;
                         midiVal = 21;
                     }
                 }
@@ -169,7 +169,7 @@ public:
                     } else if (byteValue == 1){
                         midiVal = 96.0;
                     } else {
-                        std::cout << "Unexpected byte value for conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 32.0" << std::endl;
+                        std::cout << "Unexpected byte value for control '" << name << "' and conv type " << byteToMidiConversionType << ":" << byteValue << ". Defaulting to 32.0" << std::endl;
                         midiVal = 32;
                     }
                 }
@@ -180,7 +180,7 @@ public:
                     return jlimit(0.0, 1.0, (double)midiVal / 127.0);
                 } else {
                     // No conversion rule matched, this should not happen...
-                    std::cout << "Could not find conversion rule for byte value. Defaulting to 0." << std::endl;
+                    std::cout << "Could not find conversion rule for control '" << name << "' byte value. Defaulting to 0." << std::endl;
                     return 0.0;
                 }
             } else {
