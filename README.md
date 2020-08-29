@@ -1,5 +1,9 @@
 # Babu Frik, a Droidsmith for KIJIMI
 
+![Babu Frik screenshot](docs/screenshot_beta_1000.png)
+
+## Overview
+
 WORK IN PROGRESS software editor for Black Corportation's KIJIMI. More information: [https://www.kickstarter.com/projects/454739355/babu-frik-make-your-kijimi-sing-in-sith](https://www.kickstarter.com/projects/454739355/babu-frik-make-your-kijimi-sing-in-sith) 
 
 

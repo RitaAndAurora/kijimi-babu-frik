@@ -15,7 +15,7 @@ namespace BinaryData
     const int            RitaAuroraLogo1_pngSize = 420567;
 
     extern const char*   TitleLogo_png;
-    const int            TitleLogo_pngSize = 17257;
+    const int            TitleLogo_pngSize = 19899;
 
     extern const char*   MODENINE_TTF;
     const int            MODENINE_TTFSize = 22256;
@@ -27,7 +27,7 @@ namespace BinaryData
     const int            KijimiExtraPanelBackground_pngSize = 77816;
 
     extern const char*   KijimiMainPanelBackground_png;
-    const int            KijimiMainPanelBackground_pngSize = 178918;
+    const int            KijimiMainPanelBackground_pngSize = 201945;
 
     extern const char*   default_state_xml;
     const int            default_state_xmlSize = 7;

@@ -126,7 +126,8 @@ void BabuFrikAudioProcessorEditor::resized()
     accumulatedHeight += kijimiControlPanelHeight - unitMargin;  // Remove unit margin as it is already embeded in TS component
     
     if (_showTimbreSpace){
-        timbreSpace.setBounds (0.368 * fullWidth, accumulatedHeight, (1 - 0.368) * (fullWidth + 0.5 * unitMargin), timbreSpaceHeight);
+        //timbreSpace.setBounds (0.368 * fullWidth, accumulatedHeight, (1 - 0.368) * (fullWidth + 0.5 * unitMargin), timbreSpaceHeight);
+        timbreSpace.setBounds (0, accumulatedHeight, fullWidth, timbreSpaceHeight);  // NOTE: for now use a full-width version!
         accumulatedHeight += timbreSpaceHeight;
     }
     
