@@ -60,7 +60,7 @@ public:
         MemoryBlock fileContents;
         path.loadFileAsData(fileContents);
         presetsBytes.clear();
-        for (int i=0; i<fileContents.getSize(); i=i+KIJIMI_PRESET_NUM_BYTES){  // Move in blocks of 98 bytes (KIJIMI preset size)
+        for (int i=0; i<fileContents.getSize(); i=i+KIJIMI_PRESET_NUM_BYTES){  // Move in blocks of KIJIMI_PRESET_NUM_BYTES bytes (KIJIMI preset size)
             KIJIMIPresetBytes currentPresetBytes = {0};
             for (int j=0; j<KIJIMI_PRESET_NUM_BYTES; j++){  // Go byte by byte
                 unsigned char byte = fileContents[i + j];
