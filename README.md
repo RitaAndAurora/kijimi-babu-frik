@@ -12,6 +12,20 @@ WORK IN PROGRESS software editor for Black Corportation's KIJIMI. More informati
 Babu Frik is not yet released! Nevertheless, you can already find beta releases in the [Releases](https://github.com/RitaAndAurora/kijimi-babu-frik/releases) section and test them :)
 Don't hesitate to report bugs or make suggestions using the tools in the [issues section](https://github.com/ritaandaurora/kijimi-babu-frik/issues).
 
+The beta releases don't include an installer, so **you'll have to install the plugins/standalone app manually**. To do that, you should copy the downloaded files in the following location(s):
+
+*macOS*
+ 
+  * `BabuFrik.app` (Stand-alone app): `/Applications/`
+  * `BabuFrik.vst3` (VST3): `/Library/Audio/Plug-Ins/VST3/`
+  * `BabuFrik.component` (AU): `/Library/Audio/Plug-Ins/Components/`
+
+ *windows*
+ 
+  * `BabuFrik.exe` (Stand-alone app): `c:\Program Files (x86)\JFSebastian\`
+  * `BabuFrik.vst3` (VST3): `c:\Program Files (x86)\Common Files\VST3\`
+
+
 **WARNING: beta releaes lack features and contain bugs, don't expect them to work perfectly. Please always read the corresponding release notes.**
 
 
