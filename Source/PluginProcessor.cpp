@@ -1842,8 +1842,7 @@ void BabuFrikAudioProcessor::actionListenerCallback (const String &message)
 
 File BabuFrikAudioProcessor::getDirectoryForFileSaveLoad ()
 {
-    return File::getSpecialLocation (File::userHomeDirectory);
-    //return lastUsedDirectoryForFileIO;
+    return lastUsedDirectoryForFileIO;
 }
 
 void BabuFrikAudioProcessor::setLastUserDirectoryForFileSaveLoad (File file)
