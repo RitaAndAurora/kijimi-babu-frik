@@ -47,7 +47,7 @@ Babu Frik is released under the **GPLv3** open source software license (see [LIC
 
 ## Credits and acknowledgements
 
-Babu Frik has been ideated and developed by [Rita & Aurora](https://ritaandaurora.github.io), a sort of fancy branding name I've given to my audio-developer [self](https://ffont.github.io). Nevertheless, Babu Frik would have not been possible without the generous contributions of **BLACK CORPORATION** and the **KICKSTARTER BACKERS**. Infinite thanks to all of you:
+Babu Frik has been ideated and developed by [Rita & Aurora](https://ritaandaurora.github.io), a sort of fancy branding name I've given to my audio-developer [self](https://ffont.github.io). Nevertheless, Babu Frik would have not been possible without the generous contributions of [**BLACK CORPORATION**](http://black-corporation.com) and the **KICKSTARTER BACKERS**. Infinite thanks to all of you:
 
 #### Absolutely awesome backers
  - FREQNOIR

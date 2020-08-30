@@ -1492,12 +1492,14 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 #endif
                 
                 // Set parameter value from MIDI message
-                const ScopedValueSetter<bool> scopedInputFlag (isReceivingFromMidiInput, true);
-                float newValue = (float)ccValue/127.0;
                 const String parameterID = kijimiInterface->getParameterIDFromCCNumber(ccNumber);
-                parameters.getParameter(parameterID)->beginChangeGesture();
-                parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
-                parameters.getParameter(parameterID)->endChangeGesture();
+                if (kijimiInterface->getKIJIMISynthControlWithID(parameterID)->shouldHandleMidiInput()) {  // Only update parameters that accept MIDI input
+                    const ScopedValueSetter<bool> scopedInputFlag (isReceivingFromMidiInput, true);
+                    float newValue = (float)ccValue/127.0;
+                    parameters.getParameter(parameterID)->beginChangeGesture();
+                    parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
+                    parameters.getParameter(parameterID)->endChangeGesture();
+                }
             }
         }
     }

@@ -15,7 +15,7 @@ class KIJIMISynthControl
 
 {
 public:
-    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _byteNumber, const String& _byteToMidiConversionType, int _range, bool _includeOnTimbreSpace)
+    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _byteNumber, const String& _byteToMidiConversionType, int _range, bool _includeOnTimbreSpace, bool _acceptMidiInput)
     {
         ID = _ID;
         name = _name;
@@ -25,6 +25,7 @@ public:
         byteToMidiConversionType = _byteToMidiConversionType;
         range = _range;
         includeOnTimbreSpace = _includeOnTimbreSpace;
+        acceptMidiInput = _acceptMidiInput;
     }
     
     ~KIJIMISynthControl ()
@@ -293,6 +294,10 @@ public:
         }
     }
     
+    bool shouldHandleMidiInput() {
+        return acceptMidiInput;
+    }
+    
 private:
     
     String ID;
@@ -303,4 +308,5 @@ private:
     String byteToMidiConversionType;
     int range;
     bool includeOnTimbreSpace;
+    bool acceptMidiInput;
 };
