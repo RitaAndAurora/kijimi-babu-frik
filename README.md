@@ -34,7 +34,7 @@ The beta releases don't include an installer, so **you'll have to install the pl
 Babu Frik's manual is not yet ready! However, you can use [J.F. Sebastian's manual](https://github.com/RitaAndAurora/ddrm-jfsebastian/blob/master/MANUAL.md) (the equivalent of Babu Frik, but for Deckard's Dream) as it might answer most of your questions and both apps work basically the same :)
 
 
-## Build instructions
+## Build instructions (for developers)
 
 Babu Frik is implemented as a JUCE audio plug-in/standalone app and can be edited and built using standard JUCE workflows. To build Baby Frik you need to
 
@@ -49,7 +49,7 @@ git clone https://github.com/RitaAndAurora/kijimi-babu-frik.git && cd kijimi-bab
 For advanced development options you'll need to open the `BabuFrik.jucer` using JUCE's Projucer, but this is not needed for basic edits and/or building Babu Frik. Note that if you go that way you'll need a Projucer version which is compatible with Babu Frik. The best way to go is to compile Projucer from the JUCE submodule in the code repository (i.e. use project files in `3rdParty/JUCE/extras/Projucer/Builds/`). 
 
 
-## Licensing
+## License
 
 Babu Frik is released under the **GPLv3** open source software license (see [LICENSE](https://github.com/ritaandaurora/ddrm-jfsebastian/blob/master/LICENSE) file) with the code being available at  [https://github.com/ritaandaurora/kijimi-babu-frik](https://github.com/ritaandaurora/kijimi-babu-frik). Babu Frik uses the following open source software libraries: 
 
