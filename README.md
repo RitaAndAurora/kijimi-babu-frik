@@ -1,4 +1,4 @@
-# Babu Frik, a Droidsmith for KIJIMI
+# Babu Frik, a droidsmith for KIJIMI
 
 ![Babu Frik screenshot](docs/screenshot_beta_1000.png)
 
