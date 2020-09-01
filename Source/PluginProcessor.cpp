@@ -802,7 +802,7 @@ void BabuFrikAudioProcessor::parameterChanged (const String& parameterID, float 
             }
         #endif
         
-        if ((midiOutput.get() != nullptr) && (!isReceivingFromMidiInput)){
+        if ((midiOutput.get() != nullptr) && (!isReceivingFromMidiInput) && (!isChangingFromGettingKijimiState)){
             int ccNumber = kijimiInterface->getCCNumberForParameterID(parameterID);
             int ccValue = (int)newValue;
             MidiMessage msg = MidiMessage::controllerEvent(midiOutputChannel, ccNumber, ccValue);
@@ -924,6 +924,7 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                         currentPresetBytes[i] = buf[i - 3];
                     }
                 }
+                const ScopedValueSetter<bool> scopedInputFlag (isChangingFromGettingKijimiState, true);
                 SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetBytesArray(currentPresetBytes);
                 setParametersFromSynthControlIdValuePairs(idValuePairs);
             }
