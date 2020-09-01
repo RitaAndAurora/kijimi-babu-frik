@@ -112,6 +112,8 @@ public:
     void randomizeControlValues (float amount);
     void importFromPatchFile ();
     void saveToPatchFile ();
+    void loadControlsStateFromSynth ();
+    int64 lastTimeGetStateSysexMessageSent = 0;
     
     // Timbre Space Engine
     void computeTimbreSpace ();

@@ -888,43 +888,89 @@ void BabuFrikAudioProcessor::triggerMidiDevicesScan ()
 
 void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const MidiMessage& m)
 {
-    if ((midiInputChannel == -1) || (m.getChannel() == midiInputChannel))
-    {
-        if (m.isController())
-        {
-            int ccNumber = m.getControllerNumber();
-            int ccValue = m.getControllerValue();
-            
-            /* Only process MIDI input message if a certain amount of time has passed since
-             last time a MIDI CC message was sent from this app to the same CC number. This
-             is to avoid a problem in DDRM which will replicate every MIDI message it receives
-             and forward it to its output. If the message came from this app we want to ignore the
-             replica sent by DDRM. The amount of time that should pass is defined in
-             MIDI_IN_SAME_CC_TIME_THRESHOLD_MS.
-             
-             To implement that check, everytime we send a MIDI CC message we store a timestamp
-             in timestampsLastCCSent array. timestampsLastCCSent has 128 positions and each position
-             stores the timestamp for the last time a MIDI message was sent to the corresponding CC
-             value (per the position). E.g.: position 1 = MIDI CC #1.
-             */
-            
-            int64 currentTime = Time::getCurrentTime().toMilliseconds();
-            int64 lastMessageSentToSameCCTime = timestampsLastCCSent[ccNumber];
-            if ((currentTime - lastMessageSentToSameCCTime) > MIDI_IN_SAME_CC_TIME_THRESHOLD_MS){
-                #if JUCE_DEBUG
-                    if (LOG_MIDI_IN == 1){
-                        logMessage("Received MIDI CC from " + source->getName() + String::formatted(": %i %i", ccNumber, ccValue));
+    // Check if waiting state for get controls state sysex should be invalidated
+    if (lastTimeGetStateSysexMessageSent != 0){
+        int64 currentTime = Time::currentTimeMillis();
+        if (currentTime - lastTimeGetStateSysexMessageSent > MAX_MILLISECONDS_WAITING_SYSEX_RESPONSE){
+            lastTimeGetStateSysexMessageSent = 0;
+        }
+    }
+    
+    if (m.isSysEx()){
+        // If message is sysex, check if we're indeed waiting to receive sysex and process it accordingly
+        if (lastTimeGetStateSysexMessageSent != 0){
+            if (m.getSysExDataSize() == 258){
+                // State information sysex message
+                // Create a KIJIMIPresetBytes object using the received data and load it to controls
+                const uint8 *buf = m.getSysExData();
+                KIJIMIPresetBytes currentPresetBytes = {0};
+                for (int i=0; i<KIJIMI_PRESET_NUM_BYTES; i++){  // Go byte by byte
+                    if (i == 0){  // Fake sysex start byte
+                        currentPresetBytes[i] = 0;
+                    } else if (i == 1){  // Fake KIJIMI device ID
+                        currentPresetBytes[i] = 0;
+                    } else if (i == 2){  // Fake state patch command
+                        currentPresetBytes[i] = 0;
+                    } else if (i == 3){  // Fake bank number
+                        currentPresetBytes[i] = 0;
+                    } else if (i == 4){  // Fake patch number
+                        currentPresetBytes[i] = 0;
+                    } else if (i == 261) {  // Fake sysex end byte
+                        currentPresetBytes[i] = 0;
+                    } else {
+                        // For other values of i, retrieve corresponding byte from m.getSysExData()
+                        // Note that message data is of length 258 and kijimi preset data is of length 262. This is because
+                        // sysex data skips sysex start/end bytes and bank/patch bytes, therefore we apply an offset of -3 bytes
+                        currentPresetBytes[i] = buf[i - 3];
                     }
-                #endif
+                }
+                SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetBytesArray(currentPresetBytes);
+                setParametersFromSynthControlIdValuePairs(idValuePairs);
+            }
+            lastTimeGetStateSysexMessageSent = 0; // Set time "flag" to 0 to indicate we're not waiting any longer
+        } else {
+            // If time "flag" is set to 0, we ignore the sysex message as we're not in "waiting" mode
+        }
+    } else {
+        // If not SysEx, process message only if midi input channel is matched
+        if ((midiInputChannel == -1) || (m.getChannel() == midiInputChannel))
+        {
+            if (m.isController())
+            {
+                int ccNumber = m.getControllerNumber();
+                int ccValue = m.getControllerValue();
                 
-                // Set parameter value from MIDI message
-                const String parameterID = kijimiInterface->getParameterIDFromCCNumber(ccNumber);
-                if (kijimiInterface->getKIJIMISynthControlWithID(parameterID)->shouldHandleMidiInput()) {  // Only update parameters that accept MIDI input
-                    const ScopedValueSetter<bool> scopedInputFlag (isReceivingFromMidiInput, true);
-                    float newValue = (float)ccValue/127.0;
-                    parameters.getParameter(parameterID)->beginChangeGesture();
-                    parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
-                    parameters.getParameter(parameterID)->endChangeGesture();
+                /* Only process MIDI input message if a certain amount of time has passed since
+                 last time a MIDI CC message was sent from this app to the same CC number. This
+                 is to avoid a problem in DDRM which will replicate every MIDI message it receives
+                 and forward it to its output. If the message came from this app we want to ignore the
+                 replica sent by DDRM. The amount of time that should pass is defined in
+                 MIDI_IN_SAME_CC_TIME_THRESHOLD_MS.
+                 
+                 To implement that check, everytime we send a MIDI CC message we store a timestamp
+                 in timestampsLastCCSent array. timestampsLastCCSent has 128 positions and each position
+                 stores the timestamp for the last time a MIDI message was sent to the corresponding CC
+                 value (per the position). E.g.: position 1 = MIDI CC #1.
+                 */
+                
+                int64 currentTime = Time::getCurrentTime().toMilliseconds();
+                int64 lastMessageSentToSameCCTime = timestampsLastCCSent[ccNumber];
+                if ((currentTime - lastMessageSentToSameCCTime) > MIDI_IN_SAME_CC_TIME_THRESHOLD_MS){
+                    #if JUCE_DEBUG
+                        if (LOG_MIDI_IN == 1){
+                            logMessage("Received MIDI CC from " + source->getName() + String::formatted(": %i %i", ccNumber, ccValue));
+                        }
+                    #endif
+                    
+                    // Set parameter value from MIDI message
+                    const String parameterID = kijimiInterface->getParameterIDFromCCNumber(ccNumber);
+                    if (kijimiInterface->getKIJIMISynthControlWithID(parameterID)->shouldHandleMidiInput()) {  // Only update parameters that accept MIDI input
+                        const ScopedValueSetter<bool> scopedInputFlag (isReceivingFromMidiInput, true);
+                        float newValue = (float)ccValue/127.0;
+                        parameters.getParameter(parameterID)->beginChangeGesture();
+                        parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
+                        parameters.getParameter(parameterID)->endChangeGesture();
+                    }
                 }
             }
         }
@@ -1221,6 +1267,19 @@ void BabuFrikAudioProcessor::saveToPatchFile ()
             synthControl->updatePresetByteArray(audioParameter->get() / 127.0, currentPresetBytes);
         }
         file.replaceWithData(&currentPresetBytes, KIJIMI_PRESET_NUM_BYTES);
+    }
+}
+
+void BabuFrikAudioProcessor::loadControlsStateFromSynth ()
+{
+    if (lastTimeGetStateSysexMessageSent == 0) {  // 0 is used to indicate that we're not waiting for a response
+        if (midiOutput.get() != nullptr) {
+            // Send MIDI sysex message with the code "get current state" that KIJIMI will understand
+            uint8 sysexdata[] = { 0x02, 0x14 };  // 0xF0 ... and 0xF7 are added by JUCE
+            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
+            midiOutput.get()->sendMessageNow(msg);
+            lastTimeGetStateSysexMessageSent = Time::getCurrentTime().toMilliseconds();  // Store the time the message was sent
+        }
     }
 }
 

@@ -24,11 +24,11 @@ public:
     ControlPanelActionsComponent ()
     {
         importButton.addListener (this);
-        importButton.setButtonText("Import...");
+        importButton.setButtonText("Load patch");
         addAndMakeVisible (importButton);
         
         saveButton.addListener (this);
-        saveButton.setButtonText("Save...");
+        saveButton.setButtonText("Save patch");
         addAndMakeVisible (saveButton);
         
         randomizeButton.addListener (this);
@@ -36,8 +36,12 @@ public:
         addAndMakeVisible (randomizeButton);
         
         sendButton.addListener (this);
-        sendButton.setButtonText("Send to synth...");
-        addAndMakeVisible (sendButton);    
+        sendButton.setButtonText("Send to synth");
+        addAndMakeVisible (sendButton);
+        
+        loadStateButton.addListener (this);
+        loadStateButton.setButtonText("Load from synth");
+        addAndMakeVisible (loadStateButton);
     }
     
     ~ControlPanelActionsComponent ()
@@ -64,6 +68,7 @@ public:
         saveButton.setBounds (1 * (buttonWidthShort + margin), 0, buttonWidthShort, buttonHeight);
         randomizeButton.setBounds (2 * (buttonWidthShort + margin), 0, buttonWidthLong, buttonHeight);
         sendButton.setBounds (2 * (buttonWidthShort + margin) + 1 * (buttonWidthLong + margin), 0, buttonWidthLong, buttonHeight);
+        loadStateButton.setBounds (2 * (buttonWidthShort + margin) + 2 * (buttonWidthLong + margin), 0, buttonWidthLong, buttonHeight);
     }
     
     void actionListenerCallback (const String &message) override
@@ -115,11 +120,11 @@ public:
         }
         else if (button == &sendButton)
         {
-            /*PopupMenu m;
-            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            m.addItem (MENU_OPTION_ID_SEND_PATCH_TO_SYNTH, "Patch");
-            selectedActionID = m.showAt(button);*/
             selectedActionID = MENU_OPTION_ID_SEND_PATCH_TO_SYNTH;
+        }
+        else if (button == &loadStateButton)
+        {
+            selectedActionID = MENU_OPTION_ID_LOAD_PATCH_FROM_SYNTH;
         }
         
         if (selectedActionID > 0){
@@ -145,6 +150,8 @@ public:
             processor->importFromPatchFile();
         } else if (actionID == MENU_OPTION_ID_SAVE_PATCH_TO_PATCH_FILE){
             processor->saveToPatchFile();
+        } else if (actionID == MENU_OPTION_ID_LOAD_PATCH_FROM_SYNTH){
+            processor->loadControlsStateFromSynth();
         } else {
             std::cout << "Non implemented action selected " << actionID << std::endl;
         }
@@ -159,6 +166,7 @@ private:
     TextButton saveButton;
     TextButton randomizeButton;
     TextButton sendButton;
+    TextButton loadStateButton;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlPanelActionsComponent);
 };
