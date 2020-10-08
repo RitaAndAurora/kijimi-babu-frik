@@ -802,7 +802,7 @@ void BabuFrikAudioProcessor::parameterChanged (const String& parameterID, float 
             }
         #endif
         
-        if ((midiOutput.get() != nullptr) && (!isReceivingFromMidiInput) && (!isChangingFromGettingKijimiState)){
+        if ((midiOutput.get() != nullptr) && (!isReceivingFromMidiInput) && (!isChangingFromGettingKijimiState) && (!isChangingFromTimbreSpace) && (!isChangingFromPresetLoader) && (!isChangingFromLoadingAPatchFile)){
             int ccNumber = kijimiInterface->getCCNumberForParameterID(parameterID);
             int ccValue = (int)newValue;
             MidiMessage msg = MidiMessage::controllerEvent(midiOutputChannel, ccNumber, ccValue);
@@ -926,7 +926,8 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 }
                 const ScopedValueSetter<bool> scopedInputFlag (isChangingFromGettingKijimiState, true);
                 SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetBytesArray(currentPresetBytes);
-                setParametersFromSynthControlIdValuePairs(idValuePairs);
+                setParametersFromSynthControlIdValuePairs(idValuePairs);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls...
+                sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
             }
             lastTimeGetStateSysexMessageSent = 0; // Set time "flag" to 0 to indicate we're not waiting any longer
         } else {
@@ -1129,8 +1130,10 @@ void BabuFrikAudioProcessor::loadPresetAtIndex (int index)
     currentPreset = index;
     if (currentPreset > -1){
         SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetAtIndex(index);
-        setParametersFromSynthControlIdValuePairs(idValuePairs);
+        setParametersFromSynthControlIdValuePairs(idValuePairs);  // the "isChangingFromPresetLoader" will prevent from sending MIDI messages for the controls...
+        sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
         timbreSpaceEngine->setTimbreSpaceComponentXYToPresetNumber(index);
+        
     }
     currentPresetOutOfSyncWithSliders = false;
     sendActionMessage(ACTION_SET_CURRENT_PRESET_NAME);
@@ -1246,7 +1249,9 @@ void BabuFrikAudioProcessor::importFromPatchFile ()
         setLastUserDirectoryForFileSaveLoad(file);
         String filePath = file.getFullPathName();
         SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsFromPatchFile(filePath);
-        setParametersFromSynthControlIdValuePairs(idValuePairs);
+        const ScopedValueSetter<bool> scopedInputFlag (isChangingFromLoadingAPatchFile, true);
+        setParametersFromSynthControlIdValuePairs(idValuePairs); // the "isChangingFromLoadingAPatchFile" will prevent from sending MIDI messages for the controls...
+        sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
     }
 }
 
@@ -1316,7 +1321,9 @@ void BabuFrikAudioProcessor::actionListenerCallback (const String &message)
         const ScopedValueSetter<bool> scopedInputFlag (isChangingFromTimbreSpace, true);
         setParametersFromSynthControlIdValuePairs(
             kijimiInterface->getSynthControlIdValuePairsForInterpolatedPresets(timbreSpaceEngine->getSelectedPointInterpolationData())
-        );
+        ); // the "isChangingFromTimbreSpace" will prevent from sending MIDI messages for the controls...
+        sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
+        
     } else if (message.startsWith(String(ACTION_LOG_PREFIX))){
         #if JUCE_DEBUG
             logMessage(message.substring(String(ACTION_LOG_PREFIX).length()));

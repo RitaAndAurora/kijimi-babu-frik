@@ -114,6 +114,7 @@ public:
     void saveToPatchFile ();
     void loadControlsStateFromSynth ();
     int64 lastTimeGetStateSysexMessageSent = 0;
+    bool isChangingFromLoadingAPatchFile = false;
     bool isChangingFromGettingKijimiState = false;
     
     // Timbre Space Engine
