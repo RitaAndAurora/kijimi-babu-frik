@@ -814,10 +814,10 @@ void BabuFrikAudioProcessor::parameterChanged (const String& parameterID, float 
                     logMessage(String::formatted("Sent MIDI CC: %i %i", ccNumber, ccValue));
                 }
             #endif
-            
-            if ((parameterID == "KIJIMI_LFO1_SHAPE") || (parameterID == "KIJIMI_LFO2_SHAPE")){
-                sendActionMessage(ACTION_LFO_LEDS_SHOULD_UPDATE);  // Update LED strips in main panel
-            }
+        }
+        
+        if ((parameterID == "KIJIMI_LFO1_SHAPE") || (parameterID == "KIJIMI_LFO2_SHAPE")){
+            sendActionMessage(ACTION_LFO_LEDS_SHOULD_UPDATE);  // Update LED strips in main panel
         }
         
         if (!isChangingFromTimbreSpace){
