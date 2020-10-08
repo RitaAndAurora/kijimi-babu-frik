@@ -14,7 +14,11 @@
 
 #define ACTION_LOG_PREFIX "LOG:"
 #define LOG_IN_UI 0
-#define LOG_IN_CONSOLE 0
+#if JUCE_DEBUG
+    #define LOG_IN_CONSOLE 1
+#else
+    #define LOG_IN_CONSOLE 0
+#endif
 #define LOG_INDIVIDUAL_PARAMETER_CHANGES 0
 #define LOG_MIDI_IN 0
 

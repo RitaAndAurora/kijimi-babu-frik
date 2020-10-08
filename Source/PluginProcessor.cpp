@@ -903,35 +903,45 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 // State information sysex message
                 // Create a KIJIMIPresetBytes object using the received data and load it to controls
                 const uint8 *buf = m.getSysExData();
-                KIJIMIPresetBytes currentPresetBytes = {0};
-                for (int i=0; i<KIJIMI_PRESET_NUM_BYTES; i++){  // Go byte by byte
-                    if (i == 0){  // Fake sysex start byte
-                        currentPresetBytes[i] = 0;
-                    } else if (i == 1){  // Fake KIJIMI device ID
-                        currentPresetBytes[i] = 0;
-                    } else if (i == 2){  // Fake state patch command
-                        currentPresetBytes[i] = 0;
-                    } else if (i == 3){  // Fake bank number
-                        currentPresetBytes[i] = 0;
-                    } else if (i == 4){  // Fake patch number
-                        currentPresetBytes[i] = 0;
-                    } else if (i == 261) {  // Fake sysex end byte
-                        currentPresetBytes[i] = 0;
-                    } else {
-                        // For other values of i, retrieve corresponding byte from m.getSysExData()
-                        // Note that message data is of length 258 and kijimi preset data is of length 262. This is because
-                        // sysex data skips sysex start/end bytes and bank/patch bytes, therefore we apply an offset of -3 bytes
-                        currentPresetBytes[i] = buf[i - 3];
+                if (((int)buf[0] == 2) && ((int)buf[1] == 20)){ // Check message code is for KIJIMI and for current state data
+                    KIJIMIPresetBytes currentPresetBytes = {0};
+                    for (int i=0; i<KIJIMI_PRESET_NUM_BYTES; i++){  // Go byte by byte
+                        if (i == 0){  // Fake sysex start byte
+                            currentPresetBytes[i] = 0;
+                        } else if (i == 1){  // Fake KIJIMI device ID
+                            currentPresetBytes[i] = 0;
+                        } else if (i == 2){  // Fake state patch command
+                            currentPresetBytes[i] = 0;
+                        } else if (i == 3){  // Fake bank number
+                            currentPresetBytes[i] = 0;
+                        } else if (i == 4){  // Fake patch number
+                            currentPresetBytes[i] = 0;
+                        } else if (i == 261) {  // Fake sysex end byte
+                            currentPresetBytes[i] = 0;
+                        } else {
+                            // For other values of i, retrieve corresponding byte from m.getSysExData()
+                            // Note that message data is of length 258 and kijimi preset data is of length 262. This is because
+                            // sysex data skips sysex start/end bytes and bank/patch bytes, therefore we apply an offset of -3 bytes
+                            currentPresetBytes[i] = buf[i - 3];
+                        }
                     }
+                    const ScopedValueSetter<bool> scopedInputFlag (isChangingFromGettingKijimiState, true);
+                    SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetBytesArray(currentPresetBytes);
+                    setParametersFromSynthControlIdValuePairs(idValuePairs);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls...
+                    sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
                 }
-                const ScopedValueSetter<bool> scopedInputFlag (isChangingFromGettingKijimiState, true);
-                SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetBytesArray(currentPresetBytes);
-                setParametersFromSynthControlIdValuePairs(idValuePairs);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls...
-                sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
             }
             lastTimeGetStateSysexMessageSent = 0; // Set time "flag" to 0 to indicate we're not waiting any longer
         } else {
-            // If time "flag" is set to 0, we ignore the sysex message as we're not in "waiting" mode
+            // If time "flag" is set to 0, check if the sysex message is of a type we reconize, otherwise simply ignore it
+            if (m.getSysExDataSize() == 4){
+                const uint8 *buf = m.getSysExData();
+                if (((int)buf[0] == 2) && ((int)buf[1] == 6) && ((int)buf[2] == 36) && ((int)buf[3] == 0)){
+                    // This is the sequence for "a new preset was loaded"
+                    // NOTE: this message was determined empirically and without being documented by Black Corporation, maybe it won't work properly...
+                    loadControlsStateFromSynth();  // Trigger load controls state from synth so we update Babu Frik
+                }
+            }
         }
     } else {
         // If not SysEx, process message only if midi input channel is matched
@@ -941,6 +951,13 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
             {
                 int ccNumber = m.getControllerNumber();
                 int ccValue = m.getControllerValue();
+                
+                // TEMP FIX FOR WRONG MIDI CCs ISSUE
+                if (ccNumber == 107){
+                    ccNumber = 14;
+                } else if (ccNumber == 111){
+                    ccNumber = 15;
+                }
                 
                 /* Only process MIDI input message if a certain amount of time has passed since
                  last time a MIDI CC message was sent from this app to the same CC number. This
