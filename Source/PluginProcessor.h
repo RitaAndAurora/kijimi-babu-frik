@@ -20,10 +20,10 @@
 /**
 */
 class BabuFrikAudioProcessor  : public AudioProcessor,
-                                       private AudioProcessorValueTreeState::Listener,
-                                       public ActionBroadcaster,
-                                       public ActionListener,
-                                       public MidiInputCallback
+                                private AudioProcessorValueTreeState::Listener,
+                                public ActionBroadcaster,
+                                public ActionListener,
+                                public MidiInputCallback
 {
 public:
     //==============================================================================
@@ -113,7 +113,6 @@ public:
     void importFromPatchFile ();
     void saveToPatchFile ();
     void loadControlsStateFromSynth ();
-    int64 lastTimeGetStateSysexMessageSent = 0;
     bool isChangingFromLoadingAPatchFile = false;
     bool isChangingFromGettingKijimiState = false;
     
@@ -134,6 +133,21 @@ public:
     void setLastUserDirectoryForFileSaveLoad (File file);
     File lastUsedDirectoryForFileIO;
     TimestampsLastCCSent timestampsLastCCSent;
+    
+    class DelayedRequestLoadControlsFromSynthThread : private Thread
+    {
+    public:
+        DelayedRequestLoadControlsFromSynthThread(BabuFrikAudioProcessor& p) : Thread ("DelayedRequestLoadControlsFromSynthThread"), processor (p){}
+        
+        void run() override
+        {
+            sleep(10);
+            processor.loadControlsStateFromSynth();
+        }
+        BabuFrikAudioProcessor& processor;
+    };
+
+    DelayedRequestLoadControlsFromSynthThread delayedRequestLoadControlsSysexThread;
 
 private:    
     //==============================================================================
