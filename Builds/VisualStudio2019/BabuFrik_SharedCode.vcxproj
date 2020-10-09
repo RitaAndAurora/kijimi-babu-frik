@@ -2001,6 +2001,8 @@
     <ClInclude Include="..\..\Source\PresetControlComponent.h"/>
     <ClInclude Include="..\..\Source\TimbreSpaceComponent.h"/>
     <ClInclude Include="..\..\Source\KIJIMIControlPanelComponent.h"/>
+    <ClInclude Include="..\..\Source\KIJIMIExtendedControlsComponent.h"/>
+    <ClInclude Include="..\..\Source\KIJIMILfosPanelComponent.h"/>
     <ClInclude Include="..\..\Source\ControlPanelActionsComponent.h"/>
     <ClInclude Include="..\..\Source\FooterComponent.h"/>
     <ClInclude Include="..\..\Source\AboutComponent.h"/>

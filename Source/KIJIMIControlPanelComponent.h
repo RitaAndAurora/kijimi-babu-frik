@@ -16,15 +16,16 @@
 #include "CustomClasses.h"
 #include "defines.h"
 
-class KIJIMIControlPanelComponent: public Component
+
+class KIJIMIBasePanelComponent: public Component
 
 {
 public:
-    KIJIMIControlPanelComponent ()
+    KIJIMIBasePanelComponent ()
     {
     }
     
-    ~KIJIMIControlPanelComponent ()
+    ~KIJIMIBasePanelComponent ()
     {
     }
     
@@ -33,6 +34,45 @@ public:
         // Set processor object
         processor = p;
         
+        // Initialize sliders and other objects in component
+        initializeSliders();
+    }
+    
+    virtual void initializeSliders ()
+    {
+    }
+    
+    // Plugin processor reference
+    BabuFrikAudioProcessor* processor;
+    
+    // Look and feel objects
+    BabuFrikKnobLookAndFeel knobLookAndFeel;
+    BabuFrikButton2LookAndFeel button2LookAndFeel;
+    BabuFrikButton2AltLookAndFeel button2AltLookAndFeel;
+    BabuFrikButton2Alt3ValuesLookAndFeel button2Alt3ValuesLookAndFeel;
+    BabuFrikButton1LookAndFeel button1LookAndFeel;
+    BabuFrikButton0LookAndFeel button0LookAndFeel;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KIJIMIBasePanelComponent);
+};
+
+
+
+class KIJIMIControlPanelComponent: public KIJIMIBasePanelComponent
+
+{
+public:
+    
+    KIJIMIControlPanelComponent ()
+    {
+    }
+    
+    ~KIJIMIControlPanelComponent ()
+    {
+    }
+    
+    void initializeSliders () override
+    {
         // Initialize led strips
         ledsLFO1.initialize(processor, "KIJIMI_LFO1_SHAPE");
         ledsLFO2.initialize(processor, "KIJIMI_LFO2_SHAPE");
@@ -952,15 +992,6 @@ public:
     }
     
 private:
-    BabuFrikAudioProcessor* processor;
-    
-    // Look and feel objects
-    BabuFrikKnobLookAndFeel knobLookAndFeel;
-    BabuFrikButton2LookAndFeel button2LookAndFeel;
-    BabuFrikButton2AltLookAndFeel button2AltLookAndFeel;
-    BabuFrikButton2Alt3ValuesLookAndFeel button2Alt3ValuesLookAndFeel;
-    BabuFrikButton1LookAndFeel button1LookAndFeel;
-    BabuFrikButton0LookAndFeel button0LookAndFeel;
     
     // LED strip objects
     KijimiLEDStripComponent ledsLFO1;

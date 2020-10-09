@@ -46,6 +46,10 @@
             file="Source/TimbreSpaceComponent.h"/>
       <FILE id="MW74FE" name="KIJIMIControlPanelComponent.h" compile="1"
             resource="0" file="Source/KIJIMIControlPanelComponent.h"/>
+      <FILE id="X9kEtd" name="KIJIMIExtendedControlsComponent.h" compile="0"
+            resource="0" file="Source/KIJIMIExtendedControlsComponent.h"/>
+      <FILE id="DiO2EJ" name="KIJIMILfosPanelComponent.h" compile="0" resource="0"
+            file="Source/KIJIMILfosPanelComponent.h"/>
       <FILE id="UEi3fU" name="ControlPanelActionsComponent.h" compile="0"
             resource="0" file="Source/ControlPanelActionsComponent.h"/>
       <FILE id="g4Eu1N" name="FooterComponent.h" compile="1" resource="0"

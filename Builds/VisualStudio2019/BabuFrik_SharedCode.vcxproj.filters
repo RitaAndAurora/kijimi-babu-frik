@@ -2664,6 +2664,12 @@
     <ClInclude Include="..\..\Source\KIJIMIControlPanelComponent.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\KIJIMIExtendedControlsComponent.h">
+      <Filter>BabuFrik\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\KIJIMILfosPanelComponent.h">
+      <Filter>BabuFrik\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ControlPanelActionsComponent.h">
       <Filter>BabuFrik\Source</Filter>
     </ClInclude>

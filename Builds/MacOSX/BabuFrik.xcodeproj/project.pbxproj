@@ -739,6 +739,13 @@
 			path = "../../Includes/tapkee/routines/diffusion_maps.hpp";
 			sourceTree = "SOURCE_ROOT";
 		};
+		2CF5D71C561B779C7B402754 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_audio_formats.mm";
+			path = "../../JuceLibraryCode/include_juce_audio_formats.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
 		2DA159777CCE9FBF86B52480 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -858,13 +865,6 @@
 			path = ../../Source/BabuFrikBaseLookAndFeel.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		3989F4EA451955FE766EA380 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_juce_audio_basics.mm";
-			path = "../../JuceLibraryCode/include_juce_audio_basics.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
 		3A80166F3CD887BF374D3A77 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -905,13 +905,6 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = Ref.h;
 			path = ../../Includes/Eigen/src/Core/Ref.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		3DFDE41E613F83355DABFFE7 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_juce_gui_basics.mm";
-			path = "../../JuceLibraryCode/include_juce_gui_basics.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
 		3F2AD60112C873AB79D6F002 = {
@@ -998,6 +991,13 @@
 			path = ../../Includes/Eigen/src/Geometry/Hyperplane.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		4814E69178A8DCE3224A0491 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ControlPanelActionsComponent.h;
+			path = ../../Source/ControlPanelActionsComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		482624BBDC05C27A9C00BA12 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1012,11 +1012,11 @@
 			path = ../../Includes/Eigen/UmfPackSupport;
 			sourceTree = "SOURCE_ROOT";
 		};
-		492F9F7C98946668C4390943 = {
+		48A668C88A8F68D814C7BA48 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
-			name = SelfadjointProduct.h;
-			path = ../../Includes/Eigen/src/Core/products/SelfadjointProduct.h;
+			name = EulerAngles.h;
+			path = ../../Includes/Eigen/src/Geometry/EulerAngles.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		49ED212337CD77073505410B = {
@@ -1047,11 +1047,18 @@
 			path = BabuFrik.app;
 			sourceTree = "BUILT_PRODUCTS_DIR";
 		};
-		2CF5D71C561B779C7B402754 = {
+		3989F4EA451955FE766EA380 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_juce_audio_formats.mm";
-			path = "../../JuceLibraryCode/include_juce_audio_formats.mm";
+			name = "include_juce_audio_basics.mm";
+			path = "../../JuceLibraryCode/include_juce_audio_basics.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		3DFDE41E613F83355DABFFE7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_gui_basics.mm";
+			path = "../../JuceLibraryCode/include_juce_gui_basics.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
 		45276B076A987F48A515BBCE = {
@@ -1075,13 +1082,6 @@
 			path = System/Library/Frameworks/AudioUnit.framework;
 			sourceTree = SDKROOT;
 		};
-		4814E69178A8DCE3224A0491 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = ControlPanelActionsComponent.h;
-			path = ../../Source/ControlPanelActionsComponent.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		4867DA2F17A0813CE2D07D12 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1096,11 +1096,11 @@
 			path = System/Library/Frameworks/CoreMedia.framework;
 			sourceTree = SDKROOT;
 		};
-		48A668C88A8F68D814C7BA48 = {
+		492F9F7C98946668C4390943 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
-			name = EulerAngles.h;
-			path = ../../Includes/Eigen/src/Geometry/EulerAngles.h;
+			name = SelfadjointProduct.h;
+			path = ../../Includes/Eigen/src/Core/products/SelfadjointProduct.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		49F2547B28E1B7CBA2140F4F = {
@@ -1549,6 +1549,13 @@
 			lastKnownFileType = file.TTF;
 			name = MODENINE.TTF;
 			path = ../../Resources/fonts/MODENINE.TTF;
+			sourceTree = "SOURCE_ROOT";
+		};
+		6A3B016E1B0F77F33E383FD3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = KIJIMILfosPanelComponent.h;
+			path = ../../Source/KIJIMILfosPanelComponent.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		6A48AF42B02D59BF47BC9935 = {
@@ -2853,6 +2860,13 @@
 			path = libBabuFrik.a;
 			sourceTree = "BUILT_PRODUCTS_DIR";
 		};
+		D545E7D09C49A74F85A4BC4D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = KIJIMIExtendedControlsComponent.h;
+			path = ../../Source/KIJIMIExtendedControlsComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		D605370E7A51553DF2C7D429 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -3486,6 +3500,8 @@
 				02106AE4D73BC2CA671DFD35,
 				5D1CA25A2E7088DF92B5F61A,
 				A551247512E66A160582191B,
+				D545E7D09C49A74F85A4BC4D,
+				6A3B016E1B0F77F33E383FD3,
 				4814E69178A8DCE3224A0491,
 				06EA0D794758020F8D27F6DE,
 				605F98FA8CD6F622427DE698,
