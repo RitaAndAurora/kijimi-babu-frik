@@ -141,7 +141,7 @@ public:
         
         void run() override
         {
-            sleep(10);
+            sleep(50);   
             processor.loadControlsStateFromSynth();
         }
         BabuFrikAudioProcessor& processor;

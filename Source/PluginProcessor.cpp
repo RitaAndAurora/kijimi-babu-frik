@@ -480,7 +480,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     lastUsedDirectoryForFileIO = File::getSpecialLocation (File::userHomeDirectory);
     
     // Trigger load default state in processor
-    setDefaultState();
+    setDefaultState();    
 }
 
 BabuFrikAudioProcessor::~BabuFrikAudioProcessor()
@@ -566,14 +566,11 @@ void BabuFrikAudioProcessor::changeProgramName (int index, const String& newName
 //==============================================================================
 void BabuFrikAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    loadControlsStateFromSynth();  // Trigger loading state from synth now that all midi devices and the saved state will have been loaded
 }
 
 void BabuFrikAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -715,14 +712,14 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
     needsToLoadDefaultState = false;
     
     // Load MIDI config
-    if (xmlState->hasAttribute (STATE_MIDI_INPUT_DEVICE_NAME)){
-        String midiInputDeviceName = xmlState->getStringAttribute(STATE_MIDI_INPUT_DEVICE_NAME);
-        setMidiInputDeviceByName(midiInputDeviceName);
-    }
-    
     if (xmlState->hasAttribute (STATE_MIDI_OUTPUT_DEVICE_NAME)){
         String midiOutputDeviceName = xmlState->getStringAttribute(STATE_MIDI_OUTPUT_DEVICE_NAME);
         setMidiOutputDeviceByName(midiOutputDeviceName);
+    }
+    
+    if (xmlState->hasAttribute (STATE_MIDI_INPUT_DEVICE_NAME)){
+        String midiInputDeviceName = xmlState->getStringAttribute(STATE_MIDI_INPUT_DEVICE_NAME);
+        setMidiInputDeviceByName(midiInputDeviceName);
     }
     
     if (xmlState->hasAttribute (STATE_MIDI_INPUT_CHANNEL)){
@@ -993,6 +990,7 @@ void BabuFrikAudioProcessor::setMidiInputDevice (const String& deviceIdentifier)
     sendActionMessage(ACTION_UPDATED_MIDI_DEVICE_SETTINGS);
     if (midiInput.get() != nullptr){
         midiInput.get()->start();
+        loadControlsStateFromSynth();  // Trigger loading synth current state (note that this also requires MIDI output to have been configured, so MIDI input output should ideally be configured before MIDI input when, eg, loading from state
     }
 }
 
