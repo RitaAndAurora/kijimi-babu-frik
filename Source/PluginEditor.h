@@ -14,8 +14,9 @@
 #include "defines.h"
 #include "PluginProcessor.h"
 #include "KIJIMIControlPanelComponent.h"
+#include "KIJIMIExtendedControlsComponent.h"
+#include "KIJIMILfosPanelComponent.h"
 #include "ControlPanelActionsComponent.h"
-#include "TimbreSpaceComponent.h"
 #include "PresetControlComponent.h"
 #include "MIDISettingsComponent.h"
 #include "HeaderComponent.h"
@@ -62,10 +63,9 @@ private:
     
     // KIJIMI Control panel component
     KIJIMIControlPanelComponent kijimiControlPanel;
+    KIJIMIExtendedControlsPanelComponent kijimiExtraControlsPanel;
+    KIJIMILfosPanelComponent kijimiLfosPanel;
     ControlPanelActionsComponent controlPanelActions;
-    
-    // Timbre Space component
-    TimbreSpaceComponent timbreSpace;
     
     // Logging code
     void actionListenerCallback (const String &message) override;

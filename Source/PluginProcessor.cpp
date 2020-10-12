@@ -652,6 +652,11 @@ void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
     // Add UI scale factor to state
     state.setProperty(STATE_UI_SCALE_FACTOR, uiScaleFactor, nullptr);
     
+    // Add panels visibility
+    state.setProperty(STATE_MAIN_PANEL_VISIBLE, showMainControlsPanel, nullptr);
+    state.setProperty(STATE_EXTRA_PANEL_VISIBLE, showExtraControlsPanel, nullptr);
+    state.setProperty(STATE_LFOS_PANEL_VISIBLE, showLfosPanel, nullptr);
+    
     // Add audio parameters to state
     ValueTree audioParametersState = parameters.copyState();
     state.appendChild(audioParametersState, nullptr);
@@ -741,6 +746,19 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
     if (xmlState->hasAttribute (STATE_UI_SCALE_FACTOR)){
         float newUIScaleFactor = xmlState->getStringAttribute(STATE_UI_SCALE_FACTOR).getFloatValue();
         setUIScaleFactor(newUIScaleFactor);
+    }
+    
+    // Load panels visibility state
+    if (xmlState->hasAttribute (STATE_MAIN_PANEL_VISIBLE)){
+        showMainControlsPanel = xmlState->getBoolAttribute(STATE_MAIN_PANEL_VISIBLE);
+    }
+    
+    if (xmlState->hasAttribute (STATE_EXTRA_PANEL_VISIBLE)){
+        showExtraControlsPanel = xmlState->getBoolAttribute(STATE_EXTRA_PANEL_VISIBLE);
+    }
+    
+    if (xmlState->hasAttribute (STATE_LFOS_PANEL_VISIBLE)){
+        showLfosPanel = xmlState->getBoolAttribute(STATE_LFOS_PANEL_VISIBLE);
     }
     
     // Preset loader
@@ -1338,6 +1356,28 @@ void BabuFrikAudioProcessor::setLastUserDirectoryForFileSaveLoad (File file)
 void BabuFrikAudioProcessor::setUIScaleFactor(float newUIScaleFactor){
     uiScaleFactor = newUIScaleFactor;
     sendActionMessage(ACTION_UPDATE_UI_SCALE_FACTOR);
+}
+
+void BabuFrikAudioProcessor::showOrHideKIJIMIPanel(String panelName, bool doShow){
+    if (panelName == "main"){
+        if (doShow){
+            sendActionMessage(ACTION_TOGGLE_SHOW_MAIN_PANEL);
+        } else {
+            sendActionMessage(ACTION_TOGGLE_HIDE_MAIN_PANEL);
+        }
+    } else if (panelName == "extra") {
+        if (doShow){
+            sendActionMessage(ACTION_TOGGLE_SHOW_EXTRA_PANEL);
+        } else {
+            sendActionMessage(ACTION_TOGGLE_HIDE_EXTRA_PANEL);
+        }
+    } else if (panelName == "lfos") {
+        if (doShow){
+            sendActionMessage(ACTION_TOGGLE_SHOW_LFO_PANEL);
+        } else {
+            sendActionMessage(ACTION_TOGGLE_HIDE_LFO_PANEL);
+        }
+    }
 }
 
 

@@ -20,6 +20,8 @@
             resource="1" file="Resources/KijimiExtraPanelBackground.png"/>
       <FILE id="qRQGmD" name="KijimiMainPanelBackground.png" compile="0"
             resource="1" file="Resources/KijimiMainPanelBackground.png"/>
+      <FILE id="YygSuz" name="KijimiLfoPanelBackground.png" compile="0" resource="1"
+            file="Resources/KijimiLfoPanelBackground.png"/>
       <FILE id="aDoZa6" name="default_state.xml" compile="0" resource="1"
             file="Resources/default_state.xml"/>
     </GROUP>

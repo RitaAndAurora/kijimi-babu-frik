@@ -907,6 +907,13 @@
 			path = ../../Includes/Eigen/src/Core/Ref.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		3DFDE41E613F83355DABFFE7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_gui_basics.mm";
+			path = "../../JuceLibraryCode/include_juce_gui_basics.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
 		3F2AD60112C873AB79D6F002 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -1052,13 +1059,6 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_audio_basics.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_basics.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
-		3DFDE41E613F83355DABFFE7 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_juce_gui_basics.mm";
-			path = "../../JuceLibraryCode/include_juce_gui_basics.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
 		45276B076A987F48A515BBCE = {
@@ -3266,6 +3266,13 @@
 			path = "../../Includes/Eigen/src/SVD/JacobiSVD_LAPACKE.h";
 			sourceTree = "SOURCE_ROOT";
 		};
+		F34C18BCF7D1FBE4DDF11EB1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = KijimiLfoPanelBackground.png;
+			path = ../../Resources/KijimiLfoPanelBackground.png;
+			sourceTree = "SOURCE_ROOT";
+		};
 		F36142F0C48183D7DDFAFF74 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.icns;
@@ -3479,6 +3486,7 @@
 				A41A573B1DFCF66BD70900A1,
 				12EA40996FF9222F90262017,
 				682F891016F9F6D9C6FB0400,
+				F34C18BCF7D1FBE4DDF11EB1,
 				8BC5074696040E5101F5A78C,
 			);
 			name = Resources;

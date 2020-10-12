@@ -5954,6 +5954,9 @@
     <None Include="..\..\Resources\KijimiMainPanelBackground.png">
       <Filter>BabuFrik\Resources</Filter>
     </None>
+    <None Include="..\..\Resources\KijimiLfoPanelBackground.png">
+      <Filter>BabuFrik\Resources</Filter>
+    </None>
     <None Include="..\..\Resources\default_state.xml">
       <Filter>BabuFrik\Resources</Filter>
     </None>

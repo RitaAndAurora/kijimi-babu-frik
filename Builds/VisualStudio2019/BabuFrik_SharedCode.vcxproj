@@ -3099,6 +3099,7 @@
     <None Include="..\..\Resources\TS_OVERLAY.png"/>
     <None Include="..\..\Resources\KijimiExtraPanelBackground.png"/>
     <None Include="..\..\Resources\KijimiMainPanelBackground.png"/>
+    <None Include="..\..\Resources\KijimiLfoPanelBackground.png"/>
     <None Include="..\..\Resources\default_state.xml"/>
     <None Include="..\..\Includes\Eigen\Cholesky"/>
     <None Include="..\..\Includes\Eigen\CholmodSupport"/>

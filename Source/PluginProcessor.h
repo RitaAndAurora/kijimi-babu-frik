@@ -88,9 +88,13 @@ public:
     void setMidiOutputChannel (int channel);
     bool isReceivingFromMidiInput = false;  // To distinguish when a parameter is changed from the onscren Slider or from MIDI input
     
-    // UI Scale factor
+    // UI Scale factor and hide/show panels
     float uiScaleFactor = 1.0;
     void setUIScaleFactor(float newUIScaleFactor);
+    bool showMainControlsPanel = true;
+    bool showExtraControlsPanel = true;
+    bool showLfosPanel = false;
+    void showOrHideKIJIMIPanel(String panelName, bool doShow); // panel names: "main", "extra" or "lfos"; doShow=true to show panel, false to hide it
     
     // Presetting
     void loadBankFile (File* bankFile);
