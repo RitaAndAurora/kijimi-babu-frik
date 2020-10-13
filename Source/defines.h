@@ -7,7 +7,7 @@
 
 #pragma once
 
-#define VERSION "0.1"  // If changing this, remember to change it on Projucer as well
+#define VERSION "0.2"  // If changing this, remember to change it on Projucer as well
 #define MORE_INFO_URL "https://github.com/RitaAndAurora/kijimi-babu-frik"  // Change to app website when available
 #define DONATE_URL "https://ritaandaurora.github.io/babu-frik/donate"
 #define SOURCE_CODE_URL "https://github.com/ritaandaurora/babu-frik"
@@ -16,10 +16,12 @@
 #define LOG_IN_UI 0
 #if JUCE_DEBUG
     #define LOG_IN_CONSOLE 1
+    #define LOG_INDIVIDUAL_PARAMETER_CHANGES 1
 #else
     #define LOG_IN_CONSOLE 0
+    #define LOG_INDIVIDUAL_PARAMETER_CHANGES 0
 #endif
-#define LOG_INDIVIDUAL_PARAMETER_CHANGES 1
+
 #define LOG_MIDI_IN 0
 
 #define REFRESH_MIDI_DEVICES_TIMER_INTERVAL_MS 1000  // Set to 0 to disable the timer
