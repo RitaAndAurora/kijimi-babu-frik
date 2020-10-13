@@ -91,6 +91,44 @@ class CycleButtonSlider6StepsInverted: public CycleButtonSliderNSteps
     }
 };
 
+class CycleButtonSliderNStepsInt: public Slider
+{
+    virtual int getNSteps() {
+        return 4;
+    };
+    
+    void mouseDown (const MouseEvent&) override {
+        int nSteps = getNSteps();
+        double currentValue = round(getValue());
+        double newValue = currentValue + 1.0;
+        if (newValue >= (double)nSteps){
+            newValue = 0.0;
+        }
+        setValue (newValue, sendNotificationSync);
+    }
+
+    void mouseUp (const MouseEvent&) override {
+        // Do nothing
+    }
+    
+    void mouseDrag (const MouseEvent&) override {
+        // Do nothing
+    }
+    
+    void mouseDoubleClick (const MouseEvent&) override {
+        // Do nothing
+    }
+    
+    void mouseWheelMove (const MouseEvent&, const MouseWheelDetails&) override {
+        // Do nothing
+    }
+};
+
+class CycleButtonSlider2StepsInt: public CycleButtonSliderNStepsInt
+{
+    int getNSteps() override { return 2; };
+};
+
 
 class KijimiLEDStripComponent: public Component,
                                public ActionListener

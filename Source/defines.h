@@ -19,7 +19,7 @@
 #else
     #define LOG_IN_CONSOLE 0
 #endif
-#define LOG_INDIVIDUAL_PARAMETER_CHANGES 0
+#define LOG_INDIVIDUAL_PARAMETER_CHANGES 1
 #define LOG_MIDI_IN 0
 
 #define REFRESH_MIDI_DEVICES_TIMER_INTERVAL_MS 1000  // Set to 0 to disable the timer
@@ -156,4 +156,4 @@ struct PresetDistanceStruct {
 };
 typedef std::vector<PresetDistanceStruct> PresetDistancePairsToInterpolate;
 
-typedef std::array<int64, 129> TimestampsLastCCSent; // Use 129 positions instead of 128 to not crash if using 1-indexed MIDI CC numbers (see docs in BabuFrikAudioProcessor::handleIncomingMidiMessage)
+typedef std::array<int64, 1000> TimestampsLastCCSent; // Use 129 positions instead of 128 to not crash if using 1-indexed MIDI CC numbers (see docs in BabuFrikAudioProcessor::handleIncomingMidiMessage). Also for KIJIMI, there are controls which are controlled using SYSEX messages and therefore the number is not limited to 128 control change numbers. To account for that we simply make timestampsLastCCSent much larger to have space for all parameters.

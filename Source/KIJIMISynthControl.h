@@ -15,12 +15,14 @@ class KIJIMISynthControl
 
 {
 public:
-    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _byteNumber, const String& _byteToMidiConversionType, int _range, bool _includeOnTimbreSpace, bool _acceptMidiInput)
+    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _midiOptionID, int _midiExtendedOptionID, int _byteNumber, const String& _byteToMidiConversionType, int _range, bool _includeOnTimbreSpace, bool _acceptMidiInput)
     {
         ID = _ID;
         name = _name;
         type = _type;
         ccNumber = _ccNumber;
+        midiOptionID = _midiOptionID;
+        midiExtendedOptionID = _midiExtendedOptionID;
         byteNumber = _byteNumber;
         byteToMidiConversionType = _byteToMidiConversionType;
         range = _range;
@@ -50,6 +52,16 @@ public:
     int getCCNumber ()
     {
         return ccNumber;
+    }
+    
+    int getMIDIOptionID ()
+    {
+        return midiOptionID;
+    }
+    
+    int getMIDIExtendedOptionID ()
+    {
+        return midiExtendedOptionID;
     }
     
     int getPresetByteNumber ()
@@ -304,6 +316,8 @@ private:
     String name;
     String type;
     int ccNumber;
+    int midiOptionID;
+    int midiExtendedOptionID;
     int byteNumber;
     String byteToMidiConversionType;
     int range;

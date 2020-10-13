@@ -60,6 +60,7 @@ public:
     void changeProgramName (int index, const String& newName) override;
 
     //==============================================================================
+    void sendControlToSynth (const String& parameterID, int value);
     void parameterChanged (const String& parameterID, float newValue) override;
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
@@ -145,7 +146,7 @@ public:
         
         void run() override
         {
-            sleep(50);   
+            sleep(50);
             processor.loadControlsStateFromSynth();
         }
         BabuFrikAudioProcessor& processor;
