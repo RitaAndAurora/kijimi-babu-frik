@@ -348,7 +348,8 @@ public:
     {
         float scale = processor->uiScaleFactor;
         float unitMargin = 5 * scale;
-        timbreSpace.setBounds (0.368 * getWidth(), 0, (1 - 0.368) * (getWidth() + 0.5 * unitMargin), getHeight());
+        float timbreSpaceYOffset = 0.373;
+        timbreSpace.setBounds (timbreSpaceYOffset * getWidth(), 0, (1 - timbreSpaceYOffset) * (getWidth() + 0.5 * unitMargin), getHeight());
         
         // Position sliders
         // --> Start auto-generated code C
