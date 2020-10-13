@@ -24,10 +24,10 @@ namespace BinaryData
     const int            TS_OVERLAY_pngSize = 10900;
 
     extern const char*   KijimiExtraPanelBackground_png;
-    const int            KijimiExtraPanelBackground_pngSize = 77816;
+    const int            KijimiExtraPanelBackground_pngSize = 95925;
 
     extern const char*   KijimiMainPanelBackground_png;
-    const int            KijimiMainPanelBackground_pngSize = 201945;
+    const int            KijimiMainPanelBackground_pngSize = 178917;
 
     extern const char*   KijimiLfoPanelBackground_png;
     const int            KijimiLfoPanelBackground_pngSize = 151300;

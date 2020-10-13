@@ -50,7 +50,12 @@ public:
     BabuFrikButton2LookAndFeel button2LookAndFeel;
     BabuFrikButton2AltLookAndFeel button2AltLookAndFeel;
     BabuFrikButton2Alt3ValuesLookAndFeel button2Alt3ValuesLookAndFeel;
+    BabuFrikButton2Alt3ValuesOffset1LookAndFeel button2Alt3ValuesLookAndFeelOffset1;
+    BabuFrikButton2Alt3ValuesMiddleBothLookAndFeel button2Alt3ValuesLookAndFeelMiddleBoth;
+    BabuFrikButton2Alt2ValuesLookAndFeel button2Alt2ValuesLookAndFeel;
+    BabuFrikButton2Alt2InvertedValuesLookAndFeel button2Alt2InvertedValuesLookAndFeel;
     BabuFrikButton1LookAndFeel button1LookAndFeel;
+    BabuFrikButton1InvertedLookAndFeel button1LookAndFeelInverted;
     BabuFrikButton0LookAndFeel button0LookAndFeel;
     BabuFrikSelectLookAndFeel selectLookAndFeel;
     
@@ -892,6 +897,56 @@ public:
         sliderKIJIMI_VOLUME.textFromValueFunction = [](double value) {
             return "Volume: " + String (value);
         };
+        // ComboBox KIJIMI_KNOB_BEH
+                sliderKIJIMI_KNOB_BEH.addItemList (StringArray ({"PICK UP", "MERGE", "INSTANT"}), 1);
+                sliderKIJIMI_KNOB_BEH.setLookAndFeel (&selectLookAndFeel);
+                addAndMakeVisible (&sliderKIJIMI_KNOB_BEH);
+                sliderAttachmentKIJIMI_KNOB_BEH.reset(new AudioProcessorValueTreeState::ComboBoxAttachment (processor->parameters, "KIJIMI_KNOB_BEH", sliderKIJIMI_KNOB_BEH));
+        // Slider KIJIMI_CC_RECEIVE
+                sliderKIJIMI_CC_RECEIVE.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_CC_RECEIVE.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_CC_RECEIVE.setLookAndFeel (&button1LookAndFeel);
+                sliderKIJIMI_CC_RECEIVE.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_CC_RECEIVE);
+                sliderAttachmentKIJIMI_CC_RECEIVE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_CC_RECEIVE", sliderKIJIMI_CC_RECEIVE));
+        sliderKIJIMI_CC_RECEIVE.textFromValueFunction = [](double value) {
+            return "CC Receive: " + String (value);
+        };
+        // ComboBox KIJIMI_AT_MODE
+                sliderKIJIMI_AT_MODE.addItemList (StringArray ({"CHANNEL PRESSURE", "POLY AFTERTOUCH", "MPE"}), 1);
+                sliderKIJIMI_AT_MODE.setLookAndFeel (&selectLookAndFeel);
+                addAndMakeVisible (&sliderKIJIMI_AT_MODE);
+                sliderAttachmentKIJIMI_AT_MODE.reset(new AudioProcessorValueTreeState::ComboBoxAttachment (processor->parameters, "KIJIMI_AT_MODE", sliderKIJIMI_AT_MODE));
+        // Slider KIJIMI_MPE_CH
+                sliderKIJIMI_MPE_CH.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_MPE_CH.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_MPE_CH.setLookAndFeel (&knobLookAndFeel);
+                sliderKIJIMI_MPE_CH.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_MPE_CH);
+                sliderAttachmentKIJIMI_MPE_CH.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MPE_CH", sliderKIJIMI_MPE_CH));
+        sliderKIJIMI_MPE_CH.textFromValueFunction = [](double value) {
+            return "MPE base channel: " + String (value);
+        };
+        // Slider KIJIMI_MIDI_CH
+                sliderKIJIMI_MIDI_CH.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_MIDI_CH.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_MIDI_CH.setLookAndFeel (&knobLookAndFeel);
+                sliderKIJIMI_MIDI_CH.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_MIDI_CH);
+                sliderAttachmentKIJIMI_MIDI_CH.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MIDI_CH", sliderKIJIMI_MIDI_CH));
+        sliderKIJIMI_MIDI_CH.textFromValueFunction = [](double value) {
+            return "MIDI channel: " + String (value);
+        };
+        // Slider KIJIMI_MAX_VOICES
+                sliderKIJIMI_MAX_VOICES.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_MAX_VOICES.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_MAX_VOICES.setLookAndFeel (&knobLookAndFeel);
+                sliderKIJIMI_MAX_VOICES.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_MAX_VOICES);
+                sliderAttachmentKIJIMI_MAX_VOICES.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MAX_VOICES", sliderKIJIMI_MAX_VOICES));
+        sliderKIJIMI_MAX_VOICES.textFromValueFunction = [](double value) {
+            return "Maximum number of voices: " + String (value);
+        };
         // --> End auto-generated code B
     }
     
@@ -986,6 +1041,12 @@ public:
         sliderKIJIMI_GLIDE_RATE.setBounds (0.941 * getWidth(), 0.101 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_GLIDE_RATE
         sliderKIJIMI_GLIDE_MODE.setBounds (0.942 * getWidth(), 0.266 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_GLIDE_MODE
         sliderKIJIMI_VOLUME.setBounds (0.941 * getWidth(), 0.468 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VOLUME
+        sliderKIJIMI_KNOB_BEH.setBounds (0.648 * getWidth(), 0.881 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_KNOB_BEH
+        sliderKIJIMI_CC_RECEIVE.setBounds (0.942 * getWidth(), 0.651 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_CC_RECEIVE
+        sliderKIJIMI_AT_MODE.setBounds (0.733 * getWidth(), 0.881 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_AT_MODE
+        sliderKIJIMI_MPE_CH.setBounds (0.821 * getWidth(), 0.844 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_MPE_CH
+        sliderKIJIMI_MIDI_CH.setBounds (0.941 * getWidth(), 0.844 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_MIDI_CH
+        sliderKIJIMI_MAX_VOICES.setBounds (0.881 * getWidth(), 0.844 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_MAX_VOICES
         // --> End auto-generated code C
         
         ledsLFO1.setBounds(getWidth() * 515/1365, getHeight() * 335/545, getWidth() * 11.5/1365, getHeight() * 108.85/545);
@@ -1162,6 +1223,18 @@ private:
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_GLIDE_MODE;
     Slider sliderKIJIMI_VOLUME;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_VOLUME;
+    ComboBox sliderKIJIMI_KNOB_BEH;
+            std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> sliderAttachmentKIJIMI_KNOB_BEH;
+    CycleButtonSlider2StepsInt sliderKIJIMI_CC_RECEIVE;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_CC_RECEIVE;
+    ComboBox sliderKIJIMI_AT_MODE;
+            std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> sliderAttachmentKIJIMI_AT_MODE;
+    Slider sliderKIJIMI_MPE_CH;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_MPE_CH;
+    Slider sliderKIJIMI_MIDI_CH;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_MIDI_CH;
+    Slider sliderKIJIMI_MAX_VOICES;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_MAX_VOICES;
     // --> End auto-generated code A
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KIJIMIControlPanelComponent);

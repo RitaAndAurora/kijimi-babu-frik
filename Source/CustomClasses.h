@@ -129,6 +129,16 @@ class CycleButtonSlider2StepsInt: public CycleButtonSliderNStepsInt
     int getNSteps() override { return 2; };
 };
 
+class CycleButtonSlider3StepsInt: public CycleButtonSliderNStepsInt
+{
+    int getNSteps() override { return 3; };
+};
+
+class CycleButtonSlider4StepsInt: public CycleButtonSliderNStepsInt
+{
+    int getNSteps() override { return 4; };
+};
+
 
 class KijimiLEDStripComponent: public Component,
                                public ActionListener

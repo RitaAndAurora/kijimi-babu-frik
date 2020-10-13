@@ -69,6 +69,8 @@ public:
     bool isLoadingFromState = false;
     bool needsToLoadDefaultState = true;
     
+    void sendLCDRefreshMessageToKijimi ();
+    
     // Parameters tree
     AudioProcessorValueTreeState parameters;
     

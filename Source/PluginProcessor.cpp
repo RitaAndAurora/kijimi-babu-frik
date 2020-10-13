@@ -351,6 +351,122 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             "Volume", // parameter name
                                                             NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                             64.0f),
+                std:: make_unique < AudioParameterChoice > ("KIJIMI_KNOB_BEH", // parameter ID
+                                                            "Knobs behaviour", // parameter name
+                                                            StringArray ({"pick up", "merge", "instant"}), // parameter choices
+                                                            0),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_CC_RECEIVE", // parameter ID
+                                                            "CC Receive", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterChoice > ("KIJIMI_AT_MODE", // parameter ID
+                                                            "Aftertouch mode", // parameter name
+                                                            StringArray ({"channel pressure", "poly aftertouch", "MPE"}), // parameter choices
+                                                            0),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_MPE_CH", // parameter ID
+                                                            "MPE base channel", // parameter name
+                                                            NormalisableRange < float > (0.0f, 7.0f, 1.0f), // parameter range
+                                                            4.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_MIDI_CH", // parameter ID
+                                                            "MIDI channel", // parameter name
+                                                            NormalisableRange < float > (0.0f, 16.0f, 1.0f), // parameter range
+                                                            8.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_MAX_VOICES", // parameter ID
+                                                            "Maximum number of voices", // parameter name
+                                                            NormalisableRange < float > (1.0f, 8.0f, 1.0f), // parameter range
+                                                            4.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR_MOD_MODE", // parameter ID
+                                                            "ADSR2 modulation mode", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_CYCLE_MODE", // parameter ID
+                                                            "Cycle poly/mono", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_KT_MULTIPLIER", // parameter ID
+                                                            "KT multiplier", // parameter name
+                                                            NormalisableRange < float > (0.0f, 3.0f, 1.0f), // parameter range
+                                                            2.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_MODE", // parameter ID
+                                                            "LFO poly/mono", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_MOD_MODE", // parameter ID
+                                                            "LFO modulation mode", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_POLY_RETRIG", // parameter ID
+                                                            "LFO poly mode EG retrig", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_SUST", // parameter ID
+                                                            "LFO sustain", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_ENV_DEST", // parameter ID
+                                                            "LFO1 envelope destination", // parameter name
+                                                            NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
+                                                            1.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_ENV_P", // parameter ID
+                                                            "LFO1 envelope polarity", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_SYNC", // parameter ID
+                                                            "LFO1 sync", // parameter name
+                                                            NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
+                                                            1.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_ENV_DEST", // parameter ID
+                                                            "LFO2 envelope destination", // parameter name
+                                                            NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
+                                                            1.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_ENV_P", // parameter ID
+                                                            "LFO2 envelope polarity", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_SYNC", // parameter ID
+                                                            "LFO2 sync", // parameter name
+                                                            NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
+                                                            1.0f),
+                std:: make_unique < AudioParameterChoice > ("KIJIMI_AT_CURVE", // parameter ID
+                                                            "Aftertouch curve", // parameter name
+                                                            StringArray ({"linear", "log", "exp", "S-type", "N-type"}), // parameter choices
+                                                            0),
+                std:: make_unique < AudioParameterChoice > ("KIJIMI_CC74_DEST", // parameter ID
+                                                            "CC74 destination", // parameter name
+                                                            StringArray ({"off", "LFO1 rate", "LFO2 rate", "sub osc", "VCF freq", "VCF reso"}), // parameter choices
+                                                            0),
+                std:: make_unique < AudioParameterChoice > ("KIJIMI_MODW_DEST", // parameter ID
+                                                            "Modwheel destination", // parameter name
+                                                            StringArray ({"LFO1 rate", "LFO2 rate", "LFO1 amt", "LFO2 amt", "VCF freq"}), // parameter choices
+                                                            0),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_MODW_P", // parameter ID
+                                                            "Modwheel polarity", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterChoice > ("KIJIMI_VEL_CURVE", // parameter ID
+                                                            "Velocity curve", // parameter name
+                                                            StringArray ({"linear", "log", "exp", "S-type", "N-type"}), // parameter choices
+                                                            0),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LEG_EG_RETRIG", // parameter ID
+                                                            "Legato EG retrig", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LEG_PRIORITY", // parameter ID
+                                                            "Legato priority", // parameter name
+                                                            NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
+                                                            1.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_MONO_MODE", // parameter ID
+                                                            "Mono mode", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_MONO_POLY", // parameter ID
+                                                            "Mono/poly/unisson", // parameter name
+                                                            NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
+                                                            1.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_SUSTAIN_MODE", // parameter ID
+                                                            "Sustain mode", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1VCO1_AM", // parameter ID
                                                             "LFO1 to VCO1 amount", // parameter name
                                                             NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
@@ -851,6 +967,35 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     parameters.addParameterListener ("KIJIMI_GLIDE_RATE", this);
     parameters.addParameterListener ("KIJIMI_GLIDE_MODE", this);
     parameters.addParameterListener ("KIJIMI_VOLUME", this);
+    parameters.addParameterListener ("KIJIMI_KNOB_BEH", this);
+    parameters.addParameterListener ("KIJIMI_CC_RECEIVE", this);
+    parameters.addParameterListener ("KIJIMI_AT_MODE", this);
+    parameters.addParameterListener ("KIJIMI_MPE_CH", this);
+    parameters.addParameterListener ("KIJIMI_MIDI_CH", this);
+    parameters.addParameterListener ("KIJIMI_MAX_VOICES", this);
+    parameters.addParameterListener ("KIJIMI_ADSR_MOD_MODE", this);
+    parameters.addParameterListener ("KIJIMI_CYCLE_MODE", this);
+    parameters.addParameterListener ("KIJIMI_KT_MULTIPLIER", this);
+    parameters.addParameterListener ("KIJIMI_LFO_MODE", this);
+    parameters.addParameterListener ("KIJIMI_LFO_MOD_MODE", this);
+    parameters.addParameterListener ("KIJIMI_LFO_POLY_RETRIG", this);
+    parameters.addParameterListener ("KIJIMI_LFO_SUST", this);
+    parameters.addParameterListener ("KIJIMI_LFO1_ENV_DEST", this);
+    parameters.addParameterListener ("KIJIMI_LFO1_ENV_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO1_SYNC", this);
+    parameters.addParameterListener ("KIJIMI_LFO2_ENV_DEST", this);
+    parameters.addParameterListener ("KIJIMI_LFO2_ENV_P", this);
+    parameters.addParameterListener ("KIJIMI_LFO2_SYNC", this);
+    parameters.addParameterListener ("KIJIMI_AT_CURVE", this);
+    parameters.addParameterListener ("KIJIMI_CC74_DEST", this);
+    parameters.addParameterListener ("KIJIMI_MODW_DEST", this);
+    parameters.addParameterListener ("KIJIMI_MODW_P", this);
+    parameters.addParameterListener ("KIJIMI_VEL_CURVE", this);
+    parameters.addParameterListener ("KIJIMI_LEG_EG_RETRIG", this);
+    parameters.addParameterListener ("KIJIMI_LEG_PRIORITY", this);
+    parameters.addParameterListener ("KIJIMI_MONO_MODE", this);
+    parameters.addParameterListener ("KIJIMI_MONO_POLY", this);
+    parameters.addParameterListener ("KIJIMI_SUSTAIN_MODE", this);
     parameters.addParameterListener ("KIJIMI_LFO1VCO1_AM", this);
     parameters.addParameterListener ("KIJIMI_LFO1VCO2_AM", this);
     parameters.addParameterListener ("KIJIMI_LFO1WAVE1_AM", this);
@@ -1301,6 +1446,13 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
     }
 }
 
+void BabuFrikAudioProcessor::sendLCDRefreshMessageToKijimi ()
+{
+    uint8 sysexdata2[] = { 0x02, 0x21};
+    MidiMessage msg2 = MidiMessage::createSysExMessage(sysexdata2, 2);
+    midiOutput.get()->sendMessageNow(msg2);
+}
+
 void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int value)
 {
     int ccNumber = kijimiInterface->getCCNumberForParameterID(parameterID);
@@ -1338,6 +1490,11 @@ void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int 
                         logMessage(String::formatted("Sent SYSEX for optionID: %i %i", midiOptionID, value));
                     }
                 #endif
+                
+                // Send LCD update command
+                // TODO: this should be optimized and only send it if needed or at the end of a number of messages sent sequentially
+                sendLCDRefreshMessageToKijimi();
+                
             } else {
                 // Paramter is controlled using SYSEX message and the extended option ID range (this is only used for LFOs panel)
                 uint8 sysexdata[] = { 0x02, 0x18, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
