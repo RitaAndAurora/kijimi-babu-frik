@@ -264,6 +264,16 @@ public:
         sliderKIJIMI_PBEND_RANGE.textFromValueFunction = [](double value) {
             return "Pitchbend range: " + String (value);
         };
+        // Slider KIJIMI_MPE_PBEND_RANGE
+                sliderKIJIMI_MPE_PBEND_RANGE.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_MPE_PBEND_RANGE.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_MPE_PBEND_RANGE.setLookAndFeel (&knobLookAndFeel);
+                sliderKIJIMI_MPE_PBEND_RANGE.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_MPE_PBEND_RANGE);
+                sliderAttachmentKIJIMI_MPE_PBEND_RANGE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MPE_PBEND_RANGE", sliderKIJIMI_MPE_PBEND_RANGE));
+        sliderKIJIMI_MPE_PBEND_RANGE.textFromValueFunction = [](double value) {
+            return "MPE Pitchbend range: " + String (value);
+        };
         // ComboBox KIJIMI_VEL_CURVE
                 sliderKIJIMI_VEL_CURVE.addItemList (StringArray ({"LINEAR", "LOG", "EXP", "S-TYPE", "N-TYPE"}), 1);
                 sliderKIJIMI_VEL_CURVE.setLookAndFeel (&selectLookAndFeel);
@@ -400,7 +410,8 @@ public:
         sliderKIJIMI_CC74_DEST.setBounds (0.009 * getWidth(), 0.294 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_CC74_DEST
         sliderKIJIMI_MODW_DEST.setBounds (0.009 * getWidth(), 0.385 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_MODW_DEST
         sliderKIJIMI_MODW_P.setBounds (0.028 * getWidth(), 0.468 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_MODW_P
-        sliderKIJIMI_PBEND_RANGE.setBounds (0.031 * getWidth(), 0.624 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_PBEND_RANGE
+        sliderKIJIMI_PBEND_RANGE.setBounds (0.013 * getWidth(), 0.624 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_PBEND_RANGE
+        sliderKIJIMI_MPE_PBEND_RANGE.setBounds (0.049 * getWidth(), 0.624 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_MPE_PBEND_RANGE
         sliderKIJIMI_VEL_CURVE.setBounds (0.009 * getWidth(), 0.110 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_VEL_CURVE
         sliderKIJIMI_ADSR_VCA.setBounds (0.110 * getWidth(), 0.826 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_ADSR_VCA
         sliderKIJIMI_MASTER_VOL.setBounds (0.172 * getWidth(), 0.826 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_MASTER_VOL
@@ -465,6 +476,8 @@ private:
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_MODW_P;
     Slider sliderKIJIMI_PBEND_RANGE;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_PBEND_RANGE;
+    Slider sliderKIJIMI_MPE_PBEND_RANGE;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_MPE_PBEND_RANGE;
     ComboBox sliderKIJIMI_VEL_CURVE;
             std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> sliderAttachmentKIJIMI_VEL_CURVE;
     Slider sliderKIJIMI_ADSR_VCA;

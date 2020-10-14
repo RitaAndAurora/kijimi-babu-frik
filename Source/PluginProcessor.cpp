@@ -371,6 +371,10 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             "MIDI in channel", // parameter name
                                                             NormalisableRange < float > (0.0f, 16.0f, 1.0f), // parameter range
                                                             8.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_MIDI_OUT_CH", // parameter ID
+                                                            "MIDI out channel", // parameter name
+                                                            NormalisableRange < float > (1.0f, 16.0f, 1.0f), // parameter range
+                                                            8.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_MAX_VOICES", // parameter ID
                                                             "Maximum number of voices", // parameter name
                                                             NormalisableRange < float > (1.0f, 8.0f, 1.0f), // parameter range
@@ -461,6 +465,10 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             0.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_PBEND_RANGE", // parameter ID
                                                             "Pitchbend range", // parameter name
+                                                            NormalisableRange < float > (1.0f, 99.0f, 1.0f), // parameter range
+                                                            49.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_MPE_PBEND_RANGE", // parameter ID
+                                                            "MPE Pitchbend range", // parameter name
                                                             NormalisableRange < float > (1.0f, 99.0f, 1.0f), // parameter range
                                                             49.0f),
                 std:: make_unique < AudioParameterChoice > ("KIJIMI_VEL_CURVE", // parameter ID
@@ -1008,6 +1016,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     parameters.addParameterListener ("KIJIMI_AT_MODE", this);
     parameters.addParameterListener ("KIJIMI_MPE_CH", this);
     parameters.addParameterListener ("KIJIMI_MIDI_CH", this);
+    parameters.addParameterListener ("KIJIMI_MIDI_OUT_CH", this);
     parameters.addParameterListener ("KIJIMI_MAX_VOICES", this);
     parameters.addParameterListener ("KIJIMI_ADSR_MOD_MODE", this);
     parameters.addParameterListener ("KIJIMI_CYCLE_MODE", this);
@@ -1031,6 +1040,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     parameters.addParameterListener ("KIJIMI_MODW_DEST", this);
     parameters.addParameterListener ("KIJIMI_MODW_P", this);
     parameters.addParameterListener ("KIJIMI_PBEND_RANGE", this);
+    parameters.addParameterListener ("KIJIMI_MPE_PBEND_RANGE", this);
     parameters.addParameterListener ("KIJIMI_VEL_CURVE", this);
     parameters.addParameterListener ("KIJIMI_ADSR_VCA", this);
     parameters.addParameterListener ("KIJIMI_MASTER_VOL", this);
