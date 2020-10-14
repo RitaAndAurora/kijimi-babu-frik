@@ -1656,7 +1656,7 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
             // State information sysex message
             // Create a KIJIMIPresetBytes object using the received data and load it to controls
             const uint8 *buf = m.getSysExData();
-            if (((int)buf[0] == 2) && ((int)buf[1] == 20)){ // Check message code is for KIJIMI and for current state data
+            if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x14)){ // Check message code is for KIJIMI and for current state data
                 KIJIMIPresetBytes currentPresetBytes = {0};
                 for (int i=0; i<KIJIMI_PRESET_NUM_BYTES; i++){  // Go byte by byte
                     if (i == 0){  // Fake sysex start byte
@@ -1680,14 +1680,82 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 }
                 const ScopedValueSetter<bool> scopedInputFlag (isChangingFromGettingKijimiState, true);
                 SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetBytesArray(currentPresetBytes);
-                setParametersFromSynthControlIdValuePairs(idValuePairs);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls...
-                sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
+                setParametersFromSynthControlIdValuePairs(idValuePairs);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls which is what we want here because we want to update parameters internally but not re-send them to KIJIMI
             }
         } else if (m.getSysExDataSize() == 2){
             const uint8 *buf = m.getSysExData();
-            if (((int)buf[0] == 2) && (((int)buf[1] == 65) || ((int)buf[1] == 66) || ((int)buf[1] == 67))){
-                // This is the sequence that corresponds to "a new preset was loaded", "random patch loaded" or "panel mode loaded"
+            if (((int)buf[0] == 0x02) && (((int)buf[1] == 0x41) || ((int)buf[1] == 0x42) || ((int)buf[1] == 0x43) || ((int)buf[1] == 0x16))){
+                // This is the sequence that corresponds to "a new preset was loaded", "random patch loaded", "panel mode loaded" or "new menu option set"
                 delayedRequestLoadControlsSysexThread.run(); // Ask KIJIMI to send current state data, but wait a couple of milliseconds to allow KIJIMI to finish sending other sysex messages that sometimes sends right after sending one of these three. Sending a sysex message to KIJIMI while KIJIMI is sending another can freeze KIJIMI
+            }
+        } else if (m.getSysExDataSize() == 5){
+            const uint8 *buf = m.getSysExData();
+            if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x22)){
+                // Updated setting for individual LFOs/ADSR2
+                int lfoOrAdsrNumber = (int)buf[2];
+                int correspondingCCNumberInCommonMode = (int)buf[3];
+                int value = (int)buf[4];
+                
+                String parameterIDPrefix = StringArray({
+                    "KIJIMI_LFO1VCO1_",
+                    "KIJIMI_LFO1VCO2_",
+                    "KIJIMI_LFO1WAVE1_",
+                    "KIJIMI_LFO1WAVE2_",
+                    "KIJIMI_LFO1SUB_",
+                    "KIJIMI_LFO1VCF_",
+                    "KIJIMI_LFO1RESO_",
+                    "KIJIMI_LFO1VCA_",
+                    "KIJIMI_LFO2VCO1_",
+                    "KIJIMI_LFO2VCO2_",
+                    "KIJIMI_LFO2WAVE1_",
+                    "KIJIMI_LFO2WAVE2_",
+                    "KIJIMI_LFO2SUB_",
+                    "KIJIMI_LFO2VCF_",
+                    "KIJIMI_LFO2RESO_",
+                    "KIJIMI_LFO2VCA_",
+                    "KIJIMI_ADSR2VCO1_",
+                    "KIJIMI_ADSR2VCO2_",
+                    "KIJIMI_ADSR2WAVE1_",
+                    "KIJIMI_ADSR2WAVE2_"
+                })[lfoOrAdsrNumber];
+                
+                std::map<int,String> commonModeCCNumberToIndividualModeParameterIDSuffix;
+                commonModeCCNumberToIndividualModeParameterIDSuffix[5] = "AM"; // LFO1 AMT
+                commonModeCCNumberToIndividualModeParameterIDSuffix[55] = "R"; // LFO1 RATE
+                commonModeCCNumberToIndividualModeParameterIDSuffix[56] = "A"; // LFO1 A
+                commonModeCCNumberToIndividualModeParameterIDSuffix[57] = "D"; // LFO1 D
+                commonModeCCNumberToIndividualModeParameterIDSuffix[114] = "W"; // LFO1 SHAPE
+                commonModeCCNumberToIndividualModeParameterIDSuffix[115] = "ENV"; // LFO1/2 ENV
+                commonModeCCNumberToIndividualModeParameterIDSuffix[8] = "AM"; // LFO2 AMT
+                commonModeCCNumberToIndividualModeParameterIDSuffix[58] = "R"; // LFO2 RATE
+                commonModeCCNumberToIndividualModeParameterIDSuffix[59] = "A"; // LFO2 A
+                commonModeCCNumberToIndividualModeParameterIDSuffix[60] = "D"; // LFO2 D
+                commonModeCCNumberToIndividualModeParameterIDSuffix[116] = "W"; // LFO2 SHAPE
+                commonModeCCNumberToIndividualModeParameterIDSuffix[40] = "AM"; // ADSR2 AMT
+                const String parameterIDSuffix = commonModeCCNumberToIndividualModeParameterIDSuffix[correspondingCCNumberInCommonMode];
+                
+                const String parameterID = parameterIDPrefix + parameterIDSuffix;
+                if (parameterIDSuffix == "W"){
+                    value = 127.0 - value;  // LFO waveforms go in backwards direction
+                } else if (parameterIDSuffix == "ENV"){
+                    if (value == 1.0){
+                        value = 127.0; // Adapt range of button value
+                    }
+                }
+                
+                #if JUCE_DEBUG
+                    if (LOG_MIDI_IN == 1){
+                        logMessage("Received MIDI SYSEX for parameter from " + source->getName() + ":" + parameterID + " " + (String)value);
+                    }
+                #endif
+                
+                if (kijimiInterface->getKIJIMISynthControlWithID(parameterID)->shouldHandleMidiInput()) {  // Only update parameters that accept MIDI input
+                    const ScopedValueSetter<bool> scopedInputFlag (isReceivingFromMidiInput, true);
+                    float newValue = (float)value/127.0;
+                    parameters.getParameter(parameterID)->beginChangeGesture();
+                    parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
+                    parameters.getParameter(parameterID)->endChangeGesture();
+                }
             }
         }
     } else {
