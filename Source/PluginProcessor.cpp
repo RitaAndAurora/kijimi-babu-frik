@@ -373,7 +373,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             8.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_MIDI_OUT_CH", // parameter ID
                                                             "MIDI out channel", // parameter name
-                                                            NormalisableRange < float > (1.0f, 16.0f, 1.0f), // parameter range
+                                                            NormalisableRange < float > (0.0f, 15.0f, 1.0f), // parameter range
                                                             8.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_MAX_VOICES", // parameter ID
                                                             "Maximum number of voices", // parameter name
@@ -1533,7 +1533,7 @@ void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int 
             if (value == 0xF7){
                 value = 0xF6;
             }
-                
+
             if (midiOptionID > -1){
                 // Paramter is controlled using SYSEX message and the option ID range
                 uint8 sysexdata[] = { 0x02, 0x06, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
@@ -1690,7 +1690,7 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 }
                 const ScopedValueSetter<bool> scopedInputFlag (isChangingFromGettingKijimiState, true);
                 SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetBytesArray(currentPresetBytes);
-                setParametersFromSynthControlIdValuePairs(idValuePairs);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls which is what we want here because we want to update parameters internally but not re-send them to KIJIMI
+                setParametersFromSynthControlIdValuePairs(idValuePairs, false);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls which is what we want here because we want to update parameters internally but not re-send them to KIJIMI
             }
         } else if (m.getSysExDataSize() == 2){
             const uint8 *buf = m.getSysExData();
@@ -1970,8 +1970,8 @@ void BabuFrikAudioProcessor::loadPresetAtIndex (int index)
     currentPreset = index;
     if (currentPreset > -1){
         SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetAtIndex(index);
-        setParametersFromSynthControlIdValuePairs(idValuePairs);  // the "isChangingFromPresetLoader" will prevent from sending MIDI messages for the controls...
-        sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
+        setParametersFromSynthControlIdValuePairs(idValuePairs, true);  // the "isChangingFromPresetLoader" will prevent from sending MIDI messages for the controls...
+        sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
         timbreSpaceEngine->setTimbreSpaceComponentXYToPresetNumber(index);
         
     }
@@ -2022,12 +2022,14 @@ void BabuFrikAudioProcessor::saveBankFile ()
     }
 }
 
-void BabuFrikAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthControlIdValuePairs idValuePairs)
+void BabuFrikAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthControlIdValuePairs idValuePairs, bool skipGlobal)
 {
     for (int i=0; i<idValuePairs.size(); i++) {
         String parameterID = idValuePairs[i].first;
-        double newValue = idValuePairs[i].second;
-        parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
+        if (!skipGlobal || !kijimiInterface->isGlobalParameter(parameterID)){
+            double newValue = idValuePairs[i].second;
+            parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
+        }
     }
 }
 
@@ -2035,16 +2037,18 @@ void BabuFrikAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthCon
 
 // Actions from KIJIMI control panel menu
 
-void BabuFrikAudioProcessor::sendControlsToSynth ()
+void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
 {
     if (midiOutput.get() != nullptr) {
         std::vector<String> parameterIDs;
         parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
         for (int i=0; i<parameterIDs.size(); i++){
             String parameterID = parameterIDs[i];
-            AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
-            int value = (int)audioParameter->get();
-            sendControlToSynth(parameterID, value);
+            if (!skipGlobal || !kijimiInterface->isGlobalParameter(parameterID)){
+                AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
+                int value = (int)audioParameter->get();
+                sendControlToSynth(parameterID, value);
+            }
         }
     }
 }
@@ -2056,16 +2060,18 @@ void BabuFrikAudioProcessor::randomizeControlValues (float amount)
     Random* random = new Random();
     for (int i=0; i<parameterIDs.size(); i++){
         String parameterID = parameterIDs[i];
-        AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
-        float newValue;
-        if (amount < 1.0){
-            float randomValue = (random->nextFloat() - 0.5 ) * 2.0 * amount;
-            float parameterValue = audioParameter->get() / 127.0;  // Normalize to range 0-1
-            newValue = (float)jlimit(0.0, 1.0, (double)(parameterValue + randomValue));
-        } else {
-            newValue = random->nextFloat();
+        if (!kijimiInterface->isGlobalParameter(parameterID)){
+            AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
+            float newValue;
+            if (amount < 1.0){
+                float randomValue = (random->nextFloat() - 0.5 ) * 2.0 * amount;
+                float parameterValue = audioParameter->get() / 127.0;  // Normalize to range 0-1
+                newValue = (float)jlimit(0.0, 1.0, (double)(parameterValue + randomValue));
+            } else {
+                newValue = random->nextFloat();
+            }
+            audioParameter->setValueNotifyingHost(newValue); // parameter needs to be set in normalized range
         }
-        audioParameter->setValueNotifyingHost(newValue); // parameter needs to be set in normalized range
     }
     delete random;
 }
@@ -2082,8 +2088,8 @@ void BabuFrikAudioProcessor::importFromPatchFile ()
         String filePath = file.getFullPathName();
         SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsFromPatchFile(filePath);
         const ScopedValueSetter<bool> scopedInputFlag (isChangingFromLoadingAPatchFile, true);
-        setParametersFromSynthControlIdValuePairs(idValuePairs); // the "isChangingFromLoadingAPatchFile" will prevent from sending MIDI messages for the controls...
-        sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
+        setParametersFromSynthControlIdValuePairs(idValuePairs, true); // the "isChangingFromLoadingAPatchFile" will prevent from sending MIDI messages for the controls...
+        sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
     }
 }
 
@@ -2149,9 +2155,9 @@ void BabuFrikAudioProcessor::actionListenerCallback (const String &message)
     if (message.startsWith(String(ACTION_LOAD_INTERPOLATED_PRESET))){
         const ScopedValueSetter<bool> scopedInputFlag (isChangingFromTimbreSpace, true);
         setParametersFromSynthControlIdValuePairs(
-            kijimiInterface->getSynthControlIdValuePairsForInterpolatedPresets(timbreSpaceEngine->getSelectedPointInterpolationData())
+            kijimiInterface->getSynthControlIdValuePairsForInterpolatedPresets(timbreSpaceEngine->getSelectedPointInterpolationData()), true
         ); // the "isChangingFromTimbreSpace" will prevent from sending MIDI messages for the controls...
-        sendControlsToSynth(); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
+        sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
         
     } else if (message.startsWith(String(ACTION_LOG_PREFIX))){
         #if JUCE_DEBUG

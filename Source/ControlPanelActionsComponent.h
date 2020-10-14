@@ -135,7 +135,7 @@ public:
     void processMenuAction(int actionID)
     {
         if (actionID == MENU_OPTION_ID_SEND_PATCH_TO_SYNTH){
-            processor->sendControlsToSynth();
+            processor->sendControlsToSynth(true);
         } else if (actionID == MENU_OPTION_ID_RANDOMIZE_PATCH_5_ID){
             processor->randomizeControlValues(0.05);
         } else if (actionID == MENU_OPTION_ID_RANDOMIZE_PATCH_10_ID){

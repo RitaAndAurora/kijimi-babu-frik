@@ -1040,7 +1040,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_MIDI_OUT_CH);
                 sliderAttachmentKIJIMI_MIDI_OUT_CH.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MIDI_OUT_CH", sliderKIJIMI_MIDI_OUT_CH));
         sliderKIJIMI_MIDI_OUT_CH.textFromValueFunction = [](double value) {
-            return "MIDI out channel: " + String (value);
+            return "MIDI out channel: " + String (value + 1);
         };
         // Slider KIJIMI_MAX_VOICES
                 sliderKIJIMI_MAX_VOICES.setSliderStyle (Slider::Rotary);

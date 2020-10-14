@@ -108,14 +108,14 @@ public:
     void savePresetToBankLocation (int bankLocation);
     void saveBankFile ();
     void loadPresetAtIndex (int index);
-    void setParametersFromSynthControlIdValuePairs (SynthControlIdValuePairs idValuePairs);
+    void setParametersFromSynthControlIdValuePairs (SynthControlIdValuePairs idValuePairs, bool skipGlobal);
     bool isChangingFromPresetLoader = false;
     
     // KIJIMI Interface
     KIJIMIInterface* kijimiInterface;
     
     // Actions from KIJIMI control panel menu
-    void sendControlsToSynth ();
+    void sendControlsToSynth (bool skipGlobal);
     void randomizeControlValues (float amount);
     void importFromPatchFile ();
     void saveToPatchFile ();

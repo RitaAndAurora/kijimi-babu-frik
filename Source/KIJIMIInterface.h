@@ -117,7 +117,7 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_AT_MODE", "Aftertouch mode", "select", -1, 21, -1, 74, "direct", 2, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MPE_CH", "MPE base channel", "knob", -1, 23, -1, 76, "direct", 7, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MIDI_CH", "MIDI in channel", "knob", -1, 24, -1, 77, "direct", 16, false, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_MIDI_OUT_CH", "MIDI out channel", "knob", -1, 85, -1, 237, "direct", 16, false, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_MIDI_OUT_CH", "MIDI out channel", "knob", -1, 86, -1, 237, "direct", 15, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MAX_VOICES", "Maximum number of voices", "knob", -1, 27, -1, 80, "direct", 8, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_MOD_MODE", "ADSR2 modulation mode", "button2", -1, 83, -1, 234, "direct", 1, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_CYCLE_MODE", "Cycle poly/mono", "button2", -1, 42, -1, 95, "direct", 1, false, true));
@@ -141,7 +141,7 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MODW_DEST", "Modwheel destination", "select", -1, 15, -1, 68, "direct", 4, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MODW_P", "Modwheel polarity", "button2", -1, 34, -1, 87, "direct", 1, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_PBEND_RANGE", "Pitchbend range", "knob", -1, 28, -1, 81, "direct", 99, false, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_MPE_PBEND_RANGE", "MPE Pitchbend range", "knob", -1, 86, -1, 236, "direct", 99, false, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_MPE_PBEND_RANGE", "MPE Pitchbend range", "knob", -1, 85, -1, 236, "direct", 99, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VEL_CURVE", "Velocity curve", "select", -1, 44, -1, 97, "direct", 4, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_VCA", "ADSR VCA level", "knob", -1, 25, -1, 78, "direct", 10, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MASTER_VOL", "Master volume", "knob", -1, 31, -1, 84, "direct", 12, false, true));
@@ -254,6 +254,16 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2VCA_ENV", "LFO2 to VCA envelope", "button1", -1, -1, 99, 233, "direct", 1, false, true));
         // --> End auto-generated code A
         
+        // --> Start auto-generated code B
+        globalControlIDs.add("KIJIMI_KNOB_BEH");
+        globalControlIDs.add("KIJIMI_CC_RECEIVE");
+        globalControlIDs.add("KIJIMI_AT_MODE");
+        globalControlIDs.add("KIJIMI_MPE_CH");
+        globalControlIDs.add("KIJIMI_MIDI_CH");
+        globalControlIDs.add("KIJIMI_MIDI_OUT_CH");
+        globalControlIDs.add("KIJIMI_MAX_VOICES");
+        // --> End auto-generated code B
+        
         #if JUCE_DEBUG
             logMessage(String::formatted("Loaded %i KIJIMI controls", synthControls.size()));
         #endif
@@ -301,6 +311,10 @@ public:
             }
         }
         throw std::invalid_argument("No KIJIMISynthControl with CC number \"" + std::to_string(ccNumber) + "\"");
+    }
+    
+    bool isGlobalParameter (const String &parameterID){
+        return globalControlIDs.contains(parameterID);
     }
     
     int getCCNumberForParameterID (const String &parameterID)
@@ -495,6 +509,7 @@ private:
     
     std::vector<KIJIMISynthControl> synthControls;
     KIJIMIPresetBank presetBank;
+    StringArray globalControlIDs = {};
     
     void logMessage (const String& message)
     {
