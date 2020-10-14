@@ -136,6 +136,8 @@ public:
     void actionListenerCallback (const String &message) override;
     
     // Other
+    void toggleAutomaticSyncWithSynth();
+    bool automaticSyncWithSynthEnabled = true;
     float getValueForAudioParameter(const String& parameterID);
     File getDirectoryForFileSaveLoad ();
     void setLastUserDirectoryForFileSaveLoad (File file);

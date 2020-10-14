@@ -1696,8 +1696,11 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
             const uint8 *buf = m.getSysExData();
             if (((int)buf[0] == 0x02) && (((int)buf[1] == 0x41) || ((int)buf[1] == 0x42) || ((int)buf[1] == 0x43) || ((int)buf[1] == 0x16))){
                 // This is the sequence that corresponds to "a new preset was loaded", "random patch loaded", "panel mode loaded" or "new menu option set"
-                delayedRequestLoadControlsSysexThread.run(); // Ask KIJIMI to send current state data, but wait a couple of milliseconds to allow KIJIMI to finish sending other sysex messages that sometimes sends right after sending one of these three. Sending a sysex message to KIJIMI while KIJIMI is sending another can freeze KIJIMI
+                if (automaticSyncWithSynthEnabled){  // Only request state if Babu Frik is set to sync automatically
+                    delayedRequestLoadControlsSysexThread.run(); // Ask KIJIMI to send current state data, but wait a couple of milliseconds to allow KIJIMI to finish sending other sysex messages that sometimes sends right after sending one of these three. Sending a sysex message to KIJIMI while KIJIMI is sending another can freeze KIJIMI
+                }
             }
+                
         } else if (m.getSysExDataSize() == 5){
             const uint8 *buf = m.getSysExData();
             if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x22)){
@@ -2247,6 +2250,10 @@ void BabuFrikAudioProcessor::showOrHideKIJIMIPanel(String panelName, bool doShow
             sendActionMessage(ACTION_TOGGLE_HIDE_LFO_PANEL);
         }
     }
+}
+
+void BabuFrikAudioProcessor::toggleAutomaticSyncWithSynth(){
+    automaticSyncWithSynthEnabled = !automaticSyncWithSynthEnabled;
 }
 
 

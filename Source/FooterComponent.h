@@ -99,6 +99,10 @@ public:
             PopupMenu m;
             m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             m.addSubMenu ("MIDI device scan", midiDevicesSubMenu);
+            
+            int automaticSyncWithSynthTicked = processor->automaticSyncWithSynthEnabled;
+            m.addItem (MENU_OPTION_TOGGLE_AUTO_SYNC_WITH_SYNTH, "Auto-sync with KIJIMI", true, automaticSyncWithSynthTicked);
+            
             selectedActionID = m.showAt(button);
             
         }
@@ -116,6 +120,8 @@ public:
             processor->setMidiDevicesAutoScan(true);
         } else if (actionID == MENU_OPTION_MIDI_SCAN_NOW){
             processor->triggerMidiDevicesScan();
+        } else if (actionID == MENU_OPTION_TOGGLE_AUTO_SYNC_WITH_SYNTH){
+            processor->toggleAutomaticSyncWithSynth();
         }
     }
     
