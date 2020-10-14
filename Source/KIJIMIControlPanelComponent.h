@@ -525,7 +525,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO1_RATE);
                 sliderAttachmentKIJIMI_LFO1_RATE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_RATE", sliderKIJIMI_LFO1_RATE));
         sliderKIJIMI_LFO1_RATE.textFromValueFunction = [](double value) {
-            return "LFO1 rate: " + String (value);
+            return String::formatted("LFO1 rate: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_LFO1_A
                 sliderKIJIMI_LFO1_A.setSliderStyle (Slider::Rotary);
@@ -535,8 +535,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO1_A);
                 sliderAttachmentKIJIMI_LFO1_A.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_A", sliderKIJIMI_LFO1_A));
         sliderKIJIMI_LFO1_A.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("LFO1 attack: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("LFO1 attack: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("LFO1 attack: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_LFO1_D
                 sliderKIJIMI_LFO1_D.setSliderStyle (Slider::Rotary);
@@ -546,8 +545,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO1_D);
                 sliderAttachmentKIJIMI_LFO1_D.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_D", sliderKIJIMI_LFO1_D));
         sliderKIJIMI_LFO1_D.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("LFO1 decay: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("LFO1 decay: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("LFO1 decay: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_LFO1_SHAPE
                 sliderKIJIMI_LFO1_SHAPE.setSliderStyle (Slider::Rotary);
@@ -572,7 +570,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO2_RATE);
                 sliderAttachmentKIJIMI_LFO2_RATE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_RATE", sliderKIJIMI_LFO2_RATE));
         sliderKIJIMI_LFO2_RATE.textFromValueFunction = [](double value) {
-            return "LFO2 rate: " + String (value);
+            return String::formatted("LFO2 rate: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_LFO2_A
                 sliderKIJIMI_LFO2_A.setSliderStyle (Slider::Rotary);
@@ -582,8 +580,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO2_A);
                 sliderAttachmentKIJIMI_LFO2_A.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_A", sliderKIJIMI_LFO2_A));
         sliderKIJIMI_LFO2_A.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("LFO2 attack: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("LFO2 attack: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("LFO2 attack: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_LFO2_D
                 sliderKIJIMI_LFO2_D.setSliderStyle (Slider::Rotary);
@@ -593,8 +590,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO2_D);
                 sliderAttachmentKIJIMI_LFO2_D.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_D", sliderKIJIMI_LFO2_D));
         sliderKIJIMI_LFO2_D.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("LFO2 decay: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("LFO2 decay: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("LFO2 decay: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_LFO2_SHAPE
                 sliderKIJIMI_LFO2_SHAPE.setSliderStyle (Slider::Rotary);
@@ -632,7 +628,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO1_FREQ);
                 sliderAttachmentKIJIMI_VCO1_FREQ.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO1_FREQ", sliderKIJIMI_VCO1_FREQ));
         sliderKIJIMI_VCO1_FREQ.textFromValueFunction = [](double value) {
-            return "VCO1 frequency: " + String (value);
+            return String::formatted("VCO1 frequency: %.1f", 4.0 * (value / 127.0) - 2);
         };
         // Slider KIJIMI_VCO1_WAVE
                 sliderKIJIMI_VCO1_WAVE.setSliderStyle (Slider::Rotary);
@@ -642,7 +638,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO1_WAVE);
                 sliderAttachmentKIJIMI_VCO1_WAVE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO1_WAVE", sliderKIJIMI_VCO1_WAVE));
         sliderKIJIMI_VCO1_WAVE.textFromValueFunction = [](double value) {
-            return "VCO1 waveform: " + String (value);
+            return String::formatted("VCO1 waveform: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_VCO1_VOL13
                 sliderKIJIMI_VCO1_VOL13.setSliderStyle (Slider::Rotary);
@@ -652,7 +648,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO1_VOL13);
                 sliderAttachmentKIJIMI_VCO1_VOL13.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO1_VOL13", sliderKIJIMI_VCO1_VOL13));
         sliderKIJIMI_VCO1_VOL13.textFromValueFunction = [](double value) {
-            return "VCO1 volume 1/3: " + String (value);
+            if (value < 64){ return "VCO1 volume 1/3: off"; } 
+            else { return "VCO1 volume 1/3: on";}
         };
         // Slider KIJIMI_VCO1_VOL23
                 sliderKIJIMI_VCO1_VOL23.setSliderStyle (Slider::Rotary);
@@ -662,7 +659,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO1_VOL23);
                 sliderAttachmentKIJIMI_VCO1_VOL23.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO1_VOL23", sliderKIJIMI_VCO1_VOL23));
         sliderKIJIMI_VCO1_VOL23.textFromValueFunction = [](double value) {
-            return "VCO1 volume 2/3: " + String (value);
+            if (value < 64){ return "VCO1 volume 2/3: off"; } 
+            else { return "VCO1 volume 2/3: on";}
         };
         // Slider KIJIMI_SUB_VOL
                 sliderKIJIMI_SUB_VOL.setSliderStyle (Slider::Rotary);
@@ -672,7 +670,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_SUB_VOL);
                 sliderAttachmentKIJIMI_SUB_VOL.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_SUB_VOL", sliderKIJIMI_SUB_VOL));
         sliderKIJIMI_SUB_VOL.textFromValueFunction = [](double value) {
-            return "Sub volume: " + String (value);
+            return String::formatted("Sub volume: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_NOISE_VOL13
                 sliderKIJIMI_NOISE_VOL13.setSliderStyle (Slider::Rotary);
@@ -682,7 +680,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_NOISE_VOL13);
                 sliderAttachmentKIJIMI_NOISE_VOL13.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_NOISE_VOL13", sliderKIJIMI_NOISE_VOL13));
         sliderKIJIMI_NOISE_VOL13.textFromValueFunction = [](double value) {
-            return "Noise volume 1/3: " + String (value);
+            if (value < 64){ return "Noise volume 1/3: off"; } 
+            else { return "Noise volume 1/3: on";}
         };
         // Slider KIJIMI_NOISE_VOL23
                 sliderKIJIMI_NOISE_VOL23.setSliderStyle (Slider::Rotary);
@@ -692,7 +691,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_NOISE_VOL23);
                 sliderAttachmentKIJIMI_NOISE_VOL23.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_NOISE_VOL23", sliderKIJIMI_NOISE_VOL23));
         sliderKIJIMI_NOISE_VOL23.textFromValueFunction = [](double value) {
-            return "Noise volume 2/3: " + String (value);
+            if (value < 64){ return "Noise volume 2/3: off"; } 
+            else { return "Noise volume 2/3: on";}
         };
         // Slider KIJIMI_VCO2_FREQ
                 sliderKIJIMI_VCO2_FREQ.setSliderStyle (Slider::Rotary);
@@ -702,7 +702,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO2_FREQ);
                 sliderAttachmentKIJIMI_VCO2_FREQ.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO2_FREQ", sliderKIJIMI_VCO2_FREQ));
         sliderKIJIMI_VCO2_FREQ.textFromValueFunction = [](double value) {
-            return "VCO2 frequency: " + String (value);
+            return String::formatted("VCO2 frequency: %.1f", 4.0 * (value / 127.0) - 2);
         };
         // Slider KIJIMI_VCO2WAVE
                 sliderKIJIMI_VCO2WAVE.setSliderStyle (Slider::Rotary);
@@ -712,7 +712,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO2WAVE);
                 sliderAttachmentKIJIMI_VCO2WAVE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO2WAVE", sliderKIJIMI_VCO2WAVE));
         sliderKIJIMI_VCO2WAVE.textFromValueFunction = [](double value) {
-            return "VCO2 waveform: " + String (value);
+            return String::formatted("VCO2 waveform: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_VCO2_VOL
                 sliderKIJIMI_VCO2_VOL.setSliderStyle (Slider::Rotary);
@@ -722,7 +722,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO2_VOL);
                 sliderAttachmentKIJIMI_VCO2_VOL.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO2_VOL", sliderKIJIMI_VCO2_VOL));
         sliderKIJIMI_VCO2_VOL.textFromValueFunction = [](double value) {
-            return "VCO2 volume: " + String (value);
+            return String::formatted("VCO2 volume: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_VCO2_DETUNE
                 sliderKIJIMI_VCO2_DETUNE.setSliderStyle (Slider::Rotary);
@@ -732,7 +732,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO2_DETUNE);
                 sliderAttachmentKIJIMI_VCO2_DETUNE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO2_DETUNE", sliderKIJIMI_VCO2_DETUNE));
         sliderKIJIMI_VCO2_DETUNE.textFromValueFunction = [](double value) {
-            return "VCO2 detune: " + String (value);
+            return String::formatted("VCO2 detune: %.1f", 2.0 * (value / 127.0) - 1);
         };
         // Slider KIJIMI_VCO_SYNC
                 sliderKIJIMI_VCO_SYNC.setSliderStyle (Slider::Rotary);
@@ -742,7 +742,9 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO_SYNC);
                 sliderAttachmentKIJIMI_VCO_SYNC.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO_SYNC", sliderKIJIMI_VCO_SYNC));
         sliderKIJIMI_VCO_SYNC.textFromValueFunction = [](double value) {
-            return "VCO sync: " + String (value);
+            if (value < 43){ return "VCO sync: off"; } 
+            else if ((value >= 43) && (value < 86)){ return "VCO sync: VCO1 to VCO2";}
+            else { return "VCO sync: VCO2 to VCO1";}
         };
         // Slider KIJIMI_VCO_KOFF
                 sliderKIJIMI_VCO_KOFF.setSliderStyle (Slider::Rotary);
@@ -752,7 +754,10 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO_KOFF);
                 sliderAttachmentKIJIMI_VCO_KOFF.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO_KOFF", sliderKIJIMI_VCO_KOFF));
         sliderKIJIMI_VCO_KOFF.textFromValueFunction = [](double value) {
-            return "VCO key off: " + String (value);
+            if (value < 32){ return "VCO key off: off"; } 
+            else if ((value >= 32) && (value < 64)){ return "VCO key off: VCO1";}
+            else if ((value >= 64) && (value < 96)){ return "VCO key off: VCO2";}
+            else if (value >= 96){ return "VCO key off: both";}
         };
         // Slider KIJIMI_VCF_FREQ
                 sliderKIJIMI_VCF_FREQ.setSliderStyle (Slider::Rotary);
@@ -762,7 +767,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCF_FREQ);
                 sliderAttachmentKIJIMI_VCF_FREQ.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCF_FREQ", sliderKIJIMI_VCF_FREQ));
         sliderKIJIMI_VCF_FREQ.textFromValueFunction = [](double value) {
-            return "VCF Frequency: " + String (value);
+            return String::formatted("VCF Frequency: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_VCF_VEL_C
                 sliderKIJIMI_VCF_VEL_C.setSliderStyle (Slider::Rotary);
@@ -772,7 +777,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCF_VEL_C);
                 sliderAttachmentKIJIMI_VCF_VEL_C.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCF_VEL_C", sliderKIJIMI_VCF_VEL_C));
         sliderKIJIMI_VCF_VEL_C.textFromValueFunction = [](double value) {
-            return "VCF Velocity control: " + String (value);
+            return String::formatted("VCF Velocity control: %.1f", 10.0 * (value / 127.0) - 5);
         };
         // Slider KIJIMI_VCF_AT_C
                 sliderKIJIMI_VCF_AT_C.setSliderStyle (Slider::Rotary);
@@ -782,7 +787,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCF_AT_C);
                 sliderAttachmentKIJIMI_VCF_AT_C.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCF_AT_C", sliderKIJIMI_VCF_AT_C));
         sliderKIJIMI_VCF_AT_C.textFromValueFunction = [](double value) {
-            return "VCF Aftertouch control: " + String (value);
+            return String::formatted("VCF Aftertouch control: %.1f", 10.0 * (value / 127.0) - 5);
         };
         // Slider KIJIMI_VCF_ADSR2_C
                 sliderKIJIMI_VCF_ADSR2_C.setSliderStyle (Slider::Rotary);
@@ -792,7 +797,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCF_ADSR2_C);
                 sliderAttachmentKIJIMI_VCF_ADSR2_C.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCF_ADSR2_C", sliderKIJIMI_VCF_ADSR2_C));
         sliderKIJIMI_VCF_ADSR2_C.textFromValueFunction = [](double value) {
-            return "VCF ADSR2 control: " + String (value);
+            return String::formatted("VCF ADSR2 control: %.1f", 10.0 * (value / 127.0) - 5);
         };
         // Slider KIJIMI_VCF_RESO
                 sliderKIJIMI_VCF_RESO.setSliderStyle (Slider::Rotary);
@@ -802,7 +807,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCF_RESO);
                 sliderAttachmentKIJIMI_VCF_RESO.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCF_RESO", sliderKIJIMI_VCF_RESO));
         sliderKIJIMI_VCF_RESO.textFromValueFunction = [](double value) {
-            return "VCF Resonance: " + String (value);
+            return String::formatted("VCF Resonance: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_VCF_Q_VEL_C
                 sliderKIJIMI_VCF_Q_VEL_C.setSliderStyle (Slider::Rotary);
@@ -812,7 +817,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCF_Q_VEL_C);
                 sliderAttachmentKIJIMI_VCF_Q_VEL_C.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCF_Q_VEL_C", sliderKIJIMI_VCF_Q_VEL_C));
         sliderKIJIMI_VCF_Q_VEL_C.textFromValueFunction = [](double value) {
-            return "VCF Velocity Q control: " + String (value);
+            return String::formatted("VCF Velocity Q control: %.1f", 10.0 * (value / 127.0) - 5);
         };
         // Slider KIJIMI_VCF_Q_AT_C
                 sliderKIJIMI_VCF_Q_AT_C.setSliderStyle (Slider::Rotary);
@@ -822,7 +827,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCF_Q_AT_C);
                 sliderAttachmentKIJIMI_VCF_Q_AT_C.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCF_Q_AT_C", sliderKIJIMI_VCF_Q_AT_C));
         sliderKIJIMI_VCF_Q_AT_C.textFromValueFunction = [](double value) {
-            return "VCF Aftertouch Q control: " + String (value);
+            return String::formatted("VCF Aftertouch Q control: %.1f", 10.0 * (value / 127.0) - 5);
         };
         // Slider KIJIMI_VCF_KEY_C
                 sliderKIJIMI_VCF_KEY_C.setSliderStyle (Slider::Rotary);
@@ -832,7 +837,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCF_KEY_C);
                 sliderAttachmentKIJIMI_VCF_KEY_C.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCF_KEY_C", sliderKIJIMI_VCF_KEY_C));
         sliderKIJIMI_VCF_KEY_C.textFromValueFunction = [](double value) {
-            return "VCF Keyboard control: " + String (value);
+            return String::formatted("VCF Keyboard control: %.1f", 2.0 * (value / 127.0));
         };
         // Slider KIJIMI_ADSR2_A
                 sliderKIJIMI_ADSR2_A.setSliderStyle (Slider::Rotary);
@@ -842,8 +847,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR2_A);
                 sliderAttachmentKIJIMI_ADSR2_A.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR2_A", sliderKIJIMI_ADSR2_A));
         sliderKIJIMI_ADSR2_A.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("ADSR2 attack: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("ADSR2 attack: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("ADSR2 attack: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_ADSR2_D
                 sliderKIJIMI_ADSR2_D.setSliderStyle (Slider::Rotary);
@@ -853,8 +857,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR2_D);
                 sliderAttachmentKIJIMI_ADSR2_D.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR2_D", sliderKIJIMI_ADSR2_D));
         sliderKIJIMI_ADSR2_D.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("ADSR2 decay: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("ADSR2 decay: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("ADSR2 decay: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_ADSR2_S
                 sliderKIJIMI_ADSR2_S.setSliderStyle (Slider::Rotary);
@@ -864,7 +867,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR2_S);
                 sliderAttachmentKIJIMI_ADSR2_S.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR2_S", sliderKIJIMI_ADSR2_S));
         sliderKIJIMI_ADSR2_S.textFromValueFunction = [](double value) {
-            return "ADSR2 sustain: " + String (value);
+            return String::formatted("ADSR2 sustain: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_ADSR2_R
                 sliderKIJIMI_ADSR2_R.setSliderStyle (Slider::Rotary);
@@ -874,8 +877,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR2_R);
                 sliderAttachmentKIJIMI_ADSR2_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR2_R", sliderKIJIMI_ADSR2_R));
         sliderKIJIMI_ADSR2_R.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("ADSR2 release: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("ADSR2 release: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("ADSR2 release: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_ADSR1_A
                 sliderKIJIMI_ADSR1_A.setSliderStyle (Slider::Rotary);
@@ -885,8 +887,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR1_A);
                 sliderAttachmentKIJIMI_ADSR1_A.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR1_A", sliderKIJIMI_ADSR1_A));
         sliderKIJIMI_ADSR1_A.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("ADSR1 attack: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("ADSR1 attack: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("ADSR1 attack: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_ADSR1_D
                 sliderKIJIMI_ADSR1_D.setSliderStyle (Slider::Rotary);
@@ -896,8 +897,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR1_D);
                 sliderAttachmentKIJIMI_ADSR1_D.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR1_D", sliderKIJIMI_ADSR1_D));
         sliderKIJIMI_ADSR1_D.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("ADSR1 decay: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("ADSR1 decay: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("ADSR1 decay: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_ADSR1_S
                 sliderKIJIMI_ADSR1_S.setSliderStyle (Slider::Rotary);
@@ -907,7 +907,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR1_S);
                 sliderAttachmentKIJIMI_ADSR1_S.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR1_S", sliderKIJIMI_ADSR1_S));
         sliderKIJIMI_ADSR1_S.textFromValueFunction = [](double value) {
-            return "ADSR1 sustain: " + String (value);
+            return String::formatted("ADSR1 sustain: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_ADSR1_R
                 sliderKIJIMI_ADSR1_R.setSliderStyle (Slider::Rotary);
@@ -917,8 +917,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR1_R);
                 sliderAttachmentKIJIMI_ADSR1_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR1_R", sliderKIJIMI_ADSR1_R));
         sliderKIJIMI_ADSR1_R.textFromValueFunction = [](double value) {
-            if (value < 58.9){ return String::formatted("ADSR1 release: %i", jmin((int)(1 + std::pow((value / 127.0), 6.0) * 10000), 10000)); }
-            else { return String::formatted("ADSR1 release: %.1f", jmin((double)std::pow(((value - 2) / 126.0), 6.0) * 11, 10.0)); }
+            return String::formatted("ADSR1 release: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_ADSR_MULT
                 sliderKIJIMI_ADSR_MULT.setSliderStyle (Slider::Rotary);
@@ -928,7 +927,10 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR_MULT);
                 sliderAttachmentKIJIMI_ADSR_MULT.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR_MULT", sliderKIJIMI_ADSR_MULT));
         sliderKIJIMI_ADSR_MULT.textFromValueFunction = [](double value) {
-            return "ADSR mult: " + String (value);
+            if (value < 32){ return "ADSR mult: x1"; } 
+            else if ((value >= 32) && (value < 64)){ return "ADSR mult: x2";}
+            else if ((value >= 64) && (value < 96)){ return "ADSR mult: x3";}
+            else if (value >= 96){ return "ADSR mult: x4";}
         };
         // Slider KIJIMI_ADSR_CYCLE
                 sliderKIJIMI_ADSR_CYCLE.setSliderStyle (Slider::Rotary);
@@ -938,7 +940,10 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR_CYCLE);
                 sliderAttachmentKIJIMI_ADSR_CYCLE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR_CYCLE", sliderKIJIMI_ADSR_CYCLE));
         sliderKIJIMI_ADSR_CYCLE.textFromValueFunction = [](double value) {
-            return "ADSR cycle: " + String (value);
+            if (value < 32){ return "ADSR cycle: off"; } 
+            else if ((value >= 32) && (value < 64)){ return "ADSR cycle: ADSR1";}
+            else if ((value >= 64) && (value < 96)){ return "ADSR cycle: ADSR2";}
+            else if (value >= 96){ return "ADSR cycle: both";}
         };
         // Slider KIJIMI_ADSR_KT
                 sliderKIJIMI_ADSR_KT.setSliderStyle (Slider::Rotary);
@@ -948,7 +953,10 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR_KT);
                 sliderAttachmentKIJIMI_ADSR_KT.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR_KT", sliderKIJIMI_ADSR_KT));
         sliderKIJIMI_ADSR_KT.textFromValueFunction = [](double value) {
-            return "ADSR KT: " + String (value);
+            if (value < 32){ return "ADSR KT: off"; } 
+            else if ((value >= 32) && (value < 64)){ return "ADSR KT: ADSR1";}
+            else if ((value >= 64) && (value < 96)){ return "ADSR KT: ADSR2";}
+            else if (value >= 96){ return "ADSR KT: both";}
         };
         // Slider KIJIMI_GLIDE_RATE
                 sliderKIJIMI_GLIDE_RATE.setSliderStyle (Slider::Rotary);
@@ -958,7 +966,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_GLIDE_RATE);
                 sliderAttachmentKIJIMI_GLIDE_RATE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_GLIDE_RATE", sliderKIJIMI_GLIDE_RATE));
         sliderKIJIMI_GLIDE_RATE.textFromValueFunction = [](double value) {
-            return "Glide rate: " + String (value);
+            return String::formatted("Glide rate: %.1f", 10.0 * (value / 127.0));
         };
         // Slider KIJIMI_GLIDE_MODE
                 sliderKIJIMI_GLIDE_MODE.setSliderStyle (Slider::Rotary);
@@ -968,7 +976,9 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_GLIDE_MODE);
                 sliderAttachmentKIJIMI_GLIDE_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_GLIDE_MODE", sliderKIJIMI_GLIDE_MODE));
         sliderKIJIMI_GLIDE_MODE.textFromValueFunction = [](double value) {
-            return "Glide mode: " + String (value);
+            if (value < 43){ return "Glide mode: off"; } 
+            else if ((value >= 43) && (value < 86)){ return "Glide mode: portamento";}
+            else { return "Glide mode: glissando";}
         };
         // Slider KIJIMI_VOLUME
                 sliderKIJIMI_VOLUME.setSliderStyle (Slider::Rotary);
@@ -978,7 +988,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VOLUME);
                 sliderAttachmentKIJIMI_VOLUME.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VOLUME", sliderKIJIMI_VOLUME));
         sliderKIJIMI_VOLUME.textFromValueFunction = [](double value) {
-            return "Volume: " + String (value);
+            return String::formatted("Volume: %.1f", 10.0 * (value / 127.0));
         };
         // ComboBox KIJIMI_KNOB_BEH
                 sliderKIJIMI_KNOB_BEH.addItemList (StringArray ({"PICK UP", "MERGE", "INSTANT"}), 1);
@@ -1018,7 +1028,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_MIDI_CH);
                 sliderAttachmentKIJIMI_MIDI_CH.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MIDI_CH", sliderKIJIMI_MIDI_CH));
         sliderKIJIMI_MIDI_CH.textFromValueFunction = [](double value) {
-            return "MIDI channel: " + String (value);
+            if (value == 0){ return "MIDI in channel: All"; } 
+            else { "MIDI in channel: " + String (value);}
         };
         // Slider KIJIMI_MAX_VOICES
                 sliderKIJIMI_MAX_VOICES.setSliderStyle (Slider::Rotary);

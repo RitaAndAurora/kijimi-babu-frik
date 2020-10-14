@@ -48,7 +48,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR_MOD_MODE);
                 sliderAttachmentKIJIMI_ADSR_MOD_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR_MOD_MODE", sliderKIJIMI_ADSR_MOD_MODE));
         sliderKIJIMI_ADSR_MOD_MODE.textFromValueFunction = [](double value) {
-            return "ADSR2 modulation mode: " + String (value);
+            if (value == 0){ return "ADSR2 modulation mode: common"; } 
+            else { return "ADSR2 modulation mode: individual";}
         };
         // Slider KIJIMI_CYCLE_MODE
                 sliderKIJIMI_CYCLE_MODE.setSliderStyle (Slider::Rotary);
@@ -58,7 +59,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_CYCLE_MODE);
                 sliderAttachmentKIJIMI_CYCLE_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_CYCLE_MODE", sliderKIJIMI_CYCLE_MODE));
         sliderKIJIMI_CYCLE_MODE.textFromValueFunction = [](double value) {
-            return "Cycle poly/mono: " + String (value);
+            if (value == 0){ return "Cycle poly/mono: poly"; } 
+            else { return "Cycle poly/mono: mono";}
         };
         // Slider KIJIMI_KT_MULTIPLIER
                 sliderKIJIMI_KT_MULTIPLIER.setSliderStyle (Slider::Rotary);
@@ -68,7 +70,9 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_KT_MULTIPLIER);
                 sliderAttachmentKIJIMI_KT_MULTIPLIER.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_KT_MULTIPLIER", sliderKIJIMI_KT_MULTIPLIER));
         sliderKIJIMI_KT_MULTIPLIER.textFromValueFunction = [](double value) {
-            return "KT multiplier: " + String (value);
+            if (value == 0){ return "KT multiplier: x1"; } 
+            else if (value == 1) { return "KT multiplier: x2";}
+            else { return "KT multiplier: x4";}
         };
         // Slider KIJIMI_LFO_MAX_R
                 sliderKIJIMI_LFO_MAX_R.setSliderStyle (Slider::Rotary);
@@ -78,7 +82,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO_MAX_R);
                 sliderAttachmentKIJIMI_LFO_MAX_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_MAX_R", sliderKIJIMI_LFO_MAX_R));
         sliderKIJIMI_LFO_MAX_R.textFromValueFunction = [](double value) {
-            return "LFO max rate: " + String (value);
+            return "LFO max rate: " + String (value) + "Hz";
         };
         // Slider KIJIMI_LFO_MIN_R
                 sliderKIJIMI_LFO_MIN_R.setSliderStyle (Slider::Rotary);
@@ -88,7 +92,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO_MIN_R);
                 sliderAttachmentKIJIMI_LFO_MIN_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_MIN_R", sliderKIJIMI_LFO_MIN_R));
         sliderKIJIMI_LFO_MIN_R.textFromValueFunction = [](double value) {
-            return "LFO min rate: " + String (value);
+            return String::formatted("LFO min rate: %.2fHz", 0.01 * value);
         };
         // Slider KIJIMI_LFO_MODE
                 sliderKIJIMI_LFO_MODE.setSliderStyle (Slider::Rotary);
@@ -98,7 +102,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO_MODE);
                 sliderAttachmentKIJIMI_LFO_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_MODE", sliderKIJIMI_LFO_MODE));
         sliderKIJIMI_LFO_MODE.textFromValueFunction = [](double value) {
-            return "LFO poly/mono: " + String (value);
+            if (value == 0){ return "LFO poly/mono: poly"; } 
+            else { return "LFO poly/mono: mono";}
         };
         // Slider KIJIMI_LFO_MOD_MODE
                 sliderKIJIMI_LFO_MOD_MODE.setSliderStyle (Slider::Rotary);
@@ -108,7 +113,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO_MOD_MODE);
                 sliderAttachmentKIJIMI_LFO_MOD_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_MOD_MODE", sliderKIJIMI_LFO_MOD_MODE));
         sliderKIJIMI_LFO_MOD_MODE.textFromValueFunction = [](double value) {
-            return "LFO modulation mode: " + String (value);
+            if (value == 0){ return "LFO modulation mode: common"; } 
+            else { return "LFO modulation mode: individual";}
         };
         // Slider KIJIMI_LFO_POLY_RETRIG
                 sliderKIJIMI_LFO_POLY_RETRIG.setSliderStyle (Slider::Rotary);
@@ -118,7 +124,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO_POLY_RETRIG);
                 sliderAttachmentKIJIMI_LFO_POLY_RETRIG.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_POLY_RETRIG", sliderKIJIMI_LFO_POLY_RETRIG));
         sliderKIJIMI_LFO_POLY_RETRIG.textFromValueFunction = [](double value) {
-            return "LFO poly mode EG retrig: " + String (value);
+            if (value < 64){ return "LFO poly mode EG retrig: off"; } 
+            else { return "LFO poly mode EG retrig: on";}
         };
         // Slider KIJIMI_LFO_SUST
                 sliderKIJIMI_LFO_SUST.setSliderStyle (Slider::Rotary);
@@ -128,7 +135,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO_SUST);
                 sliderAttachmentKIJIMI_LFO_SUST.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_SUST", sliderKIJIMI_LFO_SUST));
         sliderKIJIMI_LFO_SUST.textFromValueFunction = [](double value) {
-            return "LFO sustain: " + String (value);
+            if (value < 64){ return "LFO sustain: on"; } 
+            else { return "LFO sustain: off";}
         };
         // Slider KIJIMI_LFO1_ENV_DEST
                 sliderKIJIMI_LFO1_ENV_DEST.setSliderStyle (Slider::Rotary);
@@ -138,7 +146,9 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO1_ENV_DEST);
                 sliderAttachmentKIJIMI_LFO1_ENV_DEST.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_ENV_DEST", sliderKIJIMI_LFO1_ENV_DEST));
         sliderKIJIMI_LFO1_ENV_DEST.textFromValueFunction = [](double value) {
-            return "LFO1 EG destination: " + String (value);
+            if (value == 0){ return "LFO1 EG destination: amplitude"; } 
+            else if (value == 1) { return "LFO1 EG destination: both";}
+            else { return "LFO1 EG destination: rate";}
         };
         // Slider KIJIMI_LFO1_ENV_MAX_T
                 sliderKIJIMI_LFO1_ENV_MAX_T.setSliderStyle (Slider::Rotary);
@@ -148,7 +158,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO1_ENV_MAX_T);
                 sliderAttachmentKIJIMI_LFO1_ENV_MAX_T.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_ENV_MAX_T", sliderKIJIMI_LFO1_ENV_MAX_T));
         sliderKIJIMI_LFO1_ENV_MAX_T.textFromValueFunction = [](double value) {
-            return "LFO1 EG max time: " + String (value);
+            return "LFO1 EG max time: " + String (value) + "s";
         };
         // Slider KIJIMI_LFO1_ENV_P
                 sliderKIJIMI_LFO1_ENV_P.setSliderStyle (Slider::Rotary);
@@ -158,7 +168,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO1_ENV_P);
                 sliderAttachmentKIJIMI_LFO1_ENV_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_ENV_P", sliderKIJIMI_LFO1_ENV_P));
         sliderKIJIMI_LFO1_ENV_P.textFromValueFunction = [](double value) {
-            return "LFO1 EG amount: " + String (value);
+            if (value <= 9){ return String::formatted("LFO1 EG amount: %i%%", ((int)(10.0*(value - 10)))); } 
+            else { return String::formatted("LFO1 EG amount: %i%%", ((int)(10.0*(value - 9)))); }
         };
         // Slider KIJIMI_LFO1_SYNC
                 sliderKIJIMI_LFO1_SYNC.setSliderStyle (Slider::Rotary);
@@ -168,7 +179,9 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO1_SYNC);
                 sliderAttachmentKIJIMI_LFO1_SYNC.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_SYNC", sliderKIJIMI_LFO1_SYNC));
         sliderKIJIMI_LFO1_SYNC.textFromValueFunction = [](double value) {
-            return "LFO1 sync: " + String (value);
+            if (value == 0){ return "LFO1 sync: off"; } 
+            else if (value == 1){ return "LFO1 sync: from MIDI";}
+            else { return "LFO1 sync: from LFO2";}
         };
         // Slider KIJIMI_LFO2_ENV_DEST
                 sliderKIJIMI_LFO2_ENV_DEST.setSliderStyle (Slider::Rotary);
@@ -178,7 +191,9 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO2_ENV_DEST);
                 sliderAttachmentKIJIMI_LFO2_ENV_DEST.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_ENV_DEST", sliderKIJIMI_LFO2_ENV_DEST));
         sliderKIJIMI_LFO2_ENV_DEST.textFromValueFunction = [](double value) {
-            return "LFO2 EG destination: " + String (value);
+            if (value == 0){ return "LFO2 EG destination: amplitude"; } 
+            else if (value == 1) { return "LFO2 EG destination: both";}
+            else { return "LFO2 EG destination: rate";}
         };
         // Slider KIJIMI_LFO2_ENV_MAX_T
                 sliderKIJIMI_LFO2_ENV_MAX_T.setSliderStyle (Slider::Rotary);
@@ -188,7 +203,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO2_ENV_MAX_T);
                 sliderAttachmentKIJIMI_LFO2_ENV_MAX_T.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_ENV_MAX_T", sliderKIJIMI_LFO2_ENV_MAX_T));
         sliderKIJIMI_LFO2_ENV_MAX_T.textFromValueFunction = [](double value) {
-            return "LFO2 EG max time: " + String (value);
+            return "LFO2 EG max time: " + String (value) + "s";
         };
         // Slider KIJIMI_LFO2_ENV_P
                 sliderKIJIMI_LFO2_ENV_P.setSliderStyle (Slider::Rotary);
@@ -198,7 +213,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO2_ENV_P);
                 sliderAttachmentKIJIMI_LFO2_ENV_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_ENV_P", sliderKIJIMI_LFO2_ENV_P));
         sliderKIJIMI_LFO2_ENV_P.textFromValueFunction = [](double value) {
-            return "LFO2 EG amount: " + String (value);
+            if (value <= 9){ return String::formatted("LFO2 EG amount: %i%%", ((int)(10.0*(value - 10)))); } 
+            else { return String::formatted("LFO2 EG amount: %i%%", ((int)(10.0*(value - 9)))); }
         };
         // Slider KIJIMI_LFO2_SYNC
                 sliderKIJIMI_LFO2_SYNC.setSliderStyle (Slider::Rotary);
@@ -208,7 +224,9 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LFO2_SYNC);
                 sliderAttachmentKIJIMI_LFO2_SYNC.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_SYNC", sliderKIJIMI_LFO2_SYNC));
         sliderKIJIMI_LFO2_SYNC.textFromValueFunction = [](double value) {
-            return "LFO2 sync: " + String (value);
+            if (value == 0){ return "LFO2 sync: off"; } 
+            else if (value == 1){ return "LFO2 sync: from MIDI";}
+            else { return "LFO2 sync: from LFO2";}
         };
         // ComboBox KIJIMI_AT_CURVE
                 sliderKIJIMI_AT_CURVE.addItemList (StringArray ({"LINEAR", "LOG", "EXP", "S-TYPE", "N-TYPE"}), 1);
@@ -233,7 +251,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_MODW_P);
                 sliderAttachmentKIJIMI_MODW_P.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MODW_P", sliderKIJIMI_MODW_P));
         sliderKIJIMI_MODW_P.textFromValueFunction = [](double value) {
-            return "Modwheel polarity: " + String (value);
+            if (value == 0){ return "Modwheel polarity: positive"; } 
+            else { return "Modwheel polarity: negative";}
         };
         // Slider KIJIMI_PBEND_RANGE
                 sliderKIJIMI_PBEND_RANGE.setSliderStyle (Slider::Rotary);
@@ -258,7 +277,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_ADSR_VCA);
                 sliderAttachmentKIJIMI_ADSR_VCA.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR_VCA", sliderKIJIMI_ADSR_VCA));
         sliderKIJIMI_ADSR_VCA.textFromValueFunction = [](double value) {
-            return "ADSR VCA level 0-100%: " + String (value);
+            return String::formatted("ADSR VCA level: %i%%", (int)(100.0 * (value / 10.0)));
         };
         // Slider KIJIMI_MASTER_VOL
                 sliderKIJIMI_MASTER_VOL.setSliderStyle (Slider::Rotary);
@@ -268,7 +287,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_MASTER_VOL);
                 sliderAttachmentKIJIMI_MASTER_VOL.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MASTER_VOL", sliderKIJIMI_MASTER_VOL));
         sliderKIJIMI_MASTER_VOL.textFromValueFunction = [](double value) {
-            return "Master volume (12 levels): " + String (value);
+            return String::formatted("Master volume: %idB", ((int)value - 6));
         };
         // Slider KIJIMI_VCO_DETUNE
                 sliderKIJIMI_VCO_DETUNE.setSliderStyle (Slider::Rotary);
@@ -278,7 +297,7 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_VCO_DETUNE);
                 sliderAttachmentKIJIMI_VCO_DETUNE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_VCO_DETUNE", sliderKIJIMI_VCO_DETUNE));
         sliderKIJIMI_VCO_DETUNE.textFromValueFunction = [](double value) {
-            return "VCO detune 0-3Hz: " + String (value);
+            return String::formatted("VCO detune: %.2fHz", 0.1 * value);
         };
         // ComboBox KIJIMI_CARDS_VOCIE
                 sliderKIJIMI_CARDS_VOCIE.addItemList (StringArray ({"1", "2", "4"}), 1);
@@ -293,7 +312,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LEG_EG_RETRIG);
                 sliderAttachmentKIJIMI_LEG_EG_RETRIG.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LEG_EG_RETRIG", sliderKIJIMI_LEG_EG_RETRIG));
         sliderKIJIMI_LEG_EG_RETRIG.textFromValueFunction = [](double value) {
-            return "Legato EG retrig: " + String (value);
+            if (value == 0){ return "Legato EG retrig: on"; } 
+            else { return "Legato EG retrig: off";}
         };
         // Slider KIJIMI_LEG_PRIORITY
                 sliderKIJIMI_LEG_PRIORITY.setSliderStyle (Slider::Rotary);
@@ -303,7 +323,9 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_LEG_PRIORITY);
                 sliderAttachmentKIJIMI_LEG_PRIORITY.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LEG_PRIORITY", sliderKIJIMI_LEG_PRIORITY));
         sliderKIJIMI_LEG_PRIORITY.textFromValueFunction = [](double value) {
-            return "Legato priority: " + String (value);
+            if (value == 0){ return "Legato priority: no"; } 
+            else if (value == 1){ return "Legato priority: low";}
+            else { return "Legato priority: high";}
         };
         // Slider KIJIMI_MONO_MODE
                 sliderKIJIMI_MONO_MODE.setSliderStyle (Slider::Rotary);
@@ -313,7 +335,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_MONO_MODE);
                 sliderAttachmentKIJIMI_MONO_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MONO_MODE", sliderKIJIMI_MONO_MODE));
         sliderKIJIMI_MONO_MODE.textFromValueFunction = [](double value) {
-            return "Mono mode: " + String (value);
+            if (value == 0){ return "Mono mode: legato"; } 
+            else { return "Mono mode: stacatto";}
         };
         // Slider KIJIMI_MONO_POLY
                 sliderKIJIMI_MONO_POLY.setSliderStyle (Slider::Rotary);
@@ -323,7 +346,9 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_MONO_POLY);
                 sliderAttachmentKIJIMI_MONO_POLY.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MONO_POLY", sliderKIJIMI_MONO_POLY));
         sliderKIJIMI_MONO_POLY.textFromValueFunction = [](double value) {
-            return "Mono/poly/unisson: " + String (value);
+            if (value == 0){ return "Mono/poly/unisson: mono"; } 
+            else if (value == 1){ return "Mono/poly/unisson: poly";}
+            else { return "Mono/poly/unisson: unisson";}
         };
         // Slider KIJIMI_SUSTAIN_MODE
                 sliderKIJIMI_SUSTAIN_MODE.setSliderStyle (Slider::Rotary);
@@ -333,7 +358,8 @@ public:
                 addAndMakeVisible (&sliderKIJIMI_SUSTAIN_MODE);
                 sliderAttachmentKIJIMI_SUSTAIN_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_SUSTAIN_MODE", sliderKIJIMI_SUSTAIN_MODE));
         sliderKIJIMI_SUSTAIN_MODE.textFromValueFunction = [](double value) {
-            return "Sustain mode: " + String (value);
+            if (value == 0){ return "Sustain mode: I"; } 
+            else { return "Sustain mode: II";}
         };
         // --> End auto-generated code B
     }

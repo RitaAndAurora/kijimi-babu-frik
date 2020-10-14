@@ -116,7 +116,7 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_CC_RECEIVE", "CC Receive", "button1", -1, 16, -1, 69, "direct", 1, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_AT_MODE", "Aftertouch mode", "select", -1, 21, -1, 74, "direct", 2, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MPE_CH", "MPE base channel", "knob", -1, 23, -1, 76, "direct", 7, false, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_MIDI_CH", "MIDI channel", "knob", -1, 24, -1, 77, "direct", 16, false, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_MIDI_CH", "MIDI in channel", "knob", -1, 24, -1, 77, "direct", 16, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MAX_VOICES", "Maximum number of voices", "knob", -1, 27, -1, 80, "direct", 8, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_MOD_MODE", "ADSR2 modulation mode", "button2", -1, 83, -1, 234, "direct", 1, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_CYCLE_MODE", "Cycle poly/mono", "button2", -1, 42, -1, 95, "direct", 1, false, true));
@@ -129,11 +129,11 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO_SUST", "LFO sustain", "button1", -1, 33, -1, 86, "direct", 1, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_ENV_DEST", "LFO1 EG destination", "button2", -1, 60, -1, 126, "direct", 2, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_ENV_MAX_T", "LFO1 EG max time", "knob", -1, 63, -1, 130, "direct", 20, false, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_ENV_P", "LFO1 EG amount", "knob", -1, 65, -1, 132, "direct", 20, false, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_ENV_P", "LFO1 EG amount", "knob", -1, 65, -1, 132, "direct", 19, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_SYNC", "LFO1 sync", "button2", -1, 58, -1, 125, "direct", 2, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_ENV_DEST", "LFO2 EG destination", "button2", -1, 61, -1, 128, "direct", 2, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_ENV_MAX_T", "LFO2 EG max time", "knob", -1, 64, -1, 131, "direct", 20, false, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_ENV_P", "LFO2 EG amount", "knob", -1, 66, -1, 133, "direct", 20, false, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_ENV_P", "LFO2 EG amount", "knob", -1, 66, -1, 133, "direct", 19, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_SYNC", "LFO2 sync", "button2", -1, 59, -1, 127, "direct", 2, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_AT_CURVE", "Aftertouch curve", "select", -1, 45, -1, 98, "direct", 4, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_CC74_DEST", "CC74 destination", "select", -1, 12, -1, 65, "direct", 5, false, true));
@@ -141,9 +141,9 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MODW_P", "Modwheel polarity", "button2", -1, 34, -1, 87, "direct", 1, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_PBEND_RANGE", "Pitchbend range", "knob", -1, 28, -1, 81, "direct", 99, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VEL_CURVE", "Velocity curve", "select", -1, 44, -1, 97, "direct", 4, false, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_VCA", "ADSR VCA level 0-100%", "knob", -1, 25, -1, 78, "direct", 10, false, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_MASTER_VOL", "Master volume (12 levels)", "knob", -1, 31, -1, 84, "direct", 12, false, true));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO_DETUNE", "VCO detune 0-3Hz", "knob", -1, 29, -1, 82, "direct", 30, false, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_VCA", "ADSR VCA level", "knob", -1, 25, -1, 78, "direct", 10, false, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_MASTER_VOL", "Master volume", "knob", -1, 31, -1, 84, "direct", 12, false, true));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_VCO_DETUNE", "VCO detune", "knob", -1, 29, -1, 82, "direct", 30, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_CARDS_VOCIE", "Cards per voice", "select", -1, 14, -1, 67, "direct", 2, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LEG_EG_RETRIG", "Legato EG retrig", "button1", -1, 19, -1, 72, "direct", 1, false, true));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LEG_PRIORITY", "Legato priority", "button2", -1, 20, -1, 73, "direct", 2, false, true));

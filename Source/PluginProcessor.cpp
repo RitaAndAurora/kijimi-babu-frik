@@ -368,7 +368,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             NormalisableRange < float > (0.0f, 7.0f, 1.0f), // parameter range
                                                             4.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_MIDI_CH", // parameter ID
-                                                            "MIDI channel", // parameter name
+                                                            "MIDI in channel", // parameter name
                                                             NormalisableRange < float > (0.0f, 16.0f, 1.0f), // parameter range
                                                             8.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_MAX_VOICES", // parameter ID
@@ -421,7 +421,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             10.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_ENV_P", // parameter ID
                                                             "LFO1 EG amount", // parameter name
-                                                            NormalisableRange < float > (0.0f, 20.0f, 1.0f), // parameter range
+                                                            NormalisableRange < float > (0.0f, 19.0f, 1.0f), // parameter range
                                                             10.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_SYNC", // parameter ID
                                                             "LFO1 sync", // parameter name
@@ -437,7 +437,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             10.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_ENV_P", // parameter ID
                                                             "LFO2 EG amount", // parameter name
-                                                            NormalisableRange < float > (0.0f, 20.0f, 1.0f), // parameter range
+                                                            NormalisableRange < float > (0.0f, 19.0f, 1.0f), // parameter range
                                                             10.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_SYNC", // parameter ID
                                                             "LFO2 sync", // parameter name
@@ -468,15 +468,15 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             StringArray ({"linear", "log", "exp", "S-type", "N-type"}), // parameter choices
                                                             0),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_ADSR_VCA", // parameter ID
-                                                            "ADSR VCA level 0-100%", // parameter name
+                                                            "ADSR VCA level", // parameter name
                                                             NormalisableRange < float > (0.0f, 10.0f, 1.0f), // parameter range
                                                             5.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_MASTER_VOL", // parameter ID
-                                                            "Master volume (12 levels)", // parameter name
+                                                            "Master volume", // parameter name
                                                             NormalisableRange < float > (0.0f, 12.0f, 1.0f), // parameter range
                                                             6.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_VCO_DETUNE", // parameter ID
-                                                            "VCO detune 0-3Hz", // parameter name
+                                                            "VCO detune", // parameter name
                                                             NormalisableRange < float > (0.0f, 30.0f, 1.0f), // parameter range
                                                             15.0f),
                 std:: make_unique < AudioParameterChoice > ("KIJIMI_CARDS_VOCIE", // parameter ID
