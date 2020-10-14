@@ -136,6 +136,7 @@ public:
     void actionListenerCallback (const String &message) override;
     
     // Other
+    float getValueForAudioParameter(const String& parameterID);
     File getDirectoryForFileSaveLoad ();
     void setLastUserDirectoryForFileSaveLoad (File file);
     File lastUsedDirectoryForFileIO;

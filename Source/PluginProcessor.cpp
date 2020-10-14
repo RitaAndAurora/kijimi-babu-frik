@@ -1996,7 +1996,7 @@ void BabuFrikAudioProcessor::savePresetToBankLocation (int bankLocation)
             String parameterID = parameterIDs[i];
             AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
             KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
-            synthControl->updatePresetByteArray(audioParameter->get() / 127.0, currentPresetBytes);
+            synthControl->updatePresetByteArray((int)audioParameter->get(), currentPresetBytes);
         }
         kijimiInterface->saveCurrentPresetAtBankIndex(bankLocation, currentPresetBytes);
         currentPreset = bankLocation;
@@ -2017,6 +2017,12 @@ void BabuFrikAudioProcessor::saveBankFile ()
         setLastUserDirectoryForFileSaveLoad(file);
         for (int i=0; i<kijimiInterface->getNumLoadedPresets(); i++){
             KIJIMIPresetBytes presetBytes = kijimiInterface->getLoadedPresetBytesAtIndex(i);
+            presetBytes[0] = 0xF0;  // syex start
+            presetBytes[1] = 0x02; // kijmi ID
+            presetBytes[2] = 0x00;  // transfer patch command
+            presetBytes[3] = 0x00;  // bank number
+            presetBytes[4] = i;  // preset number
+            presetBytes[261] = 0xF7; // sysex end
             file.appendData(&presetBytes, KIJIMI_PRESET_NUM_BYTES);
         }
     }
@@ -2028,7 +2034,8 @@ void BabuFrikAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthCon
         String parameterID = idValuePairs[i].first;
         if (!skipGlobal || !kijimiInterface->isGlobalParameter(parameterID)){
             double newValue = idValuePairs[i].second;
-            parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
+            float normedValue = parameters.getParameter(parameterID)->convertTo0to1(newValue);  // .setValueNotifyingHost requires range 0-1
+            parameters.getParameter(parameterID)->setValueNotifyingHost(normedValue);
         }
     }
 }
@@ -2037,17 +2044,48 @@ void BabuFrikAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthCon
 
 // Actions from KIJIMI control panel menu
 
+float BabuFrikAudioProcessor::getValueForAudioParameter(const String& parameterID)
+{
+    String audioParameterTypeName = kijimiInterface->getAudioParameterTypeForParameterID(parameterID);
+    if (audioParameterTypeName == "float"){
+        AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
+        return audioParameter->get();
+    } else if (audioParameterTypeName == "choice"){
+        AudioParameterChoice* audioParameter = (AudioParameterChoice*)parameters.getParameter(parameterID);
+        return (float)audioParameter->getIndex();
+    }
+    return 0;
+}
+
 void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
 {
     if (midiOutput.get() != nullptr) {
         std::vector<String> parameterIDs;
-        parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
+        if (isChangingFromTimbreSpace){
+            parameterIDs = kijimiInterface->getKIJIMISynthControlIDsForTimbreSpace();  // Get only the parameter IDs that actually changed
+        } else {
+            parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();  // Get all parameter IDs to set them all
+        }
+        
         for (int i=0; i<parameterIDs.size(); i++){
             String parameterID = parameterIDs[i];
             if (!skipGlobal || !kijimiInterface->isGlobalParameter(parameterID)){
-                AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
-                int value = (int)audioParameter->get();
+                // If parameter has no MIDI CC, it means it is set using SYSEX, do some sleep to avoid sending messages to fast
+                if (kijimiInterface->getCCNumberForParameterID(parameterID) == -1){
+                    Time::waitForMillisecondCounter(Time::getMillisecondCounter() + 1);
+                }
+                if ((parameterID == "KIJIMI_ADSR_MOD_MODE") || (parameterID == "KIJIMI_LFO_MOD_MODE")){
+                    Time::waitForMillisecondCounter(Time::getMillisecondCounter() + 4);  // For specific parameters, give it even some more sleep time
+                }
+                
+                int value = (int)getValueForAudioParameter(parameterID);
                 sendControlToSynth(parameterID, value);
+                
+                // Do some extra waiting if prameterID is a specific one to give more time to KIJIMI to process it
+                // NOTE: note sure if this is esoterism or if it does actually work, but manual testing seemed to show this works
+                if ((parameterID == "KIJIMI_ADSR_MOD_MODE") || (parameterID == "KIJIMI_LFO_MOD_MODE")){
+                    Time::waitForMillisecondCounter(Time::getMillisecondCounter() + 5);
+                }
             }
         }
     }
@@ -2102,13 +2140,19 @@ void BabuFrikAudioProcessor::saveToPatchFile ()
     {
         File file (fileChooser.getResult());
         setLastUserDirectoryForFileSaveLoad(file);
-        std::vector<String> parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
         KIJIMIPresetBytes currentPresetBytes = {0};  // Initialize to zero
+        currentPresetBytes[0] = 0xF0;  // syex start
+        currentPresetBytes[1] = 0x02; // kijmi ID
+        currentPresetBytes[2] = 0x00;  // transfer patch command
+        currentPresetBytes[3] = 0x00;  // bank number
+        currentPresetBytes[4] = 0x00;  // preset number
+        currentPresetBytes[261] = 0xF7; // sysex end
+        std::vector<String> parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
         for (int i=0; i<parameterIDs.size(); i++){
             String parameterID = parameterIDs[i];
-            AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
+            int value = (int)getValueForAudioParameter(parameterID);
             KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
-            synthControl->updatePresetByteArray(audioParameter->get() / 127.0, currentPresetBytes);
+            synthControl->updatePresetByteArray(value, currentPresetBytes);
         }
         file.replaceWithData(&currentPresetBytes, KIJIMI_PRESET_NUM_BYTES);
     }
