@@ -1349,6 +1349,9 @@ void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
     state.setProperty(STATE_MIDI_OUTPUT_CHANNEL, midiOutputChannel, nullptr);
     state.setProperty(STATE_MIDI_AUTOSCAN_ENABLED, midiDevicesAutoScanEnabled, nullptr);
     
+    // Add sync with synth
+    state.setProperty(STATE_TOGGLE_AUTO_SYNC_WITH_SYNTH, automaticSyncWithSynthEnabled, nullptr);
+    
     // Add UI scale factor to state
     state.setProperty(STATE_UI_SCALE_FACTOR, uiScaleFactor, nullptr);
     
@@ -1378,7 +1381,7 @@ void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
     copyXmlToBinary (*xml, destData);
     
     // Print state (for debugging purposes)
-    //std::cout << xml->createDocument("") <<std::endl;
+    std::cout << xml->createDocument("") <<std::endl;
 }
 
 void BabuFrikAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
@@ -1440,6 +1443,11 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
     if (xmlState->hasAttribute (STATE_MIDI_AUTOSCAN_ENABLED)){
         bool savedMidiAutoScanEnabled = xmlState->getBoolAttribute(STATE_MIDI_AUTOSCAN_ENABLED);
         setMidiDevicesAutoScan(savedMidiAutoScanEnabled);
+    }
+    
+    // Load sync with synth
+    if (xmlState->hasAttribute (STATE_TOGGLE_AUTO_SYNC_WITH_SYNTH)){
+        automaticSyncWithSynthEnabled = xmlState->getBoolAttribute(STATE_TOGGLE_AUTO_SYNC_WITH_SYNTH);
     }
     
     // Load ui scale factor

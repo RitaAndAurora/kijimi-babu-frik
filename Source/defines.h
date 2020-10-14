@@ -98,6 +98,8 @@
 #define STATE_MIDI_OUTPUT_CHANNEL "midiOutputChannel"
 #define STATE_MIDI_AUTOSCAN_ENABLED "midiDevicesAutoScanEnabled"
 
+#define STATE_TOGGLE_AUTO_SYNC_WITH_SYNTH "autoSyncWithSynth"
+
 #define STATE_MAIN_PANEL_VISIBLE "mainPanelIsVisible"
 #define STATE_EXTRA_PANEL_VISIBLE "extraPanelIsVisible"
 #define STATE_LFOS_PANEL_VISIBLE "lfosPanelIsVisible"
