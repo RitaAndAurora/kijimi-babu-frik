@@ -11,7 +11,8 @@ WORK IN PROGRESS software editor for Black Corportation's KIJIMI. More informati
 
 Babu Frik is not yet released! Nevertheless, you can already find beta releases in the [Releases](https://github.com/RitaAndAurora/kijimi-babu-frik/releases) section and test them. Don't hesitate to report bugs or make suggestions using the tools in the [issues section](https://github.com/ritaandaurora/kijimi-babu-frik/issues):
 
- * Go here for [Babu Frik v0.1 (beta1) download link and release notes](https://github.com/RitaAndAurora/kijimi-babu-frik/releases/tag/v0.1)
+ * Go here for [Babu Frik v0.1 (beta1) download link and release notes](https://github.com/RitaAndAurora/kijimi-babu-frik/releases/tag/v0.1) 
+ * Go here for [Babu Frik v0.2 (beta2) download link and release notes](https://github.com/RitaAndAurora/kijimi-babu-frik/releases/tag/v0.2)
 
 The beta releases don't include an installer, so **you'll have to install the plugins/standalone app manually**. To do that, you should copy the downloaded files in the following location(s):
 
