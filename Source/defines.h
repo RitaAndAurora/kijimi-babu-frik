@@ -12,6 +12,8 @@
 #define DONATE_URL "https://ritaandaurora.github.io/babu-frik/donate"
 #define SOURCE_CODE_URL "https://github.com/ritaandaurora/babu-frik"
 
+#define USE_SET_CURRENT_STATE_COMMAND_TO_SEND_ALL_CONTROLS_TO_KIJIMI 0
+
 #define ACTION_LOG_PREFIX "LOG:"
 #define LOG_IN_UI 0
 #if JUCE_DEBUG

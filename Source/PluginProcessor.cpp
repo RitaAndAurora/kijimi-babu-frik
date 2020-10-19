@@ -2096,6 +2096,30 @@ float BabuFrikAudioProcessor::getValueForAudioParameter(const String& parameterI
 void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
 {
     if (midiOutput.get() != nullptr) {
+        
+        #if USE_SET_CURRENT_STATE_COMMAND_TO_SEND_ALL_CONTROLS_TO_KIJIMI
+        
+        // Get current state bytes into a KIJIMIPresetBytes object
+        std::vector<String> parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
+        KIJIMIPresetBytes currentPresetBytes = {0};  // Initialize to zero
+        for (int i=0; i<parameterIDs.size(); i++){
+            String parameterID = parameterIDs[i];
+            AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
+            KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
+            synthControl->updatePresetByteArray((int)audioParameter->get(), currentPresetBytes);
+        }
+        
+        std::array<uint8, 256> sysexdata;
+        sysexdata[0] = 0x02; // kijmi ID
+        sysexdata[1] = 0x23;  // set current state command
+        for (int i=2; i<256; i++){
+            sysexdata[i] = currentPresetBytes[i + 4];
+        }
+        MidiMessage msg = MidiMessage::createSysExMessage(&sysexdata, 256);
+        midiOutput.get()->sendMessageNow(msg);
+        
+        #else
+        
         std::vector<String> parameterIDs;
         if (isChangingFromTimbreSpace){
             parameterIDs = kijimiInterface->getKIJIMISynthControlIDsForTimbreSpace();  // Get only the parameter IDs that actually changed
@@ -2124,6 +2148,7 @@ void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
                 }
             }
         }
+        #endif
     }
 }
 
