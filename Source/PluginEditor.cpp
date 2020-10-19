@@ -11,27 +11,91 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+
 //==============================================================================
 BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
     setLookAndFeel(&babuFrikBaseLookAndFeel);
     
+    uiWrapper.initialize(&processor, this);
+    
+    addAndMakeVisible (uiViewport);
+    uiViewport.setViewedComponent(static_cast<Component*>(&uiWrapper), false);
+    uiViewport.setScrollBarsShown(true, false, true, true);  // configure scroll bars
+    setSize (10, 10); // this is re-set later
+    
+    // Get screen height
+    Rectangle<int> r = Desktop::getInstance().getDisplays().getMainDisplay().userArea;
+    screenHeight = r.getHeight();
+    
+    // Disable resize
+    setResizable(false, false);
+}
+
+BabuFrikAudioProcessorEditor::~BabuFrikAudioProcessorEditor()
+{
+    setLookAndFeel (nullptr);
+    uiViewport.setViewedComponent(nullptr);
+}
+
+void BabuFrikAudioProcessorEditor::paint (Graphics& g)
+{
+    g.fillAll (Colours::black);
+}
+
+void BabuFrikAudioProcessorEditor::resized ()
+{
+    uiViewport.setBounds(getBounds());
+
+    int maxHeight = (int)(screenHeight * 0.95);  // take maximum of 90% of the height of the screen
+    if (maxHeight == 0){
+        maxHeight = 100; // This can happen when not everything is initialised (?), make sure we don't set a size of 0 or JUCE will complain
+    }
+    int width = uiWrapper.sizeWidth;
+    if (uiWrapper.sizeHeight > maxHeight){
+        width += uiViewport.getScrollBarThickness();
+    }
+    setSize (width, jmin(uiWrapper.sizeHeight, maxHeight)); // max plugin window UI size
+}
+
+
+//==============================================================================
+
+UIWrapperComponent::UIWrapperComponent ()
+{
+    setLookAndFeel(&babuFrikBaseLookAndFeel);
+    setSize (10, 10);  // Is re-set when running resize()
+}
+
+UIWrapperComponent::~UIWrapperComponent()
+{
+    setLookAndFeel (nullptr);
+    processor->removeActionListener(this);
+}
+
+void UIWrapperComponent::initialize (BabuFrikAudioProcessor* p, BabuFrikAudioProcessorEditor* e)
+{
+    // Set processor object
+    editor = e;
+    processor = p;
+    processor->addActionListener(this);  // Receive messages from processor
+    
     // Init header and footer components
-    header.initialize(&processor);
+    header.initialize(processor);
     addAndMakeVisible (header);
-    footer.initialize(&processor);
+    footer.initialize(processor);
     addAndMakeVisible (footer);
     
     // Add logo component (does not need initialization)
     addAndMakeVisible (logo);
     
     // Init MIDI settings panel
-    midiSettingsPanel.initialize(&processor);
+    midiSettingsPanel.initialize(processor);
     addAndMakeVisible (midiSettingsPanel);
     
     // Init preset control component
-    presetControlPanel.initialize(&processor);
+    presetControlPanel.initialize(processor);
     addAndMakeVisible (presetControlPanel);
     
     // Add view button (after preset controls to be on top)
@@ -40,13 +104,13 @@ BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcess
     addAndMakeVisible (viewButton);
     
     // Init KIJIMI contorl panel component
-    kijimiControlPanel.initialize(&processor);
+    kijimiControlPanel.initialize(processor);
     addAndMakeVisible (kijimiControlPanel);
-    kijimiExtraControlsPanel.initialize(&processor);
+    kijimiExtraControlsPanel.initialize(processor);
     addAndMakeVisible (kijimiExtraControlsPanel);
-    kijimiLfosPanel.initialize(&processor);
+    kijimiLfosPanel.initialize(processor);
     addAndMakeVisible (kijimiLfosPanel);
-    controlPanelActions.initialize(&processor);
+    controlPanelActions.initialize(processor);
     addAndMakeVisible (controlPanelActions);
 
     // Logging area
@@ -62,34 +126,24 @@ BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcess
         logArea.setColour (TextEditor::outlineColourId, Colour (0x1c000000));
         logArea.setColour (TextEditor::shadowColourId, Colour (0x16000000));
     }
-    
-    // Register editor as an ActionListener for actions comming from the processor
-    processor.addActionListener(this);  // Receive messages from processor
-    
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (10, 10);  // Is re-set when running resize()
-    
-    // Disable resize
-    setResizable(false, false);
+        
+    wasInitialized = true;
+    resized();
 }
 
-BabuFrikAudioProcessorEditor::~BabuFrikAudioProcessorEditor()
-{
-    setLookAndFeel (nullptr);
-    processor.removeActionListener(this);
-}
-
-//==============================================================================
-void BabuFrikAudioProcessorEditor::paint (Graphics& g)
+void UIWrapperComponent::paint (Graphics& g)
 {
     g.fillAll (Colours::black);
 }
 
-void BabuFrikAudioProcessorEditor::resized()
+void UIWrapperComponent::resized()
 {
-    float scale = processor.uiScaleFactor;
+    if (!wasInitialized){
+        return;
+    }
     
+    float scale = processor->uiScaleFactor;
+
     float unitMargin = 5 * scale;
     float unitRowHeight = 20 * scale;
     float fullWidth = 1200 * scale;
@@ -105,9 +159,9 @@ void BabuFrikAudioProcessorEditor::resized()
     float footerHeight = 1 * unitRowHeight;
     float logAreaHeight = 3 * unitRowHeight;
     
-    bool _showMainControlsPanel = processor.showMainControlsPanel;
-    bool _showExtraControlsPanel = processor.showExtraControlsPanel;
-    bool _showLfosPanel = processor.showLfosPanel;
+    bool _showMainControlsPanel = processor->showMainControlsPanel;
+    bool _showExtraControlsPanel = processor->showExtraControlsPanel;
+    bool _showLfosPanel = processor->showLfosPanel;
     bool _showLogArea = LOG_IN_UI == 1;
     
     float accumulatedHeight = 0;
@@ -163,32 +217,36 @@ void BabuFrikAudioProcessorEditor::resized()
     }
     
     setSize(fullWidth, accumulatedHeight + unitMargin);
+    sizeWidth = fullWidth;  // used by the viewport
+    sizeHeight = accumulatedHeight + unitMargin;  // used by the viewport
+    
+    editor->resized();
 }
 
 //==============================================================================
-void BabuFrikAudioProcessorEditor::actionListenerCallback (const String &message)
+void UIWrapperComponent::actionListenerCallback (const String &message)
 {
     if (message.startsWith(String(ACTION_LOG_PREFIX))){
         logMessageInUI(message.substring(String(ACTION_LOG_PREFIX).length()));
     } else if (message.startsWith(String(ACTION_UPDATE_UI_SCALE_FACTOR))){
         resized();  // No need to update any local member here as scale factor is stored in processor
     } else if (message.startsWith(String(ACTION_TOGGLE_SHOW_MAIN_PANEL))){
-        processor.showMainControlsPanel = true;
+        processor->showMainControlsPanel = true;
         resized();
     } else if (message.startsWith(String(ACTION_TOGGLE_HIDE_MAIN_PANEL))){
-        processor.showMainControlsPanel = false;
+        processor->showMainControlsPanel = false;
         resized();
     } else if (message.startsWith(String(ACTION_TOGGLE_SHOW_EXTRA_PANEL))){
-        processor.showExtraControlsPanel = true;
+        processor->showExtraControlsPanel = true;
         resized();
     } else if (message.startsWith(String(ACTION_TOGGLE_HIDE_EXTRA_PANEL))){
-        processor.showExtraControlsPanel = false;
+        processor->showExtraControlsPanel = false;
         resized();
     } else if (message.startsWith(String(ACTION_TOGGLE_SHOW_LFO_PANEL))){
-        processor.showLfosPanel = true;
+        processor->showLfosPanel = true;
         resized();
     } else if (message.startsWith(String(ACTION_TOGGLE_HIDE_LFO_PANEL))){
-        processor.showLfosPanel = false;
+        processor->showLfosPanel = false;
         resized();
     } else if (message.startsWith(String(ACTION_UPDATE_ENABLED_DISABLED_CONTROLS))){
         
@@ -205,7 +263,7 @@ void BabuFrikAudioProcessorEditor::actionListenerCallback (const String &message
         
 }
 
-void BabuFrikAudioProcessorEditor::buttonClicked (Button* button)
+void UIWrapperComponent::buttonClicked (Button* button)
 {
     int selectedActionID = -1;
     
@@ -220,12 +278,12 @@ void BabuFrikAudioProcessorEditor::buttonClicked (Button* button)
         PopupMenu m;
         m.setLookAndFeel(&babuFrikBaseLookAndFeel);
         m.addSubMenu ("Zoom", zoomSubMenu);
-        int mainPanelShowOptionID = processor.showMainControlsPanel ? MENU_OPTION_HIDE_MAIN_PANEL : MENU_OPTION_SHOW_MAIN_PANEL;
-        m.addItem (mainPanelShowOptionID, "Main controls", true, processor.showMainControlsPanel);
-        int extraPanelShowOptionID = processor.showExtraControlsPanel ? MENU_OPTION_HIDE_EXTRA_PANEL : MENU_OPTION_SHOW_EXTRA_PANEL;
-        m.addItem (extraPanelShowOptionID, "Extra controls + Timbre Space", true, processor.showExtraControlsPanel);
-        int lfosPanelShowOptionID = processor.showLfosPanel ? MENU_OPTION_HIDE_LFO_PANEL : MENU_OPTION_SHOW_LFO_PANEL;
-        m.addItem (lfosPanelShowOptionID, "LFOs panel", true, processor.showLfosPanel);
+        int mainPanelShowOptionID = processor->showMainControlsPanel ? MENU_OPTION_HIDE_MAIN_PANEL : MENU_OPTION_SHOW_MAIN_PANEL;
+        m.addItem (mainPanelShowOptionID, "Main controls", true, processor->showMainControlsPanel);
+        int extraPanelShowOptionID = processor->showExtraControlsPanel ? MENU_OPTION_HIDE_EXTRA_PANEL : MENU_OPTION_SHOW_EXTRA_PANEL;
+        m.addItem (extraPanelShowOptionID, "Extra controls + Timbre Space", true, processor->showExtraControlsPanel);
+        int lfosPanelShowOptionID = processor->showLfosPanel ? MENU_OPTION_HIDE_LFO_PANEL : MENU_OPTION_SHOW_LFO_PANEL;
+        m.addItem (lfosPanelShowOptionID, "LFOs panel", true, processor->showLfosPanel);
         selectedActionID = m.showAt(button);
     }
     
@@ -234,36 +292,36 @@ void BabuFrikAudioProcessorEditor::buttonClicked (Button* button)
     }
 }
 
-void BabuFrikAudioProcessorEditor::processMenuAction(int actionID)
+void UIWrapperComponent::processMenuAction(int actionID)
 {
     if (actionID == MENU_OPTION_ID_ZOOM_60){
-        processor.setUIScaleFactor(0.6);
+        processor->setUIScaleFactor(0.6);
     } else if (actionID == MENU_OPTION_ID_ZOOM_70){
-        processor.setUIScaleFactor(0.7);
+        processor->setUIScaleFactor(0.7);
     } else if (actionID == MENU_OPTION_ID_ZOOM_80){
-        processor.setUIScaleFactor(0.8);
+        processor->setUIScaleFactor(0.8);
     } else if (actionID == MENU_OPTION_ID_ZOOM_90){
-        processor.setUIScaleFactor(0.9);
+        processor->setUIScaleFactor(0.9);
     } else if (actionID == MENU_OPTION_ID_ZOOM_100){
-        processor.setUIScaleFactor(1.0);
+        processor->setUIScaleFactor(1.0);
     } else if (actionID == MENU_OPTION_ID_ZOOM_75){
-        processor.setUIScaleFactor(0.75);
+        processor->setUIScaleFactor(0.75);
     } else if (actionID == MENU_OPTION_SHOW_MAIN_PANEL){
-        processor.showOrHideKIJIMIPanel("main", true);
+        processor->showOrHideKIJIMIPanel("main", true);
     } else if (actionID == MENU_OPTION_HIDE_MAIN_PANEL){
-        processor.showOrHideKIJIMIPanel("main", false);
+        processor->showOrHideKIJIMIPanel("main", false);
     } else if (actionID == MENU_OPTION_SHOW_EXTRA_PANEL){
-        processor.showOrHideKIJIMIPanel("extra", true);
+        processor->showOrHideKIJIMIPanel("extra", true);
     } else if (actionID == MENU_OPTION_HIDE_EXTRA_PANEL){
-        processor.showOrHideKIJIMIPanel("extra", false);
+        processor->showOrHideKIJIMIPanel("extra", false);
     } else if (actionID == MENU_OPTION_SHOW_LFO_PANEL){
-        processor.showOrHideKIJIMIPanel("lfos", true);
+        processor->showOrHideKIJIMIPanel("lfos", true);
     } else if (actionID == MENU_OPTION_HIDE_LFO_PANEL){
-        processor.showOrHideKIJIMIPanel("lfos", false);
+        processor->showOrHideKIJIMIPanel("lfos", false);
     }
 }
 
-void BabuFrikAudioProcessorEditor::logMessageInUI (const String& message)
+void UIWrapperComponent::logMessageInUI (const String& message)
 {
     logArea.moveCaretToEnd();
     logArea.insertTextAtCaret(message);

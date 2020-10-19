@@ -27,24 +27,31 @@
 //==============================================================================
 /**
 */
-class BabuFrikAudioProcessorEditor  : public AudioProcessorEditor,
-                                      public ActionListener,
-                                      public Button::Listener
+
+class BabuFrikAudioProcessorEditor;
+
+
+class UIWrapperComponent: public Component,
+                          public ActionListener,
+                          public Button::Listener
 {
 public:
-    BabuFrikAudioProcessorEditor (BabuFrikAudioProcessor&);
-    ~BabuFrikAudioProcessorEditor();
-
-    //==============================================================================
+    UIWrapperComponent();
+    ~UIWrapperComponent();
+    
+    void initialize (BabuFrikAudioProcessor* p, BabuFrikAudioProcessorEditor* e);
     void paint (Graphics&) override;
     void resized() override;
     void buttonClicked (Button* button) override;
     void processMenuAction(int actionID);
-
+    
+    int sizeWidth = 0;
+    int sizeHeight = 0;
+    
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
-    BabuFrikAudioProcessor& processor;
+    BabuFrikAudioProcessor* processor;
+    BabuFrikAudioProcessorEditor* editor;
+    bool wasInitialized = false;
     
     // Look and feel
     BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeel;
@@ -71,6 +78,32 @@ private:
     void actionListenerCallback (const String &message) override;
     void logMessageInUI (const String& message);
     TextEditor logArea;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (UIWrapperComponent)
+};
+
+
+
+class BabuFrikAudioProcessorEditor  : public AudioProcessorEditor
+{
+public:
+    BabuFrikAudioProcessorEditor (BabuFrikAudioProcessor&);
+    ~BabuFrikAudioProcessorEditor();
+
+    //==============================================================================
+    void paint (Graphics&) override;
+    void resized() override;
+
+private:
+    // This reference is provided as a quick way for your editor to
+    // access the processor object that created it.
+    BabuFrikAudioProcessor& processor;
+    
+    BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeel;
+    UIWrapperComponent uiWrapper;
+    Viewport uiViewport;
+    
+    int screenHeight = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BabuFrikAudioProcessorEditor)
 };

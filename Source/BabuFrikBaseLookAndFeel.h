@@ -22,6 +22,7 @@ public:
         
         // Specify custom colors
         setColour (ResizableWindow::backgroundColourId, Colour (0xff2f2f2f));
+        setColour (ScrollBar::thumbColourId, Colour (0xffD0AD57));
         setColour (PopupMenu::backgroundColourId, Colour (0xff2f2f2f));
         setColour (PopupMenu::highlightedBackgroundColourId, Colour (0xff5f5f5f));
         setColour (ComboBox::backgroundColourId, Colour (0xff2f2f2f));

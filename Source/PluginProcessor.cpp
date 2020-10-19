@@ -1396,7 +1396,9 @@ void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
     copyXmlToBinary (*xml, destData);
     
     // Print state (for debugging purposes)
-    std::cout << xml->createDocument("") <<std::endl;
+    #if JUCE_DEBUG
+        std::cout << xml->createDocument("") <<std::endl;
+    #endif
 }
 
 void BabuFrikAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
