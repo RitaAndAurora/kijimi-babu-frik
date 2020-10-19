@@ -389,8 +389,8 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             0.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_KT_MULTIPLIER", // parameter ID
                                                             "KT multiplier", // parameter name
-                                                            NormalisableRange < float > (0.0f, 3.0f, 1.0f), // parameter range
-                                                            2.0f),
+                                                            NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
+                                                            1.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_MAX_R", // parameter ID
                                                             "LFO max rate", // parameter name
                                                             NormalisableRange < float > (2.0f, 100.0f, 1.0f), // parameter range
