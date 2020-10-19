@@ -1373,6 +1373,12 @@ void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
     // Add UI scale factor to state
     state.setProperty(STATE_UI_SCALE_FACTOR, uiScaleFactor, nullptr);
     
+    // Add randomization settings
+    state.setProperty(STATE_RANDOMIZATION_AMOUNT, randomizationSettings.amount, nullptr);
+    state.setProperty(STATE_RANDOMIZATION_MAIN_PANEL_ENABLED, randomizationSettings.mainPanel, nullptr);
+    state.setProperty(STATE_RANDOMIZATION_EXTRA_PANEL_ENABLED, randomizationSettings.extraPanel, nullptr);
+    state.setProperty(STATE_RANDOMIZATION_LFOS_PANEL_ENABLED, randomizationSettings.lfosPanel, nullptr);
+    
     // Add panels visibility
     state.setProperty(STATE_MAIN_PANEL_VISIBLE, showMainControlsPanel, nullptr);
     state.setProperty(STATE_EXTRA_PANEL_VISIBLE, showExtraControlsPanel, nullptr);
@@ -1400,7 +1406,7 @@ void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
     
     // Print state (for debugging purposes)
     #if JUCE_DEBUG
-        std::cout << xml->createDocument("") <<std::endl;
+        //std::cout << xml->createDocument("") <<std::endl;
     #endif
 }
 
@@ -1474,6 +1480,20 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
     if (xmlState->hasAttribute (STATE_UI_SCALE_FACTOR)){
         float newUIScaleFactor = xmlState->getStringAttribute(STATE_UI_SCALE_FACTOR).getFloatValue();
         setUIScaleFactor(newUIScaleFactor);
+    }
+    
+    // Load randomization settings
+    if (xmlState->hasAttribute (STATE_RANDOMIZATION_AMOUNT)){
+        randomizationSettings.amount = xmlState->getStringAttribute(STATE_RANDOMIZATION_AMOUNT).getIntValue();
+    }
+    if (xmlState->hasAttribute (STATE_RANDOMIZATION_MAIN_PANEL_ENABLED)){
+        randomizationSettings.mainPanel = xmlState->getBoolAttribute(STATE_RANDOMIZATION_MAIN_PANEL_ENABLED);
+    }
+    if (xmlState->hasAttribute (STATE_RANDOMIZATION_EXTRA_PANEL_ENABLED)){
+        randomizationSettings.extraPanel = xmlState->getBoolAttribute(STATE_RANDOMIZATION_EXTRA_PANEL_ENABLED);
+    }
+    if (xmlState->hasAttribute (STATE_RANDOMIZATION_LFOS_PANEL_ENABLED)){
+        randomizationSettings.lfosPanel = xmlState->getBoolAttribute(STATE_RANDOMIZATION_LFOS_PANEL_ENABLED);
     }
     
     // Load panels visibility state
@@ -2171,20 +2191,32 @@ void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
     }
 }
 
-void BabuFrikAudioProcessor::randomizeControlValues (float amount)
+void BabuFrikAudioProcessor::randomizeControlValues ()
 {
-    std::vector<String> parameterIDs;
-    parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
+    float amount = (float)randomizationSettings.amount / 100.0 ;
+    StringArray parameterIDs;
+    if (randomizationSettings.mainPanel == true){
+        parameterIDs.addArray(kijimiInterface->getKIJIMISynthControlIDsForMainPanelControls());
+    }
+    if (randomizationSettings.extraPanel == true){
+        parameterIDs.addArray(kijimiInterface->getKIJIMISynthControlIDsForExtraPanelControls());
+    }
+    if (randomizationSettings.lfosPanel == true){
+        parameterIDs.addArray(kijimiInterface->getKIJIMISynthControlIDsForLfosPanelControls());
+    }
+    
     Random* random = new Random();
     for (int i=0; i<parameterIDs.size(); i++){
         String parameterID = parameterIDs[i];
         if (!kijimiInterface->isGlobalParameter(parameterID)){
-            AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
+            RangedAudioParameter* audioParameter = (RangedAudioParameter*)parameters.getParameter(parameterID);
+            KIJIMISynthControl* control = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
+            int value = (int)getValueForAudioParameter(parameterID);
+            float normValue = audioParameter->convertTo0to1((float)value);
             float newValue;
             if (amount < 1.0){
                 float randomValue = (random->nextFloat() - 0.5 ) * 2.0 * amount;
-                float parameterValue = audioParameter->get() / 127.0;  // Normalize to range 0-1
-                newValue = (float)jlimit(0.0, 1.0, (double)(parameterValue + randomValue));
+                newValue = (float)jlimit(0.0, 1.0, (double)(normValue + randomValue));
             } else {
                 newValue = random->nextFloat();
             }

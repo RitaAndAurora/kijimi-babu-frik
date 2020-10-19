@@ -116,7 +116,7 @@ public:
     
     // Actions from KIJIMI control panel menu
     void sendControlsToSynth (bool skipGlobal);
-    void randomizeControlValues (float amount);
+    void randomizeControlValues ();
     void importFromPatchFile ();
     void saveToPatchFile ();
     void loadControlsStateFromSynth ();
@@ -144,6 +144,7 @@ public:
     void setLastUserDirectoryForFileSaveLoad (File file);
     File lastUsedDirectoryForFileIO;
     TimestampsLastCCSent timestampsLastCCSent;
+    RandomizationConfigStruct randomizationSettings;
     
     class DelayedRequestLoadControlsFromSynthThread : private Thread
     {

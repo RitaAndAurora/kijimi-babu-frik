@@ -32,7 +32,7 @@ public:
         addAndMakeVisible (saveButton);
         
         randomizeButton.addListener (this);
-        randomizeButton.setButtonText("Randomize...");
+        randomizeButton.setButtonText("Randomize!");
         addAndMakeVisible (randomizeButton);
         
         sendButton.addListener (this);
@@ -98,25 +98,7 @@ public:
         }
         else if (button == &randomizeButton)
         {
-            /*PopupMenu subMenuPatch;
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_5_ID, "5%");
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_10_ID, "10%");
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_25_ID, "25%");
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_50_ID, "50%");
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_100_ID, "100%");
-             
-            PopupMenu m;
-            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            m.addSubMenu ("Patch", subMenuPatch);
-            selectedActionID = m.showAt(button);*/
-            PopupMenu subMenuPatch;
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_5_ID, "5%");
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_10_ID, "10%");
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_25_ID, "25%");
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_50_ID, "50%");
-            subMenuPatch.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_100_ID, "100%");
-            subMenuPatch.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            selectedActionID = subMenuPatch.showAt(button);
+            selectedActionID = MENU_OPTION_ID_RANDOMIZE;
         }
         else if (button == &sendButton)
         {
@@ -136,16 +118,8 @@ public:
     {
         if (actionID == MENU_OPTION_ID_SEND_PATCH_TO_SYNTH){
             processor->sendControlsToSynth(true);
-        } else if (actionID == MENU_OPTION_ID_RANDOMIZE_PATCH_5_ID){
-            processor->randomizeControlValues(0.05);
-        } else if (actionID == MENU_OPTION_ID_RANDOMIZE_PATCH_10_ID){
-            processor->randomizeControlValues(0.10);
-        } else if (actionID == MENU_OPTION_ID_RANDOMIZE_PATCH_25_ID){
-            processor->randomizeControlValues(0.25);
-        } else if (actionID == MENU_OPTION_ID_RANDOMIZE_PATCH_50_ID){
-            processor->randomizeControlValues(0.50);
-        } else if (actionID == MENU_OPTION_ID_RANDOMIZE_PATCH_100_ID){
-            processor->randomizeControlValues(1.0);
+        } else if (actionID == MENU_OPTION_ID_RANDOMIZE) {
+            processor->randomizeControlValues();
         } else if (actionID == MENU_OPTION_ID_IMPORT_FROM_PATCH_FILE){
             processor->importFromPatchFile();
         } else if (actionID == MENU_OPTION_ID_SAVE_PATCH_TO_PATCH_FILE){

@@ -22,7 +22,7 @@ BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcess
     
     addAndMakeVisible (uiViewport);
     uiViewport.setViewedComponent(static_cast<Component*>(&uiWrapper), false);
-    uiViewport.setScrollBarsShown(true, false, true, true);  // configure scroll bars
+    uiViewport.setScrollBarsShown(true, false, true, false);  // configure scroll bars
     setSize (10, 10); // this is re-set later
     
     // Get screen height
@@ -57,7 +57,7 @@ void BabuFrikAudioProcessorEditor::resized ()
     }
     int width = uiWrapper.sizeWidth;
     if (uiWrapper.sizeHeight > maxHeight){
-        width += uiViewport.getScrollBarThickness();
+        width += uiViewport.getScrollBarThickness() - 4;
     }
     setSize (width, jmin(uiWrapper.sizeHeight, maxHeight)); // max plugin window UI size
 }
@@ -211,7 +211,7 @@ void UIWrapperComponent::resized()
     controlPanelActions.setBounds(unitMargin,  accumulatedHeight, fullWidth - footerWidth, controlPanelActionsHeight); // No add unitMargin, already in kijimiControlPanel
     // NOTE: don't accumulate height here as KIJIMI control panel extra is at same height as footer
     
-    footer.setBounds(fullWidth - (footerWidth + 0.5 * unitMargin), accumulatedHeight, footerWidth, footerHeight); // No add unitMargin, already in kijimiControlPanel
+    footer.setBounds(fullWidth - (footerWidth + 1.0 * unitMargin), accumulatedHeight, footerWidth, footerHeight); // No add unitMargin, already in kijimiControlPanel
     accumulatedHeight += footerHeight;
     
     if (_showLogArea){
