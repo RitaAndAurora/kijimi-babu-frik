@@ -43,7 +43,7 @@ public:
         // Slider KIJIMI_ADSR_MOD_MODE
                 sliderKIJIMI_ADSR_MOD_MODE.setSliderStyle (Slider::Rotary);
                 sliderKIJIMI_ADSR_MOD_MODE.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
-                sliderKIJIMI_ADSR_MOD_MODE.setLookAndFeel (&button2Alt2ValuesLookAndFeel);
+                sliderKIJIMI_ADSR_MOD_MODE.setLookAndFeel (&button2Alt2YellowValuesLookAndFeel);
                 sliderKIJIMI_ADSR_MOD_MODE.setPopupDisplayEnabled (true, true, this, -1);
                 addAndMakeVisible (&sliderKIJIMI_ADSR_MOD_MODE);
                 sliderAttachmentKIJIMI_ADSR_MOD_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_ADSR_MOD_MODE", sliderKIJIMI_ADSR_MOD_MODE));
@@ -74,26 +74,6 @@ public:
             else if (value == 1) { return "KT multiplier: x2";}
             else { return "KT multiplier: x4";}
         };
-        // Slider KIJIMI_LFO_MAX_R
-                sliderKIJIMI_LFO_MAX_R.setSliderStyle (Slider::Rotary);
-                sliderKIJIMI_LFO_MAX_R.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
-                sliderKIJIMI_LFO_MAX_R.setLookAndFeel (&knobLookAndFeel);
-                sliderKIJIMI_LFO_MAX_R.setPopupDisplayEnabled (true, true, this, -1);
-                addAndMakeVisible (&sliderKIJIMI_LFO_MAX_R);
-                sliderAttachmentKIJIMI_LFO_MAX_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_MAX_R", sliderKIJIMI_LFO_MAX_R));
-        sliderKIJIMI_LFO_MAX_R.textFromValueFunction = [](double value) {
-            return "LFO max rate: " + String (value) + "Hz";
-        };
-        // Slider KIJIMI_LFO_MIN_R
-                sliderKIJIMI_LFO_MIN_R.setSliderStyle (Slider::Rotary);
-                sliderKIJIMI_LFO_MIN_R.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
-                sliderKIJIMI_LFO_MIN_R.setLookAndFeel (&knobLookAndFeel);
-                sliderKIJIMI_LFO_MIN_R.setPopupDisplayEnabled (true, true, this, -1);
-                addAndMakeVisible (&sliderKIJIMI_LFO_MIN_R);
-                sliderAttachmentKIJIMI_LFO_MIN_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_MIN_R", sliderKIJIMI_LFO_MIN_R));
-        sliderKIJIMI_LFO_MIN_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO min rate: %.2fHz", 0.01 * value);
-        };
         // Slider KIJIMI_LFO_MODE
                 sliderKIJIMI_LFO_MODE.setSliderStyle (Slider::Rotary);
                 sliderKIJIMI_LFO_MODE.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -108,7 +88,7 @@ public:
         // Slider KIJIMI_LFO_MOD_MODE
                 sliderKIJIMI_LFO_MOD_MODE.setSliderStyle (Slider::Rotary);
                 sliderKIJIMI_LFO_MOD_MODE.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
-                sliderKIJIMI_LFO_MOD_MODE.setLookAndFeel (&button2Alt2ValuesLookAndFeel);
+                sliderKIJIMI_LFO_MOD_MODE.setLookAndFeel (&button2Alt2YellowValuesLookAndFeel);
                 sliderKIJIMI_LFO_MOD_MODE.setPopupDisplayEnabled (true, true, this, -1);
                 addAndMakeVisible (&sliderKIJIMI_LFO_MOD_MODE);
                 sliderAttachmentKIJIMI_LFO_MOD_MODE.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_MOD_MODE", sliderKIJIMI_LFO_MOD_MODE));
@@ -126,17 +106,6 @@ public:
         sliderKIJIMI_LFO_POLY_RETRIG.textFromValueFunction = [](double value) {
             if (value < 64){ return "LFO poly mode EG retrig: off"; } 
             else { return "LFO poly mode EG retrig: on";}
-        };
-        // Slider KIJIMI_LFO_SUST
-                sliderKIJIMI_LFO_SUST.setSliderStyle (Slider::Rotary);
-                sliderKIJIMI_LFO_SUST.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
-                sliderKIJIMI_LFO_SUST.setLookAndFeel (&button1LookAndFeel);
-                sliderKIJIMI_LFO_SUST.setPopupDisplayEnabled (true, true, this, -1);
-                addAndMakeVisible (&sliderKIJIMI_LFO_SUST);
-                sliderAttachmentKIJIMI_LFO_SUST.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_SUST", sliderKIJIMI_LFO_SUST));
-        sliderKIJIMI_LFO_SUST.textFromValueFunction = [](double value) {
-            if (value < 64){ return "LFO sustain: on"; } 
-            else { return "LFO sustain: off";}
         };
         // Slider KIJIMI_LFO1_ENV_DEST
                 sliderKIJIMI_LFO1_ENV_DEST.setSliderStyle (Slider::Rotary);
@@ -183,6 +152,37 @@ public:
             else if (value == 1){ return "LFO1 sync: from MIDI";}
             else { return "LFO1 sync: from LFO2";}
         };
+        // Slider KIJIMI_LFO1_MAX_R
+                sliderKIJIMI_LFO1_MAX_R.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_LFO1_MAX_R.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_LFO1_MAX_R.setLookAndFeel (&knobLookAndFeel);
+                sliderKIJIMI_LFO1_MAX_R.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_LFO1_MAX_R);
+                sliderAttachmentKIJIMI_LFO1_MAX_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_MAX_R", sliderKIJIMI_LFO1_MAX_R));
+        sliderKIJIMI_LFO1_MAX_R.textFromValueFunction = [](double value) {
+            return "LFO1 max rate: " + String (value) + "Hz";
+        };
+        // Slider KIJIMI_LFO1_MIN_R
+                sliderKIJIMI_LFO1_MIN_R.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_LFO1_MIN_R.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_LFO1_MIN_R.setLookAndFeel (&knobLookAndFeel);
+                sliderKIJIMI_LFO1_MIN_R.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_LFO1_MIN_R);
+                sliderAttachmentKIJIMI_LFO1_MIN_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_MIN_R", sliderKIJIMI_LFO1_MIN_R));
+        sliderKIJIMI_LFO1_MIN_R.textFromValueFunction = [](double value) {
+            return String::formatted("LFO1 min rate: %.2fHz", 0.01 * value);
+        };
+        // Slider KIJIMI_LFO1_SUST
+                sliderKIJIMI_LFO1_SUST.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_LFO1_SUST.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_LFO1_SUST.setLookAndFeel (&button1LookAndFeel);
+                sliderKIJIMI_LFO1_SUST.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_LFO1_SUST);
+                sliderAttachmentKIJIMI_LFO1_SUST.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_SUST", sliderKIJIMI_LFO1_SUST));
+        sliderKIJIMI_LFO1_SUST.textFromValueFunction = [](double value) {
+            if (value < 64){ return "LFO1 sustain: on"; } 
+            else { return "LFO1 sustain: off";}
+        };
         // Slider KIJIMI_LFO2_ENV_DEST
                 sliderKIJIMI_LFO2_ENV_DEST.setSliderStyle (Slider::Rotary);
                 sliderKIJIMI_LFO2_ENV_DEST.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -226,7 +226,38 @@ public:
         sliderKIJIMI_LFO2_SYNC.textFromValueFunction = [](double value) {
             if (value == 0){ return "LFO2 sync: off"; } 
             else if (value == 1){ return "LFO2 sync: from MIDI";}
-            else { return "LFO2 sync: from LFO2";}
+            else { return "LFO2 sync: from LFO1";}
+        };
+        // Slider KIJIMI_LFO2_MAX_R
+                sliderKIJIMI_LFO2_MAX_R.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_LFO2_MAX_R.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_LFO2_MAX_R.setLookAndFeel (&knobLookAndFeel);
+                sliderKIJIMI_LFO2_MAX_R.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_LFO2_MAX_R);
+                sliderAttachmentKIJIMI_LFO2_MAX_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_MAX_R", sliderKIJIMI_LFO2_MAX_R));
+        sliderKIJIMI_LFO2_MAX_R.textFromValueFunction = [](double value) {
+            return "LFO2 max rate: " + String (value) + "Hz";
+        };
+        // Slider KIJIMI_LFO2_MIN_R
+                sliderKIJIMI_LFO2_MIN_R.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_LFO2_MIN_R.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_LFO2_MIN_R.setLookAndFeel (&knobLookAndFeel);
+                sliderKIJIMI_LFO2_MIN_R.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_LFO2_MIN_R);
+                sliderAttachmentKIJIMI_LFO2_MIN_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_MIN_R", sliderKIJIMI_LFO2_MIN_R));
+        sliderKIJIMI_LFO2_MIN_R.textFromValueFunction = [](double value) {
+            return String::formatted("LFO2 min rate: %.2fHz", 0.01 * value);
+        };
+        // Slider KIJIMI_LFO2_SUST
+                sliderKIJIMI_LFO2_SUST.setSliderStyle (Slider::Rotary);
+                sliderKIJIMI_LFO2_SUST.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
+                sliderKIJIMI_LFO2_SUST.setLookAndFeel (&button1LookAndFeel);
+                sliderKIJIMI_LFO2_SUST.setPopupDisplayEnabled (true, true, this, -1);
+                addAndMakeVisible (&sliderKIJIMI_LFO2_SUST);
+                sliderAttachmentKIJIMI_LFO2_SUST.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_SUST", sliderKIJIMI_LFO2_SUST));
+        sliderKIJIMI_LFO2_SUST.textFromValueFunction = [](double value) {
+            if (value < 64){ return "LFO2 sustain: on"; } 
+            else { return "LFO2 sustain: off";}
         };
         // ComboBox KIJIMI_AT_CURVE
                 sliderKIJIMI_AT_CURVE.addItemList (StringArray ({"LINEAR", "LOG", "EXP", "S-TYPE", "N-TYPE"}), 1);
@@ -392,20 +423,23 @@ public:
         sliderKIJIMI_ADSR_MOD_MODE.setBounds (0.185 * getWidth(), 0.541 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_ADSR_MOD_MODE
         sliderKIJIMI_CYCLE_MODE.setBounds (0.099 * getWidth(), 0.541 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_CYCLE_MODE
         sliderKIJIMI_KT_MULTIPLIER.setBounds (0.142 * getWidth(), 0.541 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_KT_MULTIPLIER
-        sliderKIJIMI_LFO_MAX_R.setBounds (0.319 * getWidth(), 0.092 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_LFO_MAX_R
-        sliderKIJIMI_LFO_MIN_R.setBounds (0.253 * getWidth(), 0.092 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_LFO_MIN_R
-        sliderKIJIMI_LFO_MODE.setBounds (0.240 * getWidth(), 0.284 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO_MODE
-        sliderKIJIMI_LFO_MOD_MODE.setBounds (0.333 * getWidth(), 0.284 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO_MOD_MODE
-        sliderKIJIMI_LFO_POLY_RETRIG.setBounds (0.271 * getWidth(), 0.284 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO_POLY_RETRIG
-        sliderKIJIMI_LFO_SUST.setBounds (0.302 * getWidth(), 0.284 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO_SUST
-        sliderKIJIMI_LFO1_ENV_DEST.setBounds (0.271 * getWidth(), 0.541 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO1_ENV_DEST
-        sliderKIJIMI_LFO1_ENV_MAX_T.setBounds (0.308 * getWidth(), 0.564 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO1_ENV_MAX_T
-        sliderKIJIMI_LFO1_ENV_P.setBounds (0.341 * getWidth(), 0.564 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO1_ENV_P
-        sliderKIJIMI_LFO1_SYNC.setBounds (0.240 * getWidth(), 0.541 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO1_SYNC
-        sliderKIJIMI_LFO2_ENV_DEST.setBounds (0.271 * getWidth(), 0.789 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO2_ENV_DEST
-        sliderKIJIMI_LFO2_ENV_MAX_T.setBounds (0.308 * getWidth(), 0.812 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO2_ENV_MAX_T
-        sliderKIJIMI_LFO2_ENV_P.setBounds (0.341 * getWidth(), 0.812 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO2_ENV_P
-        sliderKIJIMI_LFO2_SYNC.setBounds (0.240 * getWidth(), 0.789 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO2_SYNC
+        sliderKIJIMI_LFO_MODE.setBounds (0.244 * getWidth(), 0.082 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO_MODE
+        sliderKIJIMI_LFO_MOD_MODE.setBounds (0.330 * getWidth(), 0.082 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO_MOD_MODE
+        sliderKIJIMI_LFO_POLY_RETRIG.setBounds (0.287 * getWidth(), 0.082 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO_POLY_RETRIG
+        sliderKIJIMI_LFO1_ENV_DEST.setBounds (0.287 * getWidth(), 0.321 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO1_ENV_DEST
+        sliderKIJIMI_LFO1_ENV_MAX_T.setBounds (0.308 * getWidth(), 0.495 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO1_ENV_MAX_T
+        sliderKIJIMI_LFO1_ENV_P.setBounds (0.341 * getWidth(), 0.495 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO1_ENV_P
+        sliderKIJIMI_LFO1_SYNC.setBounds (0.244 * getWidth(), 0.321 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO1_SYNC
+        sliderKIJIMI_LFO1_MAX_R.setBounds (0.271 * getWidth(), 0.495 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO1_MAX_R
+        sliderKIJIMI_LFO1_MIN_R.setBounds (0.238 * getWidth(), 0.495 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO1_MIN_R
+        sliderKIJIMI_LFO1_SUST.setBounds (0.330 * getWidth(), 0.321 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO1_SUST
+        sliderKIJIMI_LFO2_ENV_DEST.setBounds (0.287 * getWidth(), 0.679 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO2_ENV_DEST
+        sliderKIJIMI_LFO2_ENV_MAX_T.setBounds (0.308 * getWidth(), 0.853 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO2_ENV_MAX_T
+        sliderKIJIMI_LFO2_ENV_P.setBounds (0.341 * getWidth(), 0.853 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO2_ENV_P
+        sliderKIJIMI_LFO2_SYNC.setBounds (0.244 * getWidth(), 0.679 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO2_SYNC
+        sliderKIJIMI_LFO2_MAX_R.setBounds (0.271 * getWidth(), 0.853 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO2_MAX_R
+        sliderKIJIMI_LFO2_MIN_R.setBounds (0.238 * getWidth(), 0.853 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_LFO2_MIN_R
+        sliderKIJIMI_LFO2_SUST.setBounds (0.330 * getWidth(), 0.679 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_LFO2_SUST
         sliderKIJIMI_AT_CURVE.setBounds (0.009 * getWidth(), 0.202 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_AT_CURVE
         sliderKIJIMI_CC74_DEST.setBounds (0.009 * getWidth(), 0.294 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_CC74_DEST
         sliderKIJIMI_MODW_DEST.setBounds (0.009 * getWidth(), 0.385 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_MODW_DEST
@@ -438,18 +472,12 @@ private:
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_CYCLE_MODE;
     CycleButtonSlider3StepsInt sliderKIJIMI_KT_MULTIPLIER;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_KT_MULTIPLIER;
-    Slider sliderKIJIMI_LFO_MAX_R;
-            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO_MAX_R;
-    Slider sliderKIJIMI_LFO_MIN_R;
-            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO_MIN_R;
     CycleButtonSlider2StepsInt sliderKIJIMI_LFO_MODE;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO_MODE;
     CycleButtonSlider2StepsInt sliderKIJIMI_LFO_MOD_MODE;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO_MOD_MODE;
     CycleButtonSlider2StepsInt sliderKIJIMI_LFO_POLY_RETRIG;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO_POLY_RETRIG;
-    CycleButtonSlider2StepsInt sliderKIJIMI_LFO_SUST;
-            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO_SUST;
     CycleButtonSlider3StepsInt sliderKIJIMI_LFO1_ENV_DEST;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO1_ENV_DEST;
     Slider sliderKIJIMI_LFO1_ENV_MAX_T;
@@ -458,6 +486,12 @@ private:
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO1_ENV_P;
     CycleButtonSlider3StepsInt sliderKIJIMI_LFO1_SYNC;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO1_SYNC;
+    Slider sliderKIJIMI_LFO1_MAX_R;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO1_MAX_R;
+    Slider sliderKIJIMI_LFO1_MIN_R;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO1_MIN_R;
+    CycleButtonSlider2StepsInt sliderKIJIMI_LFO1_SUST;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO1_SUST;
     CycleButtonSlider3StepsInt sliderKIJIMI_LFO2_ENV_DEST;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO2_ENV_DEST;
     Slider sliderKIJIMI_LFO2_ENV_MAX_T;
@@ -466,6 +500,12 @@ private:
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO2_ENV_P;
     CycleButtonSlider3StepsInt sliderKIJIMI_LFO2_SYNC;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO2_SYNC;
+    Slider sliderKIJIMI_LFO2_MAX_R;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO2_MAX_R;
+    Slider sliderKIJIMI_LFO2_MIN_R;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO2_MIN_R;
+    CycleButtonSlider2StepsInt sliderKIJIMI_LFO2_SUST;
+            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_LFO2_SUST;
     ComboBox sliderKIJIMI_AT_CURVE;
             std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> sliderAttachmentKIJIMI_AT_CURVE;
     ComboBox sliderKIJIMI_CC74_DEST;

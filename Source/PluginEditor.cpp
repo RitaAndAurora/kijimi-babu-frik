@@ -190,7 +190,19 @@ void BabuFrikAudioProcessorEditor::actionListenerCallback (const String &message
     } else if (message.startsWith(String(ACTION_TOGGLE_HIDE_LFO_PANEL))){
         processor.showLfosPanel = false;
         resized();
+    } else if (message.startsWith(String(ACTION_UPDATE_ENABLED_DISABLED_CONTROLS))){
+        
+        // ADSR2 stuff
+        kijimiControlPanel.configureControlsForADSR2ModMode();
+        kijimiLfosPanel.configureControlsForADSR2ModMode();
+        
+        // LFOs
+        kijimiControlPanel.configureControlsForLFOModMode();
+        kijimiLfosPanel.configureControlsForLFOModMode();
+        
+        resized();
     }
+        
 }
 
 void BabuFrikAudioProcessorEditor::buttonClicked (Button* button)

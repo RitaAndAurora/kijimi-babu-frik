@@ -391,14 +391,6 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             "KT multiplier", // parameter name
                                                             NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
                                                             1.0f),
-                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_MAX_R", // parameter ID
-                                                            "LFO max rate", // parameter name
-                                                            NormalisableRange < float > (2.0f, 100.0f, 1.0f), // parameter range
-                                                            49.0f),
-                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_MIN_R", // parameter ID
-                                                            "LFO min rate", // parameter name
-                                                            NormalisableRange < float > (1.0f, 100.0f, 1.0f), // parameter range
-                                                            50.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_MODE", // parameter ID
                                                             "LFO poly/mono", // parameter name
                                                             NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
@@ -409,10 +401,6 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             0.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_POLY_RETRIG", // parameter ID
                                                             "LFO poly mode EG retrig", // parameter name
-                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
-                                                            0.0f),
-                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO_SUST", // parameter ID
-                                                            "LFO sustain", // parameter name
                                                             NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
                                                             0.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_ENV_DEST", // parameter ID
@@ -431,6 +419,18 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             "LFO1 sync", // parameter name
                                                             NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
                                                             1.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_MAX_R", // parameter ID
+                                                            "LFO1 max rate", // parameter name
+                                                            NormalisableRange < float > (2.0f, 100.0f, 1.0f), // parameter range
+                                                            49.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_MIN_R", // parameter ID
+                                                            "LFO1 min rate", // parameter name
+                                                            NormalisableRange < float > (1.0f, 100.0f, 1.0f), // parameter range
+                                                            50.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO1_SUST", // parameter ID
+                                                            "LFO1 sustain", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_ENV_DEST", // parameter ID
                                                             "LFO2 EG destination", // parameter name
                                                             NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
@@ -447,6 +447,18 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             "LFO2 sync", // parameter name
                                                             NormalisableRange < float > (0.0f, 2.0f, 1.0f), // parameter range
                                                             1.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_MAX_R", // parameter ID
+                                                            "LFO2 max rate", // parameter name
+                                                            NormalisableRange < float > (2.0f, 100.0f, 1.0f), // parameter range
+                                                            49.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_MIN_R", // parameter ID
+                                                            "LFO2 min rate", // parameter name
+                                                            NormalisableRange < float > (1.0f, 100.0f, 1.0f), // parameter range
+                                                            50.0f),
+                std:: make_unique < AudioParameterFloat > ("KIJIMI_LFO2_SUST", // parameter ID
+                                                            "LFO2 sustain", // parameter name
+                                                            NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
+                                                            0.0f),
                 std:: make_unique < AudioParameterChoice > ("KIJIMI_AT_CURVE", // parameter ID
                                                             "Aftertouch curve", // parameter name
                                                             StringArray ({"linear", "log", "exp", "S-type", "N-type"}), // parameter choices
@@ -1021,20 +1033,23 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     parameters.addParameterListener ("KIJIMI_ADSR_MOD_MODE", this);
     parameters.addParameterListener ("KIJIMI_CYCLE_MODE", this);
     parameters.addParameterListener ("KIJIMI_KT_MULTIPLIER", this);
-    parameters.addParameterListener ("KIJIMI_LFO_MAX_R", this);
-    parameters.addParameterListener ("KIJIMI_LFO_MIN_R", this);
     parameters.addParameterListener ("KIJIMI_LFO_MODE", this);
     parameters.addParameterListener ("KIJIMI_LFO_MOD_MODE", this);
     parameters.addParameterListener ("KIJIMI_LFO_POLY_RETRIG", this);
-    parameters.addParameterListener ("KIJIMI_LFO_SUST", this);
     parameters.addParameterListener ("KIJIMI_LFO1_ENV_DEST", this);
     parameters.addParameterListener ("KIJIMI_LFO1_ENV_MAX_T", this);
     parameters.addParameterListener ("KIJIMI_LFO1_ENV_P", this);
     parameters.addParameterListener ("KIJIMI_LFO1_SYNC", this);
+    parameters.addParameterListener ("KIJIMI_LFO1_MAX_R", this);
+    parameters.addParameterListener ("KIJIMI_LFO1_MIN_R", this);
+    parameters.addParameterListener ("KIJIMI_LFO1_SUST", this);
     parameters.addParameterListener ("KIJIMI_LFO2_ENV_DEST", this);
     parameters.addParameterListener ("KIJIMI_LFO2_ENV_MAX_T", this);
     parameters.addParameterListener ("KIJIMI_LFO2_ENV_P", this);
     parameters.addParameterListener ("KIJIMI_LFO2_SYNC", this);
+    parameters.addParameterListener ("KIJIMI_LFO2_MAX_R", this);
+    parameters.addParameterListener ("KIJIMI_LFO2_MIN_R", this);
+    parameters.addParameterListener ("KIJIMI_LFO2_SUST", this);
     parameters.addParameterListener ("KIJIMI_AT_CURVE", this);
     parameters.addParameterListener ("KIJIMI_CC74_DEST", this);
     parameters.addParameterListener ("KIJIMI_MODW_DEST", this);
@@ -1507,6 +1522,10 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
         const ScopedValueSetter<bool> scopedInputFlag (isLoadingFromState, true);
         parameters.replaceState (ValueTree::fromXml (*xmlState->getChildByName (STATE_AUDIO_PARAMETERS_IDENTIFIER)));
     }
+    
+    // Trigger some actions to make sure editor is in sync
+    sendActionMessage(ACTION_UPDATE_ENABLED_DISABLED_CONTROLS);
+    sendActionMessage(ACTION_LFO_LEDS_SHOULD_UPDATE);
 }
 
 void BabuFrikAudioProcessor::sendLCDRefreshMessageToKijimi ()
@@ -1597,6 +1616,10 @@ void BabuFrikAudioProcessor::parameterChanged (const String& parameterID, float 
         
         if ((parameterID == "KIJIMI_LFO1_SHAPE") || (parameterID == "KIJIMI_LFO2_SHAPE")){
             sendActionMessage(ACTION_LFO_LEDS_SHOULD_UPDATE);  // Update LED strips in main panel
+        }
+        
+        if ((parameterID == "KIJIMI_LFO_MOD_MODE") || (parameterID == "KIJIMI_ADSR_MOD_MODE")){
+            sendActionMessage(ACTION_UPDATE_ENABLED_DISABLED_CONTROLS);  // Trigger action to enable or disable some controls depending on MOD mode
         }
         
         if (!isChangingFromTimbreSpace){

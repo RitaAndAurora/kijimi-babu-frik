@@ -78,42 +78,6 @@ public:
     Typeface::Ptr tsHudFont;
     Typeface::Ptr defaultFont;
     
-    // Custom knob drawing
-    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
-                               float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override
-    {
-        const float radius = jmin (width / 2, height / 2) - 2.0f;
-        const float centreX = x + width * 0.5f;
-        const float centreY = y + height * 0.5f;
-        const float angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-
-        // bg arc
-        Path backgroundArc;
-        backgroundArc.addCentredArc (centreX,
-                                     centreY,
-                                     radius,
-                                     radius,
-                                     0.0f,
-                                     rotaryStartAngle,
-                                     rotaryEndAngle,
-                                     true);
-        g.setColour (Colour (0xff555555));
-        g.strokePath (backgroundArc, PathStrokeType (2.0, PathStrokeType::curved, PathStrokeType::square));
-        
-        // fg arc
-        Path foregroundArc;
-        foregroundArc.addCentredArc (centreX,
-                                     centreY,
-                                     radius,
-                                     radius,
-                                     0.0f,
-                                     rotaryStartAngle,
-                                     angle,
-                                     true);
-        g.setColour (Colour (0xffffffff));
-        g.strokePath (foregroundArc, PathStrokeType (2.0, PathStrokeType::curved, PathStrokeType::square));
-    }
-    
 };
 
 
@@ -139,7 +103,8 @@ public:
                                      rotaryStartAngle,
                                      rotaryEndAngle,
                                      true);
-        g.setColour (Colour (0xff555555));
+        
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.strokePath (backgroundArc, PathStrokeType (2.0, PathStrokeType::curved, PathStrokeType::square));
         
         // fg arc
@@ -152,7 +117,7 @@ public:
                                      rotaryStartAngle,
                                      angle,
                                      true);
-        g.setColour (Colour (0xffffffff));
+        g.setColour (Colour (0xffffff).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.strokePath (foregroundArc, PathStrokeType (2.0, PathStrokeType::curved, PathStrokeType::square));
     }
 };
@@ -169,26 +134,27 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
         
         // LEDs
-        Colour redLEDColour = Colour (0xff700000);
-        Colour greenLEDColour = Colour (0xff105200);
+        
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        Colour greenLEDColour = Colour (0x105200).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         
         if ((sliderPos > 0.25) && (sliderPos <= 0.5)){
-            greenLEDColour = Colour (0xff2CFF00);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else if ((sliderPos > 0.5) && (sliderPos <= 0.75)){
-            redLEDColour = Colour (0xffff0000);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else if ((sliderPos > 0.75) && (sliderPos <= 1.0)){
-            redLEDColour = Colour (0xffff0000);
-            greenLEDColour = Colour (0xff2CFF00);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else {
             // Value <= 25%, do nothing
@@ -213,26 +179,26 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
         
         // LEDs
-        Colour redLEDColour = Colour (0xff700000);
-        Colour greenLEDColour = Colour (0xff105200);
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        Colour greenLEDColour = Colour (0x105200).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         
         if ((sliderPos > 0.25) && (sliderPos <= 0.5)){
-            redLEDColour = Colour (0xffff0000);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else if ((sliderPos > 0.5) && (sliderPos <= 0.75)){
-            greenLEDColour = Colour (0xff2CFF00);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else if ((sliderPos > 0.75) && (sliderPos <= 1.0)){
-            redLEDColour = Colour (0xffff0000);
-            greenLEDColour = Colour (0xff2CFF00);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else {
             // Value <= 25%, do nothing
@@ -257,25 +223,25 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
         
         // LEDs
-        Colour redLEDColour = Colour (0xff700000);
-        Colour greenLEDColour = Colour (0xff105200);
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        Colour greenLEDColour = Colour (0x105200).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         
         if ((sliderPos >= 0.0) && (sliderPos <= 0.33)){
             // Nothing (no led on)
         }
         else if ((sliderPos > 0.33) && (sliderPos <= 0.66)){
-            redLEDColour = Colour (0xffff0000);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else if ((sliderPos > 0.66) && (sliderPos <= 1.0)){
-            greenLEDColour = Colour (0xff2CFF00);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
             
         g.setColour(redLEDColour);
@@ -297,26 +263,26 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
         
         // LEDs
-        Colour redLEDColour = Colour (0xff700000);
-        Colour greenLEDColour = Colour (0xff105200);
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        Colour greenLEDColour = Colour (0x105200).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         
         if ((sliderPos >= 0.0) && (sliderPos <= 0.33)){
-            redLEDColour = Colour (0xffff0000);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else if ((sliderPos > 0.33) && (sliderPos <= 0.66)){
-            greenLEDColour = Colour (0xff2CFF00);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else if ((sliderPos > 0.66) && (sliderPos <= 1.0)){
-            redLEDColour = Colour (0xffff0000);
-            greenLEDColour = Colour (0xff2CFF00);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
             
         g.setColour(redLEDColour);
@@ -338,26 +304,26 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
         
         // LEDs
-        Colour redLEDColour = Colour (0xff700000);
-        Colour greenLEDColour = Colour (0xff105200);
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        Colour greenLEDColour = Colour (0x105200).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         
         if ((sliderPos >= 0.0) && (sliderPos <= 0.33)){
-            redLEDColour = Colour (0xffff0000);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else if ((sliderPos > 0.33) && (sliderPos <= 0.66)){
-            redLEDColour = Colour (0xffff0000);
-            greenLEDColour = Colour (0xff2CFF00);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
         else if ((sliderPos > 0.66) && (sliderPos <= 1.0)){
-            greenLEDColour = Colour (0xff2CFF00);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
             
         g.setColour(redLEDColour);
@@ -380,21 +346,59 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
         
         // LEDs
-        Colour redLEDColour = Colour (0xff700000);
-        Colour greenLEDColour = Colour (0xff105200);
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        Colour greenLEDColour = Colour (0x105200).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         
         if (sliderPos < 0.5){
-            redLEDColour = Colour (0xffff0000);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         } else {
-            greenLEDColour = Colour (0xff2CFF00);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        }
+            
+        g.setColour(redLEDColour);
+        g.fillEllipse(x + width * 0.15, y + 0.11 * height, 0.18 * height, 0.18 * height);
+        
+        g.setColour(greenLEDColour);
+        g.fillEllipse(x + width - (width * 0.15 + 0.18 * height), y + 0.11 * height, 0.18 * height, 0.18 * height);
+    }
+};
+
+class BabuFrikButton2Alt2YellowValuesLookAndFeel: public BabuFrikBaseLookAndFeel
+{
+public:
+    
+    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
+                               float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override
+    {
+        // Button with 2 LEDs
+        
+        // Outer rectagle
+        juce::Rectangle<int> rectArea (x, y, width, height);
+        g.setColour (Colour (0x9e864b).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
+        g.fillRect (rectArea);
+        g.setColour (Colour (0xD0AD57).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
+        g.drawRect (rectArea, 1.0);
+        
+        // Upper rectangle
+        g.setColour (Colour (0xD0AD57).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
+        g.fillRect (x, y, width, height * 0.385);
+        
+        // LEDs
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        Colour greenLEDColour = Colour (0x105200).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        
+        if (sliderPos < 0.5){
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        } else {
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
             
         g.setColour(redLEDColour);
@@ -416,21 +420,21 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
         
         // LEDs
-        Colour redLEDColour = Colour (0xff700000);
-        Colour greenLEDColour = Colour (0xff105200);
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
+        Colour greenLEDColour = Colour (0x105200).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         
         if (sliderPos < 0.5){
-            greenLEDColour = Colour (0xff2CFF00);
+            greenLEDColour = Colour (0x2CFF00).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         } else {
-            redLEDColour = Colour (0xffff0000);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
             
         g.setColour(redLEDColour);
@@ -452,17 +456,17 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
         
         // LEDs
-        Colour redLEDColour = Colour (0xff700000);
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         if (sliderPos >= 0.5){
-            redLEDColour = Colour (0xffff0000);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
             
         g.setColour(redLEDColour);
@@ -481,17 +485,17 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
         
         // LEDs
-        Colour redLEDColour = Colour (0xff700000);
+        Colour redLEDColour = Colour (0x700000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         if (sliderPos < 0.5){
-            redLEDColour = Colour (0xffff0000);
+            redLEDColour = Colour (0xff0000).withAlpha(slider.isEnabled() ? 1.0f : 0.18f);
         }
             
         g.setColour(redLEDColour);
@@ -510,11 +514,11 @@ public:
         
         // Outer rectagle
         juce::Rectangle<int> rectArea (x, y, width, height);
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.drawRect (rectArea, 1.0);
         
         // Upper rectangle
-        g.setColour (Colour (0xff555555));
+        g.setColour (Colour (0x555555).withAlpha(slider.isEnabled() ? 1.0f : 0.18f));
         g.fillRect (x, y, width, height * 0.385);
     }
 };

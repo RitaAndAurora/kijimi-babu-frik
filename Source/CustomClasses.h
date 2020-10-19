@@ -21,20 +21,22 @@ class CycleButtonSliderNSteps: public Slider
     };
     
     void mouseDown (const MouseEvent&) override {
-        int nSteps = getNSteps();
-        double currentValue = round(getValue());
-        double stepSize = (getMaximum() + 1) / nSteps;
-        double newValue = 0;
-        for (int i=0; i < nSteps; i++){
-            if ((currentValue >= stepSize * i) && (currentValue < stepSize * (i + 1))){
-                if (i < nSteps - 1){
-                    newValue = round(stepSize / 2 + stepSize * (i + 1));
-                } else {
-                    newValue = round(stepSize / 2);
+        if (isEnabled()){
+            int nSteps = getNSteps();
+            double currentValue = round(getValue());
+            double stepSize = (getMaximum() + 1) / nSteps;
+            double newValue = 0;
+            for (int i=0; i < nSteps; i++){
+                if ((currentValue >= stepSize * i) && (currentValue < stepSize * (i + 1))){
+                    if (i < nSteps - 1){
+                        newValue = round(stepSize / 2 + stepSize * (i + 1));
+                    } else {
+                        newValue = round(stepSize / 2);
+                    }
                 }
             }
+            setValue (newValue, sendNotificationSync);
         }
-        setValue (newValue, sendNotificationSync);
     }
 
     void mouseUp (const MouseEvent&) override {
@@ -74,20 +76,22 @@ class CycleButtonSlider6StepsInverted: public CycleButtonSliderNSteps
     int getNSteps() override { return 6; };
     
     void mouseDown (const MouseEvent&) override {
-        int nSteps = getNSteps();
-        double currentValue = round(getValue());
-        double stepSize = (getMaximum() + 1) / nSteps;
-        double newValue = 0;
-        for (int i=0; i < nSteps; i++){
-            if ((currentValue >= stepSize * i) && (currentValue < stepSize * (i + 1))){
-                if (i > 0){
-                    newValue = round(stepSize / 2 + stepSize * (i - 1));
-                } else {
-                    newValue = round(stepSize * nSteps - stepSize / 2);
+        if (isEnabled()){
+            int nSteps = getNSteps();
+            double currentValue = round(getValue());
+            double stepSize = (getMaximum() + 1) / nSteps;
+            double newValue = 0;
+            for (int i=0; i < nSteps; i++){
+                if ((currentValue >= stepSize * i) && (currentValue < stepSize * (i + 1))){
+                    if (i > 0){
+                        newValue = round(stepSize / 2 + stepSize * (i - 1));
+                    } else {
+                        newValue = round(stepSize * nSteps - stepSize / 2);
+                    }
                 }
             }
+            setValue (newValue, sendNotificationSync);
         }
-        setValue (newValue, sendNotificationSync);
     }
 };
 
@@ -98,13 +102,15 @@ class CycleButtonSliderNStepsInt: public Slider
     };
     
     void mouseDown (const MouseEvent&) override {
-        int nSteps = getNSteps();
-        double currentValue = round(getValue());
-        double newValue = currentValue + 1.0;
-        if (newValue >= (double)nSteps){
-            newValue = 0.0;
+        if (isEnabled()){
+            int nSteps = getNSteps();
+            double currentValue = round(getValue());
+            double newValue = currentValue + 1.0;
+            if (newValue >= (double)nSteps){
+                newValue = 0.0;
+            }
+            setValue (newValue, sendNotificationSync);
         }
-        setValue (newValue, sendNotificationSync);
     }
 
     void mouseUp (const MouseEvent&) override {

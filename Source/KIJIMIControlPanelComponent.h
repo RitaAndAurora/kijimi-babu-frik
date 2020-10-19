@@ -36,10 +36,37 @@ public:
         
         // Initialize sliders and other objects in component
         initializeSliders();
+        
+        // Call some init configuration items
+        configureControlsForADSR2ModMode();
+        configureControlsForLFOModMode();
     }
     
-    virtual void initializeSliders ()
-    {
+    virtual void initializeSliders () {}
+    
+    virtual void configureControlsForADSR2ModModeCommon () {}
+    virtual void configureControlsForADSR2ModModeIndividual () {}
+    virtual void configureControlsForLFOModModeCommon () {}
+    virtual void configureControlsForLFOModModeIndividual () {}
+    
+    void configureControlsForADSR2ModMode(){
+        if (processor->getValueForAudioParameter("KIJIMI_ADSR_MOD_MODE") == 0){
+            // ADSR mod mode = common
+            configureControlsForADSR2ModModeCommon();
+        } else {
+            // ADSR mod mode = individual
+            configureControlsForADSR2ModModeIndividual();
+        }
+    }
+    
+    void configureControlsForLFOModMode(){
+        if (processor->getValueForAudioParameter("KIJIMI_LFO_MOD_MODE") == 0){
+            // ADSR mod mode = common
+            configureControlsForLFOModModeCommon();
+        } else {
+            // ADSR mod mode = individual
+            configureControlsForLFOModModeIndividual();
+        }
     }
     
     // Plugin processor reference
@@ -53,6 +80,7 @@ public:
     BabuFrikButton2Alt3ValuesOffset1LookAndFeel button2Alt3ValuesLookAndFeelOffset1;
     BabuFrikButton2Alt3ValuesMiddleBothLookAndFeel button2Alt3ValuesLookAndFeelMiddleBoth;
     BabuFrikButton2Alt2ValuesLookAndFeel button2Alt2ValuesLookAndFeel;
+    BabuFrikButton2Alt2YellowValuesLookAndFeel button2Alt2YellowValuesLookAndFeel;
     BabuFrikButton2Alt2InvertedValuesLookAndFeel button2Alt2InvertedValuesLookAndFeel;
     BabuFrikButton1LookAndFeel button1LookAndFeel;
     BabuFrikButton1InvertedLookAndFeel button1LookAndFeelInverted;
@@ -1053,6 +1081,46 @@ public:
             return "Maximum number of voices: " + String (value);
         };
         // --> End auto-generated code B
+    }
+    
+    void configureControlsForADSR2ModModeCommon () override
+    {
+        sliderKIJIMI_ADSR2_AMT.setEnabled(true);
+    }
+    
+    void configureControlsForADSR2ModModeIndividual () override
+    {
+        sliderKIJIMI_ADSR2_AMT.setEnabled(false);
+    }
+    
+    void configureControlsForLFOModModeCommon () override
+    {
+        sliderKIJIMI_LFO1_AMT.setEnabled(true);
+        sliderKIJIMI_LFO1_RATE.setEnabled(true);
+        sliderKIJIMI_LFO1_A.setEnabled(true);
+        sliderKIJIMI_LFO1_D.setEnabled(true);
+        sliderKIJIMI_LFO1_SHAPE.setEnabled(true);
+        sliderKIJIMI_LFO2_AMT.setEnabled(true);
+        sliderKIJIMI_LFO2_RATE.setEnabled(true);
+        sliderKIJIMI_LFO2_A.setEnabled(true);
+        sliderKIJIMI_LFO2_D.setEnabled(true);
+        sliderKIJIMI_LFO2_SHAPE.setEnabled(true);
+        sliderKIJIMI_LFO_ENV.setEnabled(true);
+    }
+    
+    void configureControlsForLFOModModeIndividual () override
+    {
+        sliderKIJIMI_LFO1_AMT.setEnabled(false);
+        sliderKIJIMI_LFO1_RATE.setEnabled(false);
+        sliderKIJIMI_LFO1_A.setEnabled(false);
+        sliderKIJIMI_LFO1_D.setEnabled(false);
+        sliderKIJIMI_LFO1_SHAPE.setEnabled(false);
+        sliderKIJIMI_LFO2_AMT.setEnabled(false);
+        sliderKIJIMI_LFO2_RATE.setEnabled(false);
+        sliderKIJIMI_LFO2_A.setEnabled(false);
+        sliderKIJIMI_LFO2_D.setEnabled(false);
+        sliderKIJIMI_LFO2_SHAPE.setEnabled(false);
+        sliderKIJIMI_LFO_ENV.setEnabled(false);
     }
     
     void paint (Graphics& g) override
