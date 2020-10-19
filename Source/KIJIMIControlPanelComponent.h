@@ -1035,7 +1035,7 @@ public:
             else { return "CC Receive: on";}
         };
         // ComboBox KIJIMI_AT_MODE
-                sliderKIJIMI_AT_MODE.addItemList (StringArray ({"CHANNEL PRESSURE", "POLY AFTERTOUCH", "MPE"}), 1);
+                sliderKIJIMI_AT_MODE.addItemList (StringArray ({"CHAN AT", "POLY AT", "MPE"}), 1);
                 sliderKIJIMI_AT_MODE.setLookAndFeel (&selectLookAndFeel);
                 addAndMakeVisible (&sliderKIJIMI_AT_MODE);
                 sliderAttachmentKIJIMI_AT_MODE.reset(new AudioProcessorValueTreeState::ComboBoxAttachment (processor->parameters, "KIJIMI_AT_MODE", sliderKIJIMI_AT_MODE));
