@@ -60,13 +60,23 @@ public:
         MemoryBlock fileContents;
         path.loadFileAsData(fileContents);
         presetsBytes.clear();
-        for (int i=0; i<fileContents.getSize(); i=i+KIJIMI_PRESET_NUM_BYTES){  // Move in blocks of KIJIMI_PRESET_NUM_BYTES bytes (KIJIMI preset size)
+        int numBytesPerPreset = KIJIMI_PRESET_NUM_BYTES;
+        for (int i=0; i<fileContents.getSize(); i=i+numBytesPerPreset){  // Move in blocks of KIJIMI_PRESET_NUM_BYTES bytes (KIJIMI preset size)
             KIJIMIPresetBytes currentPresetBytes = {0};
-            for (int j=0; j<KIJIMI_PRESET_NUM_BYTES; j++){  // Go byte by byte
+            for (int j=0; j<numBytesPerPreset; j++){  // Go byte by byte
                 unsigned char byte = fileContents[i + j];
                 uint8 byte_int = uint8(byte);
                 currentPresetBytes[j] = byte_int;
             }
+            
+            if (currentPresetBytes[133] == 0xF7){
+                // This means that patch file format is pre 1.3 (134 bytes instead of 262)
+                // Adjust numBytesPerPreset to 134 and also move the position of the last byte
+                numBytesPerPreset = 134;
+                currentPresetBytes[133] = 0x00;
+                currentPresetBytes[261] = 0xF7;
+            }
+            
             presetsBytes.push_back(currentPresetBytes);
         }
         bankFilename = path.getFileName();
