@@ -7,7 +7,7 @@
 
 #pragma once
 
-#define VERSION "0.2"  // If changing this, remember to change it on Projucer as well
+#define VERSION "1.0"  // If changing this, remember to change it on Projucer as well
 #define MORE_INFO_URL "https://github.com/RitaAndAurora/kijimi-babu-frik"  // Change to app website when available
 #define DONATE_URL "https://ritaandaurora.github.io/babu-frik/donate"
 #define SOURCE_CODE_URL "https://github.com/ritaandaurora/babu-frik"

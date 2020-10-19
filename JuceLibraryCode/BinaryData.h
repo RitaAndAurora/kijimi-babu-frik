@@ -12,10 +12,10 @@ namespace BinaryData
     const int            AppIcon_pngSize = 765894;
 
     extern const char*   RitaAuroraLogo1_png;
-    const int            RitaAuroraLogo1_pngSize = 420567;
+    const int            RitaAuroraLogo1_pngSize = 423055;
 
     extern const char*   TitleLogo_png;
-    const int            TitleLogo_pngSize = 19899;
+    const int            TitleLogo_pngSize = 17257;
 
     extern const char*   MODENINE_TTF;
     const int            MODENINE_TTFSize = 22256;
