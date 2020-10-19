@@ -136,6 +136,7 @@ public:
     void actionListenerCallback (const String &message) override;
     
     // Other
+    void requestFirmwareVersion();
     void toggleAutomaticSyncWithSynth();
     bool automaticSyncWithSynthEnabled = true;
     float getValueForAudioParameter(const String& parameterID);
@@ -158,6 +159,9 @@ public:
     };
 
     DelayedRequestLoadControlsFromSynthThread delayedRequestLoadControlsSysexThread;
+    
+    String currentFirmwareLabel = "0.0.0";
+    String requiredFirmwareLabel = "0.0.0";
 
 private:    
     //==============================================================================

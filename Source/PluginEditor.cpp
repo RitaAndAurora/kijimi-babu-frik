@@ -31,6 +31,9 @@ BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcess
     
     // Disable resize
     setResizable(false, false);
+    
+    // Now that editor is ready, ask for firmware version and show aler message
+    processor.requestFirmwareVersion();
 }
 
 BabuFrikAudioProcessorEditor::~BabuFrikAudioProcessorEditor()
@@ -249,7 +252,6 @@ void UIWrapperComponent::actionListenerCallback (const String &message)
         processor->showLfosPanel = false;
         resized();
     } else if (message.startsWith(String(ACTION_UPDATE_ENABLED_DISABLED_CONTROLS))){
-        
         // ADSR2 stuff
         kijimiControlPanel.configureControlsForADSR2ModMode();
         kijimiLfosPanel.configureControlsForADSR2ModMode();
@@ -259,6 +261,11 @@ void UIWrapperComponent::actionListenerCallback (const String &message)
         kijimiLfosPanel.configureControlsForLFOModMode();
         
         resized();
+    } else if (message.startsWith(String(ACTION_FIRMWARE_UPDATE_REQUIRED))){
+        AlertWindow w ("Oh no! Your KIJIMI has firmware version " + processor->currentFirmwareLabel + " but Babu Frik requires firmware " + processor->requiredFirmwareLabel + ". You can still use Babu Frik but some things might not work as expected. Please, update your KIJIMI :)", "", AlertWindow::NoIcon);
+        w.setLookAndFeel(&babuFrikBaseLookAndFeel);
+        w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
+        w.runModalLoop();
     }
         
 }

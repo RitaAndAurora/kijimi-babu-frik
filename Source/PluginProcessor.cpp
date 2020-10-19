@@ -1195,7 +1195,9 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     lastUsedDirectoryForFileIO = File::getSpecialLocation (File::userHomeDirectory);
     
     // Trigger load default state in processor
-    setDefaultState();    
+    setDefaultState();
+    
+    requiredFirmwareLabel = String(REQUIRED_FW_FIRST) + "." + String(REQUIRED_FW_SECOND) + "." + String(REQUIRED_FW_THIRD);
 }
 
 BabuFrikAudioProcessor::~BabuFrikAudioProcessor()
@@ -1281,7 +1283,8 @@ void BabuFrikAudioProcessor::changeProgramName (int index, const String& newName
 //==============================================================================
 void BabuFrikAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    loadControlsStateFromSynth();  // Trigger loading state from synth now that all midi devices and the saved state will have been loaded
+    requestFirmwareVersion();
+    delayedRequestLoadControlsSysexThread.run();  // Trigger loading state from synth now that all midi devices and the saved state will have been loaded (do it delayed so it gives time for the firmware version command below to return in KIJIMI)
 }
 
 void BabuFrikAudioProcessor::releaseResources()
@@ -1532,9 +1535,9 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
 
 void BabuFrikAudioProcessor::sendLCDRefreshMessageToKijimi ()
 {
-    uint8 sysexdata2[] = { 0x02, 0x21};
-    MidiMessage msg2 = MidiMessage::createSysExMessage(sysexdata2, 2);
-    midiOutput.get()->sendMessageNow(msg2);
+    uint8 sysexdata[] = { 0x02, 0x21};
+    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
+    midiOutput.get()->sendMessageNow(msg);
 }
 
 void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int value)
@@ -1736,7 +1739,23 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 
         } else if (m.getSysExDataSize() == 5){
             const uint8 *buf = m.getSysExData();
-            if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x22)){
+            
+            if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x15)){
+                // Firmware version (check if supported, otherwise show alert)
+                int first = (int)buf[2];
+                int second = (int)buf[3];
+                int third = (int)buf[4];
+                int combined = first * 1000 + second * 100 + third;
+                int combinedRequired = REQUIRED_FW_FIRST * 1000 + REQUIRED_FW_SECOND * 100 + REQUIRED_FW_THIRD;
+                
+                if (combined < combinedRequired){
+                    currentFirmwareLabel = (String)first + "." + (String)second + "." + (String)third;
+                    logMessage("Old firmware detected: " + currentFirmwareLabel + ", should be " + requiredFirmwareLabel);
+                    sendActionMessage(ACTION_FIRMWARE_UPDATE_REQUIRED);
+                }
+            }
+            
+            else if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x22)){
                 // Updated setting for individual LFOs/ADSR2
                 int lfoOrAdsrNumber = (int)buf[2];
                 int correspondingCCNumberInCommonMode = (int)buf[3];
@@ -2094,7 +2113,7 @@ float BabuFrikAudioProcessor::getValueForAudioParameter(const String& parameterI
 }
 
 void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
-{
+{    
     if (midiOutput.get() != nullptr) {
         
         #if USE_SET_CURRENT_STATE_COMMAND_TO_SEND_ALL_CONTROLS_TO_KIJIMI
@@ -2308,6 +2327,12 @@ void BabuFrikAudioProcessor::showOrHideKIJIMIPanel(String panelName, bool doShow
             sendActionMessage(ACTION_TOGGLE_HIDE_LFO_PANEL);
         }
     }
+}
+
+void BabuFrikAudioProcessor::requestFirmwareVersion(){    
+    uint8 sysexdata[] = { 0x02, 0x15}; // Get version command
+    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
+    midiOutput.get()->sendMessageNow(msg);
 }
 
 void BabuFrikAudioProcessor::toggleAutomaticSyncWithSynth(){
