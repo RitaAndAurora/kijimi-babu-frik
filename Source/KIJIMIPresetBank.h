@@ -82,6 +82,12 @@ public:
         bankFilename = path.getFileName();
     }
     
+    void setFromPresetsBytes(std::vector<KIJIMIPresetBytes> _presetsBytes, const String& bankNameToUse)
+    {
+        presetsBytes = _presetsBytes;
+        bankFilename = bankNameToUse;
+    }
+    
     void loadState(ValueTree state)
     {
         // Load filename

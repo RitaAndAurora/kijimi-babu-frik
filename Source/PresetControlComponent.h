@@ -43,7 +43,7 @@ public:
         currentPresetSlidersOutOfSync = false;
         
         loadFileButton.addListener (this);
-        loadFileButton.setButtonText("Load bank file...");
+        loadFileButton.setButtonText("Load bank...");
         addAndMakeVisible (loadFileButton);
         
         loadedFileLabel.setJustificationType (Justification::left);
@@ -165,7 +165,18 @@ public:
         }
         else if (button == &loadFileButton)
         {
-            loadBankFile();
+            PopupMenu loadBankSubmenu;
+            loadBankSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
+            loadBankSubmenu.addItem (MENU_OPTION_ID_LOAD_BANK_FROM_FILE, "...from file");
+            loadBankSubmenu.addItem (MENU_OPTION_ID_LOAD_BANK_FROM_KIJIMI, "...from KIJIMI");
+            int selectedActionID = loadBankSubmenu.showAt(button);
+            if (selectedActionID == MENU_OPTION_ID_LOAD_BANK_FROM_FILE){
+                loadBankFile();
+            } else if (selectedActionID == MENU_OPTION_ID_LOAD_BANK_FROM_KIJIMI){
+                // Load from KIJIMI
+                processor->threadedKIJIMIBankLoader.run();
+            }
+
         } else if (button == &saveToCurrentBankLocationButton)
         {
             AlertWindow w ("Plase choose the location where the preset should be saved", "", AlertWindow::NoIcon);

@@ -933,7 +933,8 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                            NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                            65.0f)
             }),
-        delayedRequestLoadControlsSysexThread (*this)
+        delayedRequestLoadControlsSysexThread (*this),
+        threadedKIJIMIBankLoader (*this)
 #endif
 {
     // Add listeners to TimbreSpace position parameters
@@ -1748,6 +1749,25 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetBytesArray(currentPresetBytes);
                 setParametersFromSynthControlIdValuePairs(idValuePairs, false);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls which is what we want here because we want to update parameters internally but not re-send them to KIJIMI
             }
+        } else if (m.getSysExDataSize() == 260){
+            // KIJIMI is dumping a specific bank/preset
+            const uint8 *buf = m.getSysExData();
+            if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x00)){ // Check message code is for KIJIMI and for transfer command
+                KIJIMIPresetBytes currentPresetBytes = {0};
+                for (int i=0; i<KIJIMI_PRESET_NUM_BYTES; i++){  // Go byte by byte
+                    if (i == 0){  // sysex start byte
+                        currentPresetBytes[i] = 0xF0;
+                    } else if (i == 261){  // sysex end byte
+                        currentPresetBytes[i] = 0xF7;
+                    } else {
+                        currentPresetBytes[i] = buf[i - 1];
+                    }
+                }
+                lastReceivedKIJIMIPresetBytes = currentPresetBytes;
+                waitingToReceiveKIJIMIPresetBytes = false;
+            }
+            
+            
         } else if (m.getSysExDataSize() == 2){
             const uint8 *buf = m.getSysExData();
             if (((int)buf[0] == 0x02) && (((int)buf[1] == 0x41) || ((int)buf[1] == 0x42) || ((int)buf[1] == 0x43) || ((int)buf[1] == 0x16))){
@@ -1977,6 +1997,18 @@ void BabuFrikAudioProcessor::setMidiOutputChannel (int channel)
 }
 
 //==============================================================================
+
+void BabuFrikAudioProcessor::loadPresetBankFromPresetsBytes (std::vector<KIJIMIPresetBytes> presetsBytes, const String& bankNameToUse)
+{
+    #if JUCE_DEBUG
+        logMessage("Loading received bank from KJIIMI");
+    #endif
+    currentPreset = -1;
+    currentPresetOutOfSyncWithSliders = true;
+    kijimiInterface->loadPresetBankFromPresetsBytes(presetsBytes, bankNameToUse);
+    sendActionMessage(ACTION_BANK_FILE_LOADED);
+    loadPresetAtIndex(0);
+}
 
 
 void BabuFrikAudioProcessor::loadBankFile (File* bankFile)
@@ -2371,6 +2403,12 @@ void BabuFrikAudioProcessor::toggleAutomaticSyncWithSynth(){
     automaticSyncWithSynthEnabled = !automaticSyncWithSynthEnabled;
 }
 
+void BabuFrikAudioProcessor::requestGetPresetFromKIJIMI(int bankNumber, int presetNumber)
+{
+    uint8 sysexdata[] = {0x02, 0x13, (uint8)bankNumber, (uint8)presetNumber}; // Get preset bytes command
+    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
+    midiOutput.get()->sendMessageNow(msg);
+}
 
 //==============================================================================
 // This creates new instances of the plugin..

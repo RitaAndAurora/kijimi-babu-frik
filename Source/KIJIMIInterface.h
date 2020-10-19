@@ -740,6 +740,11 @@ public:
         }
     }
     
+    void loadPresetBankFromPresetsBytes(std::vector<KIJIMIPresetBytes> presetsBytes, const String& bankNameToUse)
+    {
+        presetBank.setFromPresetsBytes(presetsBytes, bankNameToUse);
+    }
+    
     KIJIMIPresetBytes& getLoadedPresetBytesAtIndex(int index)
     {
         return presetBank.getPresetBytesAtIndex(index);
