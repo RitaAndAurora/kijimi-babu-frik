@@ -165,37 +165,6 @@ public:
     };
     DelayedRequestLoadControlsFromSynthThread delayedRequestLoadControlsSysexThread;
     
-    class ThreadedKIJIMIBankLoader : private Thread
-    {
-    public:
-        ThreadedKIJIMIBankLoader(BabuFrikAudioProcessor& p) : Thread ("ThreadedKIJIMIBankLoader"), processor (p){}
-        
-        void run() override
-        {
-            int currentBank = 0;
-            processor.receivedPresetsBytes.clear();
-            int nPresets = 50;
-            for (int currentPreset=0; currentPreset<nPresets; currentPreset++){
-                processor.lastReceivedKIJIMIPresetBytes = {0};
-                processor.waitingToReceiveKIJIMIPresetBytes = true;
-                processor.requestGetPresetFromKIJIMI(currentBank, currentPreset);
-                while (processor.waitingToReceiveKIJIMIPresetBytes == true){
-                    sleep(50);
-                }
-                processor.receivedPresetsBytes.push_back(processor.lastReceivedKIJIMIPresetBytes);
-                processor.sendActionMessage(String(ACTION_RECEIVING_PRESETS_PROGRESS) + (String)((int)(100*(float)currentPreset/nPresets)));
-            }
-            processor.sendActionMessage(ACTION_ALL_PRESETS_RECEIVED);
-            processor.loadPresetBankFromPresetsBytes(processor.receivedPresetsBytes, "Bank " + (String)(currentBank));
-            processor.computeTimbreSpace();
-            
-            // TODO:: add some timers to avoid blockinginfitenly if KJIIMI does not respond
-            
-        }
-        BabuFrikAudioProcessor& processor;
-    };
-    ThreadedKIJIMIBankLoader threadedKIJIMIBankLoader;  // used to load bank in a thread
-    
     String currentFirmwareLabel = "0.0.0";
     String requiredFirmwareLabel = "0.0.0";
 

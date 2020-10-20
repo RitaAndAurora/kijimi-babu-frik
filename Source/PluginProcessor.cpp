@@ -933,8 +933,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                            NormalisableRange < float > (0.0f, 127.0f, 1.0f), // parameter range
                                                            65.0f)
             }),
-        delayedRequestLoadControlsSysexThread (*this),
-        threadedKIJIMIBankLoader (*this)
+        delayedRequestLoadControlsSysexThread (*this)
 #endif
 {
     // Add listeners to TimbreSpace position parameters
@@ -2101,9 +2100,9 @@ void BabuFrikAudioProcessor::savePresetToBankLocation (int bankLocation)
         KIJIMIPresetBytes currentPresetBytes = {0};  // Initialize to zero
         for (int i=0; i<parameterIDs.size(); i++){
             String parameterID = parameterIDs[i];
-            AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
+            int value = (int)getValueForAudioParameter(parameterID);
             KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
-            synthControl->updatePresetByteArray((int)audioParameter->get(), currentPresetBytes);
+            synthControl->updatePresetByteArray(value, currentPresetBytes);
         }
         kijimiInterface->saveCurrentPresetAtBankIndex(bankLocation, currentPresetBytes);
         currentPreset = bankLocation;
@@ -2172,21 +2171,24 @@ void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
         
         // Get current state bytes into a KIJIMIPresetBytes object
         std::vector<String> parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
-        KIJIMIPresetBytes currentPresetBytes = {0};  // Initialize to zero
+        KIJIMIPresetBytes currentPresetBytes = {0xFA};  // Initialize to a value which is invalid and will be ignored if KIJIMI finds it
         for (int i=0; i<parameterIDs.size(); i++){
             String parameterID = parameterIDs[i];
-            AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
+            int value = 0xFA; // This is a value that will be invalid and thus ignored if found by KIJIMI
+            if (!kijimiInterface->isGlobalParameter(parameterID)){
+                value = (int)getValueForAudioParameter(parameterID);
+            }
             KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
-            synthControl->updatePresetByteArray((int)audioParameter->get(), currentPresetBytes);
+            synthControl->updatePresetByteArray(value, currentPresetBytes);
         }
         
-        std::array<uint8, 256> sysexdata;
+        std::array<uint8, 258> sysexdata;
         sysexdata[0] = 0x02; // kijmi ID
         sysexdata[1] = 0x23;  // set current state command
-        for (int i=2; i<256; i++){
-            sysexdata[i] = currentPresetBytes[i + 4];
+        for (int i=2; i<258; i++){
+            sysexdata[i] = currentPresetBytes[i + 3];
         }
-        MidiMessage msg = MidiMessage::createSysExMessage(&sysexdata, 256);
+        MidiMessage msg = MidiMessage::createSysExMessage(&sysexdata, 258);
         midiOutput.get()->sendMessageNow(msg);
         
         #else
@@ -2393,10 +2395,12 @@ void BabuFrikAudioProcessor::showOrHideKIJIMIPanel(String panelName, bool doShow
     }
 }
 
-void BabuFrikAudioProcessor::requestFirmwareVersion(){    
-    uint8 sysexdata[] = { 0x02, 0x15}; // Get version command
-    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
-    midiOutput.get()->sendMessageNow(msg);
+void BabuFrikAudioProcessor::requestFirmwareVersion(){
+    if (midiInput.get() != nullptr){
+        uint8 sysexdata[] = { 0x02, 0x15}; // Get version command
+        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
+        midiOutput.get()->sendMessageNow(msg);
+    }
 }
 
 void BabuFrikAudioProcessor::toggleAutomaticSyncWithSynth(){
@@ -2405,9 +2409,11 @@ void BabuFrikAudioProcessor::toggleAutomaticSyncWithSynth(){
 
 void BabuFrikAudioProcessor::requestGetPresetFromKIJIMI(int bankNumber, int presetNumber)
 {
-    uint8 sysexdata[] = {0x02, 0x13, (uint8)bankNumber, (uint8)presetNumber}; // Get preset bytes command
-    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
-    midiOutput.get()->sendMessageNow(msg);
+    if (midiInput.get() != nullptr){
+        uint8 sysexdata[] = {0x02, 0x13, (uint8)bankNumber, (uint8)presetNumber}; // Get preset bytes command
+        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
+        midiOutput.get()->sendMessageNow(msg);
+    }
 }
 
 //==============================================================================

@@ -34,6 +34,8 @@ BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcess
     
     // Now that editor is ready, ask for firmware version and show aler message
     processor.requestFirmwareVersion();
+    
+    resized();
 }
 
 BabuFrikAudioProcessorEditor::~BabuFrikAudioProcessorEditor()

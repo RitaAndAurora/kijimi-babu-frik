@@ -30,6 +30,7 @@ public:
         setColour (BubbleComponent::backgroundColourId, Colour (0xff2f2f2f));
         setColour (AlertWindow::backgroundColourId, Colour (0xff010101));
         setColour (AlertWindow::outlineColourId, Colour (0xff5f5f5f));
+        setColour (ProgressBar::foregroundColourId, Colour (0xffD0AD57));
     }
     
     ~BabuFrikBaseLookAndFeel()

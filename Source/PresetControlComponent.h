@@ -85,6 +85,8 @@ public:
     ~PresetControlComponent ()
     {
         processor->removeActionListener(this);  // Stop receivng messages from processor
+        
+        kijimiBankImporterThreadModal.getAlertWindow()->setLookAndFeel(nullptr);
     }
     
     void initialize (BabuFrikAudioProcessor* p)
@@ -97,6 +99,10 @@ public:
         
         // Set initial state of mmebers by getting data from processor
         setStateFromProcessor();
+        
+        // Also intitialize the bank importer so it has reference to processor
+        kijimiBankImporterThreadModal.initialize(processor);
+        kijimiBankImporterThreadModal.getAlertWindow()->setLookAndFeel(&babuFrikBaseLookAndFeel);
     }
     
     void setStateFromProcessor () {
@@ -145,6 +151,92 @@ public:
         }
     }
     
+    // Modal with progress bar for importing bank from KIJIMI
+    class KIJIMIBankImporterThreadModal  : public ThreadWithProgressWindow
+    {
+    public:
+        KIJIMIBankImporterThreadModal()    : ThreadWithProgressWindow ("Loading bank from KIJIMI...", true, true)
+        {
+        }
+        
+        void initialize (BabuFrikAudioProcessor* p)
+        {
+            // Set processor object
+            processor = p;
+        }
+        
+        int bankNumber = 0;
+        bool succeeded = false;
+        BabuFrikAudioProcessor* processor;
+     
+        void run()
+        {
+            processor->receivedPresetsBytes.clear();
+            int nPresets = 128;
+            int nCancelled = 0;
+            
+            for (int currentPreset = 0; currentPreset < nPresets; currentPreset++)
+            {
+                if (threadShouldExit())
+                    break;
+                
+                if (nCancelled > 5)
+                    break;
+     
+                // this will update the progress bar on the dialog box
+                setProgress ((currentPreset + 1) / (double) nPresets);
+                
+                // Get one preset and wait until received
+                int64 timeRequestedPreset = Time::getCurrentTime().toMilliseconds();
+                processor->lastReceivedKIJIMIPresetBytes = {0};
+                processor->waitingToReceiveKIJIMIPresetBytes = true;
+                processor->requestGetPresetFromKIJIMI(bankNumber, currentPreset);
+                bool cancelled = false;
+                while (processor->waitingToReceiveKIJIMIPresetBytes == true){
+                    sleep(50);
+                    if (Time::getCurrentTime().toMilliseconds() - timeRequestedPreset > 300){
+                        cancelled = true;
+                        nCancelled += 1;
+                        break; // if waiting too much for receiving a single preset, cancel this one
+                    }
+                }
+                if (!cancelled){
+                    processor->receivedPresetsBytes.push_back(processor->lastReceivedKIJIMIPresetBytes);
+                }
+            }
+            if (nCancelled == 0){
+                succeeded = true;
+            }
+            
+        }
+    };
+    KIJIMIBankImporterThreadModal kijimiBankImporterThreadModal;
+    
+    void loadBankFromKijimi(int bankNumber, const String& bankName)
+    {
+        kijimiBankImporterThreadModal.bankNumber = bankNumber;
+        
+        if (kijimiBankImporterThreadModal.runThread())
+        {
+            if (kijimiBankImporterThreadModal.succeeded){
+                // Importing succeeded, compute timbre space
+                processor->loadPresetBankFromPresetsBytes(processor->receivedPresetsBytes, bankName);
+                processor->computeTimbreSpace();
+                kijimiBankImporterThreadModal.succeeded = false;
+            } else {
+                // Importing failed, show message
+                AlertWindow w ("Oups, there was a problem loading the bank from KIJIMI...", "", AlertWindow::NoIcon);
+                w.setLookAndFeel(&babuFrikBaseLookAndFeel);
+                w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
+                w.runModalLoop();
+            }
+        }
+        else
+        {
+            // If user canceled, do nothing
+        }
+    }
+    
     void enableBankTransportButtons() {
         previousPresetButton.setEnabled(true);
         nextPresetButton.setEnabled(true);
@@ -168,13 +260,40 @@ public:
             PopupMenu loadBankSubmenu;
             loadBankSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
             loadBankSubmenu.addItem (MENU_OPTION_ID_LOAD_BANK_FROM_FILE, "...from file");
-            loadBankSubmenu.addItem (MENU_OPTION_ID_LOAD_BANK_FROM_KIJIMI, "...from KIJIMI");
+            PopupMenu bankOptionsSubmenu;
+            bankOptionsSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
+            bankOptionsSubmenu.addItem (1, "Bank 1");
+            bankOptionsSubmenu.addItem (2, "Bank 2");
+            bankOptionsSubmenu.addItem (4, "Bank 3");
+            bankOptionsSubmenu.addItem (5, "Bank 4");
+            bankOptionsSubmenu.addItem (6, "Bank 5");
+            bankOptionsSubmenu.addItem (7, "Bank 6");
+            bankOptionsSubmenu.addItem (8, "Bank 7");
+            bankOptionsSubmenu.addItem (9, "Bank 8");
+            bankOptionsSubmenu.addItem (10, "Bank 9");
+            bankOptionsSubmenu.addItem (3, "MJ");
+            bankOptionsSubmenu.addItem (11, "RD");
+            loadBankSubmenu.addSubMenu ("..from KIJIMI", bankOptionsSubmenu);
+            
             int selectedActionID = loadBankSubmenu.showAt(button);
             if (selectedActionID == MENU_OPTION_ID_LOAD_BANK_FROM_FILE){
                 loadBankFile();
-            } else if (selectedActionID == MENU_OPTION_ID_LOAD_BANK_FROM_KIJIMI){
-                // Load from KIJIMI
-                processor->threadedKIJIMIBankLoader.run();
+            } else if ((selectedActionID >= 1) && (selectedActionID <= 11)){
+                int selectedBank = selectedActionID - 1;
+                StringArray bankNames = {
+                    "Bank 1",
+                    "Bank 2",
+                    "MJ",
+                    "Bank 3",
+                    "Bank 4",
+                    "Bank 5",
+                    "Bank 6",
+                    "Bank 7",
+                    "Bank 8",
+                    "Bank 9",
+                    "RD",
+                };
+                loadBankFromKijimi(selectedBank, bankNames[selectedBank]);
             }
 
         } else if (button == &saveToCurrentBankLocationButton)

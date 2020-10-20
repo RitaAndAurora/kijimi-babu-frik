@@ -310,7 +310,8 @@ public:
     
     void updatePresetByteArray (int value, KIJIMIPresetBytes& bytes)
     {
-        // Updates KIJIMIPresetBytes with the given value of the synth control parameter in the "MIDI range"
+        // Updates KIJIMIPresetBytes with the given value of the synth control parameter in the "MIDI range" (which is
+        // the natrual range of the audio parameter object.
         // This "MIDI range" means that the received value here is a value in the range that could be sent to kijimi
         // via MIDI message to set it. We need therefore to map this to the corresponding byte representation which in
         // some cases means not changing the parameter at all, but in other cases means doing some custom mappings.
