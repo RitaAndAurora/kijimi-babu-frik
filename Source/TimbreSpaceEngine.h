@@ -58,6 +58,14 @@ public:
                 presetIDXmap.push_back(i);
             }
         }
+        if (presetIDXmap.size() < 4){
+            // Not enough presets were added to timbre space, repeat existing ones to avoid map computation to fail
+            int n = presetIDXmap.size();
+            for (int i=0; i<n; i++){
+                filteredData.push_back(filteredData[i]);
+                presetIDXmap.push_back(presetIDXmap[i]);
+            }
+        }
         
         // Do map computation
         /*
