@@ -12,11 +12,16 @@
 #define DONATE_URL "https://ritaandaurora.github.io/babu-frik/donate"
 #define SOURCE_CODE_URL "https://github.com/ritaandaurora/babu-frik"
 
+#define BYTE_INIT_VALUE_TO_BE_IGNORED 127  // When kijimi receives a value to be set for a parameter and it is out of range, it ignores it. Bytes bust be
+    // 0-127 in sysex data, and we checked (looking at the preset description file) that for all parameters that Babu Frik does not contemplate and also for
+    // all global parameters that are not to be stored in a patch, setting them to 127 will make KIJIMI ignore them. Therefor, we should always inititalize
+    // the sequence of bytes to send to KIJIMI or even save to disk using this IGNORE value
+
 #define REQUIRED_FW_FIRST 1
 #define REQUIRED_FW_SECOND 3
-#define REQUIRED_FW_THIRD 17
+#define REQUIRED_FW_THIRD 21
 
-#define USE_SET_CURRENT_STATE_COMMAND_TO_SEND_ALL_CONTROLS_TO_KIJIMI 0
+#define USE_SET_CURRENT_STATE_COMMAND_TO_SEND_ALL_CONTROLS_TO_KIJIMI 1
 
 #define ACTION_LOG_PREFIX "LOG:"
 #define LOG_IN_UI 0
@@ -36,7 +41,7 @@
 #define KIJIMI_PRESET_NUM_BYTES 262
 
 #define EMPTY_PRESET_SUM_THRESHOLD 5.0
-#define EMPTY_PRESET_SUM_UPPER_THRESHOLD 55.0
+#define EMPTY_PRESET_SUM_UPPER_THRESHOLD 59.0
 
 #define ACTION_LOAD_TS_SOLUTION "ACTION_LOAD_TS_SOLUTION:"
 #define ACTION_SET_IS_COMPUTING_TS_SOLUTION "ACTION_SET_IS_COMPUTING_TS_SOLUTION:"
@@ -179,7 +184,7 @@ struct RandomizationConfigStruct {
     bool lfosPanel = false;
 };
 
-typedef std::array<uint8, KIJIMI_PRESET_NUM_BYTES> KIJIMIPresetBytes;
+typedef std::array<uint8, KIJIMI_PRESET_NUM_BYTES> KIJIMIPresetBytes;  // byte positions here correspond to those listed in preset description file
 typedef std::pair<String, double> SynthControlIdValuePair;
 typedef std::vector<SynthControlIdValuePair> SynthControlIdValuePairs;
 

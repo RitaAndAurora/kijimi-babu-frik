@@ -15,7 +15,7 @@ class KIJIMISynthControl
 
 {
 public:
-    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _midiOptionID, int _midiExtendedOptionID, int _byteNumber, const String& _byteToMidiConversionType, const String& _audioParameterType, bool _includeOnTimbreSpace, bool _acceptMidiInput)
+    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _midiOptionID, int _midiExtendedOptionID, int _byteNumber, const String& _byteToMidiConversionType, const String& _audioParameterType, bool _includeOnTimbreSpace, bool _acceptMidiInput, bool _shouldUseDefaultValueIf127, int _defaultValue)
     {
         ID = _ID;
         name = _name;
@@ -28,6 +28,8 @@ public:
         audioParameterType = _audioParameterType;
         includeOnTimbreSpace = _includeOnTimbreSpace;
         acceptMidiInput = _acceptMidiInput;
+        shouldUseDefaultValueIf127 = _shouldUseDefaultValueIf127;
+        defaultValue = _defaultValue;
     }
     
     ~KIJIMISynthControl ()
@@ -98,6 +100,12 @@ public:
         // The midi range value is the "real" value of the parameter stored in the audio parameter objects
         
         int midiVal = -1;
+        
+        if ((byteValue == 127) && (shouldUseDefaultValueIf127)){
+            // If byte value is of 127, it could mean that the byte is "unset" and we have to set it to some default
+            // see the default that was passed to the KIJIMISynthControl constructor specially for this case
+            byteValue = defaultValue;
+        }
         
         if (byteToMidiConversionType == "direct") {
            // General case in which value is already in the standard 0-127 MIDI range
@@ -321,7 +329,7 @@ public:
             // If a byte value was computed, update the array accordingly
             // This should always be the case if we are covering all possible parameters
             if (byteValue > -1){
-                bytes[byteNumber] = jlimit(0, 255, byteValue);
+                bytes[byteNumber] = (uint8)jlimit(0, 255, byteValue);
             }
         }
     }
@@ -343,4 +351,6 @@ private:
     String audioParameterType;
     bool includeOnTimbreSpace;
     bool acceptMidiInput;
+    int shouldUseDefaultValueIf127;
+    int defaultValue;
 };

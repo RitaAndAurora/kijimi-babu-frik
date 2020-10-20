@@ -1748,6 +1748,7 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetBytesArray(currentPresetBytes);
                 setParametersFromSynthControlIdValuePairs(idValuePairs, false);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls which is what we want here because we want to update parameters internally but not re-send them to KIJIMI
             }
+            
         } else if (m.getSysExDataSize() == 260){
             // KIJIMI is dumping a specific bank/preset
             const uint8 *buf = m.getSysExData();
@@ -1765,7 +1766,6 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 lastReceivedKIJIMIPresetBytes = currentPresetBytes;
                 waitingToReceiveKIJIMIPresetBytes = false;
             }
-            
             
         } else if (m.getSysExDataSize() == 2){
             const uint8 *buf = m.getSysExData();
@@ -2097,13 +2097,24 @@ void BabuFrikAudioProcessor::savePresetToBankLocation (int bankLocation)
         }
         
         std::vector<String> parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
-        KIJIMIPresetBytes currentPresetBytes = {0};  // Initialize to zero
+        KIJIMIPresetBytes currentPresetBytes;
+        for (int i=0; i<currentPresetBytes.size(); i++){
+            currentPresetBytes[i] = BYTE_INIT_VALUE_TO_BE_IGNORED;  // Initialize to a value which is invalid for parameters not contemplated by Babu Frik
+        }
+        
         for (int i=0; i<parameterIDs.size(); i++){
             String parameterID = parameterIDs[i];
             int value = (int)getValueForAudioParameter(parameterID);
             KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
             synthControl->updatePresetByteArray(value, currentPresetBytes);
         }
+        currentPresetBytes[0] = 0xF0;  // syex start
+        currentPresetBytes[1] = 0x02; // kijmi ID
+        currentPresetBytes[2] = 0x00;  // won't really be used...
+        currentPresetBytes[3] = 0x00;  // won't really be used...
+        currentPresetBytes[4] = bankLocation;  // won't really be used...
+        currentPresetBytes[90] = 0x00;  // current patch byte set it to 0 so we don't change the number shown in the screen
+        currentPresetBytes[261] = 0xF7; // sysex end
         kijimiInterface->saveCurrentPresetAtBankIndex(bankLocation, currentPresetBytes);
         currentPreset = bankLocation;
         sendActionMessage(ACTION_SET_CURRENT_PRESET_NAME_IN_SYNC);
@@ -2155,10 +2166,10 @@ float BabuFrikAudioProcessor::getValueForAudioParameter(const String& parameterI
     String audioParameterTypeName = kijimiInterface->getAudioParameterTypeForParameterID(parameterID);
     if (audioParameterTypeName == "float"){
         AudioParameterFloat* audioParameter = (AudioParameterFloat*)parameters.getParameter(parameterID);
-        return audioParameter->get();
+        return (float)jlimit(0.0, 127.0, (double)audioParameter->get());  // make sure we don't go over 127 in data bytes
     } else if (audioParameterTypeName == "choice"){
         AudioParameterChoice* audioParameter = (AudioParameterChoice*)parameters.getParameter(parameterID);
-        return (float)audioParameter->getIndex();
+        return (float)jlimit(0.0, 127.0, (double)audioParameter->getIndex()); // make sure we don't go over 127 in data bytes
     }
     return 0;
 }
@@ -2171,16 +2182,21 @@ void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
         
         // Get current state bytes into a KIJIMIPresetBytes object
         std::vector<String> parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
-        KIJIMIPresetBytes currentPresetBytes = {0xFA};  // Initialize to a value which is invalid and will be ignored if KIJIMI finds it
+        KIJIMIPresetBytes currentPresetBytes;
+        for (int i=0; i<currentPresetBytes.size(); i++){
+            currentPresetBytes[i] = BYTE_INIT_VALUE_TO_BE_IGNORED;  // Initialize to a value which is invalid for parameters not contemplated by Babu Frik
+        }
+        
         for (int i=0; i<parameterIDs.size(); i++){
             String parameterID = parameterIDs[i];
-            int value = 0xFA; // This is a value that will be invalid and thus ignored if found by KIJIMI
+            int value = BYTE_INIT_VALUE_TO_BE_IGNORED; // This is a value that will be invalid and thus ignored if found by KIJIMI
             if (!kijimiInterface->isGlobalParameter(parameterID)){
                 value = (int)getValueForAudioParameter(parameterID);
             }
             KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
             synthControl->updatePresetByteArray(value, currentPresetBytes);
         }
+        currentPresetBytes[90] = 0x00;  // current patch byte set it to 0 so we don't change the number shown in the screen
         
         std::array<uint8, 258> sysexdata;
         sysexdata[0] = 0x02; // kijmi ID
@@ -2188,8 +2204,10 @@ void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
         for (int i=2; i<258; i++){
             sysexdata[i] = currentPresetBytes[i + 3];
         }
+        
         MidiMessage msg = MidiMessage::createSysExMessage(&sysexdata, 258);
         midiOutput.get()->sendMessageNow(msg);
+        sendLCDRefreshMessageToKijimi();
         
         #else
         
@@ -2286,12 +2304,16 @@ void BabuFrikAudioProcessor::saveToPatchFile ()
     {
         File file (fileChooser.getResult());
         setLastUserDirectoryForFileSaveLoad(file);
-        KIJIMIPresetBytes currentPresetBytes = {0};  // Initialize to zero
+        KIJIMIPresetBytes currentPresetBytes;
+        for (int i=0; i<currentPresetBytes.size(); i++){
+            currentPresetBytes[i] = BYTE_INIT_VALUE_TO_BE_IGNORED;  // Initialize to a value which is invalid for parameters not contemplated by Babu Frik
+        }
         currentPresetBytes[0] = 0xF0;  // syex start
         currentPresetBytes[1] = 0x02; // kijmi ID
         currentPresetBytes[2] = 0x00;  // transfer patch command
         currentPresetBytes[3] = 0x00;  // bank number
         currentPresetBytes[4] = 0x00;  // preset number
+        currentPresetBytes[90] = 0x00;  // current patch byte set it to 0 so we don't change the number shown in the screen
         currentPresetBytes[261] = 0xF7; // sysex end
         std::vector<String> parameterIDs = kijimiInterface->getKIJIMISynthControlIDs();
         for (int i=0; i<parameterIDs.size(); i++){
