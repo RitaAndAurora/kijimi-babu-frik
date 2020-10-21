@@ -15,7 +15,7 @@ class KIJIMISynthControl
 
 {
 public:
-    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _midiOptionID, int _midiExtendedOptionID, int _byteNumber, const String& _byteToMidiConversionType, const String& _audioParameterType, bool _includeOnTimbreSpace, bool _acceptMidiInput, bool _shouldUseDefaultValueIf127, int _defaultValue)
+    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _midiOptionID, int _midiExtendedOptionID, int _byteNumber, const String& _byteToMidiConversionType, const String& _audioParameterType, bool _includeOnTimbreSpace, bool _acceptMidiInput, int _byteRangeMin, int _byteRangeMax, int _defaultValue)
     {
         ID = _ID;
         name = _name;
@@ -28,7 +28,8 @@ public:
         audioParameterType = _audioParameterType;
         includeOnTimbreSpace = _includeOnTimbreSpace;
         acceptMidiInput = _acceptMidiInput;
-        shouldUseDefaultValueIf127 = _shouldUseDefaultValueIf127;
+        byteRangeMin = _byteRangeMin;
+        byteRangeMax = _byteRangeMax;
         defaultValue = _defaultValue;
     }
     
@@ -101,9 +102,8 @@ public:
         
         int midiVal = -1;
         
-        if ((byteValue == 127) && (shouldUseDefaultValueIf127)){
-            // If byte value is of 127, it could mean that the byte is "unset" and we have to set it to some default
-            // see the default that was passed to the KIJIMISynthControl constructor specially for this case
+        if ((byteValue < byteRangeMin) || (byteValue > byteRangeMax)){
+            // If byte value is outside the valid byte range, use the default value for it
             byteValue = defaultValue;
         }
         
@@ -351,6 +351,7 @@ private:
     String audioParameterType;
     bool includeOnTimbreSpace;
     bool acceptMidiInput;
-    int shouldUseDefaultValueIf127;
+    int byteRangeMin;
+    int byteRangeMax;
     int defaultValue;
 };
