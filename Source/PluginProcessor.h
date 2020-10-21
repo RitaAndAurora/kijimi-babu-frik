@@ -143,6 +143,7 @@ public:
     // Other
     void requestFirmwareVersion();
     void toggleAutomaticSyncWithSynth();
+    bool neverShowScrollbars = false;
     bool automaticSyncWithSynthEnabled = true;
     float getValueForAudioParameter(const String& parameterID);
     File getDirectoryForFileSaveLoad ();

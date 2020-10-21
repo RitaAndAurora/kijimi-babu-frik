@@ -22,7 +22,6 @@ BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcess
     
     addAndMakeVisible (uiViewport);
     uiViewport.setViewedComponent(static_cast<Component*>(&uiWrapper), false);
-    uiViewport.setScrollBarsShown(true, false, true, false);  // configure scroll bars
     setSize (10, 10); // this is re-set later
     
     // Get screen height
@@ -51,16 +50,22 @@ void BabuFrikAudioProcessorEditor::paint (Graphics& g)
 
 void BabuFrikAudioProcessorEditor::resized ()
 {
+    uiViewport.setScrollBarsShown(!processor.neverShowScrollbars, false, true, true);  // configure scroll bars
+    
     uiViewport.setBounds(getBounds());
 
     int maxHeight = (int)(screenHeight * 0.95);  // take maximum of 90% of the height of the screen
     if (maxHeight == 0){
         maxHeight = 100; // This can happen when not everything is initialised (?), make sure we don't set a size of 0 or JUCE will complain
     }
+    
     int width = uiWrapper.sizeWidth;
-    if (uiWrapper.sizeHeight > maxHeight){
-        width += uiViewport.getScrollBarThickness() - 4;
+    if (!processor.neverShowScrollbars) {
+        if (uiWrapper.sizeHeight > maxHeight){
+            width += uiViewport.getScrollBarThickness() - 4;
+        }
     }
+    
     setSize (width, jmin(uiWrapper.sizeHeight, maxHeight)); // max plugin window UI size
 }
 
@@ -293,6 +298,10 @@ void UIWrapperComponent::buttonClicked (Button* button)
         m.addItem (extraPanelShowOptionID, "Extra controls + Timbre Space", true, processor->showExtraControlsPanel);
         int lfosPanelShowOptionID = processor->showLfosPanel ? MENU_OPTION_HIDE_LFO_PANEL : MENU_OPTION_SHOW_LFO_PANEL;
         m.addItem (lfosPanelShowOptionID, "LFOs panel", true, processor->showLfosPanel);
+        
+        int neverShowScrollbarsTicked = processor->neverShowScrollbars;
+        m.addItem (MENU_OPTION_TOGGLE_NEVER_SHOW_SCROLLBARS, "Hide scrollbar", true, neverShowScrollbarsTicked);
+                    
         selectedActionID = m.showAt(button);
     }
     
@@ -327,6 +336,9 @@ void UIWrapperComponent::processMenuAction(int actionID)
         processor->showOrHideKIJIMIPanel("lfos", true);
     } else if (actionID == MENU_OPTION_HIDE_LFO_PANEL){
         processor->showOrHideKIJIMIPanel("lfos", false);
+    } else if (actionID == MENU_OPTION_TOGGLE_NEVER_SHOW_SCROLLBARS){
+        processor->neverShowScrollbars = !processor->neverShowScrollbars;
+        resized();
     }
 }
 

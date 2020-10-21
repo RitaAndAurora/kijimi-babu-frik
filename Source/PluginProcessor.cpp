@@ -1333,9 +1333,8 @@ AudioProcessorEditor* BabuFrikAudioProcessor::createEditor()
     // Hack https://forum.juce.com/t/styling-the-standalone-plugin-window/21872/2 to get native window
     if(wrapperType == wrapperType_Standalone)
     {
-        if(TopLevelWindow::getNumTopLevelWindows() == 1)
-        {
-            TopLevelWindow* w = TopLevelWindow::getTopLevelWindow(0);
+        for (int i=0; i<TopLevelWindow::getNumTopLevelWindows(); i++){
+            TopLevelWindow* w = TopLevelWindow::getTopLevelWindow(i);
             w->setUsingNativeTitleBar(true);
         }
     }
@@ -1383,6 +1382,9 @@ void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
     state.setProperty(STATE_MAIN_PANEL_VISIBLE, showMainControlsPanel, nullptr);
     state.setProperty(STATE_EXTRA_PANEL_VISIBLE, showExtraControlsPanel, nullptr);
     state.setProperty(STATE_LFOS_PANEL_VISIBLE, showLfosPanel, nullptr);
+    
+    // Add scrollbars setting
+    state.setProperty(STATE_NEVER_SHOW_SCROLLBARS, neverShowScrollbars, nullptr);
     
     // Add audio parameters to state
     ValueTree audioParametersState = parameters.copyState();
@@ -1507,6 +1509,11 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
     
     if (xmlState->hasAttribute (STATE_LFOS_PANEL_VISIBLE)){
         showLfosPanel = xmlState->getBoolAttribute(STATE_LFOS_PANEL_VISIBLE);
+    }
+
+    // Load scrollbar settings
+    if (xmlState->hasAttribute (STATE_NEVER_SHOW_SCROLLBARS)){
+        neverShowScrollbars = xmlState->getBoolAttribute(STATE_NEVER_SHOW_SCROLLBARS);
     }
     
     // Preset loader
