@@ -1406,7 +1406,7 @@ void BabuFrikAudioProcessor::getStateInformation (MemoryBlock& destData)
     
     // Print state (for debugging purposes)
     #if JUCE_DEBUG
-        //std::cout << xml->createDocument("") <<std::endl;
+        std::cout << xml->createDocument("") <<std::endl;
     #endif
 }
 
