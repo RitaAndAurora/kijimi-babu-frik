@@ -125,14 +125,14 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO_MODE", "LFO poly/mono", "button2", -1, 41, -1, 94, "direct", "float", false, true, 0, 1, 1));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO_MOD_MODE", "LFO modulation mode", "button2y", -1, 62, -1, 129, "direct", "float", false, true, 0, 1, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO_POLY_RETRIG", "LFO poly mode EG retrig", "button1", -1, 84, -1, 235, "direct", "float", false, true, 0, 1, 1));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_ENV_DEST", "LFO1 EG destination", "button2", -1, 60, -1, 126, "direct", "float", false, true, 0, 2, 0));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_ENV_DEST", "LFO1 EG destination", "button2", -1, 60, -1, 128, "direct", "float", false, true, 0, 2, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_ENV_MAX_T", "LFO1 EG max time", "knob", -1, 63, -1, 130, "direct", "float", false, true, 1, 20, 20));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_ENV_P", "LFO1 EG amount", "knob", -1, 65, -1, 132, "direct", "float", false, true, 0, 19, 19));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_SYNC", "LFO1 sync", "button2", -1, 58, -1, 125, "direct", "float", false, true, 0, 2, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_MAX_R", "LFO1 max rate", "knob", -1, 39, -1, 92, "direct", "float", false, true, 2, 100, 100));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_MIN_R", "LFO1 min rate", "knob", -1, 40, -1, 93, "direct", "float", false, true, 1, 100, 10));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO1_SUST", "LFO1 sustain", "button1", -1, 33, -1, 86, "direct", "float", false, true, 0, 1, 1));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_ENV_DEST", "LFO2 EG destination", "button2", -1, 61, -1, 128, "direct", "float", false, true, 0, 2, 0));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_ENV_DEST", "LFO2 EG destination", "button2", -1, 61, -1, 126, "direct", "float", false, true, 0, 2, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_ENV_MAX_T", "LFO2 EG max time", "knob", -1, 64, -1, 131, "direct", "float", false, true, 1, 20, 20));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_ENV_P", "LFO2 EG amount", "knob", -1, 66, -1, 133, "direct", "float", false, true, 0, 19, 19));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_LFO2_SYNC", "LFO2 sync", "button2", -1, 59, -1, 127, "direct", "float", false, true, 0, 2, 0));
