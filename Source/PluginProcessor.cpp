@@ -367,14 +367,14 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             "MPE base channel", // parameter name
                                                             NormalisableRange < float > (0.0f, 7.0f, 1.0f), // parameter range
                                                             4.0f),
-                std:: make_unique < AudioParameterFloat > ("KIJIMI_MIDI_CH", // parameter ID
+                std:: make_unique < AudioParameterChoice > ("KIJIMI_MIDI_CH", // parameter ID
                                                             "MIDI in channel", // parameter name
-                                                            NormalisableRange < float > (0.0f, 16.0f, 1.0f), // parameter range
-                                                            8.0f),
-                std:: make_unique < AudioParameterFloat > ("KIJIMI_MIDI_OUT_CH", // parameter ID
+                                                            StringArray ({"all", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"}), // parameter choices
+                                                            0),
+                std:: make_unique < AudioParameterChoice > ("KIJIMI_MIDI_OUT_CH", // parameter ID
                                                             "MIDI out channel", // parameter name
-                                                            NormalisableRange < float > (0.0f, 15.0f, 1.0f), // parameter range
-                                                            8.0f),
+                                                            StringArray ({"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"}), // parameter choices
+                                                            0),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_MAX_VOICES", // parameter ID
                                                             "Maximum number of voices", // parameter name
                                                             NormalisableRange < float > (1.0f, 8.0f, 1.0f), // parameter range
@@ -1654,6 +1654,12 @@ void BabuFrikAudioProcessor::parameterChanged (const String& parameterID, float 
             sendActionMessage(ACTION_UPDATE_ENABLED_DISABLED_CONTROLS);  // Trigger action to enable or disable some controls depending on MOD mode
         }
         
+        if (parameterID == "KIJIMI_CC_RECEIVE"){
+            if (newValue == 0){
+                sendActionMessage(ACTION_CC_REVEICE_IS_TURNED_OFF);
+            }
+        }
+        
         if (!isChangingFromTimbreSpace){
             timbreSpaceEngine->setSelectedPointOutOfSync();
         }
@@ -2434,6 +2440,10 @@ void BabuFrikAudioProcessor::requestFirmwareVersion(){
 
 void BabuFrikAudioProcessor::toggleAutomaticSyncWithSynth(){
     automaticSyncWithSynthEnabled = !automaticSyncWithSynthEnabled;
+    if (automaticSyncWithSynthEnabled){
+        // If we just enalbed this setting, request current state to KIJIMI
+        loadControlsStateFromSynth();
+    }
 }
 
 void BabuFrikAudioProcessor::requestGetPresetFromKIJIMI(int bankNumber, int presetNumber)
@@ -2442,6 +2452,16 @@ void BabuFrikAudioProcessor::requestGetPresetFromKIJIMI(int bankNumber, int pres
         uint8 sysexdata[] = {0x02, 0x13, (uint8)bankNumber, (uint8)presetNumber}; // Get preset bytes command
         MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
         midiOutput.get()->sendMessageNow(msg);
+    }
+}
+
+void BabuFrikAudioProcessor::checkConfigurationIsOk()
+{
+    // This method checks if the configuration of Babu Frik seems to be ok
+    // For now we only check that CC reveice is on in KIJIMI, but in the future we might want to check other stuff as well like MIDI channels, etc..
+    int value = (int)getValueForAudioParameter("KIJIMI_CC_RECEIVE");
+    if (value == 0){
+        sendActionMessage(ACTION_CC_REVEICE_IS_TURNED_OFF);
     }
 }
 

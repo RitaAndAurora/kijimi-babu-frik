@@ -49,7 +49,7 @@ public:
     
     void resized () override
     {
-        float buttonWidth = getWidth() * 80/170;
+        float buttonWidth = getWidth() * 90/190;
         float buttonHeight = getHeight();
         aboutButton.setBounds (getWidth() - buttonWidth, 0, buttonWidth, buttonHeight);
         about.setBounds (0, 0, 400, 300);
@@ -69,12 +69,13 @@ public:
         if (button == &aboutButton)
         {
             AlertWindow w ("Babu Frik",
-                           "a droidsmith for KIJIMI, made by Rita & Aurora, v" + String(VERSION),
+                           "a droidsmith for KIJIMI, made by Rita & Aurora, v" + String(JucePlugin_VersionString),
                            AlertWindow::NoIcon);
             
             w.setLookAndFeel(&babuFrikBaseLookAndFeel);
             w.addCustomComponent(&about);
             w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
+            w.addButton ("User manual", 2, KeyPress (KeyPress::returnKey, 0, 0));
             w.addButton ("More info", 1, KeyPress (KeyPress::returnKey, 0, 0));
             //w.addButton ("Donate :)", 2, KeyPress (KeyPress::returnKey, 0, 0));
             int modalReturn = w.runModalLoop();
@@ -84,7 +85,7 @@ public:
             }
             else if (modalReturn == 2) // use clicked "donate"
             {
-                URL(DONATE_URL).launchInDefaultBrowser();
+                URL(USER_MANUAL_URL).launchInDefaultBrowser();
             }
         }
         else if (button == &settingsButton)
@@ -120,7 +121,7 @@ public:
             m.addSubMenu ("MIDI device scan", midiDevicesSubMenu);
             
             int automaticSyncWithSynthTicked = processor->automaticSyncWithSynthEnabled;
-            m.addItem (MENU_OPTION_TOGGLE_AUTO_SYNC_WITH_SYNTH, "Auto-sync with KIJIMI", true, automaticSyncWithSynthTicked);
+            m.addItem (MENU_OPTION_TOGGLE_AUTO_SYNC_WITH_SYNTH, "Auto-sync with KIJIMI state", true, automaticSyncWithSynthTicked);
             
             selectedActionID = m.showAt(button);
             

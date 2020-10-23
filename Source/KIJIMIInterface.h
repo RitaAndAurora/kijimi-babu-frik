@@ -116,8 +116,8 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_CC_RECEIVE", "CC Receive", "button1", -1, 16, -1, 69, "direct", "float", false, true, 0, 1, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_AT_MODE", "Aftertouch mode", "select", -1, 21, -1, 74, "direct", "choice", false, true, 0, 2, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MPE_CH", "MPE base channel", "knob", -1, 23, -1, 76, "direct", "float", false, true, 0, 7, 1));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_MIDI_CH", "MIDI in channel", "knob", -1, 24, -1, 77, "direct", "float", false, true, 0, 16, 0));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_MIDI_OUT_CH", "MIDI out channel", "knob", -1, 86, -1, 237, "direct", "float", false, true, 0, 15, 0));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_MIDI_CH", "MIDI in channel", "select", -1, 24, -1, 77, "direct", "choice", false, true, 0, 16, 0));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_MIDI_OUT_CH", "MIDI out channel", "select", -1, 86, -1, 237, "direct", "choice", false, true, 0, 15, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MAX_VOICES", "Maximum number of voices", "knob", -1, 27, -1, 80, "direct", "float", false, true, 1, 8, 8));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_MOD_MODE", "ADSR2 modulation mode", "button2y", -1, 83, -1, 234, "direct", "float", false, true, 0, 1, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_CYCLE_MODE", "Cycle poly/mono", "button2", -1, 42, -1, 95, "direct", "float", false, true, 0, 1, 0));

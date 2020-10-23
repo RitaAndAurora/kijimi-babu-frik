@@ -24,24 +24,24 @@ public:
     ControlPanelActionsComponent ()
     {
         importButton.addListener (this);
-        importButton.setButtonText("Load patch");
+        importButton.setButtonText("Load patch from file");
         addAndMakeVisible (importButton);
         
         saveButton.addListener (this);
-        saveButton.setButtonText("Save patch");
+        saveButton.setButtonText("Save patch to file");
         addAndMakeVisible (saveButton);
+        
+        sendButton.addListener (this);
+        sendButton.setButtonText("Send patch to KIJIMI");
+        addAndMakeVisible (sendButton);
+        
+        loadStateButton.addListener (this);
+        loadStateButton.setButtonText("Load current KIJIMI state");
+        addAndMakeVisible (loadStateButton);
         
         randomizeButton.addListener (this);
         randomizeButton.setButtonText("Randomize!");
         addAndMakeVisible (randomizeButton);
-        
-        sendButton.addListener (this);
-        sendButton.setButtonText("Send to synth");
-        addAndMakeVisible (sendButton);
-        
-        loadStateButton.addListener (this);
-        loadStateButton.setButtonText("Load from synth");
-        addAndMakeVisible (loadStateButton);
     }
     
     ~ControlPanelActionsComponent ()
@@ -60,15 +60,16 @@ public:
     
     void resized () override
     {
-        float buttonWidthShort = getWidth() * 80/800;
-        float buttonWidthLong = getWidth() * 120/800;
+        float buttonWidthShort = getWidth() * 100/800;
+        float buttonWidthLong = getWidth() * 130/800;
+        float buttonWidthXLong = getWidth() * 150/800;
         float buttonHeight = getHeight();
         float margin = getWidth() * 10/800;
-        importButton.setBounds (0, 0, buttonWidthShort, buttonHeight);
-        saveButton.setBounds (1 * (buttonWidthShort + margin), 0, buttonWidthShort, buttonHeight);
-        randomizeButton.setBounds (2 * (buttonWidthShort + margin), 0, buttonWidthLong, buttonHeight);
-        sendButton.setBounds (2 * (buttonWidthShort + margin) + 1 * (buttonWidthLong + margin), 0, buttonWidthLong, buttonHeight);
-        loadStateButton.setBounds (2 * (buttonWidthShort + margin) + 2 * (buttonWidthLong + margin), 0, buttonWidthLong, buttonHeight);
+        importButton.setBounds (0, 0, buttonWidthLong, buttonHeight);
+        saveButton.setBounds (1 * (buttonWidthLong + margin), 0, buttonWidthLong, buttonHeight);
+        sendButton.setBounds (2 * (buttonWidthLong + margin), 0, buttonWidthLong, buttonHeight);
+        loadStateButton.setBounds (3 * (buttonWidthLong + margin), 0, buttonWidthXLong, buttonHeight);
+        randomizeButton.setBounds (3 * (buttonWidthLong + margin) + 1 * (buttonWidthXLong + margin), 0, buttonWidthShort, buttonHeight);
     }
     
     void actionListenerCallback (const String &message) override

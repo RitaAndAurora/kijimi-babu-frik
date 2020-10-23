@@ -1049,27 +1049,16 @@ public:
         sliderKIJIMI_MPE_CH.textFromValueFunction = [](double value) {
             return "MPE base channel: " + String (value);
         };
-        // Slider KIJIMI_MIDI_CH
-                sliderKIJIMI_MIDI_CH.setSliderStyle (Slider::Rotary);
-                sliderKIJIMI_MIDI_CH.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
-                sliderKIJIMI_MIDI_CH.setLookAndFeel (&knobLookAndFeel);
-                sliderKIJIMI_MIDI_CH.setPopupDisplayEnabled (true, true, this, -1);
+        // ComboBox KIJIMI_MIDI_CH
+                sliderKIJIMI_MIDI_CH.addItemList (StringArray ({"ALL", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"}), 1);
+                sliderKIJIMI_MIDI_CH.setLookAndFeel (&selectLookAndFeel);
                 addAndMakeVisible (&sliderKIJIMI_MIDI_CH);
-                sliderAttachmentKIJIMI_MIDI_CH.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MIDI_CH", sliderKIJIMI_MIDI_CH));
-        sliderKIJIMI_MIDI_CH.textFromValueFunction = [](double value) {
-            if (value == 0){ return String("MIDI in channel: All"); } 
-            else { return "MIDI in channel: " + String (value);}
-        };
-        // Slider KIJIMI_MIDI_OUT_CH
-                sliderKIJIMI_MIDI_OUT_CH.setSliderStyle (Slider::Rotary);
-                sliderKIJIMI_MIDI_OUT_CH.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
-                sliderKIJIMI_MIDI_OUT_CH.setLookAndFeel (&knobLookAndFeel);
-                sliderKIJIMI_MIDI_OUT_CH.setPopupDisplayEnabled (true, true, this, -1);
+                sliderAttachmentKIJIMI_MIDI_CH.reset(new AudioProcessorValueTreeState::ComboBoxAttachment (processor->parameters, "KIJIMI_MIDI_CH", sliderKIJIMI_MIDI_CH));
+        // ComboBox KIJIMI_MIDI_OUT_CH
+                sliderKIJIMI_MIDI_OUT_CH.addItemList (StringArray ({"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"}), 1);
+                sliderKIJIMI_MIDI_OUT_CH.setLookAndFeel (&selectLookAndFeel);
                 addAndMakeVisible (&sliderKIJIMI_MIDI_OUT_CH);
-                sliderAttachmentKIJIMI_MIDI_OUT_CH.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_MIDI_OUT_CH", sliderKIJIMI_MIDI_OUT_CH));
-        sliderKIJIMI_MIDI_OUT_CH.textFromValueFunction = [](double value) {
-            return "MIDI out channel: " + String (value + 1);
-        };
+                sliderAttachmentKIJIMI_MIDI_OUT_CH.reset(new AudioProcessorValueTreeState::ComboBoxAttachment (processor->parameters, "KIJIMI_MIDI_OUT_CH", sliderKIJIMI_MIDI_OUT_CH));
         // Slider KIJIMI_MAX_VOICES
                 sliderKIJIMI_MAX_VOICES.setSliderStyle (Slider::Rotary);
                 sliderKIJIMI_MAX_VOICES.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -1218,8 +1207,8 @@ public:
         sliderKIJIMI_CC_RECEIVE.setBounds (0.942 * getWidth(), 0.651 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_CC_RECEIVE
         sliderKIJIMI_AT_MODE.setBounds (0.733 * getWidth(), 0.881 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_AT_MODE
         sliderKIJIMI_MPE_CH.setBounds (0.821 * getWidth(), 0.844 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_MPE_CH
-        sliderKIJIMI_MIDI_CH.setBounds (0.930 * getWidth(), 0.853 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_MIDI_CH
-        sliderKIJIMI_MIDI_OUT_CH.setBounds (0.963 * getWidth(), 0.853 * getHeight(), 0.026 * getWidth(), 0.064 * getHeight()); // Slider KIJIMI_MIDI_OUT_CH
+        sliderKIJIMI_MIDI_CH.setBounds (0.934 * getWidth(), 0.839 * getHeight(), 0.048 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_MIDI_CH
+        sliderKIJIMI_MIDI_OUT_CH.setBounds (0.934 * getWidth(), 0.885 * getHeight(), 0.048 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_MIDI_OUT_CH
         sliderKIJIMI_MAX_VOICES.setBounds (0.881 * getWidth(), 0.844 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_MAX_VOICES
         // --> End auto-generated code C
         
@@ -1405,10 +1394,10 @@ private:
             std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> sliderAttachmentKIJIMI_AT_MODE;
     Slider sliderKIJIMI_MPE_CH;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_MPE_CH;
-    Slider sliderKIJIMI_MIDI_CH;
-            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_MIDI_CH;
-    Slider sliderKIJIMI_MIDI_OUT_CH;
-            std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_MIDI_OUT_CH;
+    ComboBox sliderKIJIMI_MIDI_CH;
+            std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> sliderAttachmentKIJIMI_MIDI_CH;
+    ComboBox sliderKIJIMI_MIDI_OUT_CH;
+            std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> sliderAttachmentKIJIMI_MIDI_OUT_CH;
     Slider sliderKIJIMI_MAX_VOICES;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_MAX_VOICES;
     // --> End auto-generated code A

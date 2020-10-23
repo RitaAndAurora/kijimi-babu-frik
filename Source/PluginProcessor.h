@@ -151,6 +151,8 @@ public:
     File lastUsedDirectoryForFileIO;
     TimestampsLastCCSent timestampsLastCCSent;
     RandomizationConfigStruct randomizationSettings;
+    bool ccReceiveOffNotificationShown = false;
+    void checkConfigurationIsOk();
     
     class DelayedRequestLoadControlsFromSynthThread : private Thread
     {

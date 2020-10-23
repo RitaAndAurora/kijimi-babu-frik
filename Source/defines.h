@@ -8,9 +8,10 @@
 #pragma once
 
 #define VERSION "1.0"  // If changing this, remember to change it on Projucer as well
-#define MORE_INFO_URL "https://github.com/RitaAndAurora/kijimi-babu-frik"  // Change to app website when available
+#define MORE_INFO_URL "https://ritaandaurora.github.io/kijimi-babu-frik/"  // Change to app website when available
 #define DONATE_URL "https://ritaandaurora.github.io/babu-frik/donate"
-#define SOURCE_CODE_URL "https://github.com/ritaandaurora/babu-frik"
+#define SOURCE_CODE_URL "https://github.com/RitaAndAurora/kijimi-babu-frik"
+#define USER_MANUAL_URL "https://github.com/RitaAndAurora/kijimi-babu-frik/blob/master/MANUAL.md"
 
 #define BYTE_INIT_VALUE_TO_BE_IGNORED 127  // When kijimi receives a value to be set for a parameter and it is out of range, it ignores it. Bytes bust be
     // 0-127 in sysex data, and we checked (looking at the preset description file) that for all parameters that Babu Frik does not contemplate and also for
@@ -73,6 +74,7 @@
 #define ACTION_FIRMWARE_UPDATE_REQUIRED "ACTION_FIRMWARE_UPDATE_REQUIRED"
 #define ACTION_RECEIVING_PRESETS_PROGRESS "ACTION_RECEIVING_PRESETS_PROGRESS:"
 #define ACTION_ALL_PRESETS_RECEIVED "ACTION_ALL_PRESETS_RECEIVED"
+#define ACTION_CC_REVEICE_IS_TURNED_OFF "ACTION_CC_REVEICE_IS_TURNED_OFF"
 
 #define PRESET_NAME_DEFAULT_TEXT "-"
 #define PRESET_NAME_MODIFIED_TEXT "*"

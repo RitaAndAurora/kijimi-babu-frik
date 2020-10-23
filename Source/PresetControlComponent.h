@@ -46,7 +46,7 @@ public:
         loadFileButton.setButtonText("Load bank...");
         addAndMakeVisible (loadFileButton);
         
-        loadedFileLabel.setJustificationType (Justification::left);
+        loadedFileLabel.setJustificationType (Justification::centred);
         loadedFileLabel.setText("-", dontSendNotification);
         addAndMakeVisible (loadedFileLabel);
                 
@@ -73,12 +73,12 @@ public:
         
         saveToCurrentBankLocationButton.addListener (this);
         saveToCurrentBankLocationButton.setEnabled(false);
-        saveToCurrentBankLocationButton.setButtonText("Save to bank location...");
+        saveToCurrentBankLocationButton.setButtonText("Save to bank location");
         addAndMakeVisible (saveToCurrentBankLocationButton);
         
         saveBankFileButton.addListener (this);
         saveBankFileButton.setEnabled(false);
-        saveBankFileButton.setButtonText("Save bank file...");
+        saveBankFileButton.setButtonText("Save bank to file");
         addAndMakeVisible (saveBankFileButton);
     }
     
@@ -124,9 +124,10 @@ public:
         float unitMargin = getWidth() * 10/800;
         float fileNameLabelWidth = getWidth() * 120/800;
         float presetNameLabelWidth = getWidth() * 45/800;
-        float defaultButtonWidth = getWidth() * 110/800;
+        float defaultButtonWidth = getWidth() * 90/800;
         float nextPrevButtonWidth = getWidth() * 22/800;
-        float saveBankLocationButtonWidth = getWidth() * 150/800;
+        float saveBankLocationButtonWidth = getWidth() * 130/800;
+        float saveBankToFileButtonWidth = getWidth() * 110/800;
         
         loadFileButton.setBounds (0, 0, defaultButtonWidth, getHeight());
         loadedFileLabel.setBounds (defaultButtonWidth + unitMargin, 0, fileNameLabelWidth, getHeight());
@@ -134,7 +135,7 @@ public:
         presetNameLabel.setBounds (defaultButtonWidth + fileNameLabelWidth + nextPrevButtonWidth + 3 * unitMargin, 0, presetNameLabelWidth, getHeight());
         nextPresetButton.setBounds (defaultButtonWidth + fileNameLabelWidth + nextPrevButtonWidth + presetNameLabelWidth + 4 * unitMargin, 0, nextPrevButtonWidth, getHeight());
         saveToCurrentBankLocationButton.setBounds (defaultButtonWidth + fileNameLabelWidth + 2 * nextPrevButtonWidth + presetNameLabelWidth + 5 * unitMargin, 0, saveBankLocationButtonWidth, getHeight());
-        saveBankFileButton.setBounds (defaultButtonWidth + fileNameLabelWidth + 2 * nextPrevButtonWidth + presetNameLabelWidth + saveBankLocationButtonWidth + 6 * unitMargin, 0, defaultButtonWidth, getHeight());
+        saveBankFileButton.setBounds (defaultButtonWidth + fileNameLabelWidth + 2 * nextPrevButtonWidth + presetNameLabelWidth + saveBankLocationButtonWidth + 6 * unitMargin, 0, saveBankToFileButtonWidth, getHeight());
     }
     
     void loadBankFile()
@@ -259,7 +260,7 @@ public:
         {
             PopupMenu loadBankSubmenu;
             loadBankSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            loadBankSubmenu.addItem (MENU_OPTION_ID_LOAD_BANK_FROM_FILE, "...from file");
+            loadBankSubmenu.addItem (MENU_OPTION_ID_LOAD_BANK_FROM_FILE, "From file");
             PopupMenu bankOptionsSubmenu;
             bankOptionsSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
             bankOptionsSubmenu.addItem (1, "Bank 1");
@@ -273,7 +274,7 @@ public:
             bankOptionsSubmenu.addItem (10, "Bank 9");
             bankOptionsSubmenu.addItem (3, "MJ");
             bankOptionsSubmenu.addItem (11, "RD");
-            loadBankSubmenu.addSubMenu ("..from KIJIMI", bankOptionsSubmenu);
+            loadBankSubmenu.addSubMenu ("From KIJIMI", bankOptionsSubmenu);
             
             int selectedActionID = loadBankSubmenu.showAt(button);
             if (selectedActionID == MENU_OPTION_ID_LOAD_BANK_FROM_FILE){
@@ -298,8 +299,9 @@ public:
 
         } else if (button == &saveToCurrentBankLocationButton)
         {
-            AlertWindow w ("Plase choose the location where the preset should be saved", "", AlertWindow::NoIcon);
+            AlertWindow w ("Please choose the location where to save the patch", "", AlertWindow::NoIcon);
             w.setLookAndFeel(&babuFrikBaseLookAndFeel);
+            w.addTextBlock ("NOTE: this will save the preset in the selected location of the bank loaded in Babu Frik, but won't save the preset in KIJIMI itself nor send any information to it.");
             w.addTextEditor ("bankLocation", "", "");
             w.getTextEditor ("bankLocation")->setInputRestrictions(3, "0123456789");  // Make it numbers only
             w.addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));

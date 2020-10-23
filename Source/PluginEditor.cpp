@@ -31,8 +31,9 @@ BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcess
     // Disable resize
     setResizable(false, false);
     
-    // Now that editor is ready, ask for firmware version and show aler message
+    // Now that editor is ready, ask for firmware version and show alert message if firmware is not ok. also check for other configuration params
     processor.requestFirmwareVersion();
+    processor.checkConfigurationIsOk();
     
     resized();
 }
@@ -157,7 +158,7 @@ void UIWrapperComponent::resized()
     float unitMargin = 5 * scale;
     float unitRowHeight = 20 * scale;
     float fullWidth = 1200 * scale;
-    float footerWidth = 170 * scale;
+    float footerWidth = 190 * scale;
     
     float headerHeight = 1.5 * unitRowHeight;
     float midiSettingsHeight = 1 * unitRowHeight;
@@ -269,12 +270,21 @@ void UIWrapperComponent::actionListenerCallback (const String &message)
         
         resized();
     } else if (message.startsWith(String(ACTION_FIRMWARE_UPDATE_REQUIRED))){
-        AlertWindow w ("Oh no! Your KIJIMI has firmware version " + processor->currentFirmwareLabel + " but Babu Frik requires firmware " + processor->requiredFirmwareLabel + ". You can still use Babu Frik but some things might not work as expected. Please, update your KIJIMI :)", "", AlertWindow::NoIcon);
+        AlertWindow w ("Your KIJIMI firmware is out of date", "", AlertWindow::NoIcon);
+        w.addTextBlock ("Your KIJIMI has firmware version " + processor->currentFirmwareLabel + " but Babu Frik requires firmware " + processor->requiredFirmwareLabel + ". You can still use Babu Frik but some things might not work as expected. Please, update your KIJIMI :)");
         w.setLookAndFeel(&babuFrikBaseLookAndFeel);
         w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
         w.runModalLoop();
+    } else if (message.startsWith(String(ACTION_CC_REVEICE_IS_TURNED_OFF))){
+        if (!processor->ccReceiveOffNotificationShown){
+            AlertWindow w ("CC receive option seems to be off", "", AlertWindow::NoIcon);
+            w.addTextBlock ("Be aware that with CC receive off KIJIMI might not be receiving all messages from Babu Frik properly and therefore some things might not work as expected. Please turn CC receive on either using the KIJIMI menu options or clicking the button in the lower-right side of Babu Frik main panel.");
+            w.setLookAndFeel(&babuFrikBaseLookAndFeel);
+            w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
+            w.runModalLoop();
+            processor->ccReceiveOffNotificationShown = true;
+        }
     }
-        
 }
 
 void UIWrapperComponent::buttonClicked (Button* button)
@@ -289,15 +299,18 @@ void UIWrapperComponent::buttonClicked (Button* button)
         zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_90, "90%");
         zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_100, "100%");
         
+        PopupMenu panelsSubMenu;
+        int mainPanelShowOptionID = processor->showMainControlsPanel ? MENU_OPTION_HIDE_MAIN_PANEL : MENU_OPTION_SHOW_MAIN_PANEL;
+        panelsSubMenu.addItem (mainPanelShowOptionID, "Main controls", true, processor->showMainControlsPanel);
+        int extraPanelShowOptionID = processor->showExtraControlsPanel ? MENU_OPTION_HIDE_EXTRA_PANEL : MENU_OPTION_SHOW_EXTRA_PANEL;
+        panelsSubMenu.addItem (extraPanelShowOptionID, "Extra controls + Timbre Space", true, processor->showExtraControlsPanel);
+        int lfosPanelShowOptionID = processor->showLfosPanel ? MENU_OPTION_HIDE_LFO_PANEL : MENU_OPTION_SHOW_LFO_PANEL;
+        panelsSubMenu.addItem (lfosPanelShowOptionID, "LFOs/ADSR2 panel", true, processor->showLfosPanel);
+        
         PopupMenu m;
         m.setLookAndFeel(&babuFrikBaseLookAndFeel);
         m.addSubMenu ("Zoom", zoomSubMenu);
-        int mainPanelShowOptionID = processor->showMainControlsPanel ? MENU_OPTION_HIDE_MAIN_PANEL : MENU_OPTION_SHOW_MAIN_PANEL;
-        m.addItem (mainPanelShowOptionID, "Main controls", true, processor->showMainControlsPanel);
-        int extraPanelShowOptionID = processor->showExtraControlsPanel ? MENU_OPTION_HIDE_EXTRA_PANEL : MENU_OPTION_SHOW_EXTRA_PANEL;
-        m.addItem (extraPanelShowOptionID, "Extra controls + Timbre Space", true, processor->showExtraControlsPanel);
-        int lfosPanelShowOptionID = processor->showLfosPanel ? MENU_OPTION_HIDE_LFO_PANEL : MENU_OPTION_SHOW_LFO_PANEL;
-        m.addItem (lfosPanelShowOptionID, "LFOs panel", true, processor->showLfosPanel);
+        m.addSubMenu ("Panels", panelsSubMenu);
         
         int neverShowScrollbarsTicked = processor->neverShowScrollbars;
         m.addItem (MENU_OPTION_TOGGLE_NEVER_SHOW_SCROLLBARS, "Hide scrollbar", true, neverShowScrollbarsTicked);

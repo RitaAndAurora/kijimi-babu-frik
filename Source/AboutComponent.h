@@ -28,11 +28,13 @@ public:
         text.setColour (TextEditor::outlineColourId, Colour (0x1c000000));
         text.setText(""
          "About\n-----\n\n"
-         "Babu Frik is a...\n\n"
-         
+         "Named after a famous droidsmith who's said to be able to reprogram any droid and even make them speak Sith, Babu Frik is a software app that allows you to control and explore the sonic possibilities of the KIJIMI synthesiser by Black Corporation. It works both as a stand-alone app and as an audio plug-in with automatable parameters.\n\n"
+         "With Babu Frik you can import KIJIMI banks (from files or from KIJIMI itself), edit patches and export them. When you import a bank, a Timbre Space will be created which will allow you to navigate all the patches in a colourful space and create new ones. Just click anywhere on the Timbre Space and play the synth. Click on another point to get a new patch. Close points in the space will result in similar sounding patches.\n\n"
+         "Babu Frik includes all the controls you'll find the main panel of KIJIMI, but also includes extra panels which will allow you to control all the extra KIJIMI menu-hidden options, including the 16 individual LFOs.\n\n"
+         "Communication between Babu Frik  and KIJIMI happens over MIDI (with both control change and sysex messages). Make sure you have properly configured MIDI IN/OUT settings of both Babu Frik and KIJIMI.\n\n"
          "Please check out " + String(MORE_INFO_URL) + " for more information about Babu Frik and how to use it.\n\n"
          "\nCredits, licenses, acknowledgements\n-------------------------------\n\n"
-         "Babu Frik has been ideated and developed by Rita & Aurora, a sort of fancy branding name I've given to my audio-developer self. Nevertheless, Babu Frik would have not been possible without the generous contributions of the KICKSTARTER BACKERS and BLACK CORPORATION. Infinite thanks to all of you:\n"
+         "Babu Frik has been ideated and developed by Rita & Aurora, a sort of fancy branding name I've given to my audio-developer self. Nevertheless, Babu Frik would have not been possible without the generous contributions of the KICKSTARTER BACKERS and BLACK CORPORATION. Infinite thanks to all of you! Here is the backers list:\n"
          "\n  - Absolutely awesome backers\n"
          "  FREQNOIR\n"
          "  MONTY BRANDENBERG\n"
