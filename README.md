@@ -1,39 +1,28 @@
 # Babu Frik, a droidsmith for KIJIMI
 
-![Babu Frik screenshot](docs/screenshot_beta2_1000.png)
+![Babu Frik screenshot](docs/screenshot_all.png)
 
 ## Overview
 
-WORK IN PROGRESS software editor for Black Corportation's KIJIMI. More information: [https://www.kickstarter.com/projects/454739355/babu-frik-make-your-kijimi-sing-in-sith](https://www.kickstarter.com/projects/454739355/babu-frik-make-your-kijimi-sing-in-sith) 
+Named after a famous *droidsmith* who's said to be able to reprogram any droid and even make them speak Sith, Babu Frik is a software app that allows you to control and explore the sonic possibilities of the KIJIMI synthesiser by Black Corporation. It works both as a **stand-alone** app and as an **audio plug-in** with automatable parameters.
+
+With Babu Frik you can import KIJIMI banks (from files or from KIJIMI itself), edit patches and export them. When you import a bank, a Timbre Space will be created which will allow you to navigate all the patches in a colourful space and create new ones. Just click anywhere on the Timbre Space and play the synth. Click on another point to get a new patch. Close points in the space will result in similar sounding patches.
+
+Babu Frik includes all the controls you'll find the main panel of KIJIMI, but also includes extra panels which will allow you to control all the extra KIJIMI menu-hidden options, including the 16 individual LFOs.
+
+Checkout [Babu Frik](https://ritaandaurora.github.io/kijimi-babu-frik/)'s website for more information.
+
+Babu Firk is a reality thanks to the Kickstarter backers and the help and contributions by Black Corportation. Check out the [Kickstarter campaign page](https://www.kickstarter.com/projects/454739355/babu-frik-make-your-kijimi-sing-in-sith) for more information about the campagin.
 
 
 ## Download
 
-Babu Frik is not yet released! Nevertheless, you can already find beta releases in the [Releases](https://github.com/RitaAndAurora/kijimi-babu-frik/releases) section and test them. Don't hesitate to report bugs or make suggestions using the tools in the [issues section](https://github.com/ritaandaurora/kijimi-babu-frik/issues):
-
- * Go here for [Babu Frik v0.1 (beta1) download link and release notes](https://github.com/RitaAndAurora/kijimi-babu-frik/releases/tag/v0.1) 
- * Go here for [Babu Frik v0.2 (beta2) download link and release notes](https://github.com/RitaAndAurora/kijimi-babu-frik/releases/tag/v0.2)
-
-The beta releases don't include an installer, so **you'll have to install the plugins/standalone app manually**. To do that, you should copy the downloaded files in the following location(s):
-
-*macOS*
- 
-  * `BabuFrik.app` (Stand-alone app): `/Applications/`
-  * `BabuFrik.vst3` (VST3): `/Library/Audio/Plug-Ins/VST3/`
-  * `BabuFrik.component` (AU): `/Library/Audio/Plug-Ins/Components/`
-
- *windows*
- 
-  * `BabuFrik.exe` (Stand-alone app): `c:\Program Files (x86)\JFSebastian\`
-  * `BabuFrik.vst3` (VST3): `c:\Program Files (x86)\Common Files\VST3\`
-
-
-**WARNING: beta releaes lack features and contain bugs, don't expect them to work perfectly. Please always read the corresponding release notes.**
+You'll find download links in the [Babu Frik website](https://ritaandaurora.github.io/kijimi-babu-frik/) and also in the [Releases](https://github.com/RitaAndAurora/kijimi-babu-frik/releases) section of this code repository. Don't hesitate to report bugs or make suggestions using the tools in the [issues section](https://github.com/ritaandaurora/kijimi-babu-frik/issues).
 
 
 ## Help
 
-Babu Frik's manual is not yet ready! However, you can use [J.F. Sebastian's manual](https://github.com/RitaAndAurora/ddrm-jfsebastian/blob/master/MANUAL.md) (the equivalent of Babu Frik, but for Deckard's Dream) as it might answer most of your questions and both apps work basically the same :)
+Please check the user manual for an explanation of the different features of [Babu Frik](https://github.com/RitaAndAurora/kijimi-babu-frik/blob/master/MANUAL.md) and how to use it.
 
 
 ## Build instructions (for developers)
