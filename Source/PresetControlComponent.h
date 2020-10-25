@@ -78,7 +78,7 @@ public:
         
         saveBankFileButton.addListener (this);
         saveBankFileButton.setEnabled(false);
-        saveBankFileButton.setButtonText("Save bank to file");
+        saveBankFileButton.setButtonText("Save bank...");
         addAndMakeVisible (saveBankFileButton);
     }
     
@@ -87,6 +87,7 @@ public:
         processor->removeActionListener(this);  // Stop receivng messages from processor
         
         kijimiBankImporterThreadModal.getAlertWindow()->setLookAndFeel(nullptr);
+        kijimiBankDumperThreadModal.getAlertWindow()->setLookAndFeel(nullptr);
     }
     
     void initialize (BabuFrikAudioProcessor* p)
@@ -100,9 +101,11 @@ public:
         // Set initial state of mmebers by getting data from processor
         setStateFromProcessor();
         
-        // Also intitialize the bank importer so it has reference to processor
+        // Also intitialize the bank importer and dumper so it has reference to processor
         kijimiBankImporterThreadModal.initialize(processor);
         kijimiBankImporterThreadModal.getAlertWindow()->setLookAndFeel(&babuFrikBaseLookAndFeel);
+        kijimiBankDumperThreadModal.initialize(processor);
+        kijimiBankDumperThreadModal.getAlertWindow()->setLookAndFeel(&babuFrikBaseLookAndFeel);
     }
     
     void setStateFromProcessor () {
@@ -127,7 +130,7 @@ public:
         float defaultButtonWidth = getWidth() * 90/800;
         float nextPrevButtonWidth = getWidth() * 22/800;
         float saveBankLocationButtonWidth = getWidth() * 130/800;
-        float saveBankToFileButtonWidth = getWidth() * 110/800;
+        float saveBankToFileButtonWidth = getWidth() * 90/800;
         
         loadFileButton.setBounds (0, 0, defaultButtonWidth, getHeight());
         loadedFileLabel.setBounds (defaultButtonWidth + unitMargin, 0, fileNameLabelWidth, getHeight());
@@ -238,6 +241,83 @@ public:
         }
     }
     
+    // Modal with progress bar for dumping a bank to KIJIMI
+    class KIJIMIBankDumperThreadModal  : public ThreadWithProgressWindow
+    {
+    public:
+        KIJIMIBankDumperThreadModal()    : ThreadWithProgressWindow ("Dumping bank to KIJIMI...", true, true)
+        {
+        }
+        
+        void initialize (BabuFrikAudioProcessor* p)
+        {
+            // Set processor object
+            processor = p;
+        }
+        
+        bool succeeded = false;
+        BabuFrikAudioProcessor* processor;
+     
+        void run()
+        {
+            int nPresets = processor->kijimiInterface->getNumLoadedPresets();
+            
+            for (int currentPreset = 0; currentPreset < nPresets; currentPreset++)
+            {
+                if (threadShouldExit())
+                    break;
+                
+                // this will update the progress bar on the dialog box
+                setProgress ((currentPreset + 1) / (double) nPresets);
+                
+                // Get bytes for the current preset
+                KIJIMIPresetBytes presetBytes = processor->kijimiInterface->getLoadedPresetBytesAtIndex(currentPreset);
+                presetBytes[0] = 0xF0;  // syex start (no need to set it really because will be set later)
+                presetBytes[1] = 0x02; // kijmi ID
+                presetBytes[2] = 0x00;  // transfer patch command
+                presetBytes[3] = 0x00;  // bank number
+                presetBytes[4] = currentPreset;  // preset number
+                presetBytes[261] = 0xF7; // sysex end (no need to set it really because will be set later)
+                
+                // Transform bytes to midi message and send it to KIJIMI
+                if (processor->midiInput.get() != nullptr){
+                    std::array<uint8, 260> sysexdata;
+                    for (int i=0; i<260; i++){  // copy all bytes expect sysex start and sysex end which will be added automatically when sending message
+                        sysexdata[i] = presetBytes[i+1];
+                    }
+                    MidiMessage msg = MidiMessage::createSysExMessage(&sysexdata, 260);
+                    processor->midiOutput.get()->sendMessageNow(msg);
+                }
+                
+                // Sleep to give KIJIMI time to process it
+                sleep(150);
+            }
+            succeeded = true;
+        }
+    };
+    KIJIMIBankDumperThreadModal kijimiBankDumperThreadModal;
+    
+    void sendBankToKijimi()
+    {
+        if (kijimiBankDumperThreadModal.runThread())
+        {
+            if (kijimiBankDumperThreadModal.succeeded){
+                // Importing succeeded, do nothing
+                kijimiBankDumperThreadModal.succeeded = false;  // reset to false
+            } else {
+                // Importing failed, show message
+                AlertWindow w ("Oups, there was a problem dumping the bank to KIJIMI...", "", AlertWindow::NoIcon);
+                w.setLookAndFeel(&babuFrikBaseLookAndFeel);
+                w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
+                w.runModalLoop();
+            }
+        }
+        else
+        {
+            // If user canceled, do nothing
+        }
+    }
+    
     void enableBankTransportButtons() {
         previousPresetButton.setEnabled(true);
         nextPresetButton.setEnabled(true);
@@ -260,7 +340,7 @@ public:
         {
             PopupMenu loadBankSubmenu;
             loadBankSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            loadBankSubmenu.addItem (MENU_OPTION_ID_LOAD_BANK_FROM_FILE, "From file");
+            loadBankSubmenu.addItem (MENU_OPTION_ID_LOAD_BANK_FROM_FILE, "From bank file");
             PopupMenu bankOptionsSubmenu;
             bankOptionsSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
             bankOptionsSubmenu.addItem (1, "Bank 1");
@@ -301,7 +381,7 @@ public:
         {
             AlertWindow w ("Please choose the location where to save the patch", "", AlertWindow::NoIcon);
             w.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            w.addTextBlock ("NOTE: this will save the preset in the selected location of the bank loaded in Babu Frik, but won't save the preset in KIJIMI itself nor send any information to it.");
+            w.addTextBlock ("NOTE: this will save the patch in the selected location of the bank loaded in Babu Frik, but won't save the preset in KIJIMI itself nor send any information to it.");
             w.addTextEditor ("bankLocation", "", "");
             w.getTextEditor ("bankLocation")->setInputRestrictions(3, "0123456789");  // Make it numbers only
             w.addButton ("Cancel", 0, KeyPress (KeyPress::escapeKey, 0, 0));
@@ -316,7 +396,16 @@ public:
             
         } else if (button == &saveBankFileButton)
         {
-            processor->saveBankFile();
+            PopupMenu saveBankSubmenu;
+            saveBankSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
+            saveBankSubmenu.addItem (MENU_OPTION_ID_SAVE_BANK_TO_FILE, "To bank file");
+            saveBankSubmenu.addItem (MENU_OPTION_ID_SEND_BANK_TO_KIJIMI, "Dump to KIJIMI current bank");
+            int selectedActionID = saveBankSubmenu.showAt(button);
+            if (selectedActionID == MENU_OPTION_ID_SAVE_BANK_TO_FILE){
+                processor->saveBankFile();
+            } else if (selectedActionID == MENU_OPTION_ID_SEND_BANK_TO_KIJIMI) {
+                sendBankToKijimi();
+            }
         }
     }
     

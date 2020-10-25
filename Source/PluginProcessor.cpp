@@ -1562,13 +1562,19 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
 
 void BabuFrikAudioProcessor::sendLCDRefreshMessageToKijimi ()
 {
-    uint8 sysexdata[] = { 0x02, 0x21};
-    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
-    midiOutput.get()->sendMessageNow(msg);
+    if (midiInput.get() != nullptr){
+        uint8 sysexdata[] = { 0x02, 0x21};
+        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
+        midiOutput.get()->sendMessageNow(msg);
+    }
 }
 
 void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int value)
 {
+    if (midiInput.get() == nullptr){
+        return;
+    }
+        
     int ccNumber = kijimiInterface->getCCNumberForParameterID(parameterID);
     if (ccNumber > -1){
         // Parameter can be controlled using MIDI CC
