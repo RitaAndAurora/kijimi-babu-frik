@@ -72,26 +72,28 @@ public:
                            "a droidsmith for KIJIMI, made by Rita & Aurora, v" + String(JucePlugin_VersionString),
                            AlertWindow::NoIcon);
             
-            w.setLookAndFeel(&babuFrikBaseLookAndFeel);
             w.addCustomComponent(&about);
             w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
             w.addButton ("User manual", 2, KeyPress (KeyPress::returnKey, 0, 0));
             w.addButton ("More info", 1, KeyPress (KeyPress::returnKey, 0, 0));
-            //w.addButton ("Donate :)", 2, KeyPress (KeyPress::returnKey, 0, 0));
+            w.addButton ("Donate :)", 3, KeyPress (KeyPress::returnKey, 0, 0));
             int modalReturn = w.runModalLoop();
+            
             if (modalReturn == 1) // use clicked "more info"
             {
                 URL(MORE_INFO_URL).launchInDefaultBrowser();
             }
-            else if (modalReturn == 2) // use clicked "donate"
+            else if (modalReturn == 2) // use clicked "manual"
             {
                 URL(USER_MANUAL_URL).launchInDefaultBrowser();
+            } else if (modalReturn == 3) // use clicked "donate"
+            {
+                URL(DONATE_URL).launchInDefaultBrowser();
             }
         }
         else if (button == &settingsButton)
         {
             PopupMenu m;
-            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
             
             PopupMenu randomAmountOptionsSubmenu;
             randomAmountOptionsSubmenu.addItem (MENU_OPTION_ID_RANDOMIZE_PATCH_5_ID, "5%", true, processor->randomizationSettings.amount == 5);

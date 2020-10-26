@@ -85,9 +85,6 @@ public:
     ~PresetControlComponent ()
     {
         processor->removeActionListener(this);  // Stop receivng messages from processor
-        
-        kijimiBankImporterThreadModal.getAlertWindow()->setLookAndFeel(nullptr);
-        kijimiBankDumperThreadModal.getAlertWindow()->setLookAndFeel(nullptr);
     }
     
     void initialize (BabuFrikAudioProcessor* p)
@@ -103,9 +100,7 @@ public:
         
         // Also intitialize the bank importer and dumper so it has reference to processor
         kijimiBankImporterThreadModal.initialize(processor);
-        kijimiBankImporterThreadModal.getAlertWindow()->setLookAndFeel(&babuFrikBaseLookAndFeel);
         kijimiBankDumperThreadModal.initialize(processor);
-        kijimiBankDumperThreadModal.getAlertWindow()->setLookAndFeel(&babuFrikBaseLookAndFeel);
     }
     
     void setStateFromProcessor () {
@@ -230,7 +225,6 @@ public:
             } else {
                 // Importing failed, show message
                 AlertWindow w ("Oups, there was a problem loading the bank from KIJIMI...", "", AlertWindow::NoIcon);
-                w.setLookAndFeel(&babuFrikBaseLookAndFeel);
                 w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
                 w.runModalLoop();
             }
@@ -307,7 +301,6 @@ public:
             } else {
                 // Importing failed, show message
                 AlertWindow w ("Oups, there was a problem dumping the bank to KIJIMI...", "", AlertWindow::NoIcon);
-                w.setLookAndFeel(&babuFrikBaseLookAndFeel);
                 w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
                 w.runModalLoop();
             }
@@ -339,10 +332,8 @@ public:
         else if (button == &loadFileButton)
         {
             PopupMenu loadBankSubmenu;
-            loadBankSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
             loadBankSubmenu.addItem (MENU_OPTION_ID_LOAD_BANK_FROM_FILE, "From bank file");
             PopupMenu bankOptionsSubmenu;
-            bankOptionsSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
             bankOptionsSubmenu.addItem (1, "Bank 1");
             bankOptionsSubmenu.addItem (2, "Bank 2");
             bankOptionsSubmenu.addItem (4, "Bank 3");
@@ -380,7 +371,6 @@ public:
         } else if (button == &saveToCurrentBankLocationButton)
         {
             AlertWindow w ("Please choose the location where to save the patch", "", AlertWindow::NoIcon);
-            w.setLookAndFeel(&babuFrikBaseLookAndFeel);
             w.addTextBlock ("NOTE: this will save the patch in the selected location of the bank loaded in Babu Frik, but won't save the preset in KIJIMI itself nor send any information to it.");
             w.addTextEditor ("bankLocation", "", "");
             w.getTextEditor ("bankLocation")->setInputRestrictions(3, "0123456789");  // Make it numbers only
@@ -397,7 +387,6 @@ public:
         } else if (button == &saveBankFileButton)
         {
             PopupMenu saveBankSubmenu;
-            saveBankSubmenu.setLookAndFeel(&babuFrikBaseLookAndFeel);
             saveBankSubmenu.addItem (MENU_OPTION_ID_SAVE_BANK_TO_FILE, "To bank file");
             saveBankSubmenu.addItem (MENU_OPTION_ID_SEND_BANK_TO_KIJIMI, "Dump to KIJIMI current bank");
             int selectedActionID = saveBankSubmenu.showAt(button);

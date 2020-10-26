@@ -9,7 +9,7 @@
 
 #define VERSION "1.0"  // If changing this, remember to change it on Projucer as well
 #define MORE_INFO_URL "https://ritaandaurora.github.io/kijimi-babu-frik/"  // Change to app website when available
-#define DONATE_URL "https://ritaandaurora.github.io/babu-frik/donate"
+#define DONATE_URL "https://ritaandaurora.github.io/kijimi-babu-frik/"
 #define SOURCE_CODE_URL "https://github.com/RitaAndAurora/kijimi-babu-frik"
 #define USER_MANUAL_URL "https://github.com/RitaAndAurora/kijimi-babu-frik/blob/master/MANUAL.md"
 

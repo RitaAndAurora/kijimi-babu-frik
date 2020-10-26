@@ -16,7 +16,7 @@
 BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    setLookAndFeel(&babuFrikBaseLookAndFeel);
+    LookAndFeel::setDefaultLookAndFeel(&babuFrikBaseLookAndFeel);
     
     uiWrapper.initialize(&processor, this);
     
@@ -40,7 +40,6 @@ BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcess
 
 BabuFrikAudioProcessorEditor::~BabuFrikAudioProcessorEditor()
 {
-    setLookAndFeel (nullptr);
     uiViewport.setViewedComponent(nullptr);
 }
 
@@ -75,13 +74,11 @@ void BabuFrikAudioProcessorEditor::resized ()
 
 UIWrapperComponent::UIWrapperComponent ()
 {
-    setLookAndFeel(&babuFrikBaseLookAndFeel);
     setSize (10, 10);  // Is re-set when running resize()
 }
 
 UIWrapperComponent::~UIWrapperComponent()
 {
-    setLookAndFeel (nullptr);
     processor->removeActionListener(this);
 }
 
@@ -272,14 +269,12 @@ void UIWrapperComponent::actionListenerCallback (const String &message)
     } else if (message.startsWith(String(ACTION_FIRMWARE_UPDATE_REQUIRED))){
         AlertWindow w ("Your KIJIMI firmware is out of date", "", AlertWindow::NoIcon);
         w.addTextBlock ("Your KIJIMI has firmware version " + processor->currentFirmwareLabel + " but Babu Frik requires firmware " + processor->requiredFirmwareLabel + ". You can still use Babu Frik but some things might not work as expected. Please, update your KIJIMI :)");
-        w.setLookAndFeel(&babuFrikBaseLookAndFeel);
         w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
         w.runModalLoop();
     } else if (message.startsWith(String(ACTION_CC_REVEICE_IS_TURNED_OFF))){
         if (!processor->ccReceiveOffNotificationShown){
             AlertWindow w ("CC receive option seems to be off", "", AlertWindow::NoIcon);
             w.addTextBlock ("Be aware that with CC receive off KIJIMI might not be receiving all messages from Babu Frik properly and therefore some things might not work as expected. Please turn CC receive on either using the KIJIMI menu options or clicking the button in the lower-right side of Babu Frik main panel.");
-            w.setLookAndFeel(&babuFrikBaseLookAndFeel);
             w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
             w.runModalLoop();
             processor->ccReceiveOffNotificationShown = true;
@@ -308,7 +303,6 @@ void UIWrapperComponent::buttonClicked (Button* button)
         panelsSubMenu.addItem (lfosPanelShowOptionID, "LFOs/ADSR2 panel", true, processor->showLfosPanel);
         
         PopupMenu m;
-        m.setLookAndFeel(&babuFrikBaseLookAndFeel);
         m.addSubMenu ("Zoom", zoomSubMenu);
         m.addSubMenu ("Panels", panelsSubMenu);
         

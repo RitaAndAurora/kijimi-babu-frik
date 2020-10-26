@@ -83,18 +83,10 @@ public:
         
         if (button == &importButton)
         {
-            /*PopupMenu m;
-            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            m.addItem (MENU_OPTION_ID_IMPORT_FROM_PATCH_FILE, "From patch file");
-            selectedActionID = m.showAt(button);*/
             selectedActionID = MENU_OPTION_ID_IMPORT_FROM_PATCH_FILE;
         }
         else if (button == &saveButton)
         {
-            /*PopupMenu m;
-            m.setLookAndFeel(&babuFrikBaseLookAndFeel);
-            m.addItem (MENU_OPTION_ID_SAVE_PATCH_TO_PATCH_FILE, "To patch file");
-            selectedActionID = m.showAt(button);*/
             selectedActionID = MENU_OPTION_ID_SAVE_PATCH_TO_PATCH_FILE;
         }
         else if (button == &randomizeButton)
