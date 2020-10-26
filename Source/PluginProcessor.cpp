@@ -2209,7 +2209,7 @@ void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
         for (int i=0; i<parameterIDs.size(); i++){
             String parameterID = parameterIDs[i];
             int value = BYTE_INIT_VALUE_TO_BE_IGNORED; // This is a value that will be invalid and thus ignored if found by KIJIMI
-            if (!kijimiInterface->isGlobalParameter(parameterID)){
+            if (!skipGlobal || !kijimiInterface->isGlobalParameter(parameterID)){
                 value = (int)getValueForAudioParameter(parameterID);
             }
             KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
