@@ -42,7 +42,7 @@ For advanced development options you'll need to open the `BabuFrik.jucer` using 
 
 ## License
 
-Babu Frik is released under the **GPLv3** open source software license (see [LICENSE](https://github.com/ritaandaurora/ddrm-jfsebastian/blob/master/LICENSE) file) with the code being available at  [https://github.com/ritaandaurora/kijimi-babu-frik](https://github.com/ritaandaurora/kijimi-babu-frik). Babu Frik uses the following open source software libraries: 
+Babu Frik is released under the **GPLv3** open source software license (see [LICENSE](https://github.com/ritaandaurora/kijimi-babu-frik/blob/master/LICENSE) file) with the code being available at  [https://github.com/ritaandaurora/kijimi-babu-frik](https://github.com/ritaandaurora/kijimi-babu-frik). Babu Frik uses the following open source software libraries: 
 
  * [tapkee](http://tapkee.lisitsyn.me), available under BSD 3-clause license 
  * [delaunator-cpp](https://github.com/delfrrr/delaunator-cpp), available underMIT license
