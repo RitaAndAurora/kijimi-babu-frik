@@ -82,7 +82,7 @@ Installation of Babu Frik should be straight-forward as we provide installer pac
  * Full control of KIJIMI prameters, including those hidden in the KIJIMI menu.
  * Timbre Space that allows you to create new patches by inteligently merging existing patches in a bank.
  * Bank file saving/loading, patch file saving/loading, and functionality to dumping/import banks to/from KIJIMI.
- * Runs as stand-alone app or as a VST37AU plugin in macOS or Windoes.
+ * Runs as stand-alone app or as a VST3/AU plugin in macOS or Windoes.
  * Automatable parameters when Babu Firk is running as a plugin in a DAW.
  * Patch randomizer
  * UI scaling and scrolling
