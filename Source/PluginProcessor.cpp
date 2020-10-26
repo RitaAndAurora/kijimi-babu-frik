@@ -2096,7 +2096,9 @@ void BabuFrikAudioProcessor::loadPresetAtIndex (int index)
     if (currentPreset > -1){
         SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsForPresetAtIndex(index);
         setParametersFromSynthControlIdValuePairs(idValuePairs, true);  // the "isChangingFromPresetLoader" will prevent from sending MIDI messages for the controls...
-        sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
+        if (automaticSyncWithSynthEnabled){
+            sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
+        }
         timbreSpaceEngine->setTimbreSpaceComponentXYToPresetNumber(index);
         
     }
@@ -2296,7 +2298,9 @@ void BabuFrikAudioProcessor::randomizeControlValues ()
             audioParameter->setValueNotifyingHost(newValue); // the "isChangingFromRandomizer" will prevent from sending MIDI messages for the controls...
         }
     }
-    sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced, and also to avoid issues sending too many MIDI messages and these not being all received properly)
+    if (automaticSyncWithSynthEnabled){
+        sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced, and also to avoid issues sending too many MIDI messages and these not being all received properly)
+    }
     
     delete random;
 }
@@ -2314,7 +2318,9 @@ void BabuFrikAudioProcessor::importFromPatchFile ()
         SynthControlIdValuePairs idValuePairs = kijimiInterface->getSynthControlIdValuePairsFromPatchFile(filePath);
         const ScopedValueSetter<bool> scopedInputFlag (isChangingFromLoadingAPatchFile, true);
         setParametersFromSynthControlIdValuePairs(idValuePairs, true); // the "isChangingFromLoadingAPatchFile" will prevent from sending MIDI messages for the controls...
-        sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
+        if (automaticSyncWithSynthEnabled){
+            sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced, and also to avoid issues sending too many MIDI messages and these not being all received properly)
+        }
     }
 }
 
@@ -2392,7 +2398,9 @@ void BabuFrikAudioProcessor::actionListenerCallback (const String &message)
         setParametersFromSynthControlIdValuePairs(
             kijimiInterface->getSynthControlIdValuePairsForInterpolatedPresets(timbreSpaceEngine->getSelectedPointInterpolationData()), true
         ); // the "isChangingFromTimbreSpace" will prevent from sending MIDI messages for the controls...
-        sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced. In these cases, "parameterChanged" is not called for all controls)
+        if (automaticSyncWithSynthEnabled){
+            sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced, and also to avoid issues sending too many MIDI messages and these not being all received properly)
+        }
         
     } else if (message.startsWith(String(ACTION_LOG_PREFIX))){
         #if JUCE_DEBUG

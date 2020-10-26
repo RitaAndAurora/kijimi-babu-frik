@@ -108,10 +108,10 @@ public:
             randomPanelOptionsSubmenu.addItem (MENU_OPTION_ID_RANDOMIZE_LFOS_PANEL, "Individual LFOs/ADSR2", true, processor->randomizationSettings.lfosPanel == true);
             
             PopupMenu randomOptionsSubmenu;
-            randomOptionsSubmenu.addSubMenu ("Amount", randomAmountOptionsSubmenu);
             randomOptionsSubmenu.addSubMenu ("Affected controls", randomPanelOptionsSubmenu);
+            randomOptionsSubmenu.addSubMenu ("Amount", randomAmountOptionsSubmenu);
             
-            m.addSubMenu ("Randomization settings", randomOptionsSubmenu);
+            m.addSubMenu ("Randomizer settings", randomOptionsSubmenu);
             
             PopupMenu midiDevicesSubMenu;
             bool autoScanTicked = processor->midiDevicesAutoScanEnabled;
