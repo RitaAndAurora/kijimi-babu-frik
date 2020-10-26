@@ -1648,7 +1648,7 @@ void BabuFrikAudioProcessor::parameterChanged (const String& parameterID, float 
             }
         #endif
         
-        if ((midiOutput.get() != nullptr) && (!isReceivingFromMidiInput) && (!isChangingFromGettingKijimiState) && (!isChangingFromTimbreSpace) && (!isChangingFromPresetLoader) && (!isChangingFromLoadingAPatchFile)){
+        if ((midiOutput.get() != nullptr) && (!isReceivingFromMidiInput) && (!isChangingFromGettingKijimiState) && (!isChangingFromTimbreSpace) && (!isChangingFromPresetLoader) && (!isChangingFromLoadingAPatchFile) && (!isChangingFromRandomizer)){
             sendControlToSynth(parameterID, (int)newValue);
         }
         
@@ -2264,6 +2264,8 @@ void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
 
 void BabuFrikAudioProcessor::randomizeControlValues ()
 {
+    const ScopedValueSetter<bool> scopedInputFlag (isChangingFromRandomizer, true);
+    
     float amount = (float)randomizationSettings.amount / 100.0 ;
     StringArray parameterIDs;
     if (randomizationSettings.mainPanel == true){
@@ -2291,9 +2293,11 @@ void BabuFrikAudioProcessor::randomizeControlValues ()
             } else {
                 newValue = random->nextFloat();
             }
-            audioParameter->setValueNotifyingHost(newValue); // parameter needs to be set in normalized range
+            audioParameter->setValueNotifyingHost(newValue); // the "isChangingFromRandomizer" will prevent from sending MIDI messages for the controls...
         }
     }
+    sendControlsToSynth(true); // ...and now we send them all (we do this to avoid issues in which controls did not change internally in Babu Frik but did change in KIJIMI and state was not synced, and also to avoid issues sending too many MIDI messages and these not being all received properly)
+    
     delete random;
 }
 

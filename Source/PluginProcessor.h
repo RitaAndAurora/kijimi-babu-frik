@@ -127,6 +127,7 @@ public:
     void loadControlsStateFromSynth ();
     bool isChangingFromLoadingAPatchFile = false;
     bool isChangingFromGettingKijimiState = false;
+    bool isChangingFromRandomizer = false;
     
     // Timbre Space Engine
     void computeTimbreSpace ();
