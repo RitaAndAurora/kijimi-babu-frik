@@ -50,7 +50,7 @@ void BabuFrikAudioProcessorEditor::paint (Graphics& g)
 
 void BabuFrikAudioProcessorEditor::resized ()
 {
-    uiViewport.setScrollBarsShown(!processor.neverShowScrollbars, false, true, true);  // configure scroll bars
+    uiViewport.setScrollBarsShown(!processor.neverShowScrollbars, !processor.neverShowScrollbars, true, true);  // configure scroll bars
     
     uiViewport.setBounds(getBounds());
 
@@ -62,7 +62,7 @@ void BabuFrikAudioProcessorEditor::resized ()
     int width = uiWrapper.sizeWidth;
     if (!processor.neverShowScrollbars) {
         if (uiWrapper.sizeHeight > maxHeight){
-            width += uiViewport.getScrollBarThickness() - 4;
+            width += uiViewport.getScrollBarThickness();
         }
     }
     
@@ -307,7 +307,7 @@ void UIWrapperComponent::buttonClicked (Button* button)
         m.addSubMenu ("Panels", panelsSubMenu);
         
         int neverShowScrollbarsTicked = processor->neverShowScrollbars;
-        m.addItem (MENU_OPTION_TOGGLE_NEVER_SHOW_SCROLLBARS, "Hide scrollbar", true, neverShowScrollbarsTicked);
+        m.addItem (MENU_OPTION_TOGGLE_NEVER_SHOW_SCROLLBARS, "Hide scrollbars", true, neverShowScrollbarsTicked);
                     
         selectedActionID = m.showAt(button);
     }
