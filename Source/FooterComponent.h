@@ -113,7 +113,6 @@ public:
             
             m.addSubMenu ("Randomization settings", randomOptionsSubmenu);
             
-            
             PopupMenu midiDevicesSubMenu;
             bool autoScanTicked = processor->midiDevicesAutoScanEnabled;
             int autoScanMenuOptionID = processor->midiDevicesAutoScanEnabled ? MENU_OPTION_MIDI_SET_AUTOSCAN_OFF : MENU_OPTION_MIDI_SET_AUTOSCAN_ON;
@@ -122,8 +121,12 @@ public:
             midiDevicesSubMenu.addItem (MENU_OPTION_MIDI_SCAN_NOW, "Scan devices now", scanNowEnabled, false);
             m.addSubMenu ("MIDI device scan", midiDevicesSubMenu);
             
+            PopupMenu kijimiStateSubMenu;
             int automaticSyncWithSynthTicked = processor->automaticSyncWithSynthEnabled;
-            m.addItem (MENU_OPTION_TOGGLE_AUTO_SYNC_WITH_SYNTH, "Auto-sync with KIJIMI state", true, automaticSyncWithSynthTicked);
+            kijimiStateSubMenu.addItem (MENU_OPTION_TOGGLE_AUTO_SYNC_WITH_SYNTH, "Auto-sync with KIJIMI state", true, automaticSyncWithSynthTicked);
+            kijimiStateSubMenu.addItem (MENU_OPTION_ID_SEND_PATCH_TO_SYNTH, "Send current state to KIJIMI", true, false);
+            kijimiStateSubMenu.addItem (MENU_OPTION_ID_LOAD_PATCH_FROM_SYNTH, "Load current state from KIJIMI", true, false);
+            m.addSubMenu ("KIJIMI state", kijimiStateSubMenu);
             
             selectedActionID = m.showAt(button);
             
@@ -160,6 +163,10 @@ public:
             processor->randomizationSettings.extraPanel = !processor->randomizationSettings.extraPanel;
         } else if (actionID == MENU_OPTION_ID_RANDOMIZE_LFOS_PANEL){
             processor->randomizationSettings.lfosPanel = !processor->randomizationSettings.lfosPanel;
+        } else if (actionID == MENU_OPTION_ID_SEND_PATCH_TO_SYNTH){
+            processor->sendControlsToSynth(false);
+        } else if (actionID == MENU_OPTION_ID_LOAD_PATCH_FROM_SYNTH){
+            processor->loadControlsStateFromSynth();
         }
     }
     
