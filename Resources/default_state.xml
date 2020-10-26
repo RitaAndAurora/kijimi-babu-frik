@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <KIJIMIState midiInputDeviceName="Kijimi" midiOutputDeviceName="Kijimi" midiInputChannel="1"
-             midiOutputChannel="1" midiDevicesAutoScanEnabled="1" autoSyncWithSynth="1"
+             midiOutputChannel="1" midiDevicesAutoScanEnabled="0" autoSyncWithSynth="1"
              UISacleFactor="1.0" randomizationAmount="50" randomizationMainPanel="1"
              randomizationExtraPanel="0" randomizationLfoPanel="0" mainPanelIsVisible="1"
              extraPanelIsVisible="1" lfosPanelIsVisible="0" currentPresetIdx="0"
