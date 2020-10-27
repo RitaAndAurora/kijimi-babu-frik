@@ -639,49 +639,24 @@ public:
     
     SynthControlIdValuePairs getSynthControlIdValuePairsForInterpolatedPresets(PresetDistancePairsToInterpolate interpolationData)
     {
-        // Returns a list of pairs of KIJIMISynthControl and the value they should take to load a new preset which is
-        // created after the interpolation of N presets and distances.
-        // Interpolation is done by computing a weight for each preset (based on distance) and linearly summing the
-        // each synth control vlaue of the preset multiplied by the weight.
+        // Returns a list of pairs of KIJIMISynthControl and the value they should take to load a new preset which is created after the interpolation of N presets and distances.
+        // TODO: explain all this bit better. New implementation uses maths from https://codeplea.com/triangular-interpolation
         
-        // Calculate total distance and pre-fetch preset bytes
-        float totalDistance = 0.0;
+        // Pre-fetch preset bytes
         std::vector<KIJIMIPresetBytes> presetsBytes;
         for (int i=0;i<interpolationData.size(); i++){
-            totalDistance += interpolationData[i].presetDist;
             presetsBytes.push_back(presetBank.getPresetBytesAtIndex(interpolationData[i].presetIdx));
         }
         
-        // Calculate distance weights for each interpolated preset
-        double maxAffectedDistance = 1.0;
-        std::vector<double> distanceFactor;
-        for (int i=0;i<interpolationData.size(); i++){
-            double weight = std::pow(1.0 - jmin((double)interpolationData[i].presetDist, maxAffectedDistance)/maxAffectedDistance, 4);
-            distanceFactor.push_back(weight);
-        }
-        
-        // Normalize distance weights
-        double totalWeights = 0.0;
-        for (int i=0;i<interpolationData.size(); i++){
-            totalWeights += distanceFactor[i];
-        }
-        for (int i=0;i<interpolationData.size(); i++){
-            if (totalWeights > 0){
-                distanceFactor[i] = distanceFactor[i]/totalWeights;
-            } else {
-                distanceFactor[i] = 0;
-            }
-        }
-        
-        // Interpolate synth control values
+        // Interpolate synth control values using the weights above
         SynthControlIdValuePairs idValuePairs;
         std::vector<String> controlIDs = getKIJIMISynthControlIDsForTimbreSpace();
         for (int i=0; i < controlIDs.size(); i++){
             KIJIMISynthControl* synthControl = getKIJIMISynthControlWithID(controlIDs[i]);
             double newValue = 0.0;
             for (int j=0;j<interpolationData.size(); j++){
-                double normValuePreset = (double)synthControl->getValueFromPresetByteArray(presetsBytes[j]);
-                newValue += normValuePreset * distanceFactor[j];
+                double value = (double)synthControl->getValueFromPresetByteArray(presetsBytes[j]);
+                newValue += value * interpolationData[j].presetWeight;
             }
             idValuePairs.emplace_back(synthControl->getID(), newValue);
         }
