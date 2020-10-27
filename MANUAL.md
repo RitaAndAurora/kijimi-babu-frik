@@ -196,6 +196,8 @@ When selecting a point in the space, the patch numbers on which the new patch is
 
 The selected position in the Timbre Space is also exposed by Babu Frik as two **audio parameters** named **Space X** and **Space Y**. These parameters can also be automated. 
 
+**IMPORTANT NOTE**: The Timbre Space only affects the controls in the main panel (see below), and ignores controls in the extra panel and the individual LFOs/ADSR2 controls. Therefore, when moving through the Timbre Space and passing through the points correspoding to the bank patches, these might not sound exactly the same as if loading the patch directly from the patch manager because some controls won't be set.
+
 
 ### 2.5 KIJIMI control panels
 
@@ -238,10 +240,12 @@ Babu Frik incorporates a feature to create slight (or wild!) variations of the c
 
 Randomizer settings are stored with Babu Frik's internal state and will be remembered between Babu Frik runs.
 
+**NOTE**: Regardless of the setting for the `Affected controls` option, the *Volume* knob in the main panel and the *Master volume* knob in the extra controls panel will never be affected when randomizing a preset.
+
 
 ### 2.7 UI size
 
-Babu Frik incorporates an option to adjust the size of the UI to match smaller screens. You can adjust the size clicking in the `View...` button in the upper right corner of Babu Frik and selecting the `Zoom` sub-menu. Available options are 70%, 80%, 90% and 100% of the original size. The zoom preference is stored together with other Babu Frik properties so the preference is remembered in different runs of the app both running as stand-alone or as a plugin.
+Babu Frik incorporates an option to adjust the size of the UI to match smaller screens. You can adjust the size clicking in the `View...` button in the upper right corner of Babu Frik and selecting the `Zoom` sub-menu. Available options are 60%, 70%, 80%, 90% and 100% of the original size. The zoom preference is stored together with other Babu Frik properties so the preference is remembered in different runs of the app both running as stand-alone or as a plugin.
 
 Furthermore, Babu Frik can scroll the UI horizontally or vertically if it does fit all on the screen. If that is the case, scrollbar(s) will appear. You can choose to hide scrollbars (but still be able to scroll using the mouse) by ticking the `Hide scrollbars` option in the `View...` menu.
 
