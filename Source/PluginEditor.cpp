@@ -16,6 +16,7 @@
 BabuFrikAudioProcessorEditor::BabuFrikAudioProcessorEditor (BabuFrikAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
+    babuFrikBaseLookAndFeel.scaleFactor = processor.uiScaleFactor;
     LookAndFeel::setDefaultLookAndFeel(&babuFrikBaseLookAndFeel);
     
     uiWrapper.initialize(&processor, this);
@@ -237,6 +238,7 @@ void UIWrapperComponent::actionListenerCallback (const String &message)
     if (message.startsWith(String(ACTION_LOG_PREFIX))){
         logMessageInUI(message.substring(String(ACTION_LOG_PREFIX).length()));
     } else if (message.startsWith(String(ACTION_UPDATE_UI_SCALE_FACTOR))){
+        editor->babuFrikBaseLookAndFeel.scaleFactor = processor->uiScaleFactor;
         resized();  // No need to update any local member here as scale factor is stored in processor
     } else if (message.startsWith(String(ACTION_TOGGLE_SHOW_MAIN_PANEL))){
         processor->showMainControlsPanel = true;
@@ -289,6 +291,7 @@ void UIWrapperComponent::buttonClicked (Button* button)
     if (button == &viewButton)
     {
         PopupMenu zoomSubMenu;
+        zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_60, "60%");
         zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_70, "70%");
         zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_80, "80%");
         zoomSubMenu.addItem (MENU_OPTION_ID_ZOOM_90, "90%");

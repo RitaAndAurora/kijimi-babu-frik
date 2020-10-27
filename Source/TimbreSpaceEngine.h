@@ -346,7 +346,7 @@ private:
     {
         // Load interpolated preset
         int64 currentTime = Time::currentTimeMillis();
-        if (currentTime - lastTimeInterpolatedPresetLoaded > MIN_MILLISECONDS_FOR_AUTOMATION_TIMBRE_SPACE_UPDATE){
+        if (currentTime - lastTimeInterpolatedPresetLoaded > MIN_MILLISECONDS_BETWEEN_TIMBRE_SPACE_UPDATES){
             // Because loading the preset to the synth involves sending many MIDI messages, make sure we don't trigger that action
             // More than X times per second
             sendActionMessage(ACTION_LOAD_INTERPOLATED_PRESET);
@@ -429,17 +429,22 @@ private:
             preset3Dist = euclideanDistance(x, y, (float)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset3Idx)["x"], (float)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset3Idx)["y"]);
         }
         
+        PresetDistanceStruct pd1;
+        pd1.presetIdx = preset1Idx;
+        pd1.presetDist = preset1Dist;
+        
+        PresetDistanceStruct pd2;
+        pd2.presetIdx = preset2Idx;
+        pd2.presetDist = preset2Dist;
+        
+        PresetDistanceStruct pd3;
+        pd3.presetIdx = preset3Idx;
+        pd3.presetDist = preset3Dist;
+        
         PresetDistancePairsToInterpolate output;
-        PresetDistanceStruct pd;
-        pd.presetIdx = preset1Idx;
-        pd.presetDist = preset1Dist;
-        output.push_back(pd);
-        pd.presetIdx = preset2Idx;
-        pd.presetDist = preset2Dist;
-        output.push_back(pd);
-        pd.presetIdx = preset3Idx;
-        pd.presetDist = preset3Dist;
-        output.push_back(pd);
+        output.push_back(pd1);
+        output.push_back(pd2);
+        output.push_back(pd3);
         
         return output;
     }

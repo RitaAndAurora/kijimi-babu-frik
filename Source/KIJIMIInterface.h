@@ -652,6 +652,27 @@ public:
             presetsBytes.push_back(presetBank.getPresetBytesAtIndex(interpolationData[i].presetIdx));
         }
         
+        // Calculate distance weights for each interpolated preset
+        double maxAffectedDistance = 1.0;
+        std::vector<double> distanceFactor;
+        for (int i=0;i<interpolationData.size(); i++){
+            double weight = std::pow(1.0 - jmin((double)interpolationData[i].presetDist, maxAffectedDistance)/maxAffectedDistance, 4);
+            distanceFactor.push_back(weight);
+        }
+        
+        // Normalize distance weights
+        double totalWeights = 0.0;
+        for (int i=0;i<interpolationData.size(); i++){
+            totalWeights += distanceFactor[i];
+        }
+        for (int i=0;i<interpolationData.size(); i++){
+            if (totalWeights > 0){
+                distanceFactor[i] = distanceFactor[i]/totalWeights;
+            } else {
+                distanceFactor[i] = 0;
+            }
+        }
+        
         // Interpolate synth control values
         SynthControlIdValuePairs idValuePairs;
         std::vector<String> controlIDs = getKIJIMISynthControlIDsForTimbreSpace();
@@ -660,10 +681,11 @@ public:
             double newValue = 0.0;
             for (int j=0;j<interpolationData.size(); j++){
                 double normValuePreset = (double)synthControl->getValueFromPresetByteArray(presetsBytes[j]);
-                newValue += normValuePreset * (double)(interpolationData[j].presetDist/totalDistance);
+                newValue += normValuePreset * distanceFactor[j];
             }
             idValuePairs.emplace_back(synthControl->getID(), newValue);
         }
+        
         return idValuePairs;
     }
     

@@ -93,13 +93,13 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+    
+    BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeel;  // Make it public so UIWrapperComponent can access it
 
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     BabuFrikAudioProcessor& processor;
-    
-    BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeel;
     UIWrapperComponent uiWrapper;
     Viewport uiViewport;
     

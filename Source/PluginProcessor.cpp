@@ -2283,7 +2283,7 @@ void BabuFrikAudioProcessor::randomizeControlValues ()
     Random* random = new Random();
     for (int i=0; i<parameterIDs.size(); i++){
         String parameterID = parameterIDs[i];
-        if (!kijimiInterface->isGlobalParameter(parameterID)){
+        if ((!kijimiInterface->isGlobalParameter(parameterID)) && (parameterID != "KIJIMI_MASTER_VOL") && (parameterID != "KIJIMI_VOLUME")){  // Dont' include global parameters and skip volume knobs as well
             RangedAudioParameter* audioParameter = (RangedAudioParameter*)parameters.getParameter(parameterID);
             KIJIMISynthControl* control = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
             int value = (int)getValueForAudioParameter(parameterID);
