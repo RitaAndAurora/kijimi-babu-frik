@@ -111,7 +111,7 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_ADSR_KT", "ADSR KT", "button2", 33, -1, -1, 64, "16_48_80_112", "float", true, true, 0, 3, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_GLIDE_RATE", "Glide rate", "knob", 86, -1, -1, 51, "direct", "float", true, true, 0, 127, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_GLIDE_MODE", "Glide mode", "button2", 32, -1, -1, 79, "21_63_105", "float", true, true, 0, 2, 0));
-        synthControls.push_back(KIJIMISynthControl("KIJIMI_VOLUME", "Volume", "knob", 87, -1, -1, 52, "direct", "float", true, true, 0, 127, 0));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_VOLUME", "Volume", "knob", 87, -1, -1, 52, "direct", "float", false, true, 0, 127, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_KNOB_BEH", "Knobs behaviour", "select", -1, 13, -1, 66, "direct", "choice", false, true, 0, 2, 2));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_CC_RECEIVE", "CC Receive", "button1", -1, 16, -1, 69, "direct", "float", false, true, 0, 1, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_AT_MODE", "Aftertouch mode", "select", -1, 21, -1, 74, "direct", "choice", false, true, 0, 2, 0));
@@ -601,7 +601,9 @@ public:
         SynthControlIdValuePairs idValuePairs;
         for (int i=0; i < synthControls.size(); i++){
             KIJIMISynthControl synthControl = synthControls[i];
-            idValuePairs.emplace_back(synthControl.getID(), (double)synthControl.getValueFromPresetByteArray(presetBytes));
+            if (synthControl.getID() != "KIJIMI_VOLUME"){ // Skip volume when reading patch bytes
+                idValuePairs.emplace_back(synthControl.getID(), (double)synthControl.getValueFromPresetByteArray(presetBytes));
+            }
         }
         return idValuePairs;
     }
@@ -675,9 +677,11 @@ public:
             std::vector<float> presetValues;
             KIJIMIPresetBytes& presetBytes = presetBank.getPresetBytesAtIndex(i);
             for (int j=0; j < controlIDs.size(); j++){
-                KIJIMISynthControl* synthControl = getKIJIMISynthControlWithID(controlIDs[j]);
-                float value = (float)synthControl->getNormValueFromPresetByteArray(presetBytes);  // Here we get normalized value to give "equal" weights to timbre space
-                presetValues.push_back(value);
+                if (controlIDs[j] != "KIJIMI_VOLUME"){ // Skip volume when passing data to timbre space computation
+                    KIJIMISynthControl* synthControl = getKIJIMISynthControlWithID(controlIDs[j]);
+                    float value = (float)synthControl->getNormValueFromPresetByteArray(presetBytes);  // Here we get normalized value to give "equal" weights to timbre space
+                    presetValues.push_back(value);
+                }
             }
             data.push_back(presetValues);
         }
