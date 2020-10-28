@@ -82,7 +82,7 @@ Installation of Babu Frik should be straight-forward as we provide installer pac
  * Full control of KIJIMI prameters, including those hidden in the KIJIMI menu.
  * Timbre Space that allows you to create new patches by inteligently merging existing patches in a bank.
  * Bank file saving/loading, patch file saving/loading, and functionality to dumping/import banks to/from KIJIMI.
- * Runs as stand-alone app or as a VST3/AU plugin in macOS or Windoes.
+ * Runs as stand-alone app or as a VST3/AU plugin in macOS or Windows.
  * Automatable parameters when Babu Firk is running as a plugin in a DAW.
  * Patch randomizer
  * UI scaling and scrolling
@@ -92,9 +92,11 @@ Installation of Babu Frik should be straight-forward as we provide installer pac
 
 ### 2.1 Loading Babu Frik as an audio plugin
 
-Babu Frik can run as a **stand-alone application** or as an **audio plugin** inside your DAW. When running as an audio plugin it works as an **audio effect** but effectively acts as a *bypass effect* for all the audio received in the input (i.e. it passes the input audio to the output and leaves it unaffected). The typical setup is to create a *MIDI/external instrument* track in your DAW which routes MIDI to the KIJIMI and receives the audio signal from KIJIMI. In that track Babu Frik can be placed as an effect.
+Babu Frik can run as a **stand-alone application** or as an **audio plugin** inside your DAW. When running as an audio plugin, it works as an **audio effect** that passes all the audio it receives to the output (i.e.  does nothing with the audio) while communicating with KIJIMI to control it.  Note that **Babu Frik is not intended to send any MIDI notes to KIJIMI**, only control data. MIDI notes need to be routed to KIJIMI using fucntionalities of your DAW or other MIDI routing software. The typical setup is to create a *MIDI/external instrument* track in your DAW which routes MIDI to the KIJIMI and receives the audio signal from KIJIMI. In that track (or in another track), Babu Frik can be placed as an *audio effect plugin* that will  communicate with KIJIMI.
 
 The main advantage of loading Babu Frik as a plugin instead of using it stand-alone is that it allows the DAW to control KIJIMI's parameters, enabling **parameter automation** and any other sort of **modulation capabilities** offered by the DAW.
+
+
 
 
 ### 2.2 MIDI configuration
