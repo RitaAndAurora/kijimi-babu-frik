@@ -787,8 +787,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO1VCO1_ENV);
         sliderAttachmentKIJIMI_LFO1VCO1_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCO1_ENV", sliderKIJIMI_LFO1VCO1_ENV));
         sliderKIJIMI_LFO1VCO1_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO1 to VCO1 envelope: on"; } 
-            else { return "LFO1 to VCO1 envelope: off";}
+            if (value == 0){ return "LFO1 to VCO1 envelope: off"; } 
+            else { return "LFO1 to VCO1 envelope: on";}
         };
         sliderKIJIMI_LFO1VCO1_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO1VCO2_ENV
@@ -798,8 +798,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO1VCO2_ENV);
         sliderAttachmentKIJIMI_LFO1VCO2_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCO2_ENV", sliderKIJIMI_LFO1VCO2_ENV));
         sliderKIJIMI_LFO1VCO2_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO1 to VCO2 envelope: on"; } 
-            else { return "LFO1 to VCO2 envelope: off";}
+            if (value == 0){ return "LFO1 to VCO2 envelope: off"; } 
+            else { return "LFO1 to VCO2 envelope: on";}
         };
         sliderKIJIMI_LFO1VCO2_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO1WAVE1_ENV
@@ -809,8 +809,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO1WAVE1_ENV);
         sliderAttachmentKIJIMI_LFO1WAVE1_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1WAVE1_ENV", sliderKIJIMI_LFO1WAVE1_ENV));
         sliderKIJIMI_LFO1WAVE1_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO1 to WAVE1 envelope: on"; } 
-            else { return "LFO1 to WAVE1 envelope: off";}
+            if (value == 0){ return "LFO1 to WAVE1 envelope: off"; } 
+            else { return "LFO1 to WAVE1 envelope: on";}
         };
         sliderKIJIMI_LFO1WAVE1_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO1WAVE2_ENV
@@ -820,8 +820,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO1WAVE2_ENV);
         sliderAttachmentKIJIMI_LFO1WAVE2_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1WAVE2_ENV", sliderKIJIMI_LFO1WAVE2_ENV));
         sliderKIJIMI_LFO1WAVE2_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO1 to WAVE2 envelope: on"; } 
-            else { return "LFO1 to WAVE2 envelope: off";}
+            if (value == 0){ return "LFO1 to WAVE2 envelope: off"; } 
+            else { return "LFO1 to WAVE2 envelope: on";}
         };
         sliderKIJIMI_LFO1WAVE2_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO1SUB_ENV
@@ -831,8 +831,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO1SUB_ENV);
         sliderAttachmentKIJIMI_LFO1SUB_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1SUB_ENV", sliderKIJIMI_LFO1SUB_ENV));
         sliderKIJIMI_LFO1SUB_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO1 to SUB envelope: on"; } 
-            else { return "LFO1 to SUB envelope: off";}
+            if (value == 0){ return "LFO1 to SUB envelope: off"; } 
+            else { return "LFO1 to SUB envelope: on";}
         };
         sliderKIJIMI_LFO1SUB_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO1VCF_ENV
@@ -842,8 +842,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO1VCF_ENV);
         sliderAttachmentKIJIMI_LFO1VCF_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCF_ENV", sliderKIJIMI_LFO1VCF_ENV));
         sliderKIJIMI_LFO1VCF_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO1 to VCF envelope: on"; } 
-            else { return "LFO1 to VCF envelope: off";}
+            if (value == 0){ return "LFO1 to VCF envelope: off"; } 
+            else { return "LFO1 to VCF envelope: on";}
         };
         sliderKIJIMI_LFO1VCF_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO1RESO_ENV
@@ -853,8 +853,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO1RESO_ENV);
         sliderAttachmentKIJIMI_LFO1RESO_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1RESO_ENV", sliderKIJIMI_LFO1RESO_ENV));
         sliderKIJIMI_LFO1RESO_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO1 to RESO envelope: on"; } 
-            else { return "LFO1 to RESO envelope: off";}
+            if (value == 0){ return "LFO1 to RESO envelope: off"; } 
+            else { return "LFO1 to RESO envelope: on";}
         };
         sliderKIJIMI_LFO1RESO_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO1VCA_ENV
@@ -864,8 +864,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO1VCA_ENV);
         sliderAttachmentKIJIMI_LFO1VCA_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCA_ENV", sliderKIJIMI_LFO1VCA_ENV));
         sliderKIJIMI_LFO1VCA_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO1 to VCA envelope: on"; } 
-            else { return "LFO1 to VCA envelope: off";}
+            if (value == 0){ return "LFO1 to VCA envelope: off"; } 
+            else { return "LFO1 to VCA envelope: on";}
         };
         sliderKIJIMI_LFO1VCA_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO2VCO1_ENV
@@ -875,8 +875,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO2VCO1_ENV);
         sliderAttachmentKIJIMI_LFO2VCO1_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCO1_ENV", sliderKIJIMI_LFO2VCO1_ENV));
         sliderKIJIMI_LFO2VCO1_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO2 to VCO1 envelope: on"; } 
-            else { return "LFO2 to VCO1 envelope: off";}
+            if (value == 0){ return "LFO2 to VCO1 envelope: off"; } 
+            else { return "LFO2 to VCO1 envelope: on";}
         };
         sliderKIJIMI_LFO2VCO1_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO2VCO2_ENV
@@ -886,8 +886,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO2VCO2_ENV);
         sliderAttachmentKIJIMI_LFO2VCO2_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCO2_ENV", sliderKIJIMI_LFO2VCO2_ENV));
         sliderKIJIMI_LFO2VCO2_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO2 to VCO2 envelope: on"; } 
-            else { return "LFO2 to VCO2 envelope: off";}
+            if (value == 0){ return "LFO2 to VCO2 envelope: off"; } 
+            else { return "LFO2 to VCO2 envelope: on";}
         };
         sliderKIJIMI_LFO2VCO2_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO2WAVE1_ENV
@@ -897,8 +897,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO2WAVE1_ENV);
         sliderAttachmentKIJIMI_LFO2WAVE1_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2WAVE1_ENV", sliderKIJIMI_LFO2WAVE1_ENV));
         sliderKIJIMI_LFO2WAVE1_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO2 to WAVE1 envelope: on"; } 
-            else { return "LFO2 to WAVE1 envelope: off";}
+            if (value == 0){ return "LFO2 to WAVE1 envelope: off"; } 
+            else { return "LFO2 to WAVE1 envelope: on";}
         };
         sliderKIJIMI_LFO2WAVE1_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO2WAVE2_ENV
@@ -908,8 +908,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO2WAVE2_ENV);
         sliderAttachmentKIJIMI_LFO2WAVE2_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2WAVE2_ENV", sliderKIJIMI_LFO2WAVE2_ENV));
         sliderKIJIMI_LFO2WAVE2_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO2 to WAVE2 envelope: on"; } 
-            else { return "LFO2 to WAVE2 envelope: off";}
+            if (value == 0){ return "LFO2 to WAVE2 envelope: off"; } 
+            else { return "LFO2 to WAVE2 envelope: on";}
         };
         sliderKIJIMI_LFO2WAVE2_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO2SUB_ENV
@@ -919,8 +919,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO2SUB_ENV);
         sliderAttachmentKIJIMI_LFO2SUB_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2SUB_ENV", sliderKIJIMI_LFO2SUB_ENV));
         sliderKIJIMI_LFO2SUB_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO2 to SUB envelope: on"; } 
-            else { return "LFO2 to SUB envelope: off";}
+            if (value == 0){ return "LFO2 to SUB envelope: off"; } 
+            else { return "LFO2 to SUB envelope: on";}
         };
         sliderKIJIMI_LFO2SUB_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO2VCF_ENV
@@ -930,8 +930,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO2VCF_ENV);
         sliderAttachmentKIJIMI_LFO2VCF_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCF_ENV", sliderKIJIMI_LFO2VCF_ENV));
         sliderKIJIMI_LFO2VCF_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO2 to VCF envelope: on"; } 
-            else { return "LFO2 to VCF envelope: off";}
+            if (value == 0){ return "LFO2 to VCF envelope: off"; } 
+            else { return "LFO2 to VCF envelope: on";}
         };
         sliderKIJIMI_LFO2VCF_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO2RESO_ENV
@@ -941,8 +941,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO2RESO_ENV);
         sliderAttachmentKIJIMI_LFO2RESO_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2RESO_ENV", sliderKIJIMI_LFO2RESO_ENV));
         sliderKIJIMI_LFO2RESO_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO2 to RESO envelope: on"; } 
-            else { return "LFO2 to RESO envelope: off";}
+            if (value == 0){ return "LFO2 to RESO envelope: off"; } 
+            else { return "LFO2 to RESO envelope: on";}
         };
         sliderKIJIMI_LFO2RESO_ENV.setLookAndFeel (&button1LookAndFeel);
         // Slider KIJIMI_LFO2VCA_ENV
@@ -952,8 +952,8 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO2VCA_ENV);
         sliderAttachmentKIJIMI_LFO2VCA_ENV.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCA_ENV", sliderKIJIMI_LFO2VCA_ENV));
         sliderKIJIMI_LFO2VCA_ENV.textFromValueFunction = [](double value) {
-            if (value == 0){ return "LFO2 to VCA envelope: on"; } 
-            else { return "LFO2 to VCA envelope: off";}
+            if (value == 0){ return "LFO2 to VCA envelope: off"; } 
+            else { return "LFO2 to VCA envelope: on";}
         };
         sliderKIJIMI_LFO2VCA_ENV.setLookAndFeel (&button1LookAndFeel);
         // --> End auto-generated code B

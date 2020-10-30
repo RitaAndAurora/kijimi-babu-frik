@@ -103,7 +103,7 @@ public:
         addAndMakeVisible (&sliderKIJIMI_LFO_POLY_RETRIG);
         sliderAttachmentKIJIMI_LFO_POLY_RETRIG.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO_POLY_RETRIG", sliderKIJIMI_LFO_POLY_RETRIG));
         sliderKIJIMI_LFO_POLY_RETRIG.textFromValueFunction = [](double value) {
-            if (value < 64){ return "LFO poly mode EG retrig: off"; } 
+            if (value == 0){ return "LFO poly mode EG retrig: off"; } 
             else { return "LFO poly mode EG retrig: on";}
         };
         sliderKIJIMI_LFO_POLY_RETRIG.setLookAndFeel (&button1LookAndFeel);
