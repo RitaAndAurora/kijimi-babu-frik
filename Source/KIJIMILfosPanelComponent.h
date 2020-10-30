@@ -242,8 +242,9 @@ public:
         sliderKIJIMI_LFO1VCO1_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1VCO1_R);
         sliderAttachmentKIJIMI_LFO1VCO1_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCO1_R", sliderKIJIMI_LFO1VCO1_R));
-        sliderKIJIMI_LFO1VCO1_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO1 to VCO1 rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO1VCO1_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO1SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO1 to VCO1 rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO1VCO1_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO1VCO2_R
@@ -252,8 +253,9 @@ public:
         sliderKIJIMI_LFO1VCO2_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1VCO2_R);
         sliderAttachmentKIJIMI_LFO1VCO2_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCO2_R", sliderKIJIMI_LFO1VCO2_R));
-        sliderKIJIMI_LFO1VCO2_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO1 to VCO2 rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO1VCO2_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO1SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO1 to VCO2 rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO1VCO2_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO1WAVE1_R
@@ -262,8 +264,9 @@ public:
         sliderKIJIMI_LFO1WAVE1_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1WAVE1_R);
         sliderAttachmentKIJIMI_LFO1WAVE1_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1WAVE1_R", sliderKIJIMI_LFO1WAVE1_R));
-        sliderKIJIMI_LFO1WAVE1_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO1 to WAVE1 rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO1WAVE1_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO1SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO1 to WAVE1 rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO1WAVE1_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO1WAVE2_R
@@ -272,8 +275,9 @@ public:
         sliderKIJIMI_LFO1WAVE2_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1WAVE2_R);
         sliderAttachmentKIJIMI_LFO1WAVE2_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1WAVE2_R", sliderKIJIMI_LFO1WAVE2_R));
-        sliderKIJIMI_LFO1WAVE2_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO1 to WAVE2 rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO1WAVE2_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO1SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO1 to WAVE2 rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO1WAVE2_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO1SUB_R
@@ -282,8 +286,9 @@ public:
         sliderKIJIMI_LFO1SUB_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1SUB_R);
         sliderAttachmentKIJIMI_LFO1SUB_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1SUB_R", sliderKIJIMI_LFO1SUB_R));
-        sliderKIJIMI_LFO1SUB_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO1 to SUB rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO1SUB_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO1SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO1 to SUB rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO1SUB_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO1VCF_R
@@ -292,8 +297,9 @@ public:
         sliderKIJIMI_LFO1VCF_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1VCF_R);
         sliderAttachmentKIJIMI_LFO1VCF_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCF_R", sliderKIJIMI_LFO1VCF_R));
-        sliderKIJIMI_LFO1VCF_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO1 to VCF rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO1VCF_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO1SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO1 to VCF rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO1VCF_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO1RESO_R
@@ -302,8 +308,9 @@ public:
         sliderKIJIMI_LFO1RESO_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1RESO_R);
         sliderAttachmentKIJIMI_LFO1RESO_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1RESO_R", sliderKIJIMI_LFO1RESO_R));
-        sliderKIJIMI_LFO1RESO_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO1 to RESO rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO1RESO_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO1SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO1 to RESO rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO1RESO_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO1VCA_R
@@ -312,8 +319,9 @@ public:
         sliderKIJIMI_LFO1VCA_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1VCA_R);
         sliderAttachmentKIJIMI_LFO1VCA_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1VCA_R", sliderKIJIMI_LFO1VCA_R));
-        sliderKIJIMI_LFO1VCA_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO1 to VCA rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO1VCA_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO1SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO1 to VCA rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO1VCA_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO2VCO1_R
@@ -322,8 +330,9 @@ public:
         sliderKIJIMI_LFO2VCO1_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2VCO1_R);
         sliderAttachmentKIJIMI_LFO2VCO1_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCO1_R", sliderKIJIMI_LFO2VCO1_R));
-        sliderKIJIMI_LFO2VCO1_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO2 to VCO1 rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO2VCO1_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO2SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO2 to VCO1 rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO2VCO1_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO2VCO2_R
@@ -332,8 +341,9 @@ public:
         sliderKIJIMI_LFO2VCO2_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2VCO2_R);
         sliderAttachmentKIJIMI_LFO2VCO2_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCO2_R", sliderKIJIMI_LFO2VCO2_R));
-        sliderKIJIMI_LFO2VCO2_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO2 to VCO2 rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO2VCO2_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO2SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO2 to VCO2 rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO2VCO2_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO2WAVE1_R
@@ -342,8 +352,9 @@ public:
         sliderKIJIMI_LFO2WAVE1_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2WAVE1_R);
         sliderAttachmentKIJIMI_LFO2WAVE1_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2WAVE1_R", sliderKIJIMI_LFO2WAVE1_R));
-        sliderKIJIMI_LFO2WAVE1_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO2 to WAVE1 rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO2WAVE1_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO2SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO2 to WAVE1 rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO2WAVE1_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO2WAVE2_R
@@ -352,8 +363,9 @@ public:
         sliderKIJIMI_LFO2WAVE2_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2WAVE2_R);
         sliderAttachmentKIJIMI_LFO2WAVE2_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2WAVE2_R", sliderKIJIMI_LFO2WAVE2_R));
-        sliderKIJIMI_LFO2WAVE2_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO2 to WAVE2 rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO2WAVE2_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO2SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO2 to WAVE2 rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO2WAVE2_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO2SUB_R
@@ -362,8 +374,9 @@ public:
         sliderKIJIMI_LFO2SUB_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2SUB_R);
         sliderAttachmentKIJIMI_LFO2SUB_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2SUB_R", sliderKIJIMI_LFO2SUB_R));
-        sliderKIJIMI_LFO2SUB_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO2 to SUB rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO2SUB_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO2SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO2 to SUB rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO2SUB_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO2VCF_R
@@ -372,8 +385,9 @@ public:
         sliderKIJIMI_LFO2VCF_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2VCF_R);
         sliderAttachmentKIJIMI_LFO2VCF_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCF_R", sliderKIJIMI_LFO2VCF_R));
-        sliderKIJIMI_LFO2VCF_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO2 to VCF rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO2VCF_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO2SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO2 to VCF rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO2VCF_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO2RESO_R
@@ -382,8 +396,9 @@ public:
         sliderKIJIMI_LFO2RESO_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2RESO_R);
         sliderAttachmentKIJIMI_LFO2RESO_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2RESO_R", sliderKIJIMI_LFO2RESO_R));
-        sliderKIJIMI_LFO2RESO_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO2 to RESO rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO2RESO_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO2SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO2 to RESO rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO2RESO_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO2VCA_R
@@ -392,8 +407,9 @@ public:
         sliderKIJIMI_LFO2VCA_R.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2VCA_R);
         sliderAttachmentKIJIMI_LFO2VCA_R.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2VCA_R", sliderKIJIMI_LFO2VCA_R));
-        sliderKIJIMI_LFO2VCA_R.textFromValueFunction = [](double value) {
-            return String::formatted("LFO2 to VCA rate: %.2f", 10.0 * (value / 127.0));
+        sliderKIJIMI_LFO2VCA_R.textFromValueFunction = [this](double value) {
+            if (this->processor->isLFO2SyncedToMidi()){ return StringArray({"1/8", "1/6", "1/4", "1/3", "1/2", "1/1.5", "1/1", "1.5/1", "2/1", "4/1", "6/1", "8/1", "12/1", "16/1", "24/1", "32/1"})[15 - (int)(value/8)]; } 
+            else { return String::formatted("LFO2 to VCA rate: %.2f", 10.0 * (value / 127.0)); }
         };
         sliderKIJIMI_LFO2VCA_R.setLookAndFeel (&knobLookAndFeel);
         // Slider KIJIMI_LFO1VCO1_A

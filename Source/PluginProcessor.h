@@ -154,6 +154,9 @@ public:
     RandomizationConfigStruct randomizationSettings;
     bool ccReceiveOffNotificationShown = false;
     void checkConfigurationIsOk();
+    bool isLFO1SyncedToMidi();
+    bool isLFO2SyncedToMidi();
+    bool isLFOPolyMode();
     
     class DelayedRequestLoadControlsFromSynthThread : private Thread
     {

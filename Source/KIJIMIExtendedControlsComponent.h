@@ -146,9 +146,9 @@ public:
         sliderKIJIMI_LFO1_SYNC.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO1_SYNC);
         sliderAttachmentKIJIMI_LFO1_SYNC.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO1_SYNC", sliderKIJIMI_LFO1_SYNC));
-        sliderKIJIMI_LFO1_SYNC.textFromValueFunction = [](double value) {
+        sliderKIJIMI_LFO1_SYNC.textFromValueFunction = [this](double value) {
             if (value == 0){ return "LFO1 sync: off"; } 
-            else if (value == 1){ return "LFO1 sync: from MIDI";}
+            else if (value == 1){ if (!this->processor->isLFOPolyMode()) { return "LFO1 sync: from MIDI";} else { return "LFO1 sync: from MIDI (disabled because LFO is in Poly mode)"; } }
             else { return "LFO1 sync: from LFO2";}
         };
         sliderKIJIMI_LFO1_SYNC.setLookAndFeel (&button2LookAndFeel);
@@ -222,9 +222,9 @@ public:
         sliderKIJIMI_LFO2_SYNC.setPopupDisplayEnabled (true, true, this, -1);
         addAndMakeVisible (&sliderKIJIMI_LFO2_SYNC);
         sliderAttachmentKIJIMI_LFO2_SYNC.reset(new AudioProcessorValueTreeState::SliderAttachment (processor->parameters, "KIJIMI_LFO2_SYNC", sliderKIJIMI_LFO2_SYNC));
-        sliderKIJIMI_LFO2_SYNC.textFromValueFunction = [](double value) {
+        sliderKIJIMI_LFO2_SYNC.textFromValueFunction = [this](double value) {
             if (value == 0){ return "LFO2 sync: off"; } 
-            else if (value == 1){ return "LFO2 sync: from MIDI";}
+            else if (value == 1){ if (!this->processor->isLFOPolyMode()) { return "LFO2 sync: from MIDI";} else { return "LFO2 sync: from MIDI (disabled because LFO is in Poly mode)"; } }
             else { return "LFO2 sync: from LFO1";}
         };
         sliderKIJIMI_LFO2_SYNC.setLookAndFeel (&button2LookAndFeel);

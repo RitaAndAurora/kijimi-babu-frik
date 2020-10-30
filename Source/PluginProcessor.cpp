@@ -2483,6 +2483,21 @@ void BabuFrikAudioProcessor::checkConfigurationIsOk()
     }
 }
 
+bool BabuFrikAudioProcessor::isLFO1SyncedToMidi()
+{
+    return (int)getValueForAudioParameter("KIJIMI_LFO1_SYNC") == 1 && !isLFOPolyMode();
+}
+
+bool BabuFrikAudioProcessor::isLFO2SyncedToMidi()
+{
+    return (int)getValueForAudioParameter("KIJIMI_LFO2_SYNC") == 1 && !isLFOPolyMode();
+}
+
+bool BabuFrikAudioProcessor::isLFOPolyMode()
+{
+    return (int)getValueForAudioParameter("KIJIMI_LFO_MODE") == 0;
+}
+
 //==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
