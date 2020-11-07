@@ -411,7 +411,7 @@ private:
         // to the given point
         int preset1Idx, preset2Idx, preset3Idx;
         float preset1Dist, preset2Dist, preset3Dist;
-        float preset1Weight, preset2Weight, preset3Weight;
+        double preset1Weight, preset2Weight, preset3Weight;
         
         if (!solutionComputed()){
             #if JUCE_DEBUG
@@ -427,19 +427,19 @@ private:
             preset2Idx = (int)triangle["preset2Idx"];
             preset3Idx = (int)triangle["preset3Idx"];
             
-            float xv1 = (float)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset1Idx)["x"];
-            float yv1 = (float)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset1Idx)["y"];
-            float xv2 = (float)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset2Idx)["x"];
-            float yv2 = (float)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset2Idx)["y"];
-            float xv3 = (float)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset3Idx)["x"];
-            float yv3 = (float)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset3Idx)["y"];
+            double xv1 = (double)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset1Idx)["x"];
+            double yv1 = (double)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset1Idx)["y"];
+            double xv2 = (double)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset2Idx)["x"];
+            double yv2 = (double)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset2Idx)["y"];
+            double xv3 = (double)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset3Idx)["x"];
+            double yv3 = (double)solution.getChildWithName(TIMBRE_SPACE_SOLUTION_POINTS_IDENTIFIER).getChild(preset3Idx)["y"];
             
             preset1Dist = euclideanDistance(x, y, xv1, yv1);
             preset2Dist = euclideanDistance(x, y, xv2, yv2);
             preset3Dist = euclideanDistance(x, y, xv3, yv3);
             
             // Maths from https://codeplea.com/triangular-interpolation
-            float weightDenominator = (yv2 - yv3) * (xv1 - xv3) + (xv3 - xv2) * (yv1 - yv3);
+            double weightDenominator = (yv2 - yv3) * (xv1 - xv3) + (xv3 - xv2) * (yv1 - yv3);
             preset1Weight = ((yv2 - yv3) * (x - xv3) + (xv3 - xv2) * (y - yv3))/weightDenominator;
             preset2Weight = ((yv3 - yv1) * (x - xv3) + (xv1 - xv3) * (y - yv3))/weightDenominator;
             preset3Weight = 1 - preset1Weight - preset2Weight;
@@ -630,12 +630,12 @@ private:
             PresetDistanceStruct pd;
             pd.presetIdx = distances[i].second;
             pd.presetDist = distances[i].first;
-            pd.presetWeight = 1/distances[i].first;  // When using NN method we use naive interpolation method from https://codeplea.com/triangular-interpolation (coputation of the loop continues after this initial forloop)
+            pd.presetWeight = (double)(1/distances[i].first);  // When using NN method we use naive interpolation method from https://codeplea.com/triangular-interpolation (coputation of the loop continues after this initial forloop)
             interpolationData.push_back(pd);
         }
         
         // Finish computation of preset weights by normalizing them
-        float totalWeights = 0.0;
+        double totalWeights = 0.0;
         for (int i=0;i<interpolationData.size(); i++){
             totalWeights += interpolationData[i].presetWeight;
         }

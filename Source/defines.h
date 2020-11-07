@@ -201,7 +201,7 @@ typedef std::vector<std::vector<float>> timbreSpaceInputDataMatrix;
 struct PresetDistanceStruct {
     int presetIdx;
     float presetDist;
-    float presetWeight;  // Number that will be multiplied to the preset value to do the interpolation
+    double presetWeight;  // Number that will be multiplied to the preset value to do the interpolation
 };
 typedef std::vector<PresetDistanceStruct> PresetDistancePairsToInterpolate;
 

@@ -15,7 +15,7 @@ class KIJIMISynthControl
 
 {
 public:
-    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _midiOptionID, int _midiExtendedOptionID, int _byteNumber, const String& _byteToMidiConversionType, const String& _audioParameterType, bool _includeOnTimbreSpace, bool _acceptMidiInput, int _byteRangeMin, int _byteRangeMax, int _defaultValue)
+    KIJIMISynthControl (const String& _ID, const String& _name, const String& _type, int _ccNumber, int _midiOptionID, int _midiExtendedOptionID, int _byteNumber, const String& _byteToMidiConversionType, const String& _audioParameterType, bool _includeOnTimbreSpace, const String& _interpolationType, bool _acceptMidiInput, int _byteRangeMin, int _byteRangeMax, int _defaultValue)
     {
         ID = _ID;
         name = _name;
@@ -27,6 +27,7 @@ public:
         byteToMidiConversionType = _byteToMidiConversionType;
         audioParameterType = _audioParameterType;
         includeOnTimbreSpace = _includeOnTimbreSpace;
+        interpolationType = _interpolationType;
         acceptMidiInput = _acceptMidiInput;
         byteRangeMin = _byteRangeMin;
         byteRangeMax = _byteRangeMax;
@@ -75,6 +76,11 @@ public:
     bool shouldBeIncludedInTimbreSpace()
     {
         return includeOnTimbreSpace;
+    }
+    
+    const String getInterpolationType()
+    {
+        return interpolationType;
     }
     
     const String getAudioParameterType ()
@@ -350,6 +356,7 @@ private:
     String byteToMidiConversionType;
     String audioParameterType;
     bool includeOnTimbreSpace;
+    String interpolationType;
     bool acceptMidiInput;
     int byteRangeMin;
     int byteRangeMax;
