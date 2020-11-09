@@ -22,7 +22,7 @@ You'll find download links in the [Babu Frik website](https://ritaandaurora.gith
 
 ## Help
 
-Please check the user manual for an explanation of the different features of [Babu Frik](https://github.com/RitaAndAurora/kijimi-babu-frik/blob/master/MANUAL.md) and how to use it.
+Please check the [user manual](MANUAL.md) for an explanation of the different features of Babu Frik and how to use it.
 
 
 ## Build instructions (for developers)
@@ -48,6 +48,11 @@ Babu Frik is released under the **GPLv3** open source software license (see [LIC
  * [delaunator-cpp](https://github.com/delfrrr/delaunator-cpp), available underMIT license
  * [juce](https://juce.com), available under GPLv3 license 
  
+
+## Support Babu Frik development
+
+If you want to support the development of Babu Frik and similar tools you can consider [making a donation](https://ritaandaurora.github.io/kijimi-babu-frik/donate.html). That will make me very happy :)
+
 
 
 ## Credits and acknowledgements
