@@ -46,6 +46,7 @@ public:
          "  Anasia\n"
          "  Antonio Martinez\n"
          "  Derek Matthew Duke\n"
+         "  DSL-man\n"
          "  Eric Harder\n"
          "  Jeremy Curtis\n"
          "  Kevin T. Looney\n"

@@ -73,6 +73,7 @@ Babu Frik has been ideated and developed by [Rita & Aurora](https://ritaandauror
 - Anasia
 - Antonio Martinez
 - Derek Matthew Duke
+- DSL-man
 - Eric Harder
 - Jeremy Curtis
 - Kevin T. Looney
