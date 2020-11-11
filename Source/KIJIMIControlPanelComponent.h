@@ -1035,7 +1035,7 @@ public:
         };
         sliderKIJIMI_CC_RECEIVE.setLookAndFeel (&button1LookAndFeel);
         // ComboBox KIJIMI_AT_MODE
-        sliderKIJIMI_AT_MODE.addItemList (StringArray ({"CHAN AT", "POLY AT", "MPE"}), 1);
+        sliderKIJIMI_AT_MODE.addItemList (StringArray ({"CHAN P", "POLY AT", "MPE"}), 1);
         addAndMakeVisible (&sliderKIJIMI_AT_MODE);
         sliderAttachmentKIJIMI_AT_MODE.reset(new AudioProcessorValueTreeState::ComboBoxAttachment (processor->parameters, "KIJIMI_AT_MODE", sliderKIJIMI_AT_MODE));
         // Slider KIJIMI_MPE_CH

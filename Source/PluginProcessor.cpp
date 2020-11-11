@@ -361,7 +361,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             0.0f),
                 std:: make_unique < AudioParameterChoice > ("KIJIMI_AT_MODE", // parameter ID
                                                             "Aftertouch mode", // parameter name
-                                                            StringArray ({"chan at", "poly at", "MPE"}), // parameter choices
+                                                            StringArray ({"chan p", "poly at", "MPE"}), // parameter choices
                                                             0),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_MPE_CH", // parameter ID
                                                             "MPE base channel", // parameter name
