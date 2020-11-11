@@ -12,6 +12,8 @@ Babu Frik includes all the controls you'll find the main panel of KIJIMI, but al
 
 Checkout [Babu Frik](https://ritaandaurora.github.io/kijimi-babu-frik/)'s website for more information.
 
+Subscribe to the [Babu Frik mailing list](https://groups.google.com/g/kijimi-babu-frik/) if you want to receive news about new releases, etc.
+
 Babu Firk is a reality thanks to the Kickstarter backers and the help and contributions by Black Corportation. Check out the [Kickstarter campaign page](https://www.kickstarter.com/projects/454739355/babu-frik-make-your-kijimi-sing-in-sith) for more information about the campagin.
 
 
