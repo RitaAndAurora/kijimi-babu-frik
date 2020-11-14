@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="ONyb0V" name="BabuFrik" projectType="audioplug" jucerVersion="5.4.7"
-              version="1.0" companyName="Rita &amp; Aurora" companyEmail="frederic.font@gmail.com"
+<JUCERPROJECT id="ONyb0V" name="BabuFrik" projectType="audioplug" version="1.0"
+              companyName="Rita &amp; Aurora" companyEmail="frederic.font@gmail.com"
               pluginName="Babu Frik" pluginManufacturerCode="RaAu" pluginCode="BAFR"
               pluginDesc="Make your KIJIMI synthetizer sing in sith!" pluginVST3Category="Fx"
               bundleIdentifier="com.RaA.BabuFrik" reportAppUsage="0" pluginAUExportPrefix="BabuFrikAU"
               aaxIdentifier="com.RaA.BabuFrik" headerPath="../../Includes"
               pluginFormats="buildAU,buildStandalone,buildVST3" companyWebsite="https://ritaandaurora.github.io"
-              projectLineFeed="&#10;">
+              projectLineFeed="&#10;" jucerFormatVersion="1">
   <MAINGROUP id="pLzrNG" name="BabuFrik">
     <GROUP id="{2C18E4FC-5DCD-1DA1-A8D5-AB212A37041B}" name="Resources">
       <FILE id="qXwzQt" name="AppIcon.png" compile="0" resource="1" file="Resources/AppIcon.png"/>
