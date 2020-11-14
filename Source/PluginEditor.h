@@ -53,9 +53,6 @@ private:
     BabuFrikAudioProcessorEditor* editor;
     bool wasInitialized = false;
     
-    // Look and feel
-    BabuFrikBaseLookAndFeel babuFrikBaseLookAndFeel;
-    
     // Header & footer components
     HeaderComponent header;
     LogoComponent logo;
