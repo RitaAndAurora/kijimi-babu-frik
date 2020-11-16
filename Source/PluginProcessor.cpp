@@ -1876,7 +1876,7 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                     const ScopedValueSetter<bool> scopedInputFlag (isReceivingFromMidiInput, true);
                     float newValue = (float)value/127.0;
                     parameters.getParameter(parameterID)->beginChangeGesture();
-                    parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
+                    parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);  // setValueNotifyingHost takes norm values from [0.0..1.0]
                     parameters.getParameter(parameterID)->endChangeGesture();
                 }
             }
@@ -1922,7 +1922,7 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                         const ScopedValueSetter<bool> scopedInputFlag (isReceivingFromMidiInput, true);
                         float newValue = (float)ccValue/127.0;
                         parameters.getParameter(parameterID)->beginChangeGesture();
-                        parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);
+                        parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);  // setValueNotifyingHost takes norm values from [0.0..1.0]
                         parameters.getParameter(parameterID)->endChangeGesture();
                     }
                 }
@@ -2172,8 +2172,8 @@ void BabuFrikAudioProcessor::setParametersFromSynthControlIdValuePairs (SynthCon
         String parameterID = idValuePairs[i].first;
         if (!skipGlobal || !kijimiInterface->isGlobalParameter(parameterID)){
             double newValue = idValuePairs[i].second;
-            float normedValue = parameters.getParameter(parameterID)->convertTo0to1(newValue);  // .setValueNotifyingHost requires range 0-1
-            parameters.getParameter(parameterID)->setValueNotifyingHost(normedValue);
+            float normedValue = parameters.getParameter(parameterID)->convertTo0to1(newValue);
+            parameters.getParameter(parameterID)->setValueNotifyingHost(normedValue);  // setValueNotifyingHost takes norm values from [0.0..1.0]
         }
     }
 }
@@ -2295,7 +2295,8 @@ void BabuFrikAudioProcessor::randomizeControlValues ()
             } else {
                 newValue = random->nextFloat();
             }
-            audioParameter->setValueNotifyingHost(newValue); // the "isChangingFromRandomizer" will prevent from sending MIDI messages for the controls...
+            audioParameter->setValueNotifyingHost(newValue);  // setValueNotifyingHost takes norm values from [0.0..1.0]
+            // the "isChangingFromRandomizer" will prevent from sending MIDI messages for the controls so we have to set them below...
         }
     }
     if (automaticSyncWithSynthEnabled){
