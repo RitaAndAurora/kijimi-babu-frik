@@ -96,9 +96,6 @@ Babu Frik can run as a **stand-alone application** or as an **audio plugin** ins
 
 The main advantage of loading Babu Frik as a plugin instead of using it stand-alone is that it allows the DAW to control KIJIMI's parameters, enabling **parameter automation** and any other sort of **modulation capabilities** offered by the DAW.
 
-
-
-
 ### 2.2 MIDI configuration
 
 Babu Frik communicates with KIJIMI over MIDI. When loaded as an audio plugin it acts as an intermediary between the DAW and KIJIMI, exposing KIJIMI controls as audio parameters of the plugin and then modifying them accordingly using MIDI *control change* and *sysex* messages.
@@ -249,7 +246,7 @@ Randomizer settings are stored with Babu Frik's internal state and will be remem
 
 Babu Frik incorporates an option to adjust the size of the UI to match smaller screens. You can adjust the size clicking in the `View...` button in the upper right corner of Babu Frik and selecting the `Zoom` sub-menu. Available options are 60%, 70%, 80%, 90% and 100% of the original size. The zoom preference is stored together with other Babu Frik properties so the preference is remembered in different runs of the app both running as stand-alone or as a plugin.
 
-Furthermore, Babu Frik can scroll the UI horizontally or vertically if it does fit all on the screen. If that is the case, scrollbar(s) will appear. You can choose to hide scrollbars (but still be able to scroll using the mouse) by ticking the `Hide scrollbars` option in the `View...` menu.
+Furthermore, Babu Frik can scroll the UI horizontally or vertically if it does not fit all on the screen. If that is the case, scrollbar(s) will appear. You can choose to hide scrollbars (but still be able to scroll using the mouse) by ticking the `Hide scrollbars` option in the `View...` menu.
 
 
 ## 3. Known bugs and limitations

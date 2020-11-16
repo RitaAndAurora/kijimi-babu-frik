@@ -1571,7 +1571,7 @@ void BabuFrikAudioProcessor::sendLCDRefreshMessageToKijimi ()
 
 void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int value)
 {
-    if (midiInput.get() == nullptr){
+    if (midiOutput.get() == nullptr){
         return;
     }
         
