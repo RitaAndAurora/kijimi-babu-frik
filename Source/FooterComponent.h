@@ -111,7 +111,7 @@ public:
             randomOptionsSubmenu.addSubMenu ("Affected controls", randomPanelOptionsSubmenu);
             randomOptionsSubmenu.addSubMenu ("Amount", randomAmountOptionsSubmenu);
             
-            m.addSubMenu ("Randomizer settings", randomOptionsSubmenu);
+            m.addSubMenu ("Randomizer", randomOptionsSubmenu);
             
             PopupMenu midiDevicesSubMenu;
             bool autoScanTicked = processor->midiDevicesAutoScanEnabled;
