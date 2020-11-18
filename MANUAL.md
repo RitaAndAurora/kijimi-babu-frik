@@ -63,6 +63,7 @@ Installation of Babu Frik should be straight-forward as we provide installer pac
 
 ### 1.1 Compatibility notes
 
+ * Babu Frik requires Kijimi Firmware 1.3.5. You can [download KIJIMI firmware 1.3.5 update pack here](https://github.com/RitaAndAurora/kijimi-babu-frik/releases/download/1.0/Kijimi.Update.Pack.1.3.5.zip).
  * Babu Frik should be compatibale with all major DAWs supporting either Audio Units (**AU**) or **VST3** plugins. 
  * Note that Babu Frik is **64-bit** so it might not work with old versions of DAWs. 
  * We did not compile an **AAX** version of the plugin because AAX requires a lot of bureaucracy on our side to get the plugin signed and hopfully the other formats will cover most setups.
