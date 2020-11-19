@@ -107,9 +107,12 @@ The MIDI configuration section includes dropdowns for configuring the MIDI **inp
 
 #### 2.2.1 MIDI input
 
-MIDI input is used to receive MIDI data from KIJIMI which allows to sync the state of Babu Frik with the real state of KIJIMI (e.g. when a knob or button is turned/pressed in KIJIMI, or when a patch is loaded). **MIDI input configuration is optional** as Babu Frik can operate without it, but Babu Frik will be working in sub-optimal conditions if MIDI input is not properly configured..
+MIDI input is used to receive MIDI data from KIJIMI which allows to sync the state of Babu Frik with the real state of KIJIMI (e.g. when a knob or button is turned/pressed in KIJIMI, or when a patch is loaded), or to transmit bank information from KIJIMI to Babu Frik. **MIDI input configuration is optional** as Babu Frik can operate without it, but Babu Frik will be working in sub-optimal conditions if MIDI input is not properly configured, and wont be able to receive banks from Kijimi.
 
 To configure MIDI input please select the device from the dropdown menu to which KIJIMI is sending messages. If your KIJIMI is connected over USB, you should see a device named "**Kijimi**". You also need to select the MIDI channel where KIJIMI sends the *control change* messages to. Note that KIJIMI also sends MIDI *sysex* messages and these do not have a specific MIDI channel therefore should work regardless of the MIDI input channel configuration.
+
+**IMPORTANT NOTE**: When connecting to Babu Frik through a MIDI interface insetad of the "**Kijimi**" USB device, make sure that your interface is not filtering out MIDI sysex messages because these needed for proper communication between Babu Frik and KIJIMI. If you are having problems with the communication, try using the "**Kijimi**" USB device.
+
 
 #### 2.2.2 MIDI output
 
@@ -119,7 +122,9 @@ To configure MIDI output please select the device from the dropdown menu that wi
 
 Note also that for Babu Frik to work optimally, **KIJIMI needs to have "CC receive" option enabled**. You'll find that option in the MIDI settings menu of KIJIMI and also in the extra controls panel of Babu Frik.
 
-**IMPORTANT NOTE**: Babu Frik only sends MIDI *control change* messages to the KIJIMI and does not handle any other kind of MIDI data. To send *note on/off* messages form your keyboard to the KIJIMI, you need to configure the routing independently of Babu Frik (e.g. using your DAW, using some other MIDI routing application, or sending notes via the KIJIMI MIDI DIN5 connector).
+**IMPORTANT NOTE**: When connecting to Babu Frik through a MIDI interface insetad of the "**Kijimi**" USB device, make sure that your interface is not filtering out MIDI sysex messages because these needed for proper communication between Babu Frik and KIJIMI. If you are having problems with the communication, try using the "**Kijimi**" USB device.
+
+**IMPORTANT NOTE**: Babu Frik only sends MIDI *control change* and *sysex* messages to the KIJIMI and does not handle any other kind of MIDI data. To send *note on/off* messages form your keyboard to the KIJIMI, you need to configure the routing independently of Babu Frik (e.g. using your DAW, using some other MIDI routing application, or sending notes via the KIJIMI MIDI DIN5 connector).
 
 
 #### 2.2.3 Automatic scanning of MIDI devices
