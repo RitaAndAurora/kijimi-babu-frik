@@ -54,9 +54,9 @@ Installation of Babu Frik should be straight-forward as we provide installer pac
 
  *windows*
  
-  * Stand-alone app: `c:\Program Files (x86)\BabuFrik\`
-  * VST2: `c:\Program Files (x86)\Common Files\VST2\`
-  * VST3: `c:\Program Files (x86)\Common Files\VST3\`
+  * Stand-alone app: `c:\Program Files\BabuFrik\`
+  * VST2: `c:\Program Files\Common Files\VST2\`
+  * VST3: `c:\Program Files\Common Files\VST3\`
 
  3. Run the stand-aloone app from the directory it has been installed or either open your favorite DAW. Babu Frik should appear in the list of available plugins. If that is not the case you might need to trigger a *re-scanning* of the plugins folder by the DAW. If after doing that Babu Frik still does not appear, make sure your DAW is looking for plugins in the default locations listed above.
 
@@ -76,6 +76,12 @@ Installation of Babu Frik should be straight-forward as we provide installer pac
    * windows 10 / Bitwig Studio 3
 
 ### 1.2 Release notes
+
+**Version 1.0.1**
+
+ * Fixed default installation paths for Windows installer
+ * Add support for firmware 1.3.6, which fixes sending SYSEX over DIN5
+ * Separate panel knobs behavior and cc knobs behaviour into two independent controls (as in firmware 1.3.6)
 
 **Version 1.0**
 
