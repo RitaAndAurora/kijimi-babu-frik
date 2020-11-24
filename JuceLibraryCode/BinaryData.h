@@ -27,13 +27,13 @@ namespace BinaryData
     const int            KijimiExtraPanelBackground_pngSize = 98025;
 
     extern const char*   KijimiMainPanelBackground_png;
-    const int            KijimiMainPanelBackground_pngSize = 179747;
+    const int            KijimiMainPanelBackground_pngSize = 183997;
 
     extern const char*   KijimiLfoPanelBackground_png;
     const int            KijimiLfoPanelBackground_pngSize = 151300;
 
     extern const char*   default_state_xml;
-    const int            default_state_xmlSize = 184139;
+    const int            default_state_xmlSize = 184188;
 
     extern const char*   Cholesky;
     const int            CholeskySize = 1206;

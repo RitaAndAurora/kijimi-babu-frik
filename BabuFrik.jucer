@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="ONyb0V" name="BabuFrik" projectType="audioplug" version="1.0"
+<JUCERPROJECT id="ONyb0V" name="BabuFrik" projectType="audioplug" version="1.0.1"
               companyName="Rita &amp; Aurora" companyEmail="frederic.font@gmail.com"
               pluginName="Babu Frik" pluginManufacturerCode="RaAu" pluginCode="BAFR"
               pluginDesc="Make your KIJIMI synthetizer sing in sith!" pluginVST3Category="Fx"

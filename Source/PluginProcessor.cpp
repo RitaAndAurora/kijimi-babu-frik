@@ -355,6 +355,10 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
                                                             "Knobs behaviour", // parameter name
                                                             StringArray ({"pick up", "merge", "instant"}), // parameter choices
                                                             0),
+                std:: make_unique < AudioParameterChoice > ("KIJIMI_KNOB_CC_BEH", // parameter ID
+                                                            "CC Knobs behaviour", // parameter name
+                                                            StringArray ({"pick up", "merge", "instant"}), // parameter choices
+                                                            0),
                 std:: make_unique < AudioParameterFloat > ("KIJIMI_CC_RECEIVE", // parameter ID
                                                             "CC Receive", // parameter name
                                                             NormalisableRange < float > (0.0f, 1.0f, 1.0f), // parameter range
@@ -1024,6 +1028,7 @@ BabuFrikAudioProcessor::BabuFrikAudioProcessor()
     parameters.addParameterListener ("KIJIMI_GLIDE_MODE", this);
     parameters.addParameterListener ("KIJIMI_VOLUME", this);
     parameters.addParameterListener ("KIJIMI_KNOB_BEH", this);
+    parameters.addParameterListener ("KIJIMI_KNOB_CC_BEH", this);
     parameters.addParameterListener ("KIJIMI_CC_RECEIVE", this);
     parameters.addParameterListener ("KIJIMI_AT_MODE", this);
     parameters.addParameterListener ("KIJIMI_MPE_CH", this);

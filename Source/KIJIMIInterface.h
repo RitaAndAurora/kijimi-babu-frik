@@ -113,6 +113,7 @@ public:
         synthControls.push_back(KIJIMISynthControl("KIJIMI_GLIDE_MODE", "Glide mode", "button2", 32, -1, -1, 79, "21_63_105", "float", true, "closest", true, 0, 2, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_VOLUME", "Volume", "knob", 87, -1, -1, 52, "direct", "float", false, "mix", true, 0, 127, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_KNOB_BEH", "Knobs behaviour", "select", -1, 13, -1, 66, "direct", "choice", false, "mix", true, 0, 2, 2));
+        synthControls.push_back(KIJIMISynthControl("KIJIMI_KNOB_CC_BEH", "CC Knobs behaviour", "select", -1, 87, -1, 254, "direct", "choice", false, "mix", true, 0, 2, 2));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_CC_RECEIVE", "CC Receive", "button1", -1, 16, -1, 69, "direct", "float", false, "mix", true, 0, 1, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_AT_MODE", "Aftertouch mode", "select", -1, 21, -1, 74, "direct", "choice", false, "mix", true, 0, 2, 0));
         synthControls.push_back(KIJIMISynthControl("KIJIMI_MPE_CH", "MPE base channel", "knob", -1, 23, -1, 76, "direct", "float", false, "mix", true, 0, 7, 1));
@@ -259,6 +260,7 @@ public:
         
         // --> Start auto-generated code B
         globalControlIDs.add("KIJIMI_KNOB_BEH");
+        globalControlIDs.add("KIJIMI_KNOB_CC_BEH");
         globalControlIDs.add("KIJIMI_CC_RECEIVE");
         globalControlIDs.add("KIJIMI_AT_MODE");
         globalControlIDs.add("KIJIMI_MPE_CH");

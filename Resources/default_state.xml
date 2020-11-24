@@ -196,6 +196,7 @@
     <PARAM id="KIJIMI_CC74_DEST" value="0.0"/>
     <PARAM id="KIJIMI_CC_RECEIVE" value="1.0"/>
     <PARAM id="KIJIMI_KNOB_BEH" value="2.0"/>
+    <PARAM id="KIJIMI_KNOB_CC_BEH" value="2.0"/>
     <PARAM id="KIJIMI_MAX_VOICES" value="8.0"/>
     <PARAM id="KIJIMI_MIDI_CH" value="0.0"/>
     <PARAM id="KIJIMI_MODW_DEST" value="4.0"/>

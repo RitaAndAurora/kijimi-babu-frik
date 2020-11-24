@@ -1023,6 +1023,10 @@ public:
         sliderKIJIMI_KNOB_BEH.addItemList (StringArray ({"PICK UP", "MERGE", "INSTANT"}), 1);
         addAndMakeVisible (&sliderKIJIMI_KNOB_BEH);
         sliderAttachmentKIJIMI_KNOB_BEH.reset(new AudioProcessorValueTreeState::ComboBoxAttachment (processor->parameters, "KIJIMI_KNOB_BEH", sliderKIJIMI_KNOB_BEH));
+        // ComboBox KIJIMI_KNOB_CC_BEH
+        sliderKIJIMI_KNOB_CC_BEH.addItemList (StringArray ({"PICK UP", "MERGE", "INSTANT"}), 1);
+        addAndMakeVisible (&sliderKIJIMI_KNOB_CC_BEH);
+        sliderAttachmentKIJIMI_KNOB_CC_BEH.reset(new AudioProcessorValueTreeState::ComboBoxAttachment (processor->parameters, "KIJIMI_KNOB_CC_BEH", sliderKIJIMI_KNOB_CC_BEH));
         // Slider KIJIMI_CC_RECEIVE
         sliderKIJIMI_CC_RECEIVE.setSliderStyle (Slider::Rotary);
         sliderKIJIMI_CC_RECEIVE.setTextBoxStyle (Slider::NoTextBox, false, 90, 0);
@@ -1200,10 +1204,11 @@ public:
         sliderKIJIMI_GLIDE_RATE.setBounds (0.941 * getWidth(), 0.101 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_GLIDE_RATE
         sliderKIJIMI_GLIDE_MODE.setBounds (0.942 * getWidth(), 0.266 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_GLIDE_MODE
         sliderKIJIMI_VOLUME.setBounds (0.941 * getWidth(), 0.468 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_VOLUME
-        sliderKIJIMI_KNOB_BEH.setBounds (0.648 * getWidth(), 0.881 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_KNOB_BEH
+        sliderKIJIMI_KNOB_BEH.setBounds (0.645 * getWidth(), 0.881 * getHeight(), 0.051 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_KNOB_BEH
+        sliderKIJIMI_KNOB_CC_BEH.setBounds (0.703 * getWidth(), 0.881 * getHeight(), 0.051 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_KNOB_CC_BEH
         sliderKIJIMI_CC_RECEIVE.setBounds (0.942 * getWidth(), 0.651 * getHeight(), 0.031 * getWidth(), 0.110 * getHeight()); // Slider KIJIMI_CC_RECEIVE
-        sliderKIJIMI_AT_MODE.setBounds (0.733 * getWidth(), 0.881 * getHeight(), 0.070 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_AT_MODE
-        sliderKIJIMI_MPE_CH.setBounds (0.821 * getWidth(), 0.844 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_MPE_CH
+        sliderKIJIMI_AT_MODE.setBounds (0.762 * getWidth(), 0.881 * getHeight(), 0.051 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_AT_MODE
+        sliderKIJIMI_MPE_CH.setBounds (0.832 * getWidth(), 0.844 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_MPE_CH
         sliderKIJIMI_MIDI_CH.setBounds (0.934 * getWidth(), 0.839 * getHeight(), 0.048 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_MIDI_CH
         sliderKIJIMI_MIDI_OUT_CH.setBounds (0.934 * getWidth(), 0.885 * getHeight(), 0.048 * getWidth(), 0.037 * getHeight()); // Slider KIJIMI_MIDI_OUT_CH
         sliderKIJIMI_MAX_VOICES.setBounds (0.881 * getWidth(), 0.844 * getHeight(), 0.033 * getWidth(), 0.083 * getHeight()); // Slider KIJIMI_MAX_VOICES
@@ -1385,6 +1390,8 @@ private:
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_VOLUME;
     ComboBox sliderKIJIMI_KNOB_BEH;
             std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> sliderAttachmentKIJIMI_KNOB_BEH;
+    ComboBox sliderKIJIMI_KNOB_CC_BEH;
+            std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> sliderAttachmentKIJIMI_KNOB_CC_BEH;
     CycleButtonSlider2StepsInt sliderKIJIMI_CC_RECEIVE;
             std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> sliderAttachmentKIJIMI_CC_RECEIVE;
     ComboBox sliderKIJIMI_AT_MODE;
