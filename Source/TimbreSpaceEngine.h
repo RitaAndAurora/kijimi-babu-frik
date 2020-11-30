@@ -325,6 +325,10 @@ public:
         return synthSlidersOutOfSync;
     }
     
+    void setMinMillisecondsBetweenTimbreSpaceUpdates(int64 milliseconds){
+        minMillisecondsBetweenTimbreSpaceUpdates = milliseconds;
+    }
+    
 private:
     
     ValueTree solution;
@@ -335,6 +339,7 @@ private:
     bool synthSlidersOutOfSync; // This is used to indicate wether synth controls correpsond to a position in the timbre space or are out of sync
     PresetDistancePairsToInterpolate selectedPointInterpolationData;
     int64 lastTimeInterpolatedPresetLoaded;
+    int64 minMillisecondsBetweenTimbreSpaceUpdates = MIN_MILLISECONDS_BETWEEN_TIMBRE_SPACE_UPDATES;
     
     void logMessage (const String& message)
     {
@@ -346,7 +351,7 @@ private:
     {
         // Load interpolated preset
         int64 currentTime = Time::currentTimeMillis();
-        if (currentTime - lastTimeInterpolatedPresetLoaded > MIN_MILLISECONDS_BETWEEN_TIMBRE_SPACE_UPDATES){
+        if (currentTime - lastTimeInterpolatedPresetLoaded > minMillisecondsBetweenTimbreSpaceUpdates){
             // Because loading the preset to the synth involves sending many MIDI messages, make sure we don't trigger that action
             // More than X times per second
             sendActionMessage(ACTION_LOAD_INTERPOLATED_PRESET);

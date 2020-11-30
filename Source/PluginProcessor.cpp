@@ -1965,6 +1965,13 @@ void BabuFrikAudioProcessor::setMidiOutputDevice (const String& deviceIdentifier
     } else {
         midiOutput.reset();
         midiOutput = MidiOutput::openDevice(deviceIdentifier);
+        if (midiOutput.get()->getName().toLowerCase().contains("kijimi")){
+            // This means Babu Frik is connected to Kijimi via USB MIDI device, use a lower minimum time between timbre space updates (USB connection allows more messages per second)
+            timbreSpaceEngine->setMinMillisecondsBetweenTimbreSpaceUpdates(MIN_MILLISECONDS_BETWEEN_TIMBRE_SPACE_UPDATES);
+        } else {
+            // This means Babu Frik is connected to Kijimi via DIN5 MIDI device, use a higher minimum time between timbre space updates (DIN5 connection allows less messages per second)
+            timbreSpaceEngine->setMinMillisecondsBetweenTimbreSpaceUpdates(MIN_MILLISECONDS_BETWEEN_TIMBRE_SPACE_UPDATES_MIDI_DIN5);
+        }
     }
     sendActionMessage(ACTION_UPDATED_MIDI_DEVICE_SETTINGS);
 }

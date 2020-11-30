@@ -79,9 +79,12 @@ public:
         }
         else if (button == &randomizeButton)
         {
-            selectedActionID = MENU_OPTION_ID_RANDOMIZE;
+            int64 currentTime = Time::getCurrentTime().toMilliseconds();
+            if ((currentTime - lastTimeRandomizeButtonPressed) > MIN_TIME_BETWEEN_NEXT_PREV_RAND_PATCH_BUTTON_PRESSED){
+                selectedActionID = MENU_OPTION_ID_RANDOMIZE;
+                lastTimeRandomizeButtonPressed = currentTime;
+            }
         }
-        
         if (selectedActionID > 0){
             processMenuAction(selectedActionID);
         }
@@ -108,6 +111,7 @@ private:
     TextButton importButton;
     TextButton saveButton;
     TextButton randomizeButton;
+    int64 lastTimeRandomizeButtonPressed = 0;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlPanelActionsComponent);
 };

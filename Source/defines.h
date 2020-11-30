@@ -38,6 +38,8 @@
 #define REFRESH_MIDI_DEVICES_TIMER_INTERVAL_MS 1000  // Set to 0 to disable the timer
 #define MIDI_IN_SAME_CC_TIME_THRESHOLD_MS 25
 
+#define MIN_TIME_BETWEEN_NEXT_PREV_RAND_PATCH_BUTTON_PRESSED 250  // Don't allow next/previous buttons to be pressed faster than once every 250 ms
+
 #define KIJIMI_PRESET_NUM_BYTES 262
 
 #define EMPTY_PRESET_SUM_THRESHOLD 5.0
@@ -85,6 +87,7 @@
 #define SPACE_Y_PARAMETER_ID "space_y"
 #define SPACE_Y_PARAMETER_NAME "Space Y"
 #define MIN_MILLISECONDS_BETWEEN_TIMBRE_SPACE_UPDATES 150
+#define MIN_MILLISECONDS_BETWEEN_TIMBRE_SPACE_UPDATES_MIDI_DIN5 250
 #define MIN_MILLISECONDS_FOR_MOUSE_DRAG_UPDATE 0  // Leave this to 0, then we limit the messages sent via timbre space with the define above
 
 #define STATE_MAIN_STATE_IDENTIFIER "KIJIMIState"
