@@ -81,7 +81,9 @@ Installation of Babu Frik should be straight-forward as we provide installer pac
 
  * Fixed default installation paths for Windows installer
  * Add support for firmware 1.3.6, which fixes sending SYSEX over DIN5
+ * Limit the rate at which SYSEX messages are sent over DIN5 connection, also the rate at which "Next patch", "Previous patch" amd "Randomize!" buttons can be pressed to avoid problems with messages being sent too fast
  * Separate panel knobs behavior and cc knobs behaviour into two independent controls (as in firmware 1.3.6)
+
 
 **Version 1.0**
 
