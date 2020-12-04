@@ -269,8 +269,8 @@ void UIWrapperComponent::actionListenerCallback (const String &message)
         
         resized();
     } else if (message.startsWith(String(ACTION_FIRMWARE_UPDATE_REQUIRED))){
-        AlertWindow w ("Your KIJIMI firmware is out of date", "", AlertWindow::NoIcon);
-        w.addTextBlock ("Your KIJIMI has firmware version " + processor->currentFirmwareLabel + " but Babu Frik requires firmware " + processor->requiredFirmwareLabel + ". You can still use Babu Frik but some things might not work as expected. Please, update your KIJIMI :)");
+        AlertWindow w ("Firmware out of date", "", AlertWindow::NoIcon);
+        w.addTextBlock ("Your KIJIMI has firmware version " + processor->currentFirmwareLabel + ", but Babu Frik requires firmware " + processor->requiredFirmwareLabel + ". You can still use Babu Frik but some things might not work as expected. You can download the new firmware from the Babu Frik download page :)");
         w.addButton ("Ok", 0, KeyPress (KeyPress::returnKey, 0, 0));
         w.runModalLoop();
     } else if (message.startsWith(String(ACTION_CC_REVEICE_IS_TURNED_OFF))){
