@@ -1568,17 +1568,21 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
 void BabuFrikAudioProcessor::sendLCDRefreshMessageToKijimi ()
 {
     if (midiInput.get() != nullptr){
-        uint8 sysexdata[] = { 0x02, 0x21};
-        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
-        midiOutput.get()->sendMessageNow(msg);
+        if (usesNewSysexProtocol){
+            uint8 sysexdata[] = { SYSEX_KIJIMI_ID_NEW_PROTOCOL_0, SYSEX_KIJIMI_ID_NEW_PROTOCOL_1, SYSEX_KIJIMI_ID_NEW_PROTOCOL_2, SYSEX_LCD_REFRESH_COMMAND};
+            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
+            midiOutput.get()->sendMessageNow(msg);
+        } else {
+            uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_LCD_REFRESH_COMMAND};
+            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
+            midiOutput.get()->sendMessageNow(msg);
+        }
     }
 }
 
 void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int value)
 {
-    if (midiOutput.get() == nullptr){
-        return;
-    }
+    if (midiOutput.get() == nullptr) return;
         
     int ccNumber = kijimiInterface->getCCNumberForParameterID(parameterID);
     if (ccNumber > -1){
@@ -1606,9 +1610,16 @@ void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int 
 
             if (midiOptionID > -1){
                 // Paramter is controlled using SYSEX message and the option ID range
-                uint8 sysexdata[] = { 0x02, 0x06, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
-                MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
-                midiOutput.get()->sendMessageNow(msg);
+                if (usesNewSysexProtocol){
+                    uint8 sysexdata[] = { SYSEX_KIJIMI_ID_NEW_PROTOCOL_0, SYSEX_KIJIMI_ID_NEW_PROTOCOL_1, SYSEX_KIJIMI_ID_NEW_PROTOCOL_2, SYSEX_SET_OPTION, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
+                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 6);
+                    midiOutput.get()->sendMessageNow(msg);
+                } else {
+                    uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_SET_OPTION, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
+                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
+                    midiOutput.get()->sendMessageNow(msg);
+                }
+            
                 timestampsLastCCSent[midiOptionID + 200] = Time::getCurrentTime().toMilliseconds(); // Store timestamp when the message was sent
                 #if JUCE_DEBUG
                     if (LOG_INDIVIDUAL_PARAMETER_CHANGES == 1){
@@ -1622,9 +1633,16 @@ void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int 
                 
             } else {
                 // Paramter is controlled using SYSEX message and the extended option ID range (this is only used for LFOs panel)
-                uint8 sysexdata[] = { 0x02, 0x18, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
-                MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
-                midiOutput.get()->sendMessageNow(msg);
+                if (usesNewSysexProtocol){
+                    uint8 sysexdata[] = { SYSEX_KIJIMI_ID_NEW_PROTOCOL_0, SYSEX_KIJIMI_ID_NEW_PROTOCOL_1, SYSEX_KIJIMI_ID_NEW_PROTOCOL_2, SYSEX_SET_OPTION_EXTENDED, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
+                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 6);
+                    midiOutput.get()->sendMessageNow(msg);
+                } else {
+                    uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_SET_OPTION_EXTENDED, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
+                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
+                    midiOutput.get()->sendMessageNow(msg);
+                }
+                
                 timestampsLastCCSent[midiExtendedOptionID + 300] = Time::getCurrentTime().toMilliseconds(); // Store timestamp when the message was sent
                 #if JUCE_DEBUG
                     if (LOG_INDIVIDUAL_PARAMETER_CHANGES == 1){
@@ -1803,7 +1821,10 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
         } else if (m.getSysExDataSize() == 5){
             const uint8 *buf = m.getSysExData();
             
-            if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x15)){
+            if (((int)buf[0] == SYSEX_KIJIMI_ID) && ((int)buf[1] == SYSEX_FW_VERSION_COMMAND)){
+                usesNewSysexProtocol = false;
+                sysexProtocolResolved = true;
+                
                 // Firmware version (check if supported, otherwise show alert)
                 int first = (int)buf[2];
                 int second = (int)buf[3];
@@ -1883,6 +1904,26 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                     parameters.getParameter(parameterID)->beginChangeGesture();
                     parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);  // setValueNotifyingHost takes norm values from [0.0..1.0]
                     parameters.getParameter(parameterID)->endChangeGesture();
+                }
+            }
+        } else if (m.getSysExDataSize() == 7){
+            const uint8 *buf = m.getSysExData();
+            
+            if (((int)buf[0] == SYSEX_KIJIMI_ID_NEW_PROTOCOL_0) && ((int)buf[1] == SYSEX_KIJIMI_ID_NEW_PROTOCOL_1) && ((int)buf[2] == SYSEX_KIJIMI_ID_NEW_PROTOCOL_2) && ((int)buf[3] == SYSEX_FW_VERSION_COMMAND)){
+                usesNewSysexProtocol = true;
+                sysexProtocolResolved = true;
+                
+                // Firmware version (check if supported, otherwise show alert)
+                int first = (int)buf[4];
+                int second = (int)buf[5];
+                int third = (int)buf[6];
+                int combined = first * 1000 + second * 100 + third;
+                int combinedRequired = REQUIRED_FW_FIRST * 1000 + REQUIRED_FW_SECOND * 100 + REQUIRED_FW_THIRD;
+                
+                if (combined < combinedRequired){
+                    currentFirmwareLabel = (String)first + "." + (String)second + "." + (String)third;
+                    logMessage("Old firmware detected: " + currentFirmwareLabel + ", should be " + requiredFirmwareLabel);
+                    sendActionMessage(ACTION_FIRMWARE_UPDATE_REQUIRED);
                 }
             }
         }
@@ -2463,9 +2504,20 @@ void BabuFrikAudioProcessor::showOrHideKIJIMIPanel(String panelName, bool doShow
 
 void BabuFrikAudioProcessor::requestFirmwareVersion(){
     if (midiInput.get() != nullptr){
-        uint8 sysexdata[] = { 0x02, 0x15}; // Get version command
-        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
-        midiOutput.get()->sendMessageNow(msg);
+        if ((!sysexProtocolResolved) || (!usesNewSysexProtocol)){
+            // Get version command (old protocol)
+            uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_FW_VERSION_COMMAND};
+            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
+            midiOutput.get()->sendMessageNow(msg);
+        }
+        
+        if ((!sysexProtocolResolved) || (usesNewSysexProtocol)){
+            // Get version command (new protocol)
+            uint8 sysexdata[] = { SYSEX_KIJIMI_ID_NEW_PROTOCOL_0, SYSEX_KIJIMI_ID_NEW_PROTOCOL_1, SYSEX_KIJIMI_ID_NEW_PROTOCOL_2, SYSEX_FW_VERSION_COMMAND};
+            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
+            midiOutput.get()->sendMessageNow(msg);
+        }
+        // Note that if sysexProtocolResolved is not set, then the 2 messages for the 2 protocols will be sent
     }
 }
 

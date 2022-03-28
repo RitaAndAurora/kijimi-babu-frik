@@ -175,6 +175,12 @@ public:
     String currentFirmwareLabel = "0.0.0";
     String requiredFirmwareLabel = "0.0.0";
 
+    // The flags below are used to provide compatibility of old and new sysex protocol for simple things like setting parameters, but some other things
+    // like sending and receiving banks will not work with old FW versions and newer Babu Frik because it would complicate the code too much to support
+    // both protocols at the same time.
+    bool sysexProtocolResolved = false;
+    bool usesNewSysexProtocol = true;
+    
 private:    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BabuFrikAudioProcessor)
