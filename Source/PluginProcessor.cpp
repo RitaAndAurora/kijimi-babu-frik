@@ -1569,8 +1569,8 @@ void BabuFrikAudioProcessor::sendLCDRefreshMessageToKijimi ()
 {
     if (midiInput.get() != nullptr){
         if (usesNewSysexProtocol){
-            uint8 sysexdata[] = { SYSEX_KIJIMI_ID_NEW_PROTOCOL_0, SYSEX_KIJIMI_ID_NEW_PROTOCOL_1, SYSEX_KIJIMI_ID_NEW_PROTOCOL_2, SYSEX_LCD_REFRESH_COMMAND};
-            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
+            uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_LCD_REFRESH_COMMAND};
+            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 5);
             midiOutput.get()->sendMessageNow(msg);
         } else {
             uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_LCD_REFRESH_COMMAND};
@@ -1611,8 +1611,8 @@ void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int 
             if (midiOptionID > -1){
                 // Paramter is controlled using SYSEX message and the option ID range
                 if (usesNewSysexProtocol){
-                    uint8 sysexdata[] = { SYSEX_KIJIMI_ID_NEW_PROTOCOL_0, SYSEX_KIJIMI_ID_NEW_PROTOCOL_1, SYSEX_KIJIMI_ID_NEW_PROTOCOL_2, SYSEX_SET_OPTION, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
-                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 6);
+                    uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_SET_OPTION, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
+                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 7);
                     midiOutput.get()->sendMessageNow(msg);
                 } else {
                     uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_SET_OPTION, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
@@ -1634,8 +1634,8 @@ void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int 
             } else {
                 // Paramter is controlled using SYSEX message and the extended option ID range (this is only used for LFOs panel)
                 if (usesNewSysexProtocol){
-                    uint8 sysexdata[] = { SYSEX_KIJIMI_ID_NEW_PROTOCOL_0, SYSEX_KIJIMI_ID_NEW_PROTOCOL_1, SYSEX_KIJIMI_ID_NEW_PROTOCOL_2, SYSEX_SET_OPTION_EXTENDED, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
-                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 6);
+                    uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_SET_OPTION_EXTENDED, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
+                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 7);
                     midiOutput.get()->sendMessageNow(msg);
                 } else {
                     uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_SET_OPTION_EXTENDED, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
@@ -1906,17 +1906,17 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                     parameters.getParameter(parameterID)->endChangeGesture();
                 }
             }
-        } else if (m.getSysExDataSize() == 7){
+        } else if (m.getSysExDataSize() == 8){
             const uint8 *buf = m.getSysExData();
             
-            if (((int)buf[0] == SYSEX_KIJIMI_ID_NEW_PROTOCOL_0) && ((int)buf[1] == SYSEX_KIJIMI_ID_NEW_PROTOCOL_1) && ((int)buf[2] == SYSEX_KIJIMI_ID_NEW_PROTOCOL_2) && ((int)buf[3] == SYSEX_FW_VERSION_COMMAND)){
+            if (((int)buf[0] == SYSEX_BC_ID_0) && ((int)buf[1] == SYSEX_BC_ID_1) && ((int)buf[2] == SYSEX_BC_ID_2) && ((int)buf[3] == SYSEX_KIJIMI_ID) && ((int)buf[4] == SYSEX_FW_VERSION_COMMAND)){
                 usesNewSysexProtocol = true;
                 sysexProtocolResolved = true;
                 
                 // Firmware version (check if supported, otherwise show alert)
-                int first = (int)buf[4];
-                int second = (int)buf[5];
-                int third = (int)buf[6];
+                int first = (int)buf[5];
+                int second = (int)buf[6];
+                int third = (int)buf[7];
                 int combined = first * 1000 + second * 100 + third;
                 int combinedRequired = REQUIRED_FW_FIRST * 1000 + REQUIRED_FW_SECOND * 100 + REQUIRED_FW_THIRD;
                 
@@ -2513,8 +2513,8 @@ void BabuFrikAudioProcessor::requestFirmwareVersion(){
         
         if ((!sysexProtocolResolved) || (usesNewSysexProtocol)){
             // Get version command (new protocol)
-            uint8 sysexdata[] = { SYSEX_KIJIMI_ID_NEW_PROTOCOL_0, SYSEX_KIJIMI_ID_NEW_PROTOCOL_1, SYSEX_KIJIMI_ID_NEW_PROTOCOL_2, SYSEX_FW_VERSION_COMMAND};
-            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
+            uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_FW_VERSION_COMMAND};
+            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 5);
             midiOutput.get()->sendMessageNow(msg);
         }
         // Note that if sysexProtocolResolved is not set, then the 2 messages for the 2 protocols will be sent
