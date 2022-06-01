@@ -23,7 +23,8 @@ class BabuFrikAudioProcessor  : public AudioProcessor,
                                 private AudioProcessorValueTreeState::Listener,
                                 public ActionBroadcaster,
                                 public ActionListener,
-                                public MidiInputCallback
+                                public MidiInputCallback,
+                                public Timer
 {
 public:
     //==============================================================================
@@ -157,6 +158,7 @@ public:
     bool isLFO1SyncedToMidi();
     bool isLFO2SyncedToMidi();
     bool isLFOPolyMode();
+    void timerCallback() override; // timer callback for requesting firmware if not already detected
     
     class DelayedRequestLoadControlsFromSynthThread : private Thread
     {
