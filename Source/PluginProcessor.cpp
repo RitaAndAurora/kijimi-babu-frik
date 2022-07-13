@@ -2199,9 +2199,13 @@ void BabuFrikAudioProcessor::savePresetToBankLocation (int bankLocation)
 
 void BabuFrikAudioProcessor::saveBankFile ()
 {
+    juce::String patternFilter = "*.syx";
+#if JUCE_IOS
+    patternFilter = "";
+#endif
     FileChooser fileChooser ("",
                              getDirectoryForFileSaveLoad(),
-                             "*.syx");
+                             patternFilter);
     if (fileChooser.browseForFileToSave(true))
     {
         File file (fileChooser.getResult());
@@ -2370,9 +2374,13 @@ void BabuFrikAudioProcessor::randomizeControlValues ()
 
 void BabuFrikAudioProcessor::importFromPatchFile ()
 {
+    juce::String patternFilter = "*.kpatch";
+#if JUCE_IOS
+    patternFilter = "";
+#endif
     FileChooser fileChooser ("Please select a KIJIMI patch file to load...",
                              getDirectoryForFileSaveLoad(),
-                             "*.kpatch");
+                             patternFilter);
     if (fileChooser.browseForFileToOpen())
     {
         File file (fileChooser.getResult());
@@ -2389,9 +2397,13 @@ void BabuFrikAudioProcessor::importFromPatchFile ()
 
 void BabuFrikAudioProcessor::saveToPatchFile ()
 {
+    juce::String patternFilter = "*.kpatch";
+#if JUCE_IOS
+    patternFilter = "";
+#endif
     FileChooser fileChooser ("",
                              getDirectoryForFileSaveLoad(),
-                             "*.kpatch");
+                             patternFilter);
     if (fileChooser.browseForFileToSave(true))
     {
         File file (fileChooser.getResult());
