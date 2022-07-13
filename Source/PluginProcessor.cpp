@@ -1324,6 +1324,10 @@ void BabuFrikAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
 {
     // Do nothing with AUDIO and MIDI buffers as MIDI is sent and received using MidiInput
     // and MidiOutput objects and this plugin does not process any audio.
+    
+#if JUCE_IOS
+    buffer.clear();
+#endif
 }
 
 //==============================================================================

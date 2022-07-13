@@ -55,7 +55,11 @@ void BabuFrikAudioProcessorEditor::resized ()
     
     uiViewport.setBounds(getBounds());
 
+#if JUCE_IOS
+    int maxHeight = (int)(screenHeight * 1.0);
+#else
     int maxHeight = (int)(screenHeight * 0.95);  // take maximum of 90% of the height of the screen
+#endif
     if (maxHeight == 0){
         maxHeight = 100; // This can happen when not everything is initialised (?), make sure we don't set a size of 0 or JUCE will complain
     }
@@ -155,7 +159,11 @@ void UIWrapperComponent::resized()
 
     float unitMargin = 5 * scale;
     float unitRowHeight = 20 * scale;
+#if JUCE_IOS
+    float fullWidth = 1200 * scale - unitMargin;
+#else
     float fullWidth = 1200 * scale;
+#endif
     float footerWidth = 190 * scale;
     
     float headerHeight = 1.5 * unitRowHeight;
@@ -227,7 +235,7 @@ void UIWrapperComponent::resized()
     
     setSize(fullWidth, accumulatedHeight + unitMargin);
     sizeWidth = fullWidth;  // used by the viewport
-    sizeHeight = accumulatedHeight + unitMargin;  // used by the viewport
+    sizeHeight = accumulatedHeight + unitMargin + 400;  // used by the viewport
     
     editor->resized();
 }

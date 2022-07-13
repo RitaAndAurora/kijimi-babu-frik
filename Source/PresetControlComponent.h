@@ -138,9 +138,15 @@ public:
     
     void loadBankFile()
     {
+#if JUCE_IOS
+        // In ios don't filter by file type as it does not seem to work properly
+        FileChooser fileChooser ("Please select a KIJIMI bank file to load...",
+                                 processor->getDirectoryForFileSaveLoad());
+#else
         FileChooser fileChooser ("Please select a KIJIMI bank file to load...",
                                  processor->getDirectoryForFileSaveLoad(),
                                  "*.syx");
+#endif
         if (fileChooser.browseForFileToOpen())
         {
             File bankFile (fileChooser.getResult());
