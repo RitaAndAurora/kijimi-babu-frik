@@ -1288,8 +1288,17 @@ void BabuFrikAudioProcessor::changeProgramName (int index, const String& newName
 //==============================================================================
 void BabuFrikAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    requestFirmwareVersion();
+    startTimer(5000); // Start timer to check firmware version (every 5 seonds)
     delayedRequestLoadControlsSysexThread.run();  // Trigger loading state from synth now that all midi devices and the saved state will have been loaded (do it delayed so it gives time for the firmware version command below to return in KIJIMI)
+}
+
+void BabuFrikAudioProcessor::timerCallback()
+{
+    if (!sysexProtocolResolved){
+        requestFirmwareVersion();
+    } else {
+        stopTimer();
+    }
 }
 
 void BabuFrikAudioProcessor::releaseResources()
@@ -1572,15 +1581,9 @@ void BabuFrikAudioProcessor::setStateFromXml (XmlElement* xmlState)
 void BabuFrikAudioProcessor::sendLCDRefreshMessageToKijimi ()
 {
     if (midiInput.get() != nullptr){
-        if (usesNewSysexProtocol){
-            uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_LCD_REFRESH_COMMAND};
-            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 5);
-            midiOutput.get()->sendMessageNow(msg);
-        } else {
-            uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_LCD_REFRESH_COMMAND};
-            MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
-            midiOutput.get()->sendMessageNow(msg);
-        }
+        uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_LCD_REFRESH_COMMAND};
+        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 5);
+        midiOutput.get()->sendMessageNow(msg);
     }
 }
 
@@ -1614,15 +1617,9 @@ void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int 
 
             if (midiOptionID > -1){
                 // Paramter is controlled using SYSEX message and the option ID range
-                if (usesNewSysexProtocol){
-                    uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_SET_OPTION, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
-                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 7);
-                    midiOutput.get()->sendMessageNow(msg);
-                } else {
-                    uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_SET_OPTION, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
-                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
-                    midiOutput.get()->sendMessageNow(msg);
-                }
+                uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_SET_OPTION, (uint8)midiOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
+                MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 7);
+                midiOutput.get()->sendMessageNow(msg);
             
                 timestampsLastCCSent[midiOptionID + 200] = Time::getCurrentTime().toMilliseconds(); // Store timestamp when the message was sent
                 #if JUCE_DEBUG
@@ -1637,15 +1634,9 @@ void BabuFrikAudioProcessor::sendControlToSynth (const String& parameterID, int 
                 
             } else {
                 // Paramter is controlled using SYSEX message and the extended option ID range (this is only used for LFOs panel)
-                if (usesNewSysexProtocol){
-                    uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_SET_OPTION_EXTENDED, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
-                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 7);
-                    midiOutput.get()->sendMessageNow(msg);
-                } else {
-                    uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_SET_OPTION_EXTENDED, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
-                    MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
-                    midiOutput.get()->sendMessageNow(msg);
-                }
+                uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_SET_OPTION_EXTENDED, (uint8)midiExtendedOptionID, (uint8)value};  // 0xF0 ... and 0xF7 are added by JUCE
+                MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 7);
+                midiOutput.get()->sendMessageNow(msg);
                 
                 timestampsLastCCSent[midiExtendedOptionID + 300] = Time::getCurrentTime().toMilliseconds(); // Store timestamp when the message was sent
                 #if JUCE_DEBUG
@@ -1764,11 +1755,11 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
     
     if (m.isSysEx()){
         // If message is sysex, check the size and code to know what it is about
-        if (m.getSysExDataSize() == 258){
+        if (m.getSysExDataSize() == 261){
             // State information sysex message
             // Create a KIJIMIPresetBytes object using the received data and load it to controls
             const uint8 *buf = m.getSysExData();
-            if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x14)){ // Check message code is for KIJIMI and for current state data
+            if (((int)buf[3] == SYSEX_KIJIMI_ID) && ((int)buf[4] == SYSEX_GET_STATE_COMMAND)){ // Check message code is for KIJIMI and for current state data
                 KIJIMIPresetBytes currentPresetBytes = {0};
                 for (int i=0; i<KIJIMI_PRESET_NUM_BYTES; i++){  // Go byte by byte
                     if (i == 0){  // Fake sysex start byte
@@ -1781,13 +1772,16 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                         currentPresetBytes[i] = 0;
                     } else if (i == 4){  // Fake patch number
                         currentPresetBytes[i] = 0;
-                    } else if (i == 261) {  // Fake sysex end byte
+                    } else if (i == KIJIMI_PRESET_NUM_BYTES - 1) {  // Fake sysex end byte
                         currentPresetBytes[i] = 0;
                     } else {
                         // For other values of i, retrieve corresponding byte from m.getSysExData()
-                        // Note that message data is of length 258 and kijimi preset data is of length 262. This is because
-                        // sysex data skips sysex start/end bytes and bank/patch bytes, therefore we apply an offset of -3 bytes
-                        currentPresetBytes[i] = buf[i - 3];
+                        // Note that message data is of length 261 and kijimi preset data is of length 262. This is because
+                        // sysex data skips sysex start/end bytes; and kijimi preset data uses the old
+                        // sysex format in which only kijimi byte ID is present and not the 3 extra BC bytes. Therefore
+                        // relevant data in currentPresetBytes should start at byte 5, and relevant data in sysex data (buf)
+                        // starts at byte 5 as well (because sysex start is skipped here)
+                        currentPresetBytes[i] = buf[i];
                     }
                 }
                 const ScopedValueSetter<bool> scopedInputFlag (isChangingFromGettingKijimiState, true);
@@ -1795,35 +1789,38 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                 setParametersFromSynthControlIdValuePairs(idValuePairs, false);  // the "isChangingFromGettingKijimiState" will prevent from sending MIDI messages for the controls which is what we want here because we want to update parameters internally but not re-send them to KIJIMI
             }
             
-        } else if (m.getSysExDataSize() == 260){
+        } else if (m.getSysExDataSize() == 263){
             // KIJIMI is dumping a specific bank/preset
             const uint8 *buf = m.getSysExData();
-            if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x00)){ // Check message code is for KIJIMI and for transfer command
+            if (((int)buf[3] == SYSEX_KIJIMI_ID) && ((int)buf[4] == SYSEX_TRANSFER_PATCH_COMMAND)){ // Check message code is for KIJIMI and for transfer command
+                DBG("getting bank dump");
                 KIJIMIPresetBytes currentPresetBytes = {0};
                 for (int i=0; i<KIJIMI_PRESET_NUM_BYTES; i++){  // Go byte by byte
                     if (i == 0){  // sysex start byte
                         currentPresetBytes[i] = 0xF0;
-                    } else if (i == 261){  // sysex end byte
+                    } else if (i == 1){  // kijimi ID byte
+                        currentPresetBytes[i] = SYSEX_KIJIMI_ID;
+                    } else if (i == KIJIMI_PRESET_NUM_BYTES - 1){  // sysex end byte
                         currentPresetBytes[i] = 0xF7;
                     } else {
-                        currentPresetBytes[i] = buf[i - 1];
+                        // Relevant bytes from sysex message start at byte 4 (which should be the SYSEX_TRANSFER_PATCH_COMMAND),
+                        // and SYSEX_TRANSFER_PATCH_COMMAND should be in byte 2 of currentPresetBytes, therefore index must
+                        // by i + 2 so byte 2 of currentPresetBytes is byte 4 of sysex (buf)
+                        currentPresetBytes[i] = buf[i + 2];
                     }
                 }
                 lastReceivedKIJIMIPresetBytes = currentPresetBytes;
                 waitingToReceiveKIJIMIPresetBytes = false;
             }
             
-        } else if (m.getSysExDataSize() == 2){
+        } else if (m.getSysExDataSize() == 5){
             const uint8 *buf = m.getSysExData();
-            if (((int)buf[0] == 0x02) && (((int)buf[1] == 0x41) || ((int)buf[1] == 0x42) || ((int)buf[1] == 0x43) || ((int)buf[1] == 0x16))){
+            if (((int)buf[3] == SYSEX_KIJIMI_ID) && (((int)buf[4] == 0x41) || ((int)buf[4] == 0x42) || ((int)buf[4] == 0x43) || ((int)buf[4] == 0x16))){
                 // This is the sequence that corresponds to "a new preset was loaded", "random patch loaded", "panel mode loaded" or "new menu option set"
                 if (automaticSyncWithSynthEnabled){  // Only request state if Babu Frik is set to sync automatically
                     delayedRequestLoadControlsSysexThread.run(); // Ask KIJIMI to send current state data, but wait a couple of milliseconds to allow KIJIMI to finish sending other sysex messages that sometimes sends right after sending one of these three. Sending a sysex message to KIJIMI while KIJIMI is sending another can freeze KIJIMI
                 }
             }
-                
-        } else if (m.getSysExDataSize() == 5){
-            const uint8 *buf = m.getSysExData();
             
             if (((int)buf[0] == SYSEX_KIJIMI_ID) && ((int)buf[1] == SYSEX_FW_VERSION_COMMAND)){
                 usesNewSysexProtocol = false;
@@ -1842,12 +1839,31 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                     sendActionMessage(ACTION_FIRMWARE_UPDATE_REQUIRED);
                 }
             }
+        
+        } else if (m.getSysExDataSize() == 8){
+            const uint8 *buf = m.getSysExData();
             
-            else if (((int)buf[0] == 0x02) && ((int)buf[1] == 0x22)){
+            if (((int)buf[0] == SYSEX_BC_ID_0) && ((int)buf[1] == SYSEX_BC_ID_1) && ((int)buf[2] == SYSEX_BC_ID_2) && ((int)buf[3] == SYSEX_KIJIMI_ID) && ((int)buf[4] == SYSEX_FW_VERSION_COMMAND)){
+                usesNewSysexProtocol = true;
+                sysexProtocolResolved = true;
+                
+                // Firmware version (check if supported, otherwise show alert)
+                int first = (int)buf[5];
+                int second = (int)buf[6];
+                int third = (int)buf[7];
+                int combined = first * 1000 + second * 100 + third;
+                int combinedRequired = REQUIRED_FW_FIRST * 1000 + REQUIRED_FW_SECOND * 100 + REQUIRED_FW_THIRD;
+                
+                if (combined < combinedRequired){
+                    currentFirmwareLabel = (String)first + "." + (String)second + "." + (String)third;
+                    logMessage("Old firmware detected: " + currentFirmwareLabel + ", should be " + requiredFirmwareLabel);
+                    sendActionMessage(ACTION_FIRMWARE_UPDATE_REQUIRED);
+                }
+            } else if (((int)buf[3] == SYSEX_KIJIMI_ID) && ((int)buf[4] == SYSEX_UPDATE_INDIVIDUAL_LFO_ADSR)){
                 // Updated setting for individual LFOs/ADSR2
-                int lfoOrAdsrNumber = (int)buf[2];
-                int correspondingCCNumberInCommonMode = (int)buf[3];
-                int value = (int)buf[4];
+                int lfoOrAdsrNumber = (int)buf[5];
+                int correspondingCCNumberInCommonMode = (int)buf[6];
+                int value = (int)buf[7];
                 
                 String parameterIDPrefix = StringArray({
                     "KIJIMI_LFO1VCO1_",
@@ -1908,26 +1924,6 @@ void BabuFrikAudioProcessor::handleIncomingMidiMessage(MidiInput* source, const 
                     parameters.getParameter(parameterID)->beginChangeGesture();
                     parameters.getParameter(parameterID)->setValueNotifyingHost(newValue);  // setValueNotifyingHost takes norm values from [0.0..1.0]
                     parameters.getParameter(parameterID)->endChangeGesture();
-                }
-            }
-        } else if (m.getSysExDataSize() == 8){
-            const uint8 *buf = m.getSysExData();
-            
-            if (((int)buf[0] == SYSEX_BC_ID_0) && ((int)buf[1] == SYSEX_BC_ID_1) && ((int)buf[2] == SYSEX_BC_ID_2) && ((int)buf[3] == SYSEX_KIJIMI_ID) && ((int)buf[4] == SYSEX_FW_VERSION_COMMAND)){
-                usesNewSysexProtocol = true;
-                sysexProtocolResolved = true;
-                
-                // Firmware version (check if supported, otherwise show alert)
-                int first = (int)buf[5];
-                int second = (int)buf[6];
-                int third = (int)buf[7];
-                int combined = first * 1000 + second * 100 + third;
-                int combinedRequired = REQUIRED_FW_FIRST * 1000 + REQUIRED_FW_SECOND * 100 + REQUIRED_FW_THIRD;
-                
-                if (combined < combinedRequired){
-                    currentFirmwareLabel = (String)first + "." + (String)second + "." + (String)third;
-                    logMessage("Old firmware detected: " + currentFirmwareLabel + ", should be " + requiredFirmwareLabel);
-                    sendActionMessage(ACTION_FIRMWARE_UPDATE_REQUIRED);
                 }
             }
         }
@@ -2186,6 +2182,7 @@ void BabuFrikAudioProcessor::savePresetToBankLocation (int bankLocation)
             KIJIMISynthControl* synthControl = kijimiInterface->getKIJIMISynthControlWithID(parameterID);
             synthControl->updatePresetByteArray(value, currentPresetBytes);
         }
+        // NOTE: for saving/loading patch files we still use the "old" BC sysex format to keep file compatibility
         currentPresetBytes[0] = 0xF0;  // syex start
         currentPresetBytes[1] = 0x02; // kijmi ID
         currentPresetBytes[2] = 0x00;  // won't really be used...
@@ -2211,6 +2208,7 @@ void BabuFrikAudioProcessor::saveBankFile ()
         file.deleteFile(); // Delete the file if already exists
         setLastUserDirectoryForFileSaveLoad(file);
         for (int i=0; i<kijimiInterface->getNumLoadedPresets(); i++){
+            // NOTE: for saving/loading bank files we still use the "old" BC sysex format to keep file compatibility
             KIJIMIPresetBytes presetBytes = kijimiInterface->getLoadedPresetBytesAtIndex(i);
             presetBytes[0] = 0xF0;  // syex start
             presetBytes[1] = 0x02; // kijmi ID
@@ -2276,14 +2274,21 @@ void BabuFrikAudioProcessor::sendControlsToSynth (bool skipGlobal)
         }
         currentPresetBytes[90] = 0x00;  // current patch byte set it to 0 so we don't change the number shown in the screen
         
-        std::array<uint8, 258> sysexdata;
-        sysexdata[0] = 0x02; // kijmi ID
-        sysexdata[1] = 0x23;  // set current state command
-        for (int i=2; i<258; i++){
-            sysexdata[i] = currentPresetBytes[i + 3];
+        std::array<uint8, 261> sysexdata;
+        sysexdata[0] = SYSEX_BC_ID_0;
+        sysexdata[1] = SYSEX_BC_ID_1;
+        sysexdata[2] = SYSEX_BC_ID_2;
+        sysexdata[3] = SYSEX_KIJIMI_ID;
+        sysexdata[4] = SYSEX_SET_CURRENT_STATE;
+        // Now copy the actual preset bytes corresponding to control parameter to the message
+        // Note that control bytes in sysexdata start at position 5 (without counting systex start byte), and preset
+        // control bytes in currentPresetBytes also start at position 5, therefore we simply copy all byte positions
+        // except the first 5 that we already set above
+        for (int i=5; i<261; i++){
+            sysexdata[i] = currentPresetBytes[i];
         }
         
-        MidiMessage msg = MidiMessage::createSysExMessage(&sysexdata, 258);
+        MidiMessage msg = MidiMessage::createSysExMessage(&sysexdata, 261);
         midiOutput.get()->sendMessageNow(msg);
         sendLCDRefreshMessageToKijimi();
         
@@ -2395,6 +2400,7 @@ void BabuFrikAudioProcessor::saveToPatchFile ()
         for (int i=0; i<currentPresetBytes.size(); i++){
             currentPresetBytes[i] = BYTE_INIT_VALUE_TO_BE_IGNORED;  // Initialize to a value which is invalid for parameters not contemplated by Babu Frik
         }
+        // NOTE: for saving/loading patch files we still use the "old" BC sysex format to keep file compatibility
         currentPresetBytes[0] = 0xF0;  // syex start
         currentPresetBytes[1] = 0x02; // kijmi ID
         currentPresetBytes[2] = 0x00;  // transfer patch command
@@ -2417,8 +2423,8 @@ void BabuFrikAudioProcessor::loadControlsStateFromSynth ()
 {
     if (midiOutput.get() != nullptr) {
         // Send MIDI sysex message with the code "get current state" that KIJIMI will understand
-        uint8 sysexdata[] = { 0x02, 0x14 };  // 0xF0 ... and 0xF7 are added by JUCE
-        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
+        uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_GET_STATE_COMMAND };  // 0xF0 ... and 0xF7 are added by JUCE
+        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 5);
         midiOutput.get()->sendMessageNow(msg);
     }
 }
@@ -2510,6 +2516,7 @@ void BabuFrikAudioProcessor::requestFirmwareVersion(){
     if (midiInput.get() != nullptr){
         if ((!sysexProtocolResolved) || (!usesNewSysexProtocol)){
             // Get version command (old protocol)
+            DBG("Requesting frimrware version (old protocol)");
             uint8 sysexdata[] = { SYSEX_KIJIMI_ID, SYSEX_FW_VERSION_COMMAND};
             MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 2);
             midiOutput.get()->sendMessageNow(msg);
@@ -2517,6 +2524,7 @@ void BabuFrikAudioProcessor::requestFirmwareVersion(){
         
         if ((!sysexProtocolResolved) || (usesNewSysexProtocol)){
             // Get version command (new protocol)
+            DBG("Requesting frimrware version (new protocol)");
             uint8 sysexdata[] = { SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_FW_VERSION_COMMAND};
             MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 5);
             midiOutput.get()->sendMessageNow(msg);
@@ -2536,8 +2544,8 @@ void BabuFrikAudioProcessor::toggleAutomaticSyncWithSynth(){
 void BabuFrikAudioProcessor::requestGetPresetFromKIJIMI(int bankNumber, int presetNumber)
 {
     if (midiInput.get() != nullptr){
-        uint8 sysexdata[] = {0x02, 0x13, (uint8)bankNumber, (uint8)presetNumber}; // Get preset bytes command
-        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 4);
+        uint8 sysexdata[] = {SYSEX_BC_ID_0, SYSEX_BC_ID_1, SYSEX_BC_ID_2, SYSEX_KIJIMI_ID, SYSEX_GET_PRESET_COMMAND, (uint8)bankNumber, (uint8)presetNumber}; // Get preset bytes command
+        MidiMessage msg = MidiMessage::createSysExMessage(sysexdata, 7);
         midiOutput.get()->sendMessageNow(msg);
     }
 }

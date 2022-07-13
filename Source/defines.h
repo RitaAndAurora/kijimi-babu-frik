@@ -22,13 +22,18 @@
 #define REQUIRED_FW_THIRD 5
 
 #define SYSEX_KIJIMI_ID 0x02
-#define SYSEX_BC_ID_0 0x01
+#define SYSEX_BC_ID_0 0x00
 #define SYSEX_BC_ID_1 0x48
 #define SYSEX_BC_ID_2 0x06
+#define SYSEX_TRANSFER_PATCH_COMMAND 0x00
 #define SYSEX_SET_OPTION 0x06
+#define SYSEX_GET_PRESET_COMMAND 0x13
+#define SYSEX_GET_STATE_COMMAND 0x14
 #define SYSEX_FW_VERSION_COMMAND 0x15
 #define SYSEX_SET_OPTION_EXTENDED 0x18
 #define SYSEX_LCD_REFRESH_COMMAND 0x21
+#define SYSEX_UPDATE_INDIVIDUAL_LFO_ADSR 0x22
+#define SYSEX_SET_CURRENT_STATE 0x23
 
 #define USE_SET_CURRENT_STATE_COMMAND_TO_SEND_ALL_CONTROLS_TO_KIJIMI 1
 
@@ -49,6 +54,18 @@
 
 #define MIN_TIME_BETWEEN_NEXT_PREV_RAND_PATCH_BUTTON_PRESSED 250  // Don't allow next/previous buttons to be pressed faster than once every 250 ms
 
+// KIJIMI number of bytes per preset:
+// 0 = sysex start
+// 1 = Kijimi device ID
+// 2 = Transfer patch command
+// 3 = Bank number
+// 4 = Preset number
+// 5-260 = controls data
+// 261 = sysex end
+// NOTE that this format uses the old SYSEX format which did not include black corporation 3 extra sysex ID bytes
+// This is so that the internal data structure is compatible with old kijimi firmwares and the .sys preset files
+// are not changed. BabuFrik will add the newly required BC sysex bytes when sending sysex to kijimi, but .sys files
+// in disk will be backwards compatible
 #define KIJIMI_PRESET_NUM_BYTES 262
 
 #define EMPTY_PRESET_SUM_THRESHOLD 5.0

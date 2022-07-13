@@ -272,20 +272,27 @@ public:
                 
                 // Get bytes for the current preset
                 KIJIMIPresetBytes presetBytes = processor->kijimiInterface->getLoadedPresetBytesAtIndex(currentPreset);
-                presetBytes[0] = 0xF0;  // syex start (no need to set it really because will be set later)
-                presetBytes[1] = 0x02; // kijmi ID
-                presetBytes[2] = 0x00;  // transfer patch command
-                presetBytes[3] = 0x00;  // bank number
-                presetBytes[4] = currentPreset;  // preset number
-                presetBytes[261] = 0xF7; // sysex end (no need to set it really because will be set later)
                 
                 // Transform bytes to midi message and send it to KIJIMI
                 if (processor->midiInput.get() != nullptr){
-                    std::array<uint8, 260> sysexdata;
-                    for (int i=0; i<260; i++){  // copy all bytes expect sysex start and sysex end which will be added automatically when sending message
-                        sysexdata[i] = presetBytes[i+1];
+                    std::array<uint8, 263> sysexdata;
+                    
+                    sysexdata[0] = SYSEX_BC_ID_0;
+                    sysexdata[1] = SYSEX_BC_ID_1;
+                    sysexdata[2] = SYSEX_BC_ID_2;
+                    sysexdata[3] = SYSEX_KIJIMI_ID;
+                    sysexdata[4] = SYSEX_TRANSFER_PATCH_COMMAND;
+                    sysexdata[5] = 0x00;  // bank number
+                    sysexdata[6] = currentPreset;
+                    
+                    // Now copy all preset bytes to the output message
+                    // Note that controls data should start at position 7 of the "sysexdata" (without counting start/end bytes),
+                    // and controls data starts at position 5 in "presetBytes", therefore the index needs to be set accordingly
+                    // to i-2 (so we put presetBytes[5] to sysexdata[0]...)
+                    for (int i=7; i<263; i++){
+                        sysexdata[i] = presetBytes[i-2];
                     }
-                    MidiMessage msg = MidiMessage::createSysExMessage(&sysexdata, 260);
+                    MidiMessage msg = MidiMessage::createSysExMessage(&sysexdata, 263);
                     processor->midiOutput.get()->sendMessageNow(msg);
                 }
                 
